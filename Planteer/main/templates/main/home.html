@@ -1,0 +1,134 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Plant database for plant lovers{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-text">
+            <h1 class="hero-title">Planteer</h1>
+            <p class="hero-subtitle">Plant database for plant lovers</p>
+            <p class="hero-lead">Discover the trees, fruits, herbs and flowers around us: what they look like, where they grow and what people use them for.</p>
+            <div class="hero-actions">
+                <a href="{% url 'plants:all_plants_view' %}" class="btn btn-gold">Explore all plants</a>
+                <a href="{% url 'plants:add_plant_view' %}" class="btn btn-ghost">Add a plant</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Plants</h2>
+            <p class="section-subtitle">Learn more about plants</p>
+        </div>
+        <a href="{% url 'plants:all_plants_view' %}" class="text-link">See all plants</a>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            {% include 'plants/plant_card.html' %}
+        {% empty %}
+            <div class="empty">
+                <p>No plants yet. Add the first one to start the collection.</p>
+                <a href="{% url 'plants:add_plant_view' %}" class="btn">Add a plant</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% if spotlight %}
+    <section class="container section">
+        <div class="section-head">
+            <div>
+                <h2 class="section-title">Plant Spotlight</h2>
+                <p class="section-subtitle">A different plant every time you visit</p>
+            </div>
+        </div>
+
+        <article class="spotlight">
+            <a href="{% url 'plants:plant_detail_view' spotlight.id %}" class="spotlight-photo">
+                <img src="{{ spotlight.image.url }}" alt="{{ spotlight.name }}">
+            </a>
+            <div class="spotlight-body">
+                <p class="plant-meta">
+                    <span>{{ spotlight.get_category_display }}</span>
+                    {% if spotlight.is_edible %}<span class="edible-tag">Edible</span>{% endif %}
+                </p>
+                <h3 class="spotlight-name">{{ spotlight.name }}</h3>
+                <p class="spotlight-about" dir="auto">{{ spotlight.about|truncatewords:45 }}</p>
+                <dl class="spotlight-facts">
+                    <div>
+                        <dt>Used for</dt>
+                        <dd dir="auto">{{ spotlight.used_for|truncatewords:20 }}</dd>
+                    </div>
+                </dl>
+                <a href="{% url 'plants:plant_detail_view' spotlight.id %}" class="btn">Read the full profile</a>
+            </div>
+        </article>
+    </section>
+{% endif %}
+
+<section class="container section">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Browse by Category</h2>
+            <p class="section-subtitle">From palm groves to herb gardens</p>
+        </div>
+    </div>
+
+    <div class="category-grid">
+        {% for category in categories %}
+            <a href="{% url 'plants:all_plants_view' %}?category={{ category.value }}" class="category-card">
+                {% if category.cover %}
+                    <img src="{{ category.cover.image.url }}" alt="">
+                {% endif %}
+                <span class="category-info">
+                    <span class="category-name">{{ category.label }}</span>
+                    <span class="category-count">{{ category.count }} plant{{ category.count|pluralize }}</span>
+                </span>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+{% if latest_comments %}
+    <section class="container section">
+        <div class="section-head">
+            <div>
+                <h2 class="section-title">From the Community</h2>
+                <p class="section-subtitle">The latest comments left by visitors</p>
+            </div>
+        </div>
+
+        <div class="quotes-grid">
+            {% for comment in latest_comments %}
+                <figure class="quote">
+                    <blockquote dir="auto">{{ comment.content|truncatewords:30 }}</blockquote>
+                    <figcaption>
+                        <span class="quote-name" dir="auto">{{ comment.full_name }}</span>
+                        on
+                        <a href="{% url 'plants:plant_detail_view' comment.plant.id %}#comments">{{ comment.plant.name }}</a>
+                    </figcaption>
+                </figure>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}
+
+<section class="container section">
+    <div class="cta">
+        <div>
+            <h2 class="cta-title">Know a plant we're missing?</h2>
+            <p class="cta-text">Add it with a real photo, or send us a message and we'll look into it.</p>
+        </div>
+        <div class="cta-actions">
+            <a href="{% url 'plants:add_plant_view' %}" class="btn btn-gold">Add a plant</a>
+            <a href="{% url 'main:contact_view' %}" class="btn btn-ghost">Contact us</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Add a Plant | Planteer{% endblock %}
+
+{% block content %}
+
+<div class="container page">
+    <div class="form-page">
+        <div class="page-head">
+            <h1 class="page-title">Add a Plant</h1>
+            <p class="page-subtitle">Share a real plant with a real photo.</p>
+        </div>
+
+        <form action="{% url 'plants:add_plant_view' %}" method="post" enctype="multipart/form-data" class="form form-panel">
+            {% csrf_token %}
+
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" maxlength="128" placeholder="Date Palm" dir="auto" required>
+            </div>
+
+            <div class="field-row">
+                <div class="field">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        {% for value, label in categories %}
+                            <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="image">Photo</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="about">About</label>
+                <textarea id="about" name="about" placeholder="What does it look like, and where does it grow?" dir="auto" required></textarea>
+            </div>
+
+            <div class="field">
+                <label for="used_for">Used for</label>
+                <textarea id="used_for" name="used_for" placeholder="Food, medicine, shade, perfume..." dir="auto" required></textarea>
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox" name="is_edible">
+                This plant is edible
+            </label>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Add plant</button>
+                <a href="{% url 'plants:all_plants_view' %}" class="text-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
