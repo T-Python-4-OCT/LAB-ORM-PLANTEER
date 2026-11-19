@@ -1,0 +1,8 @@
+<article class="plant-card">
+  <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="plant-card-image" loading="lazy">
+  <div class="plant-card-body">
+    <h3 class="plant-card-name">{{ plant.name }}</h3>
+    <p class="plant-card-about">{{ plant.about|truncatewords:12 }}</p>
+    <span class="plant-card-category">{{ plant.get_category_display }}</span>
+  </div>
+</article>
