@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+
+<div class="container page">
+    <div class="page-head">
+        <h1 class="page-title">All Plants</h1>
+        <p class="page-subtitle">Browse every plant in the collection, or narrow it down by category.</p>
+    </div>
+
+    <form action="{% url 'plants:all_plants_view' %}" method="get" class="filter-bar">
+        <select name="category" aria-label="Category">
+            <option value="">All categories</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="edible" aria-label="Edible">
+            <option value="">Edible or not</option>
+            <option value="yes" {% if edible == "yes" %}selected{% endif %}>Edible</option>
+            <option value="no" {% if edible == "no" %}selected{% endif %}>Not edible</option>
+        </select>
+
+        <button type="submit" class="btn">Filter</button>
+
+        {% if category or edible %}
+            <a href="{% url 'plants:all_plants_view' %}" class="text-link">Clear</a>
+        {% endif %}
+    </form>
+
+    <p class="results-count">{{ plants_count }} plant{{ plants_count|pluralize }}</p>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            {% include 'plants/plant_card.html' %}
+        {% empty %}
+            <div class="empty">
+                {% if category or edible %}
+                    <p>No plants match these filters.</p>
+                    <a href="{% url 'plants:all_plants_view' %}" class="btn">Show all plants</a>
+                {% else %}
+                    <p>No plants yet. Add the first one to start the collection.</p>
+                    <a href="{% url 'plants:add_plant_view' %}" class="btn">Add a plant</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

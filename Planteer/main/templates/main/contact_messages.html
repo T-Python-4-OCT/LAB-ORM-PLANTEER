@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Messages | Planteer{% endblock %}
+
+{% block content %}
+
+<div class="container page">
+    <div class="page-head">
+        <h1 class="page-title">Messages from Users</h1>
+        <p class="page-subtitle">{{ contacts|length }} message{{ contacts|length|pluralize }}</p>
+    </div>
+
+    <div class="messages-grid">
+        {% for contact in contacts %}
+            <article class="message">
+                <div class="message-head">
+                    <span class="avatar" aria-hidden="true">{{ contact.first_name|first }}{{ contact.last_name|first }}</span>
+                    <div>
+                        <p class="message-name" dir="auto">{{ contact.first_name }} {{ contact.last_name }}</p>
+                        <a href="mailto:{{ contact.email }}" class="message-email">{{ contact.email }}</a>
+                    </div>
+                </div>
+                <p class="message-text" dir="auto">{{ contact.message|linebreaksbr }}</p>
+                <p class="message-date">{{ contact.created_at|date:"F j, Y, g:i A" }}</p>
+            </article>
+        {% empty %}
+            <div class="empty">
+                <p>No messages yet.</p>
+                <a href="{% url 'main:contact_view' %}" class="btn">Send the first message</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
