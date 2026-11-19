@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Planteer | Home{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+
+<section class="home-hero fade-in">
+
+    <div class="hero-content">
+
+        <h1>Planteer</h1>
+
+        <h2>Plant Database For Plant Lovers</h2>
+
+        <form action="{% url 'plants:search' %}"
+              method="GET"
+              class="hero-search">
+
+            <input type="search"
+                   name="q"
+                   class="form-control"
+                   placeholder="Search For Plant..."
+                   aria-label="Search for a plant"
+                   required>
+
+            <button type="submit" class="btn btn-main">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- Featured Plants Section -->
+
+<section class="featured-plants fade-in">
+
+    <div class="section-heading">
+
+        <div>
+
+            <h2>Plants</h2>
+
+            <p>Learn more about plants</p>
+
+        </div>
+
+        <a href="/plants/all/" class="more-link">
+
+            More <i class="bi bi-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+    <div class="plant-grid">
+
+        {% for plant in featured_plants %}
+
+            {% include 'components/plant_card.html' with plant=plant %}
+
+        {% empty %}
+
+            <div class="empty-state">
+
+                <i class="bi bi-flower1"></i>
+
+                <h3>No plants available yet</h3>
+
+                <p>Our plant collection is growing.</p>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

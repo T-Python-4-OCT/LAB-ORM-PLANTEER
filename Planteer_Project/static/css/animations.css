@@ -1,0 +1,39 @@
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease both;
+}
+
+.plant-card {
+    transition: transform 0.25s ease;
+}
+
+.plant-card:hover {
+    transform: translateY(-4px);
+}
+
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+}

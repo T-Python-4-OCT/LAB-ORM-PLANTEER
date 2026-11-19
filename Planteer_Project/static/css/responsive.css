@@ -1,0 +1,349 @@
+/* Tablet */
+
+@media (max-width: 991px) {
+
+    .site-container {
+        width: 92%;
+    }
+
+    .navbar-nav {
+        gap: 14px;
+    }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+    .site-container {
+        width: 92%;
+    }
+
+    .navbar {
+        min-height: 70px;
+    }
+
+    .navbar-nav {
+        gap: 12px;
+        padding-top: 20px;
+        padding-bottom: 15px;
+    }
+
+    .navbar-nav .btn-main {
+        display: block;
+        text-align: center;
+    }
+
+    .site-main {
+        padding-top: 24px;
+        padding-bottom: 50px;
+    }
+
+    .page-title {
+        font-size: 26px;
+    }
+
+    .footer-content {
+        padding-top: 28px;
+    }
+
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .site-footer h6 {
+        font-size: 13px;
+    }
+
+    .site-footer .col-4 a {
+        font-size: 12px;
+    }
+
+}/* Homepage - Tablet */
+
+@media (max-width: 991px) {
+
+    .home-hero {
+        min-height: 400px;
+    }
+
+    .hero-content h1 {
+        font-size: 48px;
+    }
+
+    .hero-content h2 {
+        font-size: 28px;
+    }
+
+    .plant-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* Homepage - Mobile */
+
+@media (max-width: 767px) {
+
+    .home-hero {
+        min-height: 350px;
+        padding: 30px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .hero-content h2 {
+        font-size: 23px;
+    }
+
+    .hero-search {
+        flex-direction: column;
+    }
+
+    .hero-search button {
+        width: 100%;
+    }
+
+    .plant-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .featured-plants {
+        margin-top: 35px;
+    }
+
+    .section-heading h2 {
+        font-size: 24px;
+    }
+
+}/* All Plants - Mobile */
+
+@media (max-width: 767px) {
+
+    .catalog-heading {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .catalog-heading h1 {
+        font-size: 26px;
+    }
+
+    .filter-sort-form {
+        margin-left: auto;
+        gap: 8px;
+    }
+
+    .btn-filter {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .results-counter {
+        font-size: 13px;
+    }
+
+    .plant-pagination {
+        margin-top: 35px;
+    }
+
+}/* Plant Details - Tablet */
+
+@media (max-width: 991px) {
+
+    .plant-detail-layout {
+        gap: 35px;
+    }
+
+    .plant-detail-information h1 {
+        font-size: 28px;
+    }
+
+}
+
+
+/* Plant Details - Mobile */
+
+@media (max-width: 767px) {
+
+    .plant-detail-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .plant-detail-information h1 {
+        font-size: 28px;
+    }
+
+    .plant-detail-category {
+        margin-bottom: 15px;
+    }
+
+    .plant-detail-image {
+        max-height: 450px;
+    }
+
+    .comments-section {
+        margin-top: 25px;
+    }
+
+    .related-plants-section {
+        margin-top: 40px;
+    }
+
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+    .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}/* Search Page - Mobile */
+
+@media (max-width: 767px) {
+
+    .search-page-form {
+        gap: 8px;
+    }
+
+    .search-page-form .btn-main {
+        padding-inline: 18px;
+    }
+
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+    .search-page-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-page-form .btn-main {
+        width: 100%;
+    }
+
+    .search-empty-actions {
+        flex-direction: column;
+    }
+
+}/* Contact Page - Tablet */
+
+@media (max-width: 991px) {
+
+    .contact-layout {
+        gap: 35px;
+    }
+
+    .contact-information h1 {
+        font-size: 36px;
+    }
+
+}
+
+
+/* Contact Page - Mobile */
+
+@media (max-width: 767px) {
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .contact-information h1 {
+        font-size: 32px;
+    }
+
+    .contact-description {
+        margin-bottom: 25px;
+    }
+
+    .contact-image {
+        aspect-ratio: 4 / 3;
+        max-height: 400px;
+    }
+
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+    .contact-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-field-half {
+        grid-column: 1 / -1;
+    }
+
+}/* Contact Messages - Tablet */
+
+@media (max-width: 1199px) {
+
+    .messages-page-heading {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .messages-toolbar {
+        justify-content: flex-end;
+    }
+
+}
+
+
+/* Contact Messages - Mobile */
+
+@media (max-width: 767px) {
+
+    .messages-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .messages-page-heading h1 {
+        font-size: 26px;
+    }
+
+    .messages-toolbar .search-input-wrapper {
+        flex-basis: 100%;
+    }
+
+    .messages-toolbar .form-select {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .message-card {
+        padding: 18px;
+    }
+
+    .message-avatar {
+        font-size: 34px;
+    }
+
+}

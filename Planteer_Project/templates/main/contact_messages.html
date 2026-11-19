@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+{% block title %}Messages | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="contact-messages-section fade-in">
+
+    <div class="messages-page-heading">
+
+        <h1>Messages from Users</h1>
+
+        <form method="GET"
+              action="{% url 'main:contact_messages' %}"
+              class="messages-toolbar">
+
+            <div class="search-input-wrapper">
+
+                <i class="bi bi-search"></i>
+
+                <input type="search"
+                       name="q"
+                       value="{{ query }}"
+                       class="form-control"
+                       placeholder="Search messages..."
+                       aria-label="Search messages">
+
+            </div>
+
+            <select name="status"
+                    class="form-select"
+                    aria-label="Filter messages">
+
+                <option value="all"
+                    {% if status == "all" %}selected{% endif %}>
+                    All Messages
+                </option>
+
+                <option value="read"
+                    {% if status == "read" %}selected{% endif %}>
+                    Read
+                </option>
+
+                <option value="unread"
+                    {% if status == "unread" %}selected{% endif %}>
+                    Unread
+                </option>
+
+            </select>
+
+            <select name="sort"
+                    class="form-select"
+                    aria-label="Sort messages">
+
+                <option value="newest"
+                    {% if sort == "newest" %}selected{% endif %}>
+                    Newest
+                </option>
+
+                <option value="oldest"
+                    {% if sort == "oldest" %}selected{% endif %}>
+                    Oldest
+                </option>
+
+            </select>
+
+
+            <button type="submit"
+                    class="btn btn-main">
+
+                Apply
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="results-counter">
+
+        {% if total_messages %}
+
+            Showing {{ page_obj.start_index }}
+            – {{ page_obj.end_index }}
+            of {{ total_messages }} messages
+
+        {% else %}
+
+            0 messages found
+
+        {% endif %}
+
+    </div>
+
+    <div class="messages-grid">
+
+        {% for contact_message in page_obj %}
+
+            <article class="message-card
+                {% if not contact_message.is_read %}
+                    message-unread
+                {% endif %}">
+
+
+
+                <div class="message-header">
+
+                    <div class="message-avatar">
+
+                        <i class="bi bi-person-circle"></i>
+
+                    </div>
+
+                    <div class="message-user">
+
+                        <h3>
+                            {{ contact_message.first_name }}
+                            {{ contact_message.last_name }}
+                        </h3>
+
+                        <p>{{ contact_message.email }}</p>
+
+                    </div>
+
+                    <span class="message-status">
+
+                        {% if contact_message.is_read %}
+                            Read
+                        {% else %}
+                            Unread
+                        {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <div class="message-date">
+
+                    <i class="bi bi-clock"></i>
+
+                    {{ contact_message.created_at|date:"d M Y, H:i" }}
+
+                </div>
+
+
+
+                <div class="message-content">
+
+                    <p>{{ contact_message.message }}</p>
+
+                </div>
+
+
+                <div class="message-actions">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <input type="hidden"
+                               name="contact_id"
+                               value="{{ contact_message.id }}">
+
+                        {% if contact_message.is_read %}
+
+                            <input type="hidden"
+                                   name="action"
+                                   value="unread">
+
+                            <button type="submit"
+                                    class="btn btn-filter">
+
+                                <i class="bi bi-envelope"></i>
+                                Mark as Unread
+
+                            </button>
+
+                        {% else %}
+
+                            <input type="hidden"
+                                   name="action"
+                                   value="read">
+
+                            <button type="submit"
+                                    class="btn btn-filter">
+
+                                <i class="bi bi-envelope-open"></i>
+                                Mark as Read
+
+                            </button>
+
+                        {% endif %}
+
+                    </form>
+
+
+                    <button type="button"
+                            class="btn message-delete-button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteMessage{{ contact_message.id }}"
+                            aria-label="Delete message">
+
+                        <i class="bi bi-trash"></i>
+
+                    </button>
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="empty-state">
+
+                <i class="bi bi-envelope"></i>
+
+                <h3>No messages found</h3>
+
+                <p>
+                    No messages match your current search or filters.
+                </p>
+
+                <a href="{% url 'main:contact_messages' %}"
+                   class="btn btn-main mt-3">
+
+                    Reset Search and Filters
+
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% include 'components/pagination.html' %}
+
+</section>
+
+
+{% for contact_message in page_obj %}
+
+    <div class="modal fade"
+         id="deleteMessage{{ contact_message.id }}"
+         tabindex="-1"
+         aria-hidden="true"
+         aria-labelledby="deleteTitle{{ contact_message.id }}">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content message-delete-modal">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title"
+                        id="deleteTitle{{ contact_message.id }}">
+
+                        Delete Message
+
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <p>
+                        Are you sure you want to delete the message from
+
+                        <strong>
+                            {{ contact_message.first_name }}
+                            {{ contact_message.last_name }}
+                        </strong>?
+                    </p>
+
+                    <p class="text-secondary-custom mb-0">
+
+                        This action cannot be undone.
+
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-filter"
+                            data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <input type="hidden"
+                               name="contact_id"
+                               value="{{ contact_message.id }}">
+
+                        <input type="hidden"
+                               name="action"
+                               value="delete">
+
+                        <button type="submit"
+                                class="btn btn-danger">
+
+                            Delete Message
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endfor %}
+
+{% endblock %}

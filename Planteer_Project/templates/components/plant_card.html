@@ -1,0 +1,38 @@
+<article class="plant-card">
+
+    <a href="{% url 'plants:plant_detail' plant.id %}">
+
+        {% if plant.image %}
+
+            <img src="{{ plant.image.url }}"
+                 alt="{{ plant.name }}"
+                 class="plant-card-image"
+                 loading="lazy">
+
+        {% else %}
+
+            <div class="plant-image-placeholder">
+                <i class="bi bi-image"></i>
+            </div>
+
+        {% endif %}
+
+        <div class="plant-card-content">
+
+            <h3 class="plant-card-title">
+                {{ plant.name }}
+            </h3>
+
+            <p class="plant-card-description">
+                {{ plant.about|truncatechars:100 }}
+            </p>
+
+            <span class="plant-card-category">
+                {{ plant.get_category_display }}
+            </span>
+
+        </div>
+
+    </a>
+
+</article>

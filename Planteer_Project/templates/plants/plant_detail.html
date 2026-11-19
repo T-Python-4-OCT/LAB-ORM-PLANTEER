@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+
+
+<section class="plant-detail-section fade-in">
+
+    <div class="plant-detail-layout">
+
+
+        <div class="plant-detail-media">
+
+            {% if plant.image %}
+
+                <img src="{{ plant.image.url }}"
+                     alt="{{ plant.name }}"
+                     class="plant-detail-image">
+
+            {% else %}
+
+                <div class="plant-detail-placeholder">
+
+                    <i class="bi bi-image"></i>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="plant-detail-information">
+
+            <h1>{{ plant.name }}</h1>
+
+            <p class="plant-detail-category">
+
+                {{ plant.get_category_display }}
+
+            </p>
+
+            <p class="plant-detail-about">
+
+                {{ plant.about }}
+
+            </p>
+
+
+            <div class="plant-information-list">
+
+                <div class="plant-information-item">
+
+                    <h3>Native to:</h3>
+
+                    <p>{{ plant.native_to }}</p>
+
+                </div>
+
+
+                <div class="plant-information-item">
+
+                    <h3>Is Edible:</h3>
+
+                    <p>
+                        {{ plant.is_edible|yesno:"Yes,No" }}
+                    </p>
+
+                </div>
+
+
+                <div class="plant-information-item">
+
+                    <h3>Used For:</h3>
+
+                    <p>{{ plant.used_for }}</p>
+
+                </div>
+
+            </div>
+
+
+            {% include 'components/comments.html' %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="related-plants-section fade-in">
+
+    <div class="section-heading">
+
+        <h2>Related Plants</h2>
+
+        <a href="{% url 'plants:all_plants' %}?category={{ plant.category }}"
+           class="more-link">
+
+            More <i class="bi bi-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+    <div class="plant-grid">
+
+        {% for related_plant in related_plants %}
+
+            {% include 'components/plant_card.html' with plant=related_plant %}
+
+        {% empty %}
+
+            <div class="empty-state">
+
+                <i class="bi bi-flower1"></i>
+
+                <h3>No related plants</h3>
+
+                <p>More plants will be added soon.</p>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/validation.js' %}"></script>
+
+{% endblock %}
