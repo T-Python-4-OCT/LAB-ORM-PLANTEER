@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1 class="page-title">{{ title }}</h1>
+<form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark" type="submit">Save</button>
+    <a class="btn btn-light" href="{% url 'plants:all_plants' %}">Cancel</a>
+</form>
+<script>
+document.querySelectorAll('input[type=file]').forEach(function (input) {
+    input.hidden = true;
+    var box = document.createElement('div');
+    box.className = 'file-pick';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-light';
+    btn.textContent = 'Choose file';
+    var label = document.createElement('span');
+    label.textContent = 'No file chosen';
+    box.append(btn, label);
+    input.after(box);
+    btn.addEventListener('click', function () { input.click(); });
+    input.addEventListener('change', function () {
+        label.textContent = input.files.length ? input.files[0].name : 'No file chosen';
+    });
+});
+</script>
+{% endblock %}

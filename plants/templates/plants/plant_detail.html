@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}{{ plant.name }}{% endblock %}
+{% block content %}
+<section class="detail">
+    <img class="detail-img" src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    <div class="detail-info">
+        <h1>{{ plant.name }}</h1>
+        <span class="tag">{{ plant.category }}</span>
+        <p>{{ plant.about }}</p>
+        <p><strong>Is Edible:</strong> {% if plant.is_edible %}Yes{% else %}No{% endif %}</p>
+        <p><strong>Used For:</strong> {{ plant.used_for }}</p>
+        <div class="actions">
+            <a class="btn btn-dark" href="{% url 'plants:update_plant' plant.id %}">Update</a>
+            <a class="btn btn-danger" href="{% url 'plants:delete_plant' plant.id %}">Delete</a>
+        </div>
+    </div>
+</section>
+<section>
+    <h2>Comments</h2>
+    <form class="form comment-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-dark" type="submit">Add Comment</button>
+    </form>
+    {% for comment in comments %}
+    <div class="comment">
+        <strong>{{ comment.full_name }}</strong>
+        <span class="muted">{{ comment.created_at|date:"M d, Y H:i" }}</span>
+        <p>{{ comment.content }}</p>
+    </div>
+    {% empty %}
+    <p class="muted">No comments yet.</p>
+    {% endfor %}
+</section>
+<section>
+    <h2>Related Plants</h2>
+    <div class="grid">
+        {% for plant in related %}
+            {% include 'plants/_card.html' %}
+        {% empty %}
+            <p class="muted">No related plants.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Delete Plant{% endblock %}
+{% block content %}
+<h1 class="page-title">Delete {{ plant.name }}?</h1>
+<form class="form" method="post">
+    {% csrf_token %}
+    <p>This action cannot be undone.</p>
+    <button class="btn btn-danger" type="submit">Yes, delete</button>
+    <a class="btn btn-light" href="{% url 'plants:plant_detail' plant.id %}">Cancel</a>
+</form>
+{% endblock %}
