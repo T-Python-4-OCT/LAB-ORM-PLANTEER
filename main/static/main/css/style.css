@@ -1,0 +1,441 @@
+/* أساسيات الموقع */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: #20231f;
+    background: #ffffff;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.site-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.site-logo {
+    color: #20231f;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.site-nav a {
+    color: #20231f;
+    text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-logo:hover {
+    color: #527653;
+}
+
+.site-nav .add-plant-link {
+    padding: 10px 16px;
+    color: #ffffff;
+    background: #171917;
+    border-radius: 5px;
+}
+
+/* مساحة المحتوى */
+main {
+    max-width: 1200px;
+    min-height: 70vh;
+    margin: 0 auto;
+    padding: 36px 32px;
+}
+
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    padding: 10px 18px;
+    color: #ffffff;
+    background: #171917;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #527653;
+}
+
+/* صفحة جميع النباتات والفلاتر */
+.plants-page > h1 {
+    margin-bottom: 24px;
+}
+
+.plant-filters {
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.plant-filters label {
+    display: grid;
+    gap: 6px;
+}
+
+.plant-filters select,
+.plant-form-page input,
+.plant-form-page textarea,
+.plant-comments input,
+.plant-comments textarea,
+.contact-page input,
+.contact-page textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.plant-filters select {
+    min-width: 170px;
+}
+
+/* بطاقات النباتات */
+.plant-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.plant-card img,
+.related-plants img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.plant-card a,
+.related-plants a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.plant-card h2,
+.related-plants h3 {
+    margin: 12px 0 4px;
+    font-size: 1.1rem;
+}
+
+.plant-card p,
+.related-plants p {
+    margin-bottom: 8px;
+    color: #666b65;
+}
+
+/* نموذج إضافة وتعديل نبتة */
+.plant-form-page {
+    max-width: 720px;
+}
+
+.plant-form-page form p {
+    margin-bottom: 18px;
+}
+
+.plant-form-page input[type="checkbox"] {
+    width: auto;
+}
+
+/* تفاصيل النبتة */
+.plant-detail-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 36px;
+}
+
+.plant-detail-main > img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* التعليقات والنباتات المرتبطة */
+.plant-comments {
+    margin-top: 48px;
+}
+
+.plant-comments article {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.plant-comments time {
+    color: #777777;
+    font-size: 0.9rem;
+}
+
+.plant-comments form {
+    max-width: 650px;
+}
+
+.plant-comments textarea {
+    min-height: 130px;
+}
+
+.related-plants {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin: 48px 0 28px;
+}
+
+.related-plants > h2,
+.related-plants > p {
+    grid-column: 1 / -1;
+}
+
+/* الصفحة الرئيسية */
+.home-hero {
+    min-height: 320px;
+    margin-bottom: 42px;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-align: center;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(249, 247, 238, 0.96) 0%,
+            rgba(249, 247, 238, 0.82) 48%,
+            rgba(249, 247, 238, 0.12) 100%
+        ),
+        url("../images/hero-greenhouse.png") center / cover no-repeat;
+    border-radius: 8px;
+}
+
+.home-hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.home-hero > p {
+    margin: 0;
+    font-size: clamp(1rem, 3vw, 2rem);
+}
+
+.home-search {
+    width: min(700px, 100%);
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.home-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.home-plants {
+    margin-top: 38px;
+}
+
+.home-plants-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.home-plants-heading h2,
+.home-plants-heading p {
+    margin-bottom: 3px;
+}
+
+.home-plants-heading > a {
+    color: #20231f;
+    text-decoration: none;
+}
+
+.home-plants-heading > a:hover {
+    color: #527653;
+}
+
+/* التواصل والحذف */
+.contact-page {
+    max-width: 720px;
+}
+
+.contact-page form {
+    margin-top: 24px;
+}
+
+.contact-page form p {
+    margin-bottom: 18px;
+}
+
+.contact-page textarea {
+    min-height: 150px;
+}
+
+.delete-confirmation {
+    max-width: 650px;
+}
+
+.site-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    border-top: 1px solid #e8e8e8;
+    color: #666b65;
+}
+
+/* الشاشات المتوسطة */
+@media (max-width: 760px) {
+    .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px 20px;
+    }
+
+    .site-nav {
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    main {
+        padding: 28px 20px;
+    }
+
+    .plant-grid,
+    .related-plants {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .plant-detail-main {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer {
+        padding: 20px;
+    }
+}
+
+/* الهواتف */
+@media (max-width: 520px) {
+    .plant-grid,
+    .related-plants {
+        grid-template-columns: 1fr;
+    }
+
+    .plant-filters {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .plant-filters select,
+    .plant-filters button {
+        width: 100%;
+    }
+
+    .home-search {
+        flex-direction: column;
+    }
+
+    .home-search button {
+        width: 100%;
+    }
+}
+/* تحسين حقول نموذج النبتة */
+.plant-form-page form p label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.plant-form-page select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background: #ffffff;
+}
+
+.plant-form-page input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #527653;
+    vertical-align: middle;
+}
+
+.plant-form-page input[type="file"] {
+    background: #ffffff;
+}
+/* رابط الرجوع */
+.back-link {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 9px 14px;
+    border: 1px solid #527653;
+    border-radius: 4px;
+    color: #354b31;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    background: #527653;
+    color: #ffffff;
+}
+/* تحسين مظهر نموذج التواصل */
+.contact-page {
+    max-width: 720px;
+    padding: 28px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafaf6;
+}
+
+.contact-page textarea {
+    height: 150px;
+    min-height: 150px;
+}
+
+.contact-page form p label {
+    font-weight: 600;
+}
+
+.contact-page input,
+.contact-page textarea {
+    background: #ffffff;
+}

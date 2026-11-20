@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% block title %}Contact Us | Planteer{% endblock %}
+
+{% block content %}
+<section class="contact-page">
+    <h1>Contact us</h1>
+    <p>Have a question or a plant tip? Send us a message.</p>
+    {% if messages %}
+        {% for message in messages %}
+     <p>{{ message }}</p>
+     {% endfor %}
+     {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send message</button>
+    </form>
+</section>
+{% endblock %}
