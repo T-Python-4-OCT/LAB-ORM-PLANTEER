@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Messages | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="container messages-page">
+
+    <div class="messages-heading">
+        <h1>Contact Messages</h1>
+        <p>Messages received from visitors.</p>
+    </div>
+
+    <div class="messages-list">
+
+        {% for contact in contacts %}
+
+            <article class="message-card">
+
+                <div class="message-header">
+                    <div>
+                        <h2>
+                            {{ contact.first_name }}
+                            {{ contact.last_name }}
+                        </h2>
+
+                        <a href="mailto:{{ contact.email }}">
+                            {{ contact.email }}
+                        </a>
+                    </div>
+
+                    <time datetime="{{ contact.created_at|date:'c' }}">
+                        {{ contact.created_at|date:"M d, Y - h:i A" }}
+                    </time>
+                </div>
+
+                <p>{{ contact.message|linebreaksbr }}</p>
+
+            </article>
+
+        {% empty %}
+
+            <div class="messages-empty">
+                No messages received yet.
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

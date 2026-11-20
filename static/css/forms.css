@@ -1,0 +1,112 @@
+
+/* Plant Forms */
+
+.plant-form-page {
+    padding-top: 60px;
+}
+
+.plant-form-wrapper {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.plant-form-wrapper h1 {
+    font-size: 32px;
+    margin: 0 0 30px;
+}
+
+.form-field {
+    margin-bottom: 22px;
+}
+
+.form-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-field input:not([type="checkbox"]),
+.form-field textarea,
+.form-field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #fff;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+}
+
+.form-field input[type="checkbox"] {
+    width: auto;
+}
+
+.form-field small {
+    display: block;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.field-error {
+    color: var(--danger);
+    font-size: 13px;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 28px;
+}
+
+.outline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: #fff;
+}
+
+.danger-button {
+    padding: 11px 20px;
+    background: var(--danger);
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.current-cover img {
+    max-width: 230px;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.delete-panel {
+    border: 1px solid var(--border);
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.delete-panel p {
+    color: var(--muted);
+}
+
+@media (max-width: 600px) {
+    .plant-form-page {
+        padding-top: 35px;
+    }
+
+    .delete-panel {
+        padding: 20px;
+    }
+}

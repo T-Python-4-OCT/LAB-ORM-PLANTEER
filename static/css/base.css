@@ -1,0 +1,169 @@
+
+:root {
+    --primary: #315a40;
+    --primary-hover: #244632;
+    --background: #ffffff;
+    --surface: #f7f9f6;
+    --text: #171c18;
+    --muted: #737b75;
+    --border: #e4e9e3;
+    --danger: #b83131;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: min(1200px, 92%);
+    margin-inline: auto;
+}
+
+/* Navigation */
+
+.site-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 82px;
+}
+
+.site-logo,
+.footer-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-links > a:not(.nav-button):hover,
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+.nav-button,
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 20px;
+    border: 0;
+    border-radius: 5px;
+    background: var(--primary);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.nav-button:hover,
+.primary-button:hover {
+    background: var(--primary-hover);
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-button {
+    background: none;
+    border: 0;
+    color: var(--muted);
+}
+
+.logout-button:hover {
+    color: var(--danger);
+}
+
+/* Main */
+
+.site-main {
+    min-height: calc(100vh - 260px);
+}
+
+/* Footer */
+
+.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0;
+    margin-top: 70px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 30px;
+}
+
+.footer-content p {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+    .navbar {
+        flex-wrap: wrap;
+        padding-block: 18px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+    }
+}

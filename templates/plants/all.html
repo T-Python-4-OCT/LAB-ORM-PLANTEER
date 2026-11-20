@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="container plants-page">
+
+    <h1>All Plants</h1>
+
+    <form method="get" class="plant-filters">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}"
+                    {% if selected_category == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="edible">
+            <option value="">All Plants</option>
+            <option value="yes"
+                {% if selected_edible == "yes" %}selected{% endif %}>
+                Edible
+            </option>
+            <option value="no"
+                {% if selected_edible == "no" %}selected{% endif %}>
+                Not Edible
+            </option>
+        </select>
+
+        <button type="submit" class="primary-button">Filter</button>
+        <a href="{% url 'plant_list' %}" class="filter-reset">Clear</a>
+    </form>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            <article class="plant-card">
+                <a href="{% url 'plant_detail' plant.pk %}">
+                    {% if plant.image %}
+                        <img src="{{ plant.image.url }}"
+                             alt="{{ plant.name }}"
+                             class="plant-card-image"
+                             loading="lazy">
+                    {% endif %}
+
+                    <h2>{{ plant.name }}</h2>
+                    <p>{{ plant.about|truncatewords:12 }}</p>
+                    <span>{{ plant.get_category_display }}</span>
+                </a>
+            </article>
+        {% empty %}
+            <p>No plants found.</p>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

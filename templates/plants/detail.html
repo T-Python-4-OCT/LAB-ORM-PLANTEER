@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+<link rel="stylesheet" href="{% static 'css/plant-detail.css' %}">
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="container plant-detail-page">
+
+    <div class="plant-detail-top">
+
+        <div class="plant-photo-section">
+            {% if plant.image %}
+                <img src="{{ plant.image.url }}"
+                     alt="{{ plant.name }}"
+                     class="plant-main-image">
+            {% endif %}
+
+            {% if images %}
+                <div class="plant-gallery">
+                    {% for photo in images %}
+                        <img src="{{ photo.image.url }}"
+                             alt="{{ photo.alt_text|default:plant.name }}"
+                             loading="lazy">
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="plant-information">
+            <h1>{{ plant.name }}</h1>
+
+            <p class="plant-category">
+                {{ plant.get_category_display }}
+            </p>
+
+            <p class="plant-about">{{ plant.about|linebreaksbr }}</p>
+
+            <dl class="plant-facts">
+                <dt>Native to:</dt>
+                <dd>Not specified</dd>
+
+                <dt>Is Edible:</dt>
+                <dd>
+                    {% if plant.is_edible %}Yes{% else %}No{% endif %}
+                </dd>
+
+                <dt>Used For:</dt>
+                <dd>{{ plant.used_for|linebreaksbr }}</dd>
+
+                <dt>Added By:</dt>
+                <dd>
+                    {% if plant.created_by %}
+                        {{ plant.created_by.get_full_name|default:plant.created_by.username }}
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </dd>
+            </dl>
+
+            {% if user.is_authenticated %}
+                {% if user.is_superuser or user == plant.created_by %}
+                    <div class="plant-owner-actions">
+                        <a href="{% url 'plant_update' plant.pk %}"
+                           class="primary-button">Edit Plant</a>
+
+                        <a href="{% url 'plant_delete' plant.pk %}"
+                           class="outline-button">Delete Plant</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+    </div>
+
+    <section class="plant-comments-section">
+        <h2>Comments</h2>
+
+        <div class="comments-list">
+            {% for comment in comments %}
+                <article class="comment-card">
+                    <div class="comment-header">
+                        <strong>
+                            {{ comment.user.get_full_name|default:comment.user.username }}
+                        </strong>
+                        <time datetime="{{ comment.created_at|date:'c' }}">
+                            {{ comment.created_at|date:"M d, Y" }}
+                        </time>
+                    </div>
+                    <p>{{ comment.content|linebreaksbr }}</p>
+                </article>
+            {% empty %}
+                <p class="empty-message">
+                    No comments yet. Be the first to comment.
+                </p>
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated %}
+            <div class="comment-form">
+                <h3>Write a Comment</h3>
+
+                <form method="post"
+                      action="{% url 'add_comment' plant.pk %}">
+                    {% csrf_token %}
+
+                    {{ comment_form.content }}
+                    {{ comment_form.content.errors }}
+
+                    <button type="submit" class="primary-button">
+                        Post Comment
+                    </button>
+                </form>
+            </div>
+        {% else %}
+            <p class="login-notice">
+                <a href="{% url 'login' %}?next={{ request.path|urlencode }}">
+                    Login
+                </a>
+                to leave a comment.
+            </p>
+        {% endif %}
+    </section>
+
+    <section class="related-section">
+        <h2>Related Plants</h2>
+
+        <div class="plants-grid">
+            {% for related in related_plants %}
+                <article class="plant-card">
+                    <a href="{% url 'plant_detail' related.pk %}">
+                        {% if related.image %}
+                            <img src="{{ related.image.url }}"
+                                 alt="{{ related.name }}"
+                                 class="plant-card-image"
+                                 loading="lazy">
+                        {% endif %}
+
+                        <h3>{{ related.name }}</h3>
+                        <p>{{ related.about|truncatewords:12 }}</p>
+                        <span>{{ related.get_category_display }}</span>
+                    </a>
+                </article>
+            {% empty %}
+                <p>No related plants yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+</section>
+{% endblock %}

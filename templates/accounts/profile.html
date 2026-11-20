@@ -1,0 +1,70 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My Profile | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="profile-section container">
+
+    <div class="profile-header">
+        <h1>My Profile</h1>
+        <p>{{ user.get_full_name|default:user.username }}</p>
+        <span>@{{ user.username }}</span>
+    </div>
+
+    <div class="profile-content">
+
+        <div class="profile-heading">
+            <h2>My Plants</h2>
+            <a href="{% url 'plant_create' %}"
+               class="primary-button">
+                Add Plant
+            </a>
+        </div>
+
+        <div class="profile-grid">
+            {% for plant in plants %}
+                <article class="profile-plant">
+
+                    {% if plant.image %}
+                        <img src="{{ plant.image.url }}"
+                             alt="{{ plant.name }}">
+                    {% endif %}
+
+                    <h3>{{ plant.name }}</h3>
+                    <p>{{ plant.get_category_display }}</p>
+
+                    <a href="{% url 'plant_detail' plant.pk %}">
+                        View Plant
+                    </a>
+
+                </article>
+            {% empty %}
+                <p>You haven't added any plants yet.</p>
+            {% endfor %}
+        </div>
+
+        <div class="profile-comments">
+            <h2>My Comments</h2>
+
+            {% for comment in comments %}
+                <div class="profile-comment">
+                    <p>{{ comment.content }}</p>
+                    <a href="{% url 'plant_detail' comment.plant.pk %}">
+                        {{ comment.plant.name }}
+                    </a>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

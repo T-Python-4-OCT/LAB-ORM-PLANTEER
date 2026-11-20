@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="home-hero">
+    <div class="container hero-layout">
+
+        <div class="hero-content">
+            <h1>Plant Database For Plant Lovers</h1>
+
+            <p>
+                Discover plants, explore their benefits,
+                and learn more about the natural world.
+            </p>
+
+            <form action="{% url 'plant_search' %}"
+                  method="get"
+                  class="hero-search">
+
+                <input
+                    type="search"
+                    name="q"
+                    placeholder="Search For Plant..."
+                    aria-label="Search for a plant"
+                    required>
+
+                <button type="submit">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <div class="hero-image">
+            <img src="{% static 'images/hero-plant.jpg' %}"
+                 alt="Green plant">
+        </div>
+
+    </div>
+</section>
+
+<!-- Plants -->
+<section class="home-plants container">
+
+    <div class="home-section-heading">
+        <h2>Plants</h2>
+
+        <a href="{% url 'plant_list' %}">
+            View All Plants
+        </a>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+
+            <article class="plant-card">
+                <a href="{% url 'plant_detail' plant.pk %}">
+
+                    {% if plant.image %}
+                        <img
+                            src="{{ plant.image.url }}"
+                            alt="{{ plant.name }}"
+                            class="plant-card-image"
+                            loading="lazy">
+                    {% endif %}
+
+                    <h3>{{ plant.name }}</h3>
+
+                    <p>
+                        {{ plant.about|truncatewords:15 }}
+                    </p>
+
+                    <span>
+                        {{ plant.get_category_display }}
+                    </span>
+                </a>
+            </article>
+
+        {% empty %}
+            <p>No plants added yet.</p>
+        {% endfor %}
+    </div>
+
+</section>
+
+{% endblock %}

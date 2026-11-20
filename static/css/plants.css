@@ -1,0 +1,107 @@
+
+/* All Plants, Search and Plant Cards */
+
+.plants-page {
+    padding-top: 65px;
+}
+
+.plants-page h1 {
+    font-size: 32px;
+    margin: 0 0 30px;
+}
+
+.plant-filters,
+.plant-search-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.plant-filters select,
+.plant-search-form input {
+    min-height: 44px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--text);
+}
+
+.plant-search-form input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-reset {
+    color: var(--muted);
+    padding: 10px;
+}
+
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px 20px;
+}
+
+.plant-card {
+    min-width: 0;
+}
+
+.plant-card > a {
+    display: block;
+}
+
+.plant-card-image {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 5px;
+    background: var(--surface);
+}
+
+.plant-card h2,
+.plant-card h3 {
+    font-size: 17px;
+    font-weight: 650;
+    margin: 12px 0 3px;
+}
+
+.plant-card p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin: 0 0 5px;
+}
+
+.plant-card span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.plant-card a:hover h2,
+.plant-card a:hover h3 {
+    color: var(--primary);
+}
+
+@media (max-width: 800px) {
+    .plants-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .plants-page {
+        padding-top: 35px;
+    }
+
+    .plants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .plant-card-image {
+        height: 230px;
+    }
+}
