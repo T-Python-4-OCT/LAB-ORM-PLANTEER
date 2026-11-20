@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h1 class="page-title">Search Results</h1>
+<form class="search-form" method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search plants by name">
+    <button class="btn btn-dark" type="submit">Search</button>
+</form>
+<div class="grid">
+    {% for plant in plants %}
+        {% include 'plants/_card.html' %}
+    {% empty %}
+        <p class="muted">{% if query %}No plants found for "{{ query }}".{% else %}Type a name to search.{% endif %}</p>
+    {% endfor %}
+</div>
+{% endblock %}

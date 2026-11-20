@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<section class="contact">
+    <div>
+        <h1>Contact us</h1>
+        <p class="sub">Have a question about a plant? Send us a message.</p>
+        <form class="contact-form" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="field">
+                    {{ form.first_name.label_tag }}
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                </div>
+                <div class="field">
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </div>
+            </div>
+            <div class="field">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div class="field">
+                {{ form.message.label_tag }}
+                {{ form.message }}
+                {{ form.message.errors }}
+            </div>
+            <button class="btn btn-dark" type="submit">Submit</button>
+        </form>
+    </div>
+    <img class="contact-art" src="{% static 'images/contact.jpg' %}" alt="Orchid">
+</section>
+{% endblock %}

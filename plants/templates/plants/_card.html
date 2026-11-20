@@ -1,0 +1,9 @@
+<a class="card" href="{% url 'plants:plant_detail' plant.id %}">
+    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    <div class="card-body">
+        <h3>{{ plant.name }}</h3>
+        <p>{{ plant.about|truncatechars:80 }}</p>
+        <span class="tag">{{ plant.category }}</span>
+        {% if plant.is_edible %}<span class="tag tag-green">Edible</span>{% endif %}
+    </div>
+</a>

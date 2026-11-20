@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}All Plants{% endblock %}
+{% block content %}
+<h1 class="page-title">All Plants</h1>
+<form class="filters" method="get">
+    <select name="category">
+        <option value="">All categories</option>
+        {% for value, label in categories %}
+        <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+    <select name="is_edible">
+        <option value="">Edible or not</option>
+        <option value="true" {% if selected_edible == 'true' %}selected{% endif %}>Edible</option>
+        <option value="false" {% if selected_edible == 'false' %}selected{% endif %}>Not edible</option>
+    </select>
+    <button class="btn btn-dark" type="submit">Filter</button>
+    <a class="btn btn-light" href="{% url 'plants:all_plants' %}">Reset</a>
+</form>
+<div class="grid">
+    {% for plant in plants %}
+        {% include 'plants/_card.html' %}
+    {% empty %}
+        <p class="muted">No plants match your filters.</p>
+    {% endfor %}
+</div>
+{% endblock %}

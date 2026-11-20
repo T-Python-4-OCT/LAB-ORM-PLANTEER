@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Planteer{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <a class="brand" href="{% url 'main:home' %}">🌿 Planteer</a>
+        <nav class="nav-links">
+            <a href="{% url 'plants:all_plants' %}">All Plants</a>
+            <a href="{% url 'main:contact' %}">Contact Us</a>
+            <a class="btn btn-dark" href="{% url 'plants:add_plant' %}">Add Plant</a>
+        </nav>
+    </header>
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h3>🌿 Planteer</h3>
+                <p>Learn about plants.</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <a href="{% url 'plants:all_plants' %}">All Plants</a>
+                <a href="{% url 'plants:search_plants' %}">Search</a>
+                <a href="{% url 'plants:add_plant' %}">Add Plant</a>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <a href="{% url 'main:contact' %}">Contact Us</a>
+                <a href="{% url 'main:contact_messages' %}">Messages</a>
+            </div>
+        </div>
+        <p class="copy">© 2026 Planteer. All rights reserved.</p>
+    </footer>
+</body>
+</html>
