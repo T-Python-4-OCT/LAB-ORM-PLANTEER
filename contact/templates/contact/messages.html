@@ -1,0 +1,59 @@
+
+{% extends "main/base.html" %}
+
+{% block title %}Contact Messages | Planteer{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">COMMUNITY MESSAGES</span>
+
+    <h1>Contact Messages</h1>
+
+    <p>
+        Messages received through the Planteer contact form.
+    </p>
+
+    <a href="{% url 'contact:home' %}" class="text-link">
+        ← Back to Contact Us
+    </a>
+</section>
+
+<section class="messages-section">
+    <div class="section-heading">
+        <h2>Received Messages</h2>
+
+        <span class="results-count">
+            {{ contact_messages|length }} messages
+        </span>
+    </div>
+
+    <div class="messages-grid">
+        {% for message in contact_messages %}
+            <article class="message-card">
+                <div class="message-header">
+                    <div>
+                        <h3>
+                            {{ message.first_name }}
+                            {{ message.last_name }}
+                        </h3>
+
+                        <p>{{ message.email }}</p>
+                    </div>
+
+                    <span>
+                        {{ message.created_at|date:"M j, Y" }}
+                    </span>
+                </div>
+
+                <div class="message-content">
+                    {{ message.message|linebreaks }}
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-message">
+                No messages received yet.
+            </p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

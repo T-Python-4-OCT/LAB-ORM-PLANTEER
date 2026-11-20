@@ -1,0 +1,33 @@
+
+<article class="plant-card">
+    <a href="{% url 'plants:detail' plant.id %}">
+        <img
+            src="{{ plant.image.url }}"
+            alt="{{ plant.name }}"
+            class="plant-image"
+            loading="lazy"
+        >
+    </a>
+
+    <div class="plant-card-content">
+        <span class="plant-category">
+            {{ plant.get_category_display }}
+        </span>
+
+        <h3>{{ plant.name }}</h3>
+
+        <p>{{ plant.about|truncatewords:18 }}</p>
+
+        <span class="edible-label">
+            {% if plant.is_edible %}
+                Edible Plant
+            {% else %}
+                Non-Edible Plant
+            {% endif %}
+        </span>
+
+        <a href="{% url 'plants:detail' plant.id %}" class="text-link">
+            Learn More →
+        </a>
+    </div>
+</article>

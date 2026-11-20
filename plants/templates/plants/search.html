@@ -1,0 +1,50 @@
+
+{% extends "main/base.html" %}
+
+{% block title %}Search Plants | Planteer{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">FIND YOUR PLANT</span>
+    <h1>Search Plants</h1>
+    <p>Search by plant name, description, or uses.</p>
+</section>
+
+<form method="GET" action="{% url 'plants:search' %}" class="search-form">
+    <input
+        type="search"
+        name="q"
+        value="{{ query }}"
+        placeholder="Search for a plant..."
+        aria-label="Search plants"
+        required
+    >
+
+    <button type="submit" class="primary-button">
+        Search
+    </button>
+</form>
+
+{% if query %}
+    <div class="section-heading">
+        <h2>Search Results</h2>
+        <span class="results-count">
+            {{ plants|length }} results for "{{ query }}"
+        </span>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            {% include "plants/plant_card.html" with plant=plant %}
+        {% empty %}
+            <p class="empty-message">
+                No plants found. Try another keyword.
+            </p>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="empty-message">
+        Enter a plant name or keyword to start searching.
+    </p>
+{% endif %}
+{% endblock %}

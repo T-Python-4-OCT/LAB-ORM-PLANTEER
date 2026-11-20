@@ -1,0 +1,12 @@
+
+from django.urls import path
+
+from . import views
+
+
+app_name = "contact"
+
+urlpatterns = [
+    path("", views.contact_home, name="home"),
+    path("messages/", views.contact_messages, name="messages"),
+]

@@ -1,0 +1,61 @@
+
+{% extends "main/base.html" %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">EXPLORE NATURE</span>
+    <h1>All Plants</h1>
+    <p>Explore our collection of plants and discover their unique characteristics.</p>
+</section>
+
+<form method="GET" class="filter-form">
+    <div class="filter-group">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="">All Categories</option>
+
+            {% for value, label in categories %}
+                <option
+                    value="{{ value }}"
+                    {% if selected_category == value %}selected{% endif %}
+                >
+                    {{ label }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="filter-group">
+        <label for="is_edible">Edibility</label>
+        <select name="is_edible" id="is_edible">
+            <option value="">All Plants</option>
+            <option value="true" {% if selected_edible == "true" %}selected{% endif %}>
+                Edible
+            </option>
+            <option value="false" {% if selected_edible == "false" %}selected{% endif %}>
+                Non-Edible
+            </option>
+        </select>
+    </div>
+
+    <button type="submit" class="primary-button">Apply Filters</button>
+    <a href="{% url 'plants:all' %}" class="reset-link">Reset</a>
+</form>
+
+<div class="section-heading">
+    <h2>Plant Collection</h2>
+    <span class="results-count">{{ plants|length }} plants found</span>
+</div>
+
+<div class="plants-grid">
+    {% for plant in plants %}
+        {% include "plants/plant_card.html" with plant=plant %}
+    {% empty %}
+        <p class="empty-message">
+            No plants match your filters.
+        </p>
+    {% endfor %}
+</div>
+{% endblock %}
