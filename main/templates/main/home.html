@@ -1,0 +1,71 @@
+
+{% extends "main/base.html" %}
+
+{% block title %}Home | Planteer{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+    <div class="hero-content">
+        <span class="eyebrow">WELCOME TO PLANTEER</span>
+
+        <h1>Discover the beauty of plants.</h1>
+
+        <p>
+            Explore the wonderful world of nature, learn about
+            different plants, and discover their unique uses.
+        </p>
+
+        <a href="{% url 'plants:all' %}" class="primary-button">
+            Explore Plants
+        </a>
+    </div>
+</section>
+
+<section class="latest-section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">OUR COLLECTION</span>
+            <h2>Recently Added Plants</h2>
+        </div>
+
+        <a href="{% url 'plants:all' %}" class="text-link">
+            View All Plants →
+        </a>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in latest_plants %}
+            <article class="plant-card">
+                <a href="{% url 'plants:detail' plant.id %}">
+                    <img
+                        src="{{ plant.image.url }}"
+                        alt="{{ plant.name }}"
+                        class="plant-image"
+                    >
+                </a>
+
+                <div class="plant-card-content">
+                    <span class="plant-category">
+                        {{ plant.get_category_display }}
+                    </span>
+
+                    <h3>{{ plant.name }}</h3>
+
+                    <p>{{ plant.about|truncatewords:18 }}</p>
+
+                    <a
+                        href="{% url 'plants:detail' plant.id %}"
+                        class="text-link"
+                    >
+                        Learn More →
+                    </a>
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-message">
+                No plants added yet. Start growing our collection!
+            </p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

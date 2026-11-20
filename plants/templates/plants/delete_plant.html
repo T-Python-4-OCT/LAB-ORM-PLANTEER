@@ -1,0 +1,39 @@
+
+{% extends "main/base.html" %}
+
+{% block title %}Delete {{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="delete-container">
+    <div class="delete-card">
+        <span class="eyebrow">CONFIRM DELETION</span>
+
+        <h1>Delete Plant?</h1>
+
+        <p>
+            Are you sure you want to delete
+            <strong>{{ plant.name }}</strong>?
+        </p>
+
+        <p class="delete-warning">
+            This action cannot be undone.
+            All comments related to this plant will also be deleted.
+        </p>
+
+        <form method="POST" class="delete-actions">
+            {% csrf_token %}
+
+            <button type="submit" class="danger-button">
+                Yes, Delete Plant
+            </button>
+
+            <a
+                href="{% url 'plants:detail' plant.id %}"
+                class="secondary-button"
+            >
+                Cancel
+            </a>
+        </form>
+    </div>
+</section>
+{% endblock %}

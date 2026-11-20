@@ -1,0 +1,147 @@
+
+{% extends "main/base.html" %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<a href="{% url 'plants:all' %}" class="text-link">
+    ← Back to All Plants
+</a>
+
+<section class="plant-detail">
+    <div class="detail-image">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    </div>
+
+    <div class="detail-information">
+        <span class="eyebrow">
+            {{ plant.get_category_display }}
+        </span>
+
+        <h1>{{ plant.name }}</h1>
+
+        <span class="detail-edible">
+            {% if plant.is_edible %}
+                Edible Plant
+            {% else %}
+                Non-Edible Plant
+            {% endif %}
+        </span>
+
+        <h2>About This Plant</h2>
+        <div class="detail-text">
+            {{ plant.about|linebreaks }}
+        </div>
+
+        <h2>Common Uses</h2>
+        <div class="detail-text">
+            {{ plant.used_for|linebreaks }}
+        </div>
+
+        <p class="detail-date">
+            Added on {{ plant.created_at|date:"F j, Y" }}
+        </p>
+
+<div class="plant-actions">
+    <a
+        href="{% url 'plants:update' plant.id %}"
+        class="secondary-button"
+    >
+        Update Plant
+    </a>
+
+    <a
+        href="{% url 'plants:delete' plant.id %}"
+        class="danger-outline-button"
+    >
+        Delete Plant
+    </a>
+</div>
+
+    </div>
+</section>
+
+<section class="comments-section" id="comments">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">COMMUNITY</span>
+            <h2>Plant Comments</h2>
+        </div>
+
+        <span class="results-count">
+            {{ comments|length }} comments
+        </span>
+    </div>
+
+    <div class="comments-list">
+        {% for comment in comments %}
+            <article class="comment-card">
+                <div class="comment-header">
+                    <h3>{{ comment.full_name }}</h3>
+                    <span>
+                        {{ comment.created_at|date:"M j, Y" }}
+                    </span>
+                </div>
+
+                <div class="comment-content">
+                    {{ comment.content|linebreaks }}
+                </div>
+            </article>
+        {% empty %}
+            <p class="empty-message">
+                No comments yet. Be the first to share your thoughts!
+            </p>
+        {% endfor %}
+    </div>
+
+    <div class="comment-form-container">
+        <h3>Leave a Comment</h3>
+        <p>Share your thoughts about {{ plant.name }}.</p>
+
+        <form method="POST" class="comment-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="{{ form.full_name.id_for_label }}">
+                    Full Name
+                </label>
+
+                {{ form.full_name }}
+                {{ form.full_name.errors }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.content.id_for_label }}">
+                    Your Comment
+                </label>
+
+                {{ form.content }}
+                {{ form.content.errors }}
+            </div>
+
+            <button type="submit" class="primary-button">
+                Post Comment
+            </button>
+        </form>
+    </div>
+</section>
+
+<section class="related-section">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">YOU MAY ALSO LIKE</span>
+            <h2>Related Plants</h2>
+        </div>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in related_plants %}
+            {% include "plants/plant_card.html" with plant=plant %}
+        {% empty %}
+            <p class="empty-message">
+                No related plants available yet.
+            </p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

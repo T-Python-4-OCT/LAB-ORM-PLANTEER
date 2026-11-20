@@ -1,0 +1,104 @@
+ 
+{% extends "main/base.html" %}
+
+{% block title %}Update {{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="page-heading">
+    <span class="eyebrow">EDIT PLANT INFORMATION</span>
+    <h1>Update Plant</h1>
+    <p>Update the information about {{ plant.name }}.</p>
+</section>
+
+<form method="POST" enctype="multipart/form-data" class="plant-form">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Plant Name</label>
+        {{ form.name }}
+        {{ form.name.errors }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.about.id_for_label }}">About the Plant</label>
+        {{ form.about }}
+        {{ form.about.errors }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.used_for.id_for_label }}">Common Uses</label>
+        {{ form.used_for }}
+        {{ form.used_for.errors }}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.category.id_for_label }}">Category</label>
+        {{ form.category }}
+        {{ form.category.errors }}
+    </div>
+
+    <div class="form-group">
+        <span class="upload-label">Plant Image</span>
+
+        {% if plant.image %}
+            <div class="current-plant-image">
+                <img
+                    src="{{ plant.image.url }}"
+                    alt="{{ plant.name }}"
+                >
+                <p>Current plant image</p>
+            </div>
+        {% endif %}
+
+        <label
+            for="{{ form.image.id_for_label }}"
+            class="image-upload-card"
+        >
+            {{ form.image }}
+
+            <span class="image-upload-icon">
+                <i class="bi bi-image" aria-hidden="true"></i>
+            </span>
+
+            <span class="image-upload-title">
+                Change Plant Image
+            </span>
+
+            <span class="image-upload-description">
+                Click to choose a new photo
+            </span>
+
+            <span class="image-upload-hint">
+                Leave empty to keep the current image
+            </span>
+        </label>
+
+        {{ form.image.errors }}
+    </div>
+
+    <div class="checkbox-group">
+        {{ form.is_edible }}
+
+        <label for="{{ form.is_edible.id_for_label }}">
+            This plant is edible
+        </label>
+
+        {{ form.is_edible.errors }}
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="primary-button">
+            Save Changes
+        </button>
+
+        <a
+            href="{% url 'plants:detail' plant.id %}"
+            class="reset-link"
+        >
+            Cancel
+        </a>
+    </div>
+</form>
+{% endblock %}
