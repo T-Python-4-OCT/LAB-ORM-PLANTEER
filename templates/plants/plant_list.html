@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}All plants — Planteer{% endblock %}
+{% block content %}
+<section class="page-intro"><p class="eyebrow">THE PLANTEER LIBRARY</p><h1>All plants</h1><p>Browse the collection and find a plant you would like to know better.</p></section>
+<section class="section"><div class="grid">{% for plant in plants %}<article class="card"><a href="#plant-{{ plant.id }}"><img src="{{ plant.image_url }}" alt="{{ plant.name }}" loading="lazy" onerror="this.onerror=null;this.src='/static/img/plant-placeholder.svg'"></a><div class="card-body" id="plant-{{ plant.id }}"><span class="tag">{{ plant.category }}{% if plant.edible %} · Edible{% endif %}</span><h2>{{ plant.name }}</h2><p class="latin">{{ plant.scientific_name }}</p><p>{{ plant.description }}</p></div></article>{% empty %}<p>Plants will appear here as the library grows.</p>{% endfor %}</div></section>
+{% endblock %}
