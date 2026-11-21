@@ -1,0 +1,71 @@
+{% extends "main/base.html" %}
+
+{% block title %}Planteer | {{ plant.name }}{% endblock %}
+
+{% block content %}
+<section class="container page">
+  <a href="{% url 'plants:all_plants' %}" class="back-link">
+    <i class="ti ti-arrow-left" aria-hidden="true"></i> All plants
+  </a>
+
+  <div class="plant-detail">
+    <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="plant-detail-image">
+
+    <div class="plant-detail-info">
+      <div class="plant-detail-head">
+        <div>
+          <h1 class="page-title">{{ plant.name }}</h1>
+          <p class="plant-card-category">{{ plant.get_category_display }}</p>
+        </div>
+        <div class="plant-detail-actions">
+          <a href="{% url 'plants:update_plant' plant.id %}" class="btn btn-light btn-sm">
+            <i class="ti ti-edit" aria-hidden="true"></i> Edit
+          </a>
+          <form method="post" action="{% url 'plants:delete_plant' plant.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger-soft btn-sm">
+              <i class="ti ti-trash" aria-hidden="true"></i> Delete
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <p class="plant-detail-about">{{ plant.about }}</p>
+
+      <dl class="plant-facts">
+        <div class="plant-fact">
+          <dt>Is Edible</dt>
+          <dd>
+            {% if plant.is_edible %}
+              <span class="badge badge-yes"><i class="ti ti-check" aria-hidden="true"></i> Yes</span>
+            {% else %}
+              <span class="badge badge-no"><i class="ti ti-x" aria-hidden="true"></i> No</span>
+            {% endif %}
+          </dd>
+        </div>
+        <div class="plant-fact">
+          <dt>Used For</dt>
+          <dd>{{ plant.used_for|linebreaksbr }}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+    <section class="related" aria-labelledby="related-title">
+    <h2 id="related-title" class="section-title">Related Plants</h2>
+
+    {% if related_plants %}
+      <div class="plant-grid">
+        {% for plant in related_plants %}
+          {% include "plants/_plant_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="comments-empty">
+        No other {{ plant.get_category_display|lower }} plants yet.
+        <a href="{% url 'plants:add_plant' %}">Add one</a>.
+      </p>
+    {% endif %}
+  </section>
+</section>
+{% endblock %}

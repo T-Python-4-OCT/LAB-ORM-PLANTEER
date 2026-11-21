@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+
+{% block title %}Planteer | Messages{% endblock %}
+
+{% block content %}
+<section class="container page">
+  <h1 class="contact-title">Messages from Users</h1>
+  <p class="page-subtitle">{{ entries|length }} message{{ entries|length|pluralize }}, newest first.</p>
+
+  {% if entries %}
+    <div class="message-grid">
+      {% for entry in entries %}
+        <article class="message-card">
+          <i class="ti ti-user-circle message-icon" aria-hidden="true"></i>
+          <h2 class="message-name">{{ entry.first_name }} {{ entry.last_name }}</h2>
+          <a href="mailto:{{ entry.email }}" class="message-email">{{ entry.email }}</a>
+          <p class="message-text">{{ entry.message|linebreaksbr }}</p>
+          <time class="message-date" datetime="{{ entry.created_at|date:'c' }}">{{ entry.created_at|date:"j M Y, g:i a" }}</time>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">
+      <p class="empty-title">No messages yet</p>
+      <p>Messages sent from the contact page will show up here.</p>
+      <a href="{% url 'main:contact' %}" class="btn">Go to Contact Us</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

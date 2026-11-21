@@ -582,6 +582,332 @@ select.input { cursor: pointer; }
   color: var(--text-muted);
 }
 
+/* ===== صفحة تفاصيل النبات ===== */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.back-link:hover { color: var(--leaf-dark); }
+
+.plant-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.plant-detail-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0 80px 0 80px;
+  background: var(--leaf-pale);
+}
+
+.plant-detail-info .page-title {
+  font-size: 40px;
+  margin-bottom: 4px;
+}
+
+.plant-detail-about {
+  margin: 18px 0 24px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.plant-facts {
+  margin: 0;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.plant-fact + .plant-fact {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.plant-fact dt {
+  margin-bottom: 4px;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--leaf-dark);
+}
+
+.plant-fact dd { margin: 0; }
+
+/* ===== الشارات ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 12px;
+  border-radius: var(--leaf-sm);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.badge-yes {
+  background: var(--leaf-pale);
+  color: var(--leaf-dark);
+}
+
+.badge-no {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ===== رأس صفحة النبات (العنوان + زر التعديل) ===== */
+.plant-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.plant-detail-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-danger-soft {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.btn-danger-soft:hover {
+  background: var(--danger);
+  color: #FFFFFF;
+}
+
+/* ===== صفحة التعديل: الصورة الحالية ===== */
+.upload-preview {
+  width: 160px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: var(--leaf-sm);
+}
+
+/* ===== التعليقات ===== */
+.comments {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.comments .section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.count {
+  min-width: 28px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: var(--leaf-pale);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--leaf-dark);
+}
+
+.comment-form {
+  max-width: 720px;
+  margin-bottom: 28px;
+  padding: 22px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.comment-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-list {
+  max-width: 720px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment {
+  display: flex;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.comment:last-child { border-bottom: none; }
+
+.comment-avatar {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-pale);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--leaf-dark);
+}
+
+.comment-body { min-width: 0; }
+
+.comment-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.comment-name { font-weight: 600; }
+
+.comment-head time {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.comment-text {
+  margin: 4px 0 0;
+  overflow-wrap: break-word;
+}
+
+.comments-empty { color: var(--text-muted); }
+
+/* ===== النباتات ذات الصلة ===== */
+.related {
+  margin-top: 56px;
+}
+
+.related .section-title { margin-bottom: 18px; }
+
+.comments-empty a {
+  font-weight: 600;
+  color: var(--leaf-mid);
+}
+
+
+/* ===== صفحة البحث ===== */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-category {
+  width: 200px;
+  flex: none;
+}
+
+/* ===== صفحة التواصل ===== */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.contact-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.1;
+  color: var(--leaf-dark);
+  margin: 0 0 10px;
+}
+
+.contact-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 0 80px 0 80px;
+  background: var(--leaf-soft);
+}
+
+.form-success {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-pale);
+  font-weight: 600;
+  color: var(--leaf-dark);
+}
+
+.form-success .ti { font-size: 20px; }
+
+.form-success a { color: var(--leaf-mid); }
+
+/* ===== صفحة الرسائل ===== */
+.message-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.message-card {
+  padding: 22px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.message-icon {
+  font-size: 28px;
+  color: var(--leaf-mid);
+}
+
+.message-name {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 20px;
+  margin: 6px 0 0;
+}
+
+.message-email {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--leaf-mid);
+  overflow-wrap: anywhere;
+}
+
+.message-text {
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  overflow-wrap: break-word;
+}
+
+.message-date {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 /* ===== التابلت ===== */
 @media (max-width: 900px) {
   .plant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

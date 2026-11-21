@@ -30,10 +30,18 @@
     </a>
   </div>
 
-  <div class="empty">
-    <p class="empty-title">No plants yet</p>
-    <p>Add the first plant to Planteer.</p>
-    <a href="{% url 'plants:add_plant' %}" class="btn">Add Plant</a>
-  </div>
+   {% if latest_plants %}
+    <div class="plant-grid">
+      {% for plant in latest_plants %}
+        {% include "plants/_plant_card.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">
+      <p class="empty-title">No plants yet</p>
+      <p>Add the first plant to Planteer.</p>
+      <a href="{% url 'plants:add_plant' %}" class="btn">Add Plant</a>
+    </div>
+  {% endif %}
 </section>
 {% endblock %}
