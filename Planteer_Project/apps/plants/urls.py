@@ -19,9 +19,33 @@ urlpatterns = [
     ),
 
     path(
+        "manage/",
+        views.manage_plants,
+        name="manage_plants"
+    ),
+
+    path(
+        "new/",
+        views.add_plant,
+        name="add_plant"
+    ),
+
+    path(
         "<int:plant_id>/detail/",
         views.plant_detail,
         name="plant_detail"
+    ),
+
+    path(
+        "<int:plant_id>/update/",
+        views.update_plant,
+        name="update_plant"
+    ),
+
+    path(
+        "<int:plant_id>/delete/",
+        views.delete_plant,
+        name="delete_plant"
     ),
 
 ]

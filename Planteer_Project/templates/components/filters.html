@@ -1,5 +1,5 @@
 <form method="GET"
-      action="{{ request.path }}"
+      action="{{ manage_url|default:request.path }}"
       class="filter-sort-form">
 
     {% if request.GET.q %}
@@ -109,7 +109,7 @@
 
             </button>
 
-            <a href="{{ request.path }}{% querystring category=None is_edible=None page=None %}"
+            <a href="{{ manage_url|default:request.path }}{% querystring category=None is_edible=None page=None %}"
                class="reset-filter">
 
                 Reset Filters

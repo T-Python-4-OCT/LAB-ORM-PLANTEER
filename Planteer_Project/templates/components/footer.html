@@ -1,3 +1,5 @@
+{% load static %}
+
 <footer class="site-footer">
 
     <div class="site-container">
@@ -8,8 +10,19 @@
 
                 <div class="col-md-5">
 
-                    <a href="/" class="footer-brand">
-                        Planteer
+                    <a href="{% url 'main:home' %}"
+                       class="footer-brand"
+                       aria-label="Planteer Home">
+
+                        <img
+                            src="{% static 'images/logo/planteer-logo-navbar.png' %}"
+                            alt="Planteer"
+                            class="footer-brand-logo"
+                            width="150"
+                            height="49"
+                            loading="lazy"
+                            decoding="async">
+
                     </a>
 
                     <p class="footer-description">
@@ -43,7 +56,7 @@
                     <h6>Website</h6>
 
                     <a href="/contact/">Contact Us</a>
-                    <a href="/plants/manage/">Manage Plants</a>
+                    <a href="{% url 'plants:manage_plants' %}">Manage Plants</a>
                     <a href="/contact/messages/">Messages</a>
 
                 </div>

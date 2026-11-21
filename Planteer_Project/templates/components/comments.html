@@ -78,7 +78,6 @@
 
     {% endif %}
 
-
     <div class="comment-form-container">
 
         <h3>Leave a Comment</h3>
@@ -103,16 +102,22 @@
 
                 {{ form.full_name }}
 
+                <div class="field-error"
+                     data-client-error
+                     aria-live="polite">
+                </div>
+
                 {% for error in form.full_name.errors %}
 
-                    <div class="field-error">
+                    <div class="field-error" role="alert">
+
                         {{ error }}
+
                     </div>
 
                 {% endfor %}
 
             </div>
-
 
             <div class="mb-3">
 
@@ -125,16 +130,22 @@
 
                 {{ form.content }}
 
+                <div class="field-error"
+                     data-client-error
+                     aria-live="polite">
+                </div>
+
                 {% for error in form.content.errors %}
 
-                    <div class="field-error">
+                    <div class="field-error" role="alert">
+
                         {{ error }}
+
                     </div>
 
                 {% endfor %}
 
             </div>
-
 
             <button type="submit"
                     class="btn btn-main w-100">

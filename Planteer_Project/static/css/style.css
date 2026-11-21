@@ -705,14 +705,14 @@ h6 {
     line-height: 1.8;
     margin-bottom: 25px;
 
-    white-space: pre-wrap;
+    white-space: normal;
     overflow-wrap: anywhere;
 }
 
 .plant-information-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px;
 }
 
 .plant-information-item h3 {
@@ -726,7 +726,7 @@ h6 {
     line-height: 1.6;
     margin: 0;
 
-    white-space: pre-wrap;
+    white-space: normal;
     overflow-wrap: anywhere;
 }
 
@@ -847,6 +847,7 @@ h6 {
     color: var(--bs-danger-text-emphasis);
     font-size: 12px;
     margin-top: 6px;
+    line-height: 1.5;
 }
 
 
@@ -976,8 +977,22 @@ h6 {
     display: none;
 }
 
-.form-control.is-invalid {
+.form-control.is-invalid,
+.form-select.is-invalid {
     border-color: var(--bs-danger);
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+    border-color: var(--bs-danger);
+    box-shadow: none;
+}
+
+.errorlist {
+    list-style: none;
+    padding: 0;
+    color: var(--bs-danger-text-emphasis);
+    font-size: 13px;
 }
 
 
@@ -1203,4 +1218,415 @@ h6 {
 .message-delete-modal .modal-header,
 .message-delete-modal .modal-footer {
     border-color: var(--border-color);
+}/* ==============================
+   Manage Plants Toolbar
+============================== */
+
+.manage-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.manage-search-form {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+    flex: 1;
+    max-width: 500px;
+}
+
+.manage-search-form .btn-main {
+    align-self: stretch;
+}
+
+
+/* ==============================
+   Management Table
+============================== */
+
+.manage-table-wrapper {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.manage-table {
+    --bs-table-bg: var(--background);
+    --bs-table-color: var(--text-primary);
+    --bs-table-border-color: var(--border-color);
+
+    margin-bottom: 0;
+    min-width: 760px;
+}
+
+.manage-table thead th {
+    background-color: var(--surface);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    padding: 16px;
+    white-space: nowrap;
+}
+
+.manage-table tbody td {
+    padding: 16px;
+    font-size: 14px;
+}
+
+.manage-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.manage-table tbody tr:hover td {
+    background-color: var(--surface);
+}
+
+
+/* ==============================
+   Plant Information
+============================== */
+
+.manage-plant-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.manage-plant-info strong {
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.manage-plant-image,
+.manage-image-placeholder {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+.manage-image-placeholder {
+    display: grid;
+    place-items: center;
+
+    background-color: var(--surface);
+    color: var(--text-secondary);
+}
+
+.edible-status {
+    display: inline-block;
+
+    padding: 5px 12px;
+
+    background-color: var(--surface);
+    color: var(--text-primary);
+
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+
+/* ==============================
+   CRUD Action Buttons
+============================== */
+
+.manage-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+
+    background: transparent;
+    color: var(--text-primary);
+
+    font-size: 14px;
+}
+
+.action-button:hover {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border-color: var(--button-bg);
+}
+
+.action-delete {
+    color: var(--bs-danger);
+}
+
+.action-delete:hover {
+    background-color: var(--bs-danger);
+    border-color: var(--bs-danger);
+    color: #ffffff;
+}
+
+
+/* ==============================
+   Plant Modal
+============================== */
+
+.plant-modal {
+    background-color: var(--background);
+    color: var(--text-primary);
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+.plant-modal .modal-header,
+.plant-modal .modal-footer {
+    padding: 20px 25px;
+
+    border-color: var(--border-color);
+}
+
+.plant-modal .modal-body {
+    padding: 25px;
+}
+
+.plant-modal .modal-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.plant-modal textarea {
+    resize: vertical;
+}
+
+
+/* ==============================
+   Image Upload Preview
+============================== */
+
+.image-upload-hint {
+    margin-top: 8px;
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.plant-upload-preview {
+    width: 100%;
+    max-height: 240px;
+
+    object-fit: contain;
+
+    padding: 12px;
+
+    background-color: var(--surface);
+
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.plant-upload-preview[hidden] {
+    display: none;
+}
+/* Navbar Search */
+
+.nav-search {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+.nav-search i {
+    font-size: 15px;
+}
+
+.nav-search:hover {
+    color: var(--text-secondary);
+}/* =========================================
+    FINAL DESIGN IMPROVEMENTS
+========================================= */
+
+
+/* Navbar */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+
+    background-color: var(--background);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 0;
+}
+
+.navbar-brand-logo {
+    display: block;
+    width: 170px;
+    height: auto;
+    max-height: 58px;
+    object-fit: contain;
+}
+
+.navbar-nav {
+    align-items: center;
+}
+
+.navbar .nav-link.active {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+
+/* Search Icon */
+
+.nav-search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    color: var(--text-primary);
+    background-color: transparent;
+
+    border-radius: var(--border-radius);
+
+    font-size: 19px;
+    text-decoration: none;
+
+    transition: background-color 0.2s ease;
+}
+
+.nav-search:hover,
+.nav-search.active {
+    background-color: var(--surface);
+    color: var(--text-primary);
+}
+
+
+/* Footer Logo */
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-brand-logo {
+    display: block;
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+}
+
+
+/* Dark Mode Logo */
+
+[data-bs-theme="dark"] .navbar-brand-logo,
+[data-bs-theme="dark"] .footer-brand-logo {
+    filter: brightness(0) invert(1);
+}
+
+
+/* Plant Cards */
+
+.plant-card a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.plant-card-image {
+    display: block;
+    width: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition:
+        transform 0.3s ease,
+        filter 0.3s ease;
+}
+
+.plant-card:hover .plant-card-image {
+    filter: brightness(0.96);
+    transform: scale(1.015);
+}
+
+.plant-card:hover .plant-card-title {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+
+/* Plant Details */
+
+.plant-detail-image {
+    display: block;
+    background-color: var(--surface);
+    object-position: center;
+}
+
+.plant-detail-layout {
+    gap: 50px;
+}
+
+.plant-detail-information {
+    min-width: 0;
+}
+
+.plant-detail-about {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.plant-information-item p {
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+
+/* Comments */
+
+.comments-section {
+    scroll-margin-top: 110px;
+}
+
+
+/* Forms */
+
+.form-control,
+.form-select {
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+/* Accessibility */
+
+.plant-card a:focus-visible,
+.nav-search:focus-visible,
+.navbar-brand:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 4px;
 }

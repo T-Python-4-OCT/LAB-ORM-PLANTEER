@@ -8,7 +8,7 @@ from django.shortcuts import (
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
-from .forms import CommentForm
+from .forms import CommentForm, PlantForm
 from .models import Plant
 from .utils import filter_and_paginate
 
@@ -124,4 +124,156 @@ def search(request):
         request,
         "plants/search.html",
         context
+    )
+def get_management_url(request):
+
+    url = reverse("plants:manage_plants")
+    params = request.GET.urlencode()
+
+    return f"{url}?{params}" if params else url
+
+
+def render_management_page(
+    request,
+    form=None,
+    modal_action=None,
+    selected_plant=None
+):
+
+    plants = Plant.objects.all()
+
+    query = request.GET.get("q", "").strip()
+
+    if query:
+
+        plants = plants.filter(
+            Q(name__icontains=query) |
+            Q(about__icontains=query) |
+            Q(category__icontains=query) |
+            Q(native_to__icontains=query)
+        )
+
+    context = filter_and_paginate(
+        request,
+        plants,
+        per_page=10
+    )
+
+    params = request.GET.urlencode()
+
+    context.update({
+        "query": query,
+        "form": form,
+        "modal_action": modal_action,
+        "selected_plant": selected_plant,
+        "manage_url": reverse("plants:manage_plants"),
+        "list_url": get_management_url(request),
+        "query_suffix": f"?{params}" if params else "",
+    })
+
+    return render(
+        request,
+        "plants/manage_plants.html",
+        context
+    )
+
+@require_http_methods(["GET"])
+def manage_plants(request):
+
+    return render_management_page(request)
+
+@require_http_methods(["GET", "POST"])
+def add_plant(request):
+
+    if request.method == "POST":
+
+        form = PlantForm(
+            request.POST,
+            request.FILES
+        )
+
+        if form.is_valid():
+
+            plant = form.save()
+
+            messages.success(
+                request,
+                f"{plant.name} has been added successfully."
+            )
+
+            return redirect(get_management_url(request))
+
+    else:
+
+        form = PlantForm()
+
+    return render_management_page(
+        request,
+        form=form,
+        modal_action="add"
+    )
+
+@require_http_methods(["GET", "POST"])
+def update_plant(request, plant_id):
+
+    plant = get_object_or_404(
+        Plant,
+        id=plant_id
+    )
+
+    if request.method == "POST":
+
+        form = PlantForm(
+            request.POST,
+            request.FILES,
+            instance=plant
+        )
+
+        if form.is_valid():
+
+            plant = form.save()
+
+            messages.success(
+                request,
+                f"{plant.name} has been updated successfully."
+            )
+
+            return redirect(get_management_url(request))
+
+    else:
+
+        form = PlantForm(instance=plant)
+
+    return render_management_page(
+        request,
+        form=form,
+        modal_action="update",
+        selected_plant=plant
+    )
+
+@require_http_methods(["GET", "POST"])
+def delete_plant(request, plant_id):
+
+    plant = get_object_or_404(
+        Plant,
+        id=plant_id
+    )
+
+    if request.method == "POST":
+
+        plant_name = plant.name
+
+        plant.delete()
+
+        messages.success(
+            request,
+            f"{plant_name} has been deleted successfully."
+        )
+
+        return redirect(get_management_url(request))
+
+    return render_management_page(
+        request,
+        modal_action="delete",
+        selected_plant=plant
     )

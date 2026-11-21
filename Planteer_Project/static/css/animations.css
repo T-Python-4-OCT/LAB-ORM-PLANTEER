@@ -2,22 +2,29 @@
 
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
 
     to {
         opacity: 1;
         transform: translateY(0);
     }
-
 }
+
+
+/* Page Entrance */
 
 .fade-in {
-    animation: fadeIn 0.5s ease both;
+    animation: fadeIn 0.55s ease both;
 }
 
+
+/* Plant Cards */
+
 .plant-card {
-    transition: transform 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .plant-card:hover {
@@ -25,15 +32,36 @@
 }
 
 
-/* Accessibility */
+/* Buttons */
+
+.btn-main {
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.btn-main:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Accessibility — Reduced Motion */
 
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
-        animation: none !important;
-        transition: none !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 
+    .fade-in,
+    .plant-card:hover,
+    .btn-main:hover,
+    .plant-card:hover .plant-card-image {
+        transform: none;
+    }
 }

@@ -51,7 +51,6 @@
 
 }
 
-
 /* Small Mobile */
 
 @media (max-width: 480px) {
@@ -344,6 +343,157 @@
 
     .message-avatar {
         font-size: 34px;
+    }
+
+}
+/* Manage Plants - Tablet */
+
+@media (max-width: 991px) {
+
+    .manage-table thead th,
+    .manage-table tbody td {
+        padding: 12px;
+    }
+
+    .manage-plant-image,
+    .manage-image-placeholder {
+        width: 48px;
+        height: 48px;
+    }
+
+}
+
+
+/* Manage Plants - Mobile */
+
+@media (max-width: 767px) {
+
+    .manage-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .manage-search-form {
+        width: 100%;
+        max-width: none;
+        flex-basis: 100%;
+    }
+
+    .manage-toolbar .filter-sort-form {
+        margin-left: auto;
+    }
+
+    .plant-modal .modal-header,
+    .plant-modal .modal-body,
+    .plant-modal .modal-footer {
+        padding: 18px;
+    }
+
+    .plant-modal .modal-title {
+        font-size: 18px;
+    }
+
+    .plant-upload-preview {
+        max-height: 180px;
+    }
+
+}
+
+/* Tablets and smaller screens */
+
+@media (max-width: 991px) {
+
+    .navbar-brand-logo {
+        width: 155px;
+    }
+
+    .navbar-nav {
+        align-items: stretch;
+        gap: 12px;
+        padding: 15px 0;
+    }
+
+    .navbar-nav .nav-item {
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 9px 0;
+    }
+
+    .navbar-nav .btn-main {
+        display: block;
+        text-align: center;
+    }
+
+    .navbar-nav .theme-toggle,
+    .navbar-nav .nav-search {
+        margin: 0;
+    }
+
+    .plant-detail-layout {
+        gap: 30px;
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+
+    .navbar-brand-logo {
+        width: 145px;
+    }
+
+    .plant-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .plant-detail-layout,
+    .contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .plant-detail-image {
+        max-height: 450px;
+    }
+
+    .home-hero {
+        min-height: 350px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(32px, 8vw, 40px);
+    }
+
+    .hero-content h2 {
+        font-size: clamp(18px, 5vw, 24px);
+    }
+
+    .footer-brand-logo {
+        width: 140px;
+    }
+
+}
+
+/* Small Mobile */
+
+@media (max-width: 480px) {
+
+    .navbar-brand-logo {
+        width: 135px;
+    }
+
+    .plant-card-title {
+        font-size: 16px;
+    }
+
+    .plant-detail-information h1 {
+        font-size: 27px;
+    }
+
+    .contact-information h1 {
+        font-size: 29px;
     }
 
 }

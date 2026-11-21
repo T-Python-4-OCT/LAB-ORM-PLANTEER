@@ -1,4 +1,7 @@
-from django.core.validators import MaxLengthValidator, MinLengthValidator
+from django.core.validators import (
+    MaxLengthValidator,
+    MinLengthValidator,
+)
 from django.db import models
 
 
@@ -12,16 +15,41 @@ class Plant(models.Model):
         FLOWERS = "flowers", "Flowers"
         SUCCULENTS = "succulents", "Succulents"
 
-    name = models.CharField(max_length=150)
-    about = models.TextField()
-    used_for = models.TextField()
+    name = models.CharField(
+        max_length=50,
+        validators=[MinLengthValidator(2)]
+    )
+
+    about = models.TextField(
+        max_length=200,
+        validators=[
+            MinLengthValidator(10),
+            MaxLengthValidator(200)
+        ]
+    )
+
+    used_for = models.TextField(
+        max_length=200,
+        validators=[
+            MinLengthValidator(1),
+            MaxLengthValidator(200)
+        ]
+    )
+
     image = models.ImageField(upload_to="plants/")
+
     category = models.CharField(
         max_length=20,
         choices=Category.choices
     )
-    native_to = models.CharField(max_length=200)
+
+    native_to = models.CharField(
+        max_length=50,
+        validators=[MinLengthValidator(3)]
+    )
+
     is_edible = models.BooleanField(default=False)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -41,14 +69,15 @@ class Comment(models.Model):
     )
 
     full_name = models.CharField(
-        max_length=100,
-        validators=[MinLengthValidator(2)]
+        max_length=25,
+        validators=[MinLengthValidator(5)]
     )
 
     content = models.TextField(
+        max_length=150,
         validators=[
-            MinLengthValidator(3),
-            MaxLengthValidator(1000)
+            MinLengthValidator(10),
+            MaxLengthValidator(150)
         ]
     )
 

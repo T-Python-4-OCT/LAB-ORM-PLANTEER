@@ -1,25 +1,29 @@
-from django.core.validators import MaxLengthValidator, MinLengthValidator
+from django.core.validators import (
+    MaxLengthValidator,
+    MinLengthValidator,
+)
 from django.db import models
 
 
 class Contact(models.Model):
 
     first_name = models.CharField(
-        max_length=50,
-        validators=[MinLengthValidator(2)]
+        max_length=15,
+        validators=[MinLengthValidator(3)]
     )
 
     last_name = models.CharField(
-        max_length=50,
-        validators=[MinLengthValidator(2)]
+        max_length=15,
+        validators=[MinLengthValidator(3)]
     )
 
     email = models.EmailField()
 
     message = models.TextField(
+        max_length=150,
         validators=[
             MinLengthValidator(10),
-            MaxLengthValidator(2000)
+            MaxLengthValidator(150)
         ]
     )
 

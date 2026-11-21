@@ -5,7 +5,6 @@
 
 {% block content %}
 
-
 <section class="plant-detail-section fade-in">
 
     <div class="plant-detail-layout">
@@ -17,7 +16,9 @@
 
                 <img src="{{ plant.image.url }}"
                      alt="{{ plant.name }}"
-                     class="plant-detail-image">
+                     class="plant-detail-image"
+                     decoding="async"
+                     fetchpriority="high">
 
             {% else %}
 
@@ -36,18 +37,9 @@
 
             <h1>{{ plant.name }}</h1>
 
-            <p class="plant-detail-category">
+            <p class="plant-detail-category">{{ plant.get_category_display }}</p>
 
-                {{ plant.get_category_display }}
-
-            </p>
-
-            <p class="plant-detail-about">
-
-                {{ plant.about }}
-
-            </p>
-
+            <p class="plant-detail-about">{{ plant.about }}</p>
 
             <div class="plant-information-list">
 
@@ -59,17 +51,13 @@
 
                 </div>
 
-
                 <div class="plant-information-item">
 
                     <h3>Is Edible:</h3>
 
-                    <p>
-                        {{ plant.is_edible|yesno:"Yes,No" }}
-                    </p>
+                    <p>{{ plant.is_edible|yesno:"Yes,No" }}</p>
 
                 </div>
-
 
                 <div class="plant-information-item">
 
@@ -89,7 +77,6 @@
     </div>
 
 </section>
-
 
 <section class="related-plants-section fade-in">
 

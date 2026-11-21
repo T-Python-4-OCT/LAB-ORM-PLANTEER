@@ -10,7 +10,7 @@ SORT_OPTIONS = {
 }
 
 
-def filter_and_paginate(request, plants):
+def filter_and_paginate(request, plants, per_page=9):
 
     selected_categories = request.GET.getlist("category")
     is_edible = request.GET.get("is_edible", "")
@@ -46,7 +46,7 @@ def filter_and_paginate(request, plants):
     plants = plants.order_by(*SORT_OPTIONS[sort])
 
 
-    paginator = Paginator(plants, 9)
+    paginator = Paginator(plants, per_page)
 
     page_number = request.GET.get("page")
 

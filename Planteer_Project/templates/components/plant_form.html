@@ -1,0 +1,78 @@
+<div class="row g-3">
+
+    {{ form.non_field_errors }}
+
+    {% for field in form %}
+
+        {% if field.name != "is_edible" %}
+
+            <div class="contact-field
+                {% if field.name == 'name' or field.name == 'category' %}
+                    col-md-6
+                {% else %}
+                    col-12
+                {% endif %}">
+
+                <label for="{{ field.id_for_label }}"
+                       class="form-label">
+
+                    {{ field.label }}
+
+                </label>
+
+                {{ field }}
+
+                {% if field.name == "image" %}
+
+                    <p class="image-upload-hint">
+                        JPG, PNG or WEBP — Maximum 5 MB.
+                    </p>
+
+                    <img id="plantImagePreview"
+                         class="plant-upload-preview"
+                         alt="Plant image preview"
+                         {% if form.initial.image %}
+                             src="{{ form.initial.image.url }}"
+                         {% else %}
+                             hidden
+                         {% endif %}>
+
+                {% endif %}
+
+                <div class="field-error"
+                     data-client-error
+                     aria-live="polite">
+                </div>
+
+                {% for error in field.errors %}
+
+                    <div class="field-error" role="alert">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+    <div class="col-12">
+
+        <div class="form-check">
+
+            {{ form.is_edible }}
+
+            <label for="{{ form.is_edible.id_for_label }}"
+                   class="form-check-label">
+
+                This plant is edible
+
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
