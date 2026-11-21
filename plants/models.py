@@ -10,7 +10,9 @@ class Plant(models.Model):
         SUCCULENT = "succulent", "Succulent"
 
     name = models.CharField(max_length=120)
+    scientific_name = models.CharField(max_length=160, blank=True)
     about = models.TextField()
+    native_to = models.CharField(max_length=180, blank=True)
     used_for = models.TextField()
     image = models.ImageField(upload_to="plants/")
     category = models.CharField(max_length=20, choices=Category.choices)

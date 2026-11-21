@@ -223,3 +223,8 @@ __marimo__/
 
 planteer_stage1.sqlite3
 media/
+
+!plant_photos/
+!plant_photos/plants/
+!plant_photos/plants/*.jpg
+!plant_photos/ATTRIBUTION.txt

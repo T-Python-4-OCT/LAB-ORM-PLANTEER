@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from plants.views import STARTER_PLANTS
+from plants.models import Plant
 
 def home(request):
-    return render(request, "main/home.html", {"plants": STARTER_PLANTS[:3], "plant_count": len(STARTER_PLANTS)})
+    plants = Plant.objects.all()[:3]
+    return render(request, "main/home.html", {"plants": plants, "plant_count": Plant.objects.count()})
