@@ -220,3 +220,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+planteer_stage1.sqlite3
+media/
