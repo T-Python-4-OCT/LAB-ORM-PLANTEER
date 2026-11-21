@@ -11,7 +11,7 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit">Delete Plant</button>
-        <a href="/plants/{{ plant.id }}/detail/">Cancel</a>
+        <a class="cancel-link" href="/plants/{{ plant.id }}/detail/">Cancel</a>
     </form>
 </section>
 {% endblock %}

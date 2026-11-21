@@ -8,13 +8,14 @@
     <p>Have a question or a plant tip? Send us a message.</p>
     {% if messages %}
         {% for message in messages %}
-     <p>{{ message }}</p>
+     <p class="success-message">✓ {{ message }}</p>
      {% endfor %}
      {% endif %}
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Send message</button>
+        <p><a class="back-link" href="{% url 'contact_messages' %}">View submitted messages</a></p>
     </form>
 </section>
 {% endblock %}

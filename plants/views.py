@@ -66,9 +66,9 @@ def search_plants(request):
     query = request.GET.get("q", "").strip()
 
     if query:
-        plants = Plant.objects.filter(name__icontains=query)
+        plants = Plant.objects.filter(name__icontains=query).order_by("name")
     else:
-        plants = Plant.objects.none()
+        plants = Plant.objects.all().order_by("name")
 
     return render(request, "plants/search_results.html", {
         "plants": plants,
@@ -95,8 +95,13 @@ def delete_plant(request, plant_id):
 
     # Delete only after the confirmation form is submitted.
     if request.method == "POST":
-        plant.delete()
-        return redirect("all_plants")
+       image = plant.image
+       plant.delete()
+
+       if image and not Plant.objects.filter(image=image.name).exists():
+           image.delete(save=False)
+
+       return redirect("all_plants")
 
     return render(request, "plants/plant_confirm_delete.html", {
         "plant": plant,

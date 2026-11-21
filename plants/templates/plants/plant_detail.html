@@ -62,8 +62,10 @@
             <p>No related plants yet.</p>
         {% endfor %}
     </section>
-    <a href="/plants/{{ plant.id }}/update/">Edit Plant</a>
-    <a href="/plants/{{ plant.id }}/delete/">Delete Plant</a>
-    <a href="/plants/all/">Back to All Plants</a>
+<div class="plant-actions">
+    <a class="edit-link" href="/plants/{{ plant.id }}/update/">Edit Plant</a>
+    <a class="delete-link" href="/plants/{{ plant.id }}/delete/">Delete Plant</a>
+    <a class="back-link" href="/plants/all/">Back to All Plants</a>
+</div>
 </section>
 {% endblock %}

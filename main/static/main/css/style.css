@@ -439,3 +439,362 @@ button:hover {
 .contact-page textarea {
     background: #ffffff;
 }
+/* بطاقات رسائل التواصل */
+.contact-messages-page {
+    max-width: 850px;
+}
+
+.contact-message-card {
+    margin-bottom: 18px;
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafaf6;
+}
+
+.contact-message-card h2 {
+    margin-bottom: 6px;
+    font-size: 1.2rem;
+}
+
+.contact-message-card a {
+    color: #527653;
+}
+
+.contact-message-card time {
+    display: block;
+    margin-top: 12px;
+    color: #777777;
+    font-size: 0.9rem;
+}
+/* الفوتر*/
+.site-footer {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, minmax(110px, 1fr));
+    align-items: start;
+    gap: 32px;
+    margin-top: 48px;
+    padding: 28px 32px;
+}
+
+.footer-brand > a {
+    color: #20231f;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer-brand p {
+    margin: 8px 0 18px;
+    color: #666b65;
+}
+
+.footer-social {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-social span {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #d8dcd4;
+    border-radius: 50%;
+    color: #527653;
+    font-size: 0.8rem;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-column h3 {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+}
+
+.footer-column a {
+    color: #666b65;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.footer-column a:hover {
+    color: #527653;
+}
+
+@media (max-width: 760px) {
+    .site-footer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 520px) {
+    .site-footer {
+        padding: 24px 20px;
+    }
+}
+/* روابط إجراءات النبتة */
+.plant-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.plant-actions a {
+    display: inline-block;
+    padding: 9px 15px;
+    border: 1px solid #527653;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.plant-actions .edit-link {
+    background: #527653;
+    color: #ffffff;
+}
+
+.plant-actions .delete-link {
+    border-color: #a4473c;
+    color: #a4473c;
+}
+
+.plant-actions .back-link {
+    color: #354b31;
+}
+
+.plant-actions a:hover {
+    background: #354b31;
+    border-color: #354b31;
+    color: #ffffff;
+}
+.plant-actions {
+    align-items: center;
+}
+
+.plant-actions a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plant-actions .back-link {
+    margin-top: 0;
+}
+.success-message {
+    padding: 12px 16px;
+    border: 1px solid #b9d8b2;
+    border-radius: 6px;
+    background: #eff8ec;
+    color: #2f6b35;
+    font-weight: 600;
+}
+/* تنسيق رابط الإلغاء */
+.delete-confirmation form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cancel-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border: 1px solid #527653;
+    border-radius: 4px;
+    color: #354b31;
+    text-decoration: none;
+}
+
+.cancel-link:hover {
+    background: #527653;
+    color: #ffffff;
+}
+.contact-messages-page {
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.contact-messages-page > h1,
+.contact-messages-page > p {
+    grid-column: 1 / -1;
+}
+
+.contact-message-card {
+    margin: 0;
+}
+
+@media (max-width: 760px) {
+    .contact-messages-page {
+        grid-template-columns: 1fr;
+    }
+}
+/* تنسيق صفحة البحث */
+.plant-search-form {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin: 24px 0 30px;
+}
+
+.plant-search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.plant-search-form button {
+    min-height: 46px;
+    flex-shrink: 0;
+}
+
+.search-page .plant-grid {
+    margin-top: 24px;
+}
+
+@media (max-width: 520px) {
+    .plant-search-form {
+        flex-direction: column;
+    }
+
+    .plant-search-form button {
+        width: 100%;
+    }
+}
+/* ترتيب قوائم الفلترة */
+.plant-filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.plant-filters .filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.plant-filters select {
+    width: 100%;
+    min-width: 0;
+}
+
+.plant-filters button {
+    min-height: 46px;
+    white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+    .plant-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .plant-filters button {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 520px) {
+    .plant-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .plant-filters button {
+        grid-column: auto;
+        width: 100%;
+    }
+}
+/* تنسيق قسم التعليقات */
+.plant-comments {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.plant-comments article {
+    margin-bottom: 16px;
+    padding: 20px 22px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafaf6;
+}
+
+.plant-comments article h3 {
+    margin-bottom: 8px;
+}
+
+.plant-comments article p {
+    margin-bottom: 12px;
+}
+
+.plant-comments form {
+    max-width: 720px;
+    margin-top: 20px;
+    padding: 24px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafaf6;
+}
+
+.plant-comments form p {
+    margin-bottom: 18px;
+}
+
+.plant-comments form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.plant-comments input,
+.plant-comments textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background: #ffffff;
+    font: inherit;
+}
+
+.plant-comments textarea {
+    height: 90px;
+    min-height: 90px;
+    resize: vertical;
+}
+
+.plant-comments form button {
+    min-width: 150px;
+}
+.plant-comments article,
+.plant-comments form {
+    max-width: 720px;
+}
+
+.plant-comments form {
+    width: 100%;
+}
+
+.plant-comments textarea {
+    height: 70px;
+    min-height: 70px;
+}

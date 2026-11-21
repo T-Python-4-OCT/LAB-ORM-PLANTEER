@@ -7,23 +7,27 @@
     <h1>All Plants</h1>
 
     <form class="plant-filters" method="get">
+    <div class="filter-field">
         <label for="category">Category</label>
         <select id="category" name="category">
-          <option value="" {% if not selected_category %}selected{% endif %}>All categories</option>
-          <option value="tree" {% if selected_category == "tree" %}selected{% endif %}>Tree</option>
-          <option value="fruit" {% if selected_category == "fruit" %}selected{% endif %}>Fruit</option>
-          <option value="vegetable" {% if selected_category == "vegetable" %}selected{% endif %}>Vegetable</option>
+            <option value="" {% if not selected_category %}selected{% endif %}>All categories</option>
+            <option value="tree" {% if selected_category == "tree" %}selected{% endif %}>Tree</option>
+            <option value="fruit" {% if selected_category == "fruit" %}selected{% endif %}>Fruit</option>
+            <option value="vegetable" {% if selected_category == "vegetable" %}selected{% endif %}>Vegetable</option>
         </select>
+    </div>
 
+    <div class="filter-field">
         <label for="is_edible">Edibility</label>
         <select id="is_edible" name="is_edible">
             <option value="" {% if not selected_is_edible %}selected{% endif %}>All plants</option>
             <option value="true" {% if selected_is_edible == "true" %}selected{% endif %}>Edible</option>
             <option value="false" {% if selected_is_edible == "false" %}selected{% endif %}>Not edible</option>
         </select>
+    </div>
 
-        <button type="submit">Filter</button>
-    </form>
+    <button type="submit">Filter</button>
+</form>
 
     <div class="plant-grid">
         {% for plant in plants %}

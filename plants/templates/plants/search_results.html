@@ -4,40 +4,62 @@
 
 {% block content %}
 <section class="search-page">
-    <h1>Search Plants</h1>
+    <h1>Search Results</h1>
 
     <form class="plant-search-form" action="/plants/search/" method="get">
         <input
+            id="plant-search-input"
             type="search"
             name="q"
             value="{{ query }}"
             placeholder="Search plants by name..."
-            aria-label="Search plants by name"
+            aria-label="Search plants"
         >
         <button type="submit">Search</button>
     </form>
 
-    {% if query %}
-        <p>Results for "{{ query }}"</p>
-    {% endif %}
-
-    <div class="plant-grid">
+    <div class="plant-grid" id="plant-grid">
         {% for plant in plants %}
             <article class="plant-card">
                 <a href="/plants/{{ plant.id }}/detail/">
                     {% if plant.image %}
                         <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
                     {% endif %}
-
                     <h2>{{ plant.name }}</h2>
                 </a>
 
                 <p>{{ plant.about|truncatewords:15 }}</p>
                 <p>{{ plant.get_category_display }}</p>
             </article>
-        {% empty %}
-            <p>No plants match your search.</p>
         {% endfor %}
     </div>
+
+    <p id="no-search-results" hidden>No plants match your search.</p>
 </section>
+
+<script>
+    const searchInput = document.getElementById("plant-search-input");
+    const plantCards = document.querySelectorAll("#plant-grid .plant-card");
+    const noResultsMessage = document.getElementById("no-search-results");
+
+    // Filter plant cards as the user types.
+    function filterPlants() {
+        const searchText = searchInput.value.trim().toLocaleLowerCase();
+        let visibleCount = 0;
+
+        plantCards.forEach(function (card) {
+            const matches = card.textContent.toLocaleLowerCase().includes(searchText);
+            card.hidden = !matches;
+
+            if (matches) {
+                visibleCount++;
+            }
+        });
+
+        noResultsMessage.hidden = visibleCount > 0;
+    }
+
+    searchInput.addEventListener("input", filterPlants);
+    filterPlants();
+</script>
 {% endblock %}
