@@ -1,0 +1,23 @@
+{% extends "main/base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<section class="section">
+  <h1>Search Results</h1>
+  <form class="search-form search-wide" method="get" action="{% url 'plants:search' %}" role="search">
+    <input type="search" name="q" value="{{ q }}" placeholder="Search for plant, e.g. Pomegranate or Fruit" aria-label="Search" required>
+    <button class="btn" type="submit">Search</button>
+  </form>
+
+  {% if q %}
+    <p class="muted">{{ plants|length }} result{{ plants|length|pluralize }} for “{{ q }}”</p>
+    <div class="plant-grid">
+      {% for plant in plants %}
+        {% include "plants/partials/plant_card.html" %}
+      {% empty %}
+        <p class="muted empty">No plants found. Try another word.</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

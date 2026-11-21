@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% block title %}{% if plant %}Update {{ plant.name }}{% else %}Add Plant{% endif %}{% endblock %}
+
+{# One template for adding and updating: "plant" is only sent by the update view #}
+{% block content %}
+<section class="section narrow">
+  <h1 class="big-title">{% if plant %}Update Plant{% else %}Add Plant{% endif %}</h1>
+  <p class="muted lead">{% if plant %}Change what you need, then save.{% else %}Add a real plant with a real image.{% endif %}</p>
+
+  {# enctype="multipart/form-data" is needed to upload the image #}
+  <form class="form" method="post" enctype="multipart/form-data" novalidate
+        action="{% if plant %}{% url 'plants:update' plant.id %}{% else %}{% url 'plants:new' %}{% endif %}">
+    {% csrf_token %}
+    {% include "main/partials/field.html" with field=form.name %}
+    {% include "main/partials/field.html" with field=form.category %}
+    {% include "main/partials/field.html" with field=form.about %}
+    {% include "main/partials/field.html" with field=form.used_for %}
+    {% if plant %}<img class="current-image" src="{{ plant.image.url }}" alt="Current image of {{ plant.name }}">{% endif %}
+    {% include "main/partials/field.html" with field=form.image %}
+    <label class="check">{{ form.is_edible }} {{ form.is_edible.label }}</label>
+    <div class="actions">
+      <button class="btn" type="submit">{% if plant %}Save Changes{% else %}Add Plant{% endif %}</button>
+      <a class="btn btn-outline" href="{% if plant %}{% url 'plants:detail' plant.id %}{% else %}{% url 'plants:all' %}{% endif %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

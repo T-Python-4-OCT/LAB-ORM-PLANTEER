@@ -1,0 +1,7 @@
+{# One plant card, like the wireframe: image, name, brief about the plant, category #}
+<a class="plant-card" href="{% url 'plants:detail' plant.id %}">
+  <img src="{{ plant.image.url }}" alt="{{ plant.name }}" loading="lazy">
+  <h3>{{ plant.name }}</h3>
+  <p class="muted">{{ plant.about|truncatewords:8 }}</p>
+  <p class="category">{{ plant.get_category_display }}</p>
+</a>

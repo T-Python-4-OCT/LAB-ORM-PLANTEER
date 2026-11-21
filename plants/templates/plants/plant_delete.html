@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+{% block title %}Delete {{ plant.name }}{% endblock %}
+
+{% block content %}
+<section class="section narrow center">
+  <img class="delete-image" src="{{ plant.image.url }}" alt="{{ plant.name }}">
+  <h1>Delete “{{ plant.name }}”?</h1>
+  <p class="muted">The plant and its comments will be deleted. This can not be undone.</p>
+  <form method="post" action="{% url 'plants:delete' plant.id %}">
+    {% csrf_token %}
+    <div class="actions center">
+      <button class="btn btn-danger" type="submit">Yes, Delete</button>
+      <a class="btn btn-outline" href="{% url 'plants:detail' plant.id %}">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{# Hero: a fixed photo of succulents (main/static/main/images/hero.jpg) #}
+<section class="hero" style="background-image: url('{% static 'main/images/hero.jpg' %}');">
+  <h1>Planteer</h1>
+  <p class="hero-sub">Plant Database For Plants Lovers</p>
+  <form class="search-form" method="get" action="{% url 'plants:search' %}" role="search">
+    <input type="search" name="q" placeholder="Search For Plant..." aria-label="Search for plant" required>
+    <button class="btn" type="submit">Search</button>
+  </form>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <h2>Plants</h2>
+      <p class="muted">Learn more about plants</p>
+    </div>
+    <a class="more" href="{% url 'plants:all' %}">More <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="plant-grid">
+    {% for plant in plants %}
+      {% include "plants/partials/plant_card.html" %}
+    {% empty %}
+      <p class="muted empty">No plants yet. <a href="{% url 'plants:new' %}">Add the first plant</a>.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
