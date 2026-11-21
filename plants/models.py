@@ -24,3 +24,15 @@ class Plant(models.Model):
 
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+    plant = models.ForeignKey(Plant, on_delete=models.CASCADE, related_name="comments")
+    full_name = models.CharField(max_length=120)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.full_name} on {self.plant.name}"

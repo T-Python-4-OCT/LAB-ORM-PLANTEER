@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from .forms import CommentForm
 from .models import Plant
 
 def plant_list(request):
@@ -18,5 +19,16 @@ def plant_list(request):
 
 def plant_detail(request, plant_id):
     plant = get_object_or_404(Plant, pk=plant_id)
+    comment_form = CommentForm(request.POST or None)
+    if request.method == "POST" and comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.plant = plant
+        comment.save()
+        return redirect("plant_detail", plant_id=plant.pk)
     related = Plant.objects.filter(category=plant.category).exclude(pk=plant.pk)[:3]
-    return render(request, "plants/plant_detail.html", {"plant": plant, "related_plants": related})
+    return render(request, "plants/plant_detail.html", {
+        "plant": plant,
+        "related_plants": related,
+        "comment_form": comment_form,
+        "comments": plant.comments.all(),
+    })
