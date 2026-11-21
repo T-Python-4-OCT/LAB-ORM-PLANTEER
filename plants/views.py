@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Q
 from .forms import CommentForm, PlantForm
 from .models import Plant
 
@@ -16,6 +17,18 @@ def plant_list(request):
         "selected_category": category,
         "selected_edible": edible,
     })
+
+def plant_search(request):
+    query = request.GET.get("q", "").strip()
+    plants = Plant.objects.none()
+    if query:
+        plants = Plant.objects.filter(
+            Q(name__icontains=query)
+            | Q(scientific_name__icontains=query)
+            | Q(about__icontains=query)
+            | Q(used_for__icontains=query)
+        )
+    return render(request, "plants/search.html", {"plants": plants, "query": query})
 
 def plant_detail(request, plant_id):
     plant = get_object_or_404(Plant, pk=plant_id)
