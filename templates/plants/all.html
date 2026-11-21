@@ -60,5 +60,33 @@
         {% endfor %}
     </div>
 
+{% if page_obj.has_other_pages %}
+<nav class="pagination" aria-label="Plant pages">
+
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}&category={{ selected_category|urlencode }}&edible={{ selected_edible|urlencode }}">
+            Previous
+        </a>
+    {% endif %}
+
+    {% for number in page_obj.paginator.page_range %}
+        {% if number == page_obj.number %}
+            <span class="current-page">{{ number }}</span>
+        {% else %}
+            <a href="?page={{ number }}&category={{ selected_category|urlencode }}&edible={{ selected_edible|urlencode }}">
+                {{ number }}
+            </a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&category={{ selected_category|urlencode }}&edible={{ selected_edible|urlencode }}">
+            Next
+        </a>
+    {% endif %}
+
+</nav>
+{% endif %}
+
 </section>
 {% endblock %}

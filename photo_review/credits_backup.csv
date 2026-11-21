@@ -1,0 +1,19 @@
+﻿plant_id,plant,role,image_file,author,license,license_url,source
+2,Oak,cover,plants/covers/commons-cover-2-1795288999.jpg,Basotxerri,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0,https://commons.wikimedia.org/wiki/File:Montes_de_Vitoria_-_Quercus_ilex_01.jpg
+2,Oak,gallery,plants/gallery/commons-gallery-2-0-1795288999.jpg,,CC BY-SA 3.0,http://creativecommons.org/licenses/by-sa/3.0/,https://commons.wikimedia.org/wiki/File:Quercus_robur.jpg
+2,Oak,gallery,plants/gallery/commons-gallery-2-2-1795289003.jpg,Agnes Monkelbaan,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0,"https://commons.wikimedia.org/wiki/File:Hondsrug,_De_Strubben-Kniphorstbosch_004.jpg"
+2,Oak,gallery,plants/gallery/commons-gallery-2-3-1795289005.jpg,W.carter,CC0,http://creativecommons.org/publicdomain/zero/1.0/deed.en,https://commons.wikimedia.org/wiki/File:New_oak_leaves_with_female_flowers.jpg
+3,Pine,cover,plants/covers/commons-cover-3-1795289007.jpg,Walter Siegmund,CC BY 2.5,https://creativecommons.org/licenses/by/2.5,https://commons.wikimedia.org/wiki/File:Pinus_contorta_28263.JPG
+3,Pine,gallery,plants/gallery/commons-gallery-3-0-1795289008.jpg,Walter Siegmund (talk),CC BY 2.5,https://creativecommons.org/licenses/by/2.5,https://commons.wikimedia.org/wiki/File:Pinus_ponderosa_8144t.jpg
+3,Pine,gallery,plants/gallery/commons-gallery-3-2-1795289009.jpg,Jo Simon on Flickr,CC BY 2.0,https://creativecommons.org/licenses/by/2.0,https://commons.wikimedia.org/wiki/File:Aletschgletscher_mit_Pinus_cembra1.jpg
+3,Pine,gallery,plants/gallery/commons-gallery-3-3-1795289011.jpg,Crusier,CC BY 3.0,https://creativecommons.org/licenses/by/3.0,https://commons.wikimedia.org/wiki/File:Pinus_ponderosa_subsp._ponderosa_cones_and_shoots_1.JPG
+4,Maple,cover,plants/covers/commons-cover-4-1795289014.jpg,Walter Siegmund (talk),CC BY-SA 3.0,https://creativecommons.org/licenses/by-sa/3.0,https://commons.wikimedia.org/wiki/File:Acer_circinatum_9468.JPG
+4,Maple,gallery,plants/gallery/commons-gallery-4-1-1795289016.jpg,Dnalor 01,CC BY-SA 3.0 at,https://creativecommons.org/licenses/by-sa/3.0/at/deed.en,https://commons.wikimedia.org/wiki/File:Ahornbl%C3%A4tter_(Acer)_im_Herbst.jpg
+4,Maple,gallery,plants/gallery/commons-gallery-4-2-1795289017.jpg,Dominicus Johannes Bergsma,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0,"https://commons.wikimedia.org/wiki/File:Prachtig_uitlopend_blad_van_een_esdoorn_(Acer)._Locatie,_Locatie,_De_Famberhorst_01.jpg"
+4,Maple,gallery,plants/gallery/commons-gallery-4-3-1795289018.jpg,Robert Flogaus-Faust,CC BY 4.0,https://creativecommons.org/licenses/by/4.0,https://commons.wikimedia.org/wiki/File:Acer_campestre_2_RF.jpg
+5,Birch,cover,plants/covers/commons-cover-5-1795289020.jpg,Willow,CC BY 2.5,https://creativecommons.org/licenses/by/2.5,https://commons.wikimedia.org/wiki/File:Betula_pubescens_-_Burgwald_001.jpg
+5,Birch,gallery,plants/gallery/commons-gallery-5-3-1795289024.jpg,George Chernilevsky,Public domain,,https://commons.wikimedia.org/wiki/File:Birchwood_Slavnoe_2012_G1.jpg
+6,Willow,cover,plants/covers/commons-cover-6-1795289025.jpg,Bruce Marlin,CC BY 3.0,https://creativecommons.org/licenses/by/3.0,https://commons.wikimedia.org/wiki/File:Salix_alba_Morton.jpg
+6,Willow,gallery,plants/gallery/commons-gallery-6-1-1795289026.jpg,Richard Bartz,CC BY-SA 2.5,https://creativecommons.org/licenses/by-sa/2.5,https://commons.wikimedia.org/wiki/File:Inachis_io_on_Salix_caprea.jpg
+6,Willow,gallery,plants/gallery/commons-gallery-6-2-1795289028.jpg,Bernie,Public domain,,https://commons.wikimedia.org/wiki/File:Salix_caprea_02.jpg
+6,Willow,gallery,plants/gallery/commons-gallery-6-3-1795289032.jpg,Didier Descouens,CC BY-SA 4.0,https://creativecommons.org/licenses/by-sa/4.0,https://commons.wikimedia.org/wiki/File:Salix_caprea_Male.jpg

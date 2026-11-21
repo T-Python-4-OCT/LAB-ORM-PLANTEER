@@ -1,5 +1,7 @@
 
 from django import forms
+from django.forms import inlineformset_factory
+
 from .models import Plant, Comment, PlantImage
 
 
@@ -47,3 +49,21 @@ class PlantImageForm(forms.ModelForm):
     class Meta:
         model = PlantImage
         fields = ["image", "alt_text", "position"]
+
+        widgets = {
+            "alt_text": forms.TextInput(attrs={
+                "placeholder": "Image description (optional)"
+            }),
+            "position": forms.NumberInput(attrs={
+                "min": 0
+            }),
+        }
+
+
+PlantImageFormSet = inlineformset_factory(
+    Plant,
+    PlantImage,
+    form=PlantImageForm,
+    extra=3,
+    can_delete=True,
+)

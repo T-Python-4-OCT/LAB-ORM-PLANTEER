@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -8,59 +9,455 @@
 {% endblock %}
 
 {% block content %}
-<section class="container plant-form-page">
 
-    <div class="plant-form-wrapper">
-        <h1>{{ page_title }}</h1>
+<section class="plant-form-page container">
+
+    <div class="plant-editor">
+
+        <!-- Page Header -->
+        <div class="editor-header">
+            <div>
+                <a href="{% url 'plant_list' %}"
+                   class="editor-back">
+                    ← Back to plants
+                </a>
+
+                <div class="editor-heading">
+                    <span class="editor-eyebrow">
+                        PLANTEER STUDIO
+                    </span>
+
+                    <h1>{{ page_title }}</h1>
+
+                    <p>
+                        Add plant information, upload beautiful
+                        photographs, and share your knowledge
+                        with the community.
+                    </p>
+                </div>
+            </div>
+
+            <span class="editor-mode">
+                {% if plant %}
+                    Editing plant
+                {% else %}
+                    New plant
+                {% endif %}
+            </span>
+        </div>
 
         <form method="post"
               enctype="multipart/form-data"
               class="plant-form"
+              id="plant-editor-form"
               novalidate>
+
             {% csrf_token %}
 
-            {% for field in form %}
-                <div class="form-field">
-                    <label for="{{ field.id_for_label }}">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field }}
-
-                    {% if field.help_text %}
-                        <small>{{ field.help_text }}</small>
-                    {% endif %}
-
-                    {% for error in field.errors %}
-                        <p class="field-error">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-
-            {% for error in form.non_field_errors %}
-                <p class="field-error">{{ error }}</p>
-            {% endfor %}
-
-            {% if plant and plant.image %}
-                <div class="current-cover">
-                    <p>Current Cover</p>
-                    <img src="{{ plant.image.url }}"
-                         alt="{{ plant.name }}">
+            {% if form.non_field_errors %}
+                <div class="editor-alert" role="alert">
+                    {{ form.non_field_errors }}
                 </div>
             {% endif %}
 
-            <div class="form-actions">
-                <button type="submit" class="primary-button">
-                    {{ submit_label }}
-                </button>
+            {% if image_formset.non_form_errors %}
+                <div class="editor-alert" role="alert">
+                    {{ image_formset.non_form_errors }}
+                </div>
+            {% endif %}
 
-                <a href="{% url 'plant_list' %}"
-                   class="outline-button">
-                    Cancel
-                </a>
+            <div class="editor-layout">
+
+                <!-- LEFT COLUMN -->
+                <div class="editor-main">
+
+                    <!-- Basic Information -->
+                    <section class="editor-card">
+
+                        <div class="editor-card-header">
+                            <span class="editor-step">01</span>
+
+                            <div>
+                                <h2>Basic Information</h2>
+                                <p>
+                                    Tell us about your plant.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="editor-card-body">
+
+                            {% for field in form %}
+
+                                {% if field.name == "name" %}
+                                    <div class="editor-field">
+                                        <label for="{{ field.id_for_label }}">
+                                            Plant Name
+                                            <span class="required-mark">*</span>
+                                        </label>
+
+                                        {{ field }}
+
+                                        {% for error in field.errors %}
+                                            <p class="field-error">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for field in form %}
+
+                                {% if field.name == "category" %}
+                                    <div class="editor-field">
+                                        <label for="{{ field.id_for_label }}">
+                                            Category
+                                            <span class="required-mark">*</span>
+                                        </label>
+
+                                        {{ field }}
+
+                                        {% for error in field.errors %}
+                                            <p class="field-error">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for field in form %}
+
+                                {% if field.name == "about" %}
+                                    <div class="editor-field">
+                                        <label for="{{ field.id_for_label }}">
+                                            About the Plant
+                                            <span class="required-mark">*</span>
+                                        </label>
+
+                                        <p class="editor-field-hint">
+                                            Describe its appearance,
+                                            characteristics, and habitat.
+                                        </p>
+
+                                        {{ field }}
+
+                                        {% for error in field.errors %}
+                                            <p class="field-error">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for field in form %}
+
+                                {% if field.name == "used_for" %}
+                                    <div class="editor-field">
+                                        <label for="{{ field.id_for_label }}">
+                                            Uses & Benefits
+                                            <span class="required-mark">*</span>
+                                        </label>
+
+                                        <p class="editor-field-hint">
+                                            Explain how this plant is commonly used.
+                                        </p>
+
+                                        {{ field }}
+
+                                        {% for error in field.errors %}
+                                            <p class="field-error">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+                    </section>
+
+                    <!-- Gallery -->
+                    <section class="editor-card">
+
+                        <div class="editor-card-header">
+                            <span class="editor-step">02</span>
+
+                            <div>
+                                <h2>Photo Gallery</h2>
+                                <p>
+                                    Add up to three new gallery images per save.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="editor-card-body">
+
+                            {{ image_formset.management_form }}
+
+                            <div class="editor-gallery-grid">
+
+                                {% for image_form in image_formset %}
+
+                                    <div class="editor-gallery-item">
+
+                                        {% for hidden in image_form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+
+                                        <div class="gallery-item-top">
+                                            <span>
+                                                {% if image_form.instance.pk %}
+                                                    Existing photo
+                                                {% else %}
+                                                    Gallery photo {{ forloop.counter }}
+                                                {% endif %}
+                                            </span>
+                                        </div>
+
+                                        <div class="gallery-upload-area"
+                                             data-gallery-upload>
+
+                                            <div class="gallery-image-preview">
+
+                                                {% if image_form.instance.pk and image_form.instance.image %}
+                                                    <img
+                                                        src="{{ image_form.instance.image.url }}"
+                                                        alt="Existing gallery image"
+                                                        data-gallery-preview>
+                                                {% else %}
+                                                    <img
+                                                        src=""
+                                                        alt="Gallery preview"
+                                                        data-gallery-preview
+                                                        hidden>
+                                                {% endif %}
+
+                                            </div>
+
+                                            <div class="gallery-upload-placeholder"
+                                                 data-gallery-placeholder
+                                                 {% if image_form.instance.pk and image_form.instance.image %}hidden{% endif %}>
+                                                <span class="gallery-upload-icon">
+                                                    +
+                                                </span>
+
+                                                <strong>Choose image</strong>
+                                                <small>JPG, PNG or WebP</small>
+                                            </div>
+
+                                            <div class="gallery-file-control">
+                                                {{ image_form.image }}
+                                            </div>
+
+                                        </div>
+
+                                        {% for error in image_form.image.errors %}
+                                            <p class="field-error">{{ error }}</p>
+                                        {% endfor %}
+
+                                        <div class="editor-field gallery-description">
+                                            <label for="{{ image_form.alt_text.id_for_label }}">
+                                                Description
+                                            </label>
+
+                                            {{ image_form.alt_text }}
+
+                                            {% for error in image_form.alt_text.errors %}
+                                                <p class="field-error">{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                        <div class="editor-field gallery-position">
+                                            <label for="{{ image_form.position.id_for_label }}">
+                                                Display Order
+                                            </label>
+
+                                            {{ image_form.position }}
+
+                                            {% for error in image_form.position.errors %}
+                                                <p class="field-error">{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                        {% if image_form.instance.pk %}
+                                            <label class="gallery-delete-label">
+                                                {{ image_form.DELETE }}
+                                                Remove this image
+                                            </label>
+                                        {% endif %}
+
+                                        {% for error in image_form.non_field_errors %}
+                                            <p class="field-error">{{ error }}</p>
+                                        {% endfor %}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- RIGHT COLUMN -->
+                <aside class="editor-sidebar">
+
+                    <!-- Cover Image -->
+                    <section class="editor-card">
+
+                        <div class="editor-card-header">
+                            <span class="editor-step">03</span>
+
+                            <div>
+                                <h2>Cover Image</h2>
+                                <p>Main plant photograph</p>
+                            </div>
+                        </div>
+
+                        <div class="editor-card-body">
+
+                            {% for field in form %}
+
+                                {% if field.name == "image" %}
+
+                                    <div class="editor-cover-upload"
+                                         id="cover-dropzone">
+
+                                        <img
+                                            id="cover-preview"
+                                            src="{% if plant and plant.image %}{{ plant.image.url }}{% endif %}"
+                                            alt="Plant cover preview"
+                                            {% if not plant or not plant.image %}hidden{% endif %}>
+
+                                        <div class="cover-placeholder"
+                                             id="cover-placeholder"
+                                             {% if plant and plant.image %}hidden{% endif %}>
+
+                                            <div class="cover-placeholder-icon">
+                                                ↑
+                                            </div>
+
+                                            <strong>
+                                                Upload cover photo
+                                            </strong>
+
+                                            <span>
+                                                Click to browse or drop an image
+                                            </span>
+
+                                            <small>
+                                                JPG, PNG or WebP
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="cover-file-control">
+                                        {{ field }}
+                                    </div>
+
+                                    {% for error in field.errors %}
+                                        <p class="field-error">{{ error }}</p>
+                                    {% endfor %}
+
+                                    {% if plant and plant.image %}
+                                        <p class="editor-help-text">
+                                            Upload a new photo to replace the current cover.
+                                        </p>
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+                    </section>
+
+                    <!-- Plant Settings -->
+                    <section class="editor-card">
+
+                        <div class="editor-card-header">
+                            <span class="editor-step">04</span>
+
+                            <div>
+                                <h2>Plant Settings</h2>
+                                <p>Additional information</p>
+                            </div>
+                        </div>
+
+                        <div class="editor-card-body">
+
+                            {% for field in form %}
+
+                                {% if field.name == "is_edible" %}
+
+                                    <label class="editor-toggle-row"
+                                           for="{{ field.id_for_label }}">
+
+                                        <span class="toggle-details">
+                                            <strong>Edible Plant</strong>
+
+                                            <small>
+                                                Can this plant be safely eaten?
+                                            </small>
+                                        </span>
+
+                                        <span class="editor-switch">
+                                            {{ field }}
+                                            <span class="editor-switch-track"></span>
+                                        </span>
+
+                                    </label>
+
+                                    {% for error in field.errors %}
+                                        <p class="field-error">{{ error }}</p>
+                                    {% endfor %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </div>
+                    </section>
+
+                    <!-- Save -->
+                    <section class="editor-card editor-save-card">
+
+                        <div class="editor-card-body">
+
+                            <h3>Ready to publish?</h3>
+
+                            <p>
+                                Review your plant information
+                                before saving.
+                            </p>
+
+                            <button type="submit"
+                                    class="editor-submit-button"
+                                    id="plant-submit-button">
+                                {{ submit_label }}
+                            </button>
+
+                            <a href="{% url 'plant_list' %}"
+                               class="editor-cancel-button">
+                                Cancel
+                            </a>
+
+                        </div>
+                    </section>
+
+                </aside>
+
             </div>
+
         </form>
+
     </div>
 
 </section>
+
+<script src="{% static 'js/plant-form.js' %}" defer></script>
+
 {% endblock %}

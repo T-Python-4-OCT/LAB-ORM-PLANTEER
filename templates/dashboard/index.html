@@ -1,0 +1,78 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Overview | Planteer{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Dashboard Overview</h1>
+        <p>Welcome back! Here's your website summary.</p>
+    </div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <span>Total Plants</span>
+        <strong>{{ stats.plants }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Registered Users</span>
+        <strong>{{ stats.users }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Comments</span>
+        <strong>{{ stats.comments }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>Messages</span>
+        <strong>{{ stats.messages }}</strong>
+    </div>
+</div>
+
+<div class="dashboard-columns">
+
+    <section class="dashboard-panel">
+        <div class="panel-heading">
+            <h2>Recent Plants</h2>
+            <a href="{% url 'dashboard_plants' %}">View All</a>
+        </div>
+
+        {% for plant in recent_plants %}
+            <div class="recent-row">
+                <div>
+                    <strong>{{ plant.name }}</strong>
+                    <span>{{ plant.get_category_display }}</span>
+                </div>
+                <a href="{% url 'plant_detail' plant.pk %}">View</a>
+            </div>
+        {% empty %}
+            <p class="empty-state">No plants yet.</p>
+        {% endfor %}
+    </section>
+
+    <section class="dashboard-panel">
+        <div class="panel-heading">
+            <h2>Recent Messages</h2>
+            <a href="{% url 'dashboard_messages' %}">View All</a>
+        </div>
+
+        {% for contact in recent_messages %}
+            <div class="recent-row">
+                <div>
+                    <strong>{{ contact.first_name }} {{ contact.last_name }}</strong>
+                    <span>{{ contact.message|truncatechars:55 }}</span>
+                </div>
+            </div>
+        {% empty %}
+            <p class="empty-state">No messages yet.</p>
+        {% endfor %}
+    </section>
+
+</div>
+
+{% endblock %}

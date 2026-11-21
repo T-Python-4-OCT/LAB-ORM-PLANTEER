@@ -1,0 +1,186 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Comments | Planteer{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Plant Comments</h1>
+        <p>Review and manage user comments.</p>
+    </div>
+</div>
+
+<!-- Search -->
+<div class="dashboard-panel dashboard-filter-panel">
+
+    <form method="get"
+          class="dashboard-filter-form dashboard-filter-form-search">
+
+        <div class="dashboard-search-field">
+            <label for="comment-search">Search Comments</label>
+
+            <input type="search"
+                   id="comment-search"
+                   name="q"
+                   value="{{ query }}"
+                   placeholder="Search comments, users or plants...">
+        </div>
+
+        <div class="dashboard-filter-actions">
+            <button type="submit" class="dashboard-button">
+                Search
+            </button>
+
+            <a href="{% url 'dashboard_comments' %}"
+               class="dashboard-reset-button">
+                Clear
+            </a>
+        </div>
+
+    </form>
+</div>
+
+<!-- Comments Table -->
+<div class="dashboard-panel table-panel">
+
+    <div class="dashboard-table-header">
+        <div>
+            <h2>All Comments</h2>
+            <p>{{ total_results }} comments found</p>
+        </div>
+
+        <span class="dashboard-page-count">
+            Page {{ page_obj.number }}
+            of {{ page_obj.paginator.num_pages }}
+        </span>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="dashboard-data-table">
+
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Plant</th>
+                    <th>Comment</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>
+                            <div class="dashboard-user-cell">
+
+                                <div class="dashboard-user-avatar">
+                                    {{ comment.user.username|first|upper }}
+                                </div>
+
+                                <div class="dashboard-user-details">
+                                    <strong>
+                                        {{ comment.user.username }}
+                                    </strong>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <a href="{% url 'plant_detail' comment.plant.pk %}"
+                               class="dashboard-plant-link">
+                                {{ comment.plant.name }}
+                            </a>
+                        </td>
+
+                        <td class="dashboard-comment-text">
+                            {{ comment.content|truncatechars:110 }}
+                        </td>
+
+                        <td class="dashboard-date-cell">
+                            {{ comment.created_at|date:"M d, Y" }}
+                        </td>
+
+                        <td>
+                            <div class="dashboard-row-actions">
+
+                                <a href="{% url 'plant_detail' comment.plant.pk %}"
+                                   class="dashboard-action-view">
+                                    View
+                                </a>
+
+                                <form method="post"
+                                      action="{% url 'dashboard_comment_delete' comment.pk %}"
+                                      class="inline-delete-form"
+                                      onsubmit="return confirm('Delete this comment?');">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit"
+                                            class="delete-action">
+                                        Delete
+                                    </button>
+
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            No comments found.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="dashboard-pagination-wrapper">
+
+        <p class="dashboard-pagination-info">
+            Showing {{ page_obj.start_index }}–{{ page_obj.end_index }}
+            of {{ total_results }}
+        </p>
+
+        <nav class="dashboard-pagination"
+             aria-label="Comments pagination">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ query|urlencode }}">
+                    Previous
+                </a>
+            {% endif %}
+
+            {% for number in page_obj.paginator.page_range %}
+                {% if number == page_obj.number %}
+                    <span class="active-page" aria-current="page">
+                        {{ number }}
+                    </span>
+                {% else %}
+                    <a href="?page={{ number }}&q={{ query|urlencode }}">
+                        {{ number }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&q={{ query|urlencode }}">
+                    Next
+                </a>
+            {% endif %}
+
+        </nav>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

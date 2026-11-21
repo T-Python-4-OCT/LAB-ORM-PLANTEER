@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -10,84 +11,66 @@
 
 {% block content %}
 
-<!-- Hero -->
-<section class="home-hero">
-    <div class="container hero-layout">
+<section class="container home-page">
 
+    <div class="home-hero">
         <div class="hero-content">
-            <h1>Plant Database For Plant Lovers</h1>
-
-            <p>
-                Discover plants, explore their benefits,
-                and learn more about the natural world.
-            </p>
+            <h1>Planteer</h1>
+            <h2>Plant Database For Plants Lovers</h2>
 
             <form action="{% url 'plant_search' %}"
                   method="get"
                   class="hero-search">
 
-                <input
-                    type="search"
-                    name="q"
-                    placeholder="Search For Plant..."
-                    aria-label="Search for a plant"
-                    required>
+                <input type="search"
+                       name="q"
+                       placeholder="Search For Plant..."
+                       aria-label="Search for a plant"
+                       required>
 
-                <button type="submit">
-                    Search
-                </button>
+                <button type="submit">Search</button>
             </form>
         </div>
+    </div>
 
-        <div class="hero-image">
-            <img src="{% static 'images/hero-plant.jpg' %}"
-                 alt="Green plant">
+    <section class="home-plants">
+
+        <div class="home-section-heading">
+            <div>
+                <h2>Plants</h2>
+                <p>Learn more about plants</p>
+            </div>
+
+            <a href="{% url 'plant_list' %}">
+                More →
+            </a>
         </div>
 
-    </div>
-</section>
+        <div class="plants-grid">
+            {% for plant in plants %}
+                <article class="plant-card">
+                    <a href="{% url 'plant_detail' plant.pk %}">
 
-<!-- Plants -->
-<section class="home-plants container">
+                        {% if plant.image %}
+                            <img src="{{ plant.image.url }}"
+                                 alt="{{ plant.name }}"
+                                 class="plant-card-image"
+                                 loading="lazy">
+                        {% endif %}
 
-    <div class="home-section-heading">
-        <h2>Plants</h2>
+                        <h3>{{ plant.name }}</h3>
 
-        <a href="{% url 'plant_list' %}">
-            View All Plants
-        </a>
-    </div>
+                        <p>{{ plant.about|truncatewords:12 }}</p>
 
-    <div class="plants-grid">
-        {% for plant in plants %}
+                        <span>{{ plant.get_category_display }}</span>
+                    </a>
+                </article>
+            {% empty %}
+                <p>No plants added yet.</p>
+            {% endfor %}
+        </div>
 
-            <article class="plant-card">
-                <a href="{% url 'plant_detail' plant.pk %}">
-
-                    {% if plant.image %}
-                        <img
-                            src="{{ plant.image.url }}"
-                            alt="{{ plant.name }}"
-                            class="plant-card-image"
-                            loading="lazy">
-                    {% endif %}
-
-                    <h3>{{ plant.name }}</h3>
-
-                    <p>
-                        {{ plant.about|truncatewords:15 }}
-                    </p>
-
-                    <span>
-                        {{ plant.get_category_display }}
-                    </span>
-                </a>
-            </article>
-
-        {% empty %}
-            <p>No plants added yet.</p>
-        {% endfor %}
-    </div>
+    </section>
 
 </section>
 

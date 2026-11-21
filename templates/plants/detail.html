@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% load static %}
 
@@ -6,94 +7,158 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/plants.css' %}">
 <link rel="stylesheet" href="{% static 'css/plant-detail.css' %}">
-<link rel="stylesheet" href="{% static 'css/forms.css' %}">
 {% endblock %}
 
 {% block content %}
+
 <section class="container plant-detail-page">
 
+    <!-- Main Plant Details -->
     <div class="plant-detail-top">
 
+        <!-- Left: Plant Images -->
         <div class="plant-photo-section">
-            {% if plant.image %}
-                <img src="{{ plant.image.url }}"
-                     alt="{{ plant.name }}"
-                     class="plant-main-image">
-            {% endif %}
+
+            <div class="plant-cover">
+                {% if plant.image %}
+                    <img
+                        src="{{ plant.image.url }}"
+                        alt="{{ plant.name }}"
+                        id="mainPlantImage"
+                        class="plant-main-image">
+                {% endif %}
+            </div>
 
             {% if images %}
                 <div class="plant-gallery">
+
+                    {% if plant.image %}
+                        <button type="button"
+                                class="gallery-thumb active"
+                                data-image="{{ plant.image.url }}"
+                                aria-label="View cover image">
+                            <img src="{{ plant.image.url }}"
+                                 alt="{{ plant.name }}">
+                        </button>
+                    {% endif %}
+
                     {% for photo in images %}
-                        <img src="{{ photo.image.url }}"
-                             alt="{{ photo.alt_text|default:plant.name }}"
-                             loading="lazy">
+                        <button type="button"
+                                class="gallery-thumb"
+                                data-image="{{ photo.image.url }}"
+                                aria-label="View gallery image">
+                            <img
+                                src="{{ photo.image.url }}"
+                                alt="{{ photo.alt_text|default:plant.name }}"
+                                loading="lazy">
+                        </button>
                     {% endfor %}
+
                 </div>
             {% endif %}
+
         </div>
 
+        <!-- Right: Plant Information -->
         <div class="plant-information">
+
             <h1>{{ plant.name }}</h1>
 
             <p class="plant-category">
                 {{ plant.get_category_display }}
             </p>
 
-            <p class="plant-about">{{ plant.about|linebreaksbr }}</p>
+            <div class="plant-description">
+                {{ plant.about|linebreaks }}
+            </div>
 
-            <dl class="plant-facts">
-                <dt>Native to:</dt>
-                <dd>Not specified</dd>
+            <div class="plant-facts">
 
-                <dt>Is Edible:</dt>
-                <dd>
-                    {% if plant.is_edible %}Yes{% else %}No{% endif %}
-                </dd>
+                <div class="plant-fact">
+                    <strong>Is Edible:</strong>
+                    <span>
+                        {% if plant.is_edible %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </span>
+                </div>
 
-                <dt>Used For:</dt>
-                <dd>{{ plant.used_for|linebreaksbr }}</dd>
+                <div class="plant-fact used-for">
+                    <strong>Used For:</strong>
+                    <div>{{ plant.used_for|linebreaks }}</div>
+                </div>
 
-                <dt>Added By:</dt>
-                <dd>
-                    {% if plant.created_by %}
-                        {{ plant.created_by.get_full_name|default:plant.created_by.username }}
-                    {% else %}
-                        Unknown
-                    {% endif %}
-                </dd>
-            </dl>
+                <div class="plant-fact">
+                    <strong>Added By:</strong>
+                    <span>
+                        {% if plant.created_by %}
+                            {{ plant.created_by.get_full_name|default:plant.created_by.username }}
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </span>
+                </div>
+
+                <div class="plant-fact">
+                    <strong>Added On:</strong>
+                    <span>{{ plant.created_at|date:"M d, Y" }}</span>
+                </div>
+
+            </div>
 
             {% if user.is_authenticated %}
-                {% if user.is_superuser or user == plant.created_by %}
+                {% if user.is_staff or user == plant.created_by %}
                     <div class="plant-owner-actions">
                         <a href="{% url 'plant_update' plant.pk %}"
-                           class="primary-button">Edit Plant</a>
+                           class="plant-edit-button">
+                            Edit Plant
+                        </a>
 
                         <a href="{% url 'plant_delete' plant.pk %}"
-                           class="outline-button">Delete Plant</a>
+                           class="plant-delete-button">
+                            Delete Plant
+                        </a>
                     </div>
                 {% endif %}
             {% endif %}
+
         </div>
 
     </div>
 
+    <!-- Comments -->
     <section class="plant-comments-section">
-        <h2>Comments</h2>
+
+        <div class="section-heading">
+            <h2>Comments</h2>
+            <span>{{ comments|length }} comments</span>
+        </div>
 
         <div class="comments-list">
             {% for comment in comments %}
+
                 <article class="comment-card">
-                    <div class="comment-header">
-                        <strong>
-                            {{ comment.user.get_full_name|default:comment.user.username }}
-                        </strong>
-                        <time datetime="{{ comment.created_at|date:'c' }}">
-                            {{ comment.created_at|date:"M d, Y" }}
-                        </time>
+                    <div class="comment-avatar">
+                        {{ comment.user.username|first|upper }}
                     </div>
-                    <p>{{ comment.content|linebreaksbr }}</p>
+
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <strong>
+                                {{ comment.user.get_full_name|default:comment.user.username }}
+                            </strong>
+
+                            <time datetime="{{ comment.created_at|date:'c' }}">
+                                {{ comment.created_at|date:"M d, Y" }}
+                            </time>
+                        </div>
+
+                        <p>{{ comment.content|linebreaksbr }}</p>
+                    </div>
                 </article>
+
             {% empty %}
                 <p class="empty-message">
                     No comments yet. Be the first to comment.
@@ -102,55 +167,92 @@
         </div>
 
         {% if user.is_authenticated %}
+
             <div class="comment-form">
-                <h3>Write a Comment</h3>
+                <h3>Leave a Comment</h3>
 
                 <form method="post"
                       action="{% url 'add_comment' plant.pk %}">
                     {% csrf_token %}
 
-                    {{ comment_form.content }}
-                    {{ comment_form.content.errors }}
+                    <label for="{{ comment_form.content.id_for_label }}">
+                        Your Comment
+                    </label>
 
-                    <button type="submit" class="primary-button">
+                    {{ comment_form.content }}
+
+                    {% for error in comment_form.content.errors %}
+                        <p class="field-error">{{ error }}</p>
+                    {% endfor %}
+
+                    <button type="submit" class="comment-submit">
                         Post Comment
                     </button>
                 </form>
             </div>
+
         {% else %}
+
             <p class="login-notice">
+                Please
                 <a href="{% url 'login' %}?next={{ request.path|urlencode }}">
-                    Login
+                    login
                 </a>
                 to leave a comment.
             </p>
+
         {% endif %}
+
     </section>
 
+    <!-- Related Plants -->
     <section class="related-section">
-        <h2>Related Plants</h2>
+
+        <div class="section-heading">
+            <h2>Related Plants</h2>
+            <a href="{% url 'plant_list' %}">View All →</a>
+        </div>
 
         <div class="plants-grid">
             {% for related in related_plants %}
+
                 <article class="plant-card">
                     <a href="{% url 'plant_detail' related.pk %}">
+
                         {% if related.image %}
-                            <img src="{{ related.image.url }}"
-                                 alt="{{ related.name }}"
-                                 class="plant-card-image"
-                                 loading="lazy">
+                            <img
+                                src="{{ related.image.url }}"
+                                alt="{{ related.name }}"
+                                class="plant-card-image"
+                                loading="lazy">
                         {% endif %}
 
                         <h3>{{ related.name }}</h3>
-                        <p>{{ related.about|truncatewords:12 }}</p>
-                        <span>{{ related.get_category_display }}</span>
+
+                        <p>
+                            {{ related.about|truncatewords:12 }}
+                        </p>
+
+                        <span>
+                            {{ related.get_category_display }}
+                        </span>
+
                     </a>
                 </article>
+
             {% empty %}
-                <p>No related plants yet.</p>
+                <p class="empty-message">
+                    No related plants found.
+                </p>
             {% endfor %}
         </div>
+
     </section>
 
 </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/plant-detail.js' %}" defer></script>
 {% endblock %}

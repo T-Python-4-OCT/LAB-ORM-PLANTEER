@@ -1,0 +1,1304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Planteer Photo Review</title>
+
+<style>
+:root {
+    --primary: #315a40;
+    --background: #f4f7f4;
+    --border: #dfe7df;
+    --text: #1c2c20;
+    --muted: #718075;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+header h1 {
+    margin: 0 0 7px;
+    font-size: 25px;
+}
+
+header p {
+    margin: 0;
+    color: var(--muted);
+}
+
+button {
+    background: var(--primary);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 13px 22px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+main {
+    width: min(1550px, 94%);
+    margin: 35px auto;
+}
+
+.plant-section {
+    background: white;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 28px;
+}
+
+.plant-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.plant-heading h2 {
+    margin: 0 0 5px;
+}
+
+.plant-heading p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.selection-count {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.photo-card {
+    min-width: 0;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+.photo-card > img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.photo-content strong {
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.photo-content small {
+    color: var(--muted);
+}
+
+.photo-content a {
+    color: var(--primary);
+    font-size: 13px;
+}
+
+.cover-option,
+.gallery-option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cover-option {
+    background: #edf3ed;
+}
+
+.gallery-option {
+    background: #f6f7fa;
+}
+
+input {
+    accent-color: var(--primary);
+}
+
+.empty {
+    color: var(--muted);
+}
+
+@media (max-width: 950px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>Planteer Photo Review</h1>
+        <p>
+            Choose one Cover and up to 3 Gallery images.
+        </p>
+    </div>
+
+    <button onclick="exportSelections()">
+        Export Selections CSV
+    </button>
+</header>
+
+<main>
+
+            <section class="plant-section"
+                     data-plant-id="2">
+
+                <div class="plant-heading">
+                    <div>
+                        <h2>Oak</h2>
+                        <p>Plant ID: 2</p>
+                    </div>
+                    <span class="selection-count">
+                        0 gallery photos
+                    </span>
+                </div>
+
+                <div class="photo-grid">
+                    
+                <article class="photo-card">
+
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/a/af/Quercus_robur.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail_unscaled"
+                        alt="File:Quercus robur.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Quercus robur.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 3.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Quercus_robur.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-2"
+                                value="0">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-2"
+                                value="0">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Montes_de_Vitoria_-_Quercus_ilex_01.jpg/960px-Montes_de_Vitoria_-_Quercus_ilex_01.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Montes de Vitoria - Quercus ilex 01.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Montes de Vitoria - Quercus ilex 01.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 4.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Montes_de_Vitoria_-_Quercus_ilex_01.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-2"
+                                value="1">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-2"
+                                value="1">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Hondsrug%2C_De_Strubben-Kniphorstbosch_004.jpg/960px-Hondsrug%2C_De_Strubben-Kniphorstbosch_004.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Hondsrug, De Strubben-Kniphorstbosch 004.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Hondsrug, De Strubben-Kniphorstbosch 004.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 4.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Hondsrug,_De_Strubben-Kniphorstbosch_004.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-2"
+                                value="2">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-2"
+                                value="2">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/New_oak_leaves_with_female_flowers.jpg/960px-New_oak_leaves_with_female_flowers.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:New oak leaves with female flowers.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:New oak leaves with female flowers.jpg
+                        </strong>
+
+                        <small>
+                            CC0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:New_oak_leaves_with_female_flowers.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-2"
+                                value="3">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-2"
+                                value="3">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                </div>
+
+            </section>
+            
+
+            <section class="plant-section"
+                     data-plant-id="3">
+
+                <div class="plant-heading">
+                    <div>
+                        <h2>Pine</h2>
+                        <p>Plant ID: 3</p>
+                    </div>
+                    <span class="selection-count">
+                        0 gallery photos
+                    </span>
+                </div>
+
+                <div class="photo-grid">
+                    
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Pinus_ponderosa_8144t.jpg/960px-Pinus_ponderosa_8144t.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Pinus ponderosa 8144t.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Pinus ponderosa 8144t.jpg
+                        </strong>
+
+                        <small>
+                            CC BY 2.5
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Pinus_ponderosa_8144t.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-3"
+                                value="0">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-3"
+                                value="0">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Pinus_contorta_28263.JPG/960px-Pinus_contorta_28263.JPG?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Pinus contorta 28263.JPG"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Pinus contorta 28263.JPG
+                        </strong>
+
+                        <small>
+                            CC BY 2.5
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Pinus_contorta_28263.JPG"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-3"
+                                value="1">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-3"
+                                value="1">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Aletschgletscher_mit_Pinus_cembra1.jpg/960px-Aletschgletscher_mit_Pinus_cembra1.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Aletschgletscher mit Pinus cembra1.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Aletschgletscher mit Pinus cembra1.jpg
+                        </strong>
+
+                        <small>
+                            CC BY 2.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Aletschgletscher_mit_Pinus_cembra1.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-3"
+                                value="2">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-3"
+                                value="2">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Pinus_ponderosa_subsp._ponderosa_cones_and_shoots_1.JPG/960px-Pinus_ponderosa_subsp._ponderosa_cones_and_shoots_1.JPG?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Pinus ponderosa subsp. ponderosa cones and shoots 1.JPG"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Pinus ponderosa subsp. ponderosa cones and shoots 1.JPG
+                        </strong>
+
+                        <small>
+                            CC BY 3.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Pinus_ponderosa_subsp._ponderosa_cones_and_shoots_1.JPG"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-3"
+                                value="3">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-3"
+                                value="3">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                </div>
+
+            </section>
+            
+
+            <section class="plant-section"
+                     data-plant-id="4">
+
+                <div class="plant-heading">
+                    <div>
+                        <h2>Maple</h2>
+                        <p>Plant ID: 4</p>
+                    </div>
+                    <span class="selection-count">
+                        0 gallery photos
+                    </span>
+                </div>
+
+                <div class="photo-grid">
+                    
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Acer_circinatum_9468.JPG/960px-Acer_circinatum_9468.JPG?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Acer circinatum 9468.JPG"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Acer circinatum 9468.JPG
+                        </strong>
+
+                        <small>
+                            CC BY-SA 3.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Acer_circinatum_9468.JPG"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-4"
+                                value="0">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-4"
+                                value="0">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Ahornbl%C3%A4tter_%28Acer%29_im_Herbst.jpg/960px-Ahornbl%C3%A4tter_%28Acer%29_im_Herbst.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Ahornblätter (Acer) im Herbst.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Ahornblätter (Acer) im Herbst.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 3.0 at
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Ahornbl%C3%A4tter_(Acer)_im_Herbst.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-4"
+                                value="1">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-4"
+                                value="1">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Prachtig_uitlopend_blad_van_een_esdoorn_%28Acer%29._Locatie%2C_Locatie%2C_De_Famberhorst_01.jpg/960px-Prachtig_uitlopend_blad_van_een_esdoorn_%28Acer%29._Locatie%2C_Locatie%2C_De_Famberhorst_01.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Prachtig uitlopend blad van een esdoorn (Acer). Locatie, Locatie, De Famberhorst 01.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Prachtig uitlopend blad van een esdoorn (Acer). Locatie, Locatie, De Famberhorst 01.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 4.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Prachtig_uitlopend_blad_van_een_esdoorn_(Acer)._Locatie,_Locatie,_De_Famberhorst_01.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-4"
+                                value="2">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-4"
+                                value="2">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Acer_campestre_2_RF.jpg/960px-Acer_campestre_2_RF.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Acer campestre 2 RF.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Acer campestre 2 RF.jpg
+                        </strong>
+
+                        <small>
+                            CC BY 4.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Acer_campestre_2_RF.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-4"
+                                value="3">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-4"
+                                value="3">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                </div>
+
+            </section>
+            
+
+            <section class="plant-section"
+                     data-plant-id="5">
+
+                <div class="plant-heading">
+                    <div>
+                        <h2>Birch</h2>
+                        <p>Plant ID: 5</p>
+                    </div>
+                    <span class="selection-count">
+                        0 gallery photos
+                    </span>
+                </div>
+
+                <div class="photo-grid">
+                    
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Coccinella_septempunctata_couple_%28aka%29.jpg/960px-Coccinella_septempunctata_couple_%28aka%29.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Coccinella septempunctata couple (aka).jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Coccinella septempunctata couple (aka).jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 2.5
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Coccinella_septempunctata_couple_(aka).jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-5"
+                                value="0">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-5"
+                                value="0">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Betula_pubescens_-_Burgwald_001.jpg/960px-Betula_pubescens_-_Burgwald_001.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Betula pubescens - Burgwald 001.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Betula pubescens - Burgwald 001.jpg
+                        </strong>
+
+                        <small>
+                            CC BY 2.5
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Betula_pubescens_-_Burgwald_001.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-5"
+                                value="1">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-5"
+                                value="1">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Betula_pubescens_-_Burgwald_002.jpg/960px-Betula_pubescens_-_Burgwald_002.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Betula pubescens - Burgwald 002.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Betula pubescens - Burgwald 002.jpg
+                        </strong>
+
+                        <small>
+                            CC BY 2.5
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Betula_pubescens_-_Burgwald_002.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-5"
+                                value="2">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-5"
+                                value="2">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Birchwood_Slavnoe_2012_G1.jpg/960px-Birchwood_Slavnoe_2012_G1.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Birchwood Slavnoe 2012 G1.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Birchwood Slavnoe 2012 G1.jpg
+                        </strong>
+
+                        <small>
+                            Public domain
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Birchwood_Slavnoe_2012_G1.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-5"
+                                value="3">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-5"
+                                value="3">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                </div>
+
+            </section>
+            
+
+            <section class="plant-section"
+                     data-plant-id="6">
+
+                <div class="plant-heading">
+                    <div>
+                        <h2>Willow</h2>
+                        <p>Plant ID: 6</p>
+                    </div>
+                    <span class="selection-count">
+                        0 gallery photos
+                    </span>
+                </div>
+
+                <div class="photo-grid">
+                    
+                <article class="photo-card">
+
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/0/00/Salix_alba_Morton.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail_unscaled"
+                        alt="File:Salix alba Morton.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Salix alba Morton.jpg
+                        </strong>
+
+                        <small>
+                            CC BY 3.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Salix_alba_Morton.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-6"
+                                value="0">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-6"
+                                value="0">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Inachis_io_on_Salix_caprea.jpg/960px-Inachis_io_on_Salix_caprea.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Inachis io on Salix caprea.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Inachis io on Salix caprea.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 2.5
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Inachis_io_on_Salix_caprea.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-6"
+                                value="1">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-6"
+                                value="1">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Salix_caprea_02.jpg/960px-Salix_caprea_02.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Salix caprea 02.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Salix caprea 02.jpg
+                        </strong>
+
+                        <small>
+                            Public domain
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Salix_caprea_02.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-6"
+                                value="2">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-6"
+                                value="2">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                <article class="photo-card">
+
+                    <img
+                        src="https://thumb.wikimedia.org/wikipedia/commons/thumb/2/28/Salix_caprea_Male.jpg/960px-Salix_caprea_Male.jpg?utm_source=commons.wikimedia.org&amp;utm_campaign=imageinfo&amp;utm_content=thumbnail"
+                        alt="File:Salix caprea Male.jpg"
+                        loading="lazy">
+
+                    <div class="photo-content">
+
+                        <strong>
+                            File:Salix caprea Male.jpg
+                        </strong>
+
+                        <small>
+                            CC BY-SA 4.0
+                        </small>
+
+                        <a
+                            href="https://commons.wikimedia.org/wiki/File:Salix_caprea_Male.jpg"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            View Source
+                        </a>
+
+                        <label class="cover-option">
+                            <input
+                                type="radio"
+                                name="cover-6"
+                                value="3">
+                            Main Cover
+                        </label>
+
+                        <label class="gallery-option">
+                            <input
+                                type="checkbox"
+                                name="gallery-6"
+                                value="3">
+                            Add to Gallery
+                        </label>
+
+                    </div>
+                </article>
+                
+                </div>
+
+            </section>
+            
+</main>
+
+<script>
+document.querySelectorAll(
+    ".plant-section"
+).forEach(section => {
+
+    const covers = section.querySelectorAll(
+        'input[type="radio"]'
+    );
+
+    const galleries = section.querySelectorAll(
+        'input[type="checkbox"]'
+    );
+
+    function updateCount() {
+        const selected = [...galleries].filter(
+            input => input.checked
+        );
+
+        section.querySelector(
+            ".selection-count"
+        ).textContent =
+            selected.length + " gallery photos";
+    }
+
+    covers.forEach(cover => {
+        cover.addEventListener("change", () => {
+            galleries.forEach(gallery => {
+                if (gallery.value === cover.value) {
+                    gallery.checked = false;
+                }
+            });
+
+            updateCount();
+        });
+    });
+
+    galleries.forEach(gallery => {
+        gallery.addEventListener("change", () => {
+
+            const selectedCover = section.querySelector(
+                'input[type="radio"]:checked'
+            );
+
+            if (
+                selectedCover &&
+                selectedCover.value === gallery.value &&
+                gallery.checked
+            ) {
+                gallery.checked = false;
+
+                alert(
+                    "The cover image cannot also be in the gallery."
+                );
+            }
+
+            const selected = [...galleries].filter(
+                input => input.checked
+            );
+
+            if (selected.length > 3) {
+                gallery.checked = false;
+
+                alert(
+                    "Maximum 3 gallery images per plant."
+                );
+            }
+
+            updateCount();
+        });
+    });
+});
+
+
+function exportSelections() {
+    const rows = [
+        ["plant_id", "cover_index", "gallery_indices"]
+    ];
+
+    document.querySelectorAll(
+        ".plant-section"
+    ).forEach(section => {
+
+        const plantId = section.dataset.plantId;
+
+        const cover = section.querySelector(
+            'input[type="radio"]:checked'
+        );
+
+        const galleries = [
+            ...section.querySelectorAll(
+                'input[type="checkbox"]:checked'
+            )
+        ].map(input => input.value);
+
+        if (!cover && galleries.length === 0) {
+            return;
+        }
+
+        if (!cover) {
+            alert(
+                "Select a main Cover for plant ID " + plantId
+            );
+            throw new Error("Missing cover");
+        }
+
+        rows.push([
+            plantId,
+            cover.value,
+            galleries.join("|")
+        ]);
+    });
+
+    if (rows.length === 1) {
+        alert("Please select at least one plant.");
+        return;
+    }
+
+    const content = rows.map(
+        row => row.join(",")
+    ).join("\r\n");
+
+    const blob = new Blob(
+        [content],
+        {type: "text/csv;charset=utf-8"}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "selections.csv";
+    link.click();
+
+    setTimeout(
+        () => URL.revokeObjectURL(url),
+        1000
+    );
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Users | Planteer{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Registered Users</h1>
+        <p>Search and browse Planteer members.</p>
+    </div>
+</div>
+
+<!-- Search and Filters -->
+<div class="dashboard-panel dashboard-filter-panel">
+    <form method="get"
+          class="dashboard-filter-form dashboard-filter-form-simple">
+
+        <div class="dashboard-search-field">
+            <label for="user-search">Search Users</label>
+
+            <input type="search"
+                   id="user-search"
+                   name="q"
+                   value="{{ query }}"
+                   placeholder="Search by username, name or email...">
+        </div>
+
+        <div class="dashboard-select-field">
+            <label for="role-filter">Role</label>
+
+            <select id="role-filter" name="role">
+                <option value="">All Roles</option>
+
+                <option value="staff"
+                    {% if selected_role == "staff" %}selected{% endif %}>
+                    Staff
+                </option>
+
+                <option value="regular"
+                    {% if selected_role == "regular" %}selected{% endif %}>
+                    Members
+                </option>
+            </select>
+        </div>
+
+        <div class="dashboard-filter-actions">
+            <button type="submit" class="dashboard-button">
+                Search
+            </button>
+
+            <a href="{% url 'dashboard_users' %}"
+               class="dashboard-reset-button">
+                Clear
+            </a>
+        </div>
+
+    </form>
+</div>
+
+<!-- Users Table -->
+<div class="dashboard-panel table-panel">
+
+    <div class="dashboard-table-header">
+        <div>
+            <h2>All Users</h2>
+            <p>{{ total_results }} users found</p>
+        </div>
+
+        <span class="dashboard-page-count">
+            Page {{ page_obj.number }}
+            of {{ page_obj.paginator.num_pages }}
+        </span>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="dashboard-data-table">
+
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Plants</th>
+                    <th>Role</th>
+                    <th>Joined</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for member in users %}
+                    <tr>
+                        <td>
+                            <div class="dashboard-user-cell">
+
+                                <div class="dashboard-user-avatar">
+                                    {{ member.username|first|upper }}
+                                </div>
+
+                                <div class="dashboard-user-details">
+                                    <strong>{{ member.username }}</strong>
+
+                                    {% if member.first_name or member.last_name %}
+                                        <small>{{ member.get_full_name }}</small>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            {% if member.email %}
+                                <a href="mailto:{{ member.email }}"
+                                   class="dashboard-email-link">
+                                    {{ member.email }}
+                                </a>
+                            {% else %}
+                                <span class="dashboard-muted">—</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <span class="dashboard-count">
+                                {{ member.plants_count }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if member.is_superuser %}
+                                <span class="dashboard-role dashboard-role-admin">
+                                    Superuser
+                                </span>
+                            {% elif member.is_staff %}
+                                <span class="dashboard-role dashboard-role-staff">
+                                    Staff
+                                </span>
+                            {% else %}
+                                <span class="dashboard-role dashboard-role-member">
+                                    Member
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ member.date_joined|date:"M d, Y" }}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            No users found.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="dashboard-pagination-wrapper">
+
+        <p class="dashboard-pagination-info">
+            Showing {{ page_obj.start_index }}–{{ page_obj.end_index }}
+            of {{ total_results }}
+        </p>
+
+        <nav class="dashboard-pagination"
+             aria-label="Users pagination">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ query|urlencode }}&role={{ selected_role|urlencode }}">
+                    Previous
+                </a>
+            {% endif %}
+
+            {% for number in page_obj.paginator.page_range %}
+                {% if number == page_obj.number %}
+                    <span class="active-page" aria-current="page">
+                        {{ number }}
+                    </span>
+                {% else %}
+                    <a href="?page={{ number }}&q={{ query|urlencode }}&role={{ selected_role|urlencode }}">
+                        {{ number }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&q={{ query|urlencode }}&role={{ selected_role|urlencode }}">
+                    Next
+                </a>
+            {% endif %}
+
+        </nav>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

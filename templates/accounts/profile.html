@@ -6,6 +6,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -21,6 +22,7 @@
 
         <div class="profile-heading">
             <h2>My Plants</h2>
+
             <a href="{% url 'plant_create' %}"
                class="primary-button">
                 Add Plant
@@ -33,7 +35,8 @@
 
                     {% if plant.image %}
                         <img src="{{ plant.image.url }}"
-                             alt="{{ plant.name }}">
+                             alt="{{ plant.name }}"
+                             loading="lazy">
                     {% endif %}
 
                     <h3>{{ plant.name }}</h3>
@@ -49,12 +52,47 @@
             {% endfor %}
         </div>
 
+        <!-- My Plants Pagination -->
+        {% if page_obj.has_other_pages %}
+            <nav class="pagination"
+                 aria-label="My Plants pages">
+
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">
+                        Previous
+                    </a>
+                {% endif %}
+
+                {% for number in page_obj.paginator.page_range %}
+                    {% if page_obj.number == number %}
+                        <span class="current-page"
+                              aria-current="page">
+                            {{ number }}
+                        </span>
+                    {% else %}
+                        <a href="?page={{ number }}">
+                            {{ number }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">
+                        Next
+                    </a>
+                {% endif %}
+
+            </nav>
+        {% endif %}
+
+        <!-- My Comments -->
         <div class="profile-comments">
             <h2>My Comments</h2>
 
             {% for comment in comments %}
                 <div class="profile-comment">
                     <p>{{ comment.content }}</p>
+
                     <a href="{% url 'plant_detail' comment.plant.pk %}">
                         {{ comment.plant.name }}
                     </a>

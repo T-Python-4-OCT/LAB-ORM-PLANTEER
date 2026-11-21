@@ -1,51 +1,66 @@
 
-/* ==========================
-   PLANTEER - CONTACT
-========================== */
+/* =====================================
+   CONTACT PAGE - INSTRUCTOR WIREFRAME
+===================================== */
 
-.contact-page,
-.messages-page {
-    padding-top: 65px;
-}
-
-.contact-heading,
-.messages-heading {
-    text-align: center;
-    margin-bottom: 45px;
-}
-
-.contact-heading h1,
-.messages-heading h1 {
-    font-size: 34px;
-    margin: 0 0 10px;
-}
-
-.contact-heading p,
-.messages-heading p {
-    color: var(--muted);
-    margin: 0;
+.contact-page {
+    padding-top: 85px;
+    padding-bottom: 80px;
 }
 
 .contact-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-    gap: 60px;
+    grid-template-columns: 1.15fr 0.95fr;
+    align-items: center;
+    gap: clamp(40px, 6vw, 110px);
+    max-width: 1450px;
+    margin: 0 auto;
+}
+
+.contact-left,
+.contact-right {
+    min-width: 0;
+}
+
+.contact-heading {
+    text-align: left;
+    margin: 0 0 34px;
+}
+
+.contact-heading h1 {
+    margin: 0 0 14px;
+    font-size: clamp(36px, 3.5vw, 52px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+}
+
+.contact-heading p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+
+.contact-form {
+    width: 100%;
 }
 
 .contact-name-fields {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
 }
 
 .contact-field {
-    margin-bottom: 24px;
+    margin-bottom: 21px;
+    min-width: 0;
 }
 
 .contact-field label {
     display: block;
-    margin-bottom: 9px;
+    margin-bottom: 8px;
+    font-size: 13px;
     font-weight: 600;
 }
 
@@ -53,17 +68,19 @@
 .contact-field textarea {
     display: block;
     width: 100%;
-    padding: 13px 15px;
+    min-height: 46px;
+    padding: 12px 14px;
+    color: var(--text);
     background: #fff;
     border: 1px solid var(--border);
     border-radius: 5px;
-    color: var(--text);
     outline: none;
+    transition: border-color 0.2s ease;
 }
 
 .contact-field textarea {
+    min-height: 150px;
     resize: vertical;
-    min-height: 165px;
 }
 
 .contact-field input:focus,
@@ -71,98 +88,161 @@
     border-color: var(--primary);
 }
 
-.contact-field .errorlist {
-    color: var(--danger);
+.contact-field .errorlist,
+.contact-error {
+    color: #b83131;
     font-size: 13px;
-    padding-left: 18px;
 }
 
-.contact-image img {
+.contact-submit {
+    display: block;
     width: 100%;
-    height: 440px;
-    object-fit: cover;
+    min-height: 47px;
+    border: 0;
     border-radius: 5px;
+    background: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.contact-submit:hover {
+    background: var(--primary-hover);
 }
 
 .contact-success {
+    padding: 13px 16px;
+    margin-bottom: 24px;
     background: #edf7ed;
     color: #245a32;
-    padding: 14px;
-    margin-bottom: 22px;
-    border-radius: 5px;
     border: 1px solid #cce6cf;
+    border-radius: 5px;
 }
 
-/* Contact Messages */
+/* Right-side image */
+
+.contact-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-photo {
+    display: block;
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* =====================================
+   CONTACT MESSAGES - WIREFRAME
+===================================== */
+
+.messages-page {
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+.messages-page > h1 {
+    margin: 0 0 55px;
+    font-size: clamp(32px, 3.3vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
 
 .messages-list {
     display: grid;
-    gap: 18px;
-    max-width: 920px;
-    margin: 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(50px, 7vw, 130px);
+    row-gap: 65px;
+    max-width: 1250px;
 }
 
-.message-card {
-    border: 1px solid var(--border);
-    background: white;
-    padding: 24px;
-    border-radius: 7px;
+.message-item {
+    min-width: 0;
 }
 
-.message-header {
+.message-avatar {
     display: flex;
-    justify-content: space-between;
-    align-items: start;
-    gap: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border);
+    align-items: center;
+    color: #656d67;
+    margin-bottom: 9px;
 }
 
-.message-header h2 {
-    font-size: 18px;
-    margin: 0;
+.message-item h2 {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0 0 4px;
 }
 
-.message-header a {
-    color: var(--primary);
-    font-size: 14px;
+.message-email {
+    display: inline-block;
+    color: #1768e4;
+    font-size: 15px;
+    overflow-wrap: anywhere;
 }
 
-.message-header time {
+.message-body {
     color: var(--muted);
-    font-size: 12px;
-}
-
-.message-card > p {
-    line-height: 1.9;
-    white-space: normal;
-    overflow-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 9px 0 0;
+    overflow-wrap: anywhere;
 }
 
 .messages-empty {
-    padding: 50px 20px;
-    text-align: center;
+    grid-column: 1 / -1;
     color: var(--muted);
+    padding: 35px 0;
 }
 
-@media (max-width: 800px) {
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 900px) {
+    .contact-layout {
+        gap: 35px;
+    }
+
+    .contact-photo {
+        height: 400px;
+    }
+}
+
+@media (max-width: 700px) {
+    .contact-page {
+        padding-top: 45px;
+    }
+
     .contact-layout {
         grid-template-columns: 1fr;
-        gap: 30px;
     }
 
-    .contact-image img {
-        height: 280px;
+    .contact-photo {
+        height: 300px;
+    }
+
+    .messages-page {
+        padding-top: 50px;
+    }
+
+    .messages-list {
+        grid-template-columns: 1fr;
+        row-gap: 35px;
+    }
+
+    .messages-page > h1 {
+        margin-bottom: 35px;
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 420px) {
     .contact-name-fields {
         grid-template-columns: 1fr;
         gap: 0;
-    }
-
-    .message-header {
-        flex-direction: column;
     }
 }

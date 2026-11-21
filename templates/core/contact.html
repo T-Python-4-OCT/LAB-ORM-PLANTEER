@@ -9,38 +9,34 @@
 {% endblock %}
 
 {% block content %}
-
-<section class="contact-page container">
-
-    <div class="contact-heading">
-        <h1>Contact Us</h1>
-        <p>
-            Have a question or suggestion?
-            We'd love to hear from you.
-        </p>
-    </div>
+<section class="container contact-page">
 
     <div class="contact-layout">
 
-        <!-- Contact Form -->
-        <div class="contact-form-section">
+        <div class="contact-left">
+            <div class="contact-heading">
+                <h1>Contact us</h1>
+                <p>
+                    Have a question or suggestion?
+                    We'd love to hear from you.
+                </p>
+            </div>
 
             {% if messages %}
                 {% for message in messages %}
-                    <div class="contact-success">
+                    <div class="contact-success" role="status">
                         {{ message }}
                     </div>
                 {% endfor %}
             {% endif %}
 
-            <form method="post" novalidate>
+            <form method="post" class="contact-form" novalidate>
                 {% csrf_token %}
 
                 <div class="contact-name-fields">
-
                     <div class="contact-field">
                         <label for="{{ form.first_name.id_for_label }}">
-                            First Name
+                            First name
                         </label>
                         {{ form.first_name }}
                         {{ form.first_name.errors }}
@@ -48,17 +44,16 @@
 
                     <div class="contact-field">
                         <label for="{{ form.last_name.id_for_label }}">
-                            Last Name
+                            Last name
                         </label>
                         {{ form.last_name }}
                         {{ form.last_name.errors }}
                     </div>
-
                 </div>
 
                 <div class="contact-field">
                     <label for="{{ form.email.id_for_label }}">
-                        Email
+                        Email address
                     </label>
                     {{ form.email }}
                     {{ form.email.errors }}
@@ -66,27 +61,30 @@
 
                 <div class="contact-field">
                     <label for="{{ form.message.id_for_label }}">
-                        Message
+                        Your message
                     </label>
                     {{ form.message }}
                     {{ form.message.errors }}
                 </div>
 
-                <button type="submit" class="primary-button">
-                    Send Message
+                {% for error in form.non_field_errors %}
+                    <p class="contact-error">{{ error }}</p>
+                {% endfor %}
+
+                <button type="submit" class="contact-submit">
+                    Submit
                 </button>
             </form>
         </div>
 
-        <!-- Contact Image -->
-        <div class="contact-image">
+        <div class="contact-right">
             <img
                 src="{% static 'images/contact-plant.jpg' %}"
-                alt="Plant">
+                alt="Beautiful plants"
+                class="contact-photo">
         </div>
 
     </div>
 
 </section>
-
 {% endblock %}

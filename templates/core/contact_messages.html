@@ -2,58 +2,58 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Contact Messages | Planteer{% endblock %}
+{% block title %}Messages from Users | Planteer{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock %}
 
 {% block content %}
-
 <section class="container messages-page">
 
-    <div class="messages-heading">
-        <h1>Contact Messages</h1>
-        <p>Messages received from visitors.</p>
-    </div>
+    <h1>Messages from Users</h1>
 
     <div class="messages-list">
 
         {% for contact in contacts %}
+            <article class="message-item">
 
-            <article class="message-card">
-
-                <div class="message-header">
-                    <div>
-                        <h2>
-                            {{ contact.first_name }}
-                            {{ contact.last_name }}
-                        </h2>
-
-                        <a href="mailto:{{ contact.email }}">
-                            {{ contact.email }}
-                        </a>
-                    </div>
-
-                    <time datetime="{{ contact.created_at|date:'c' }}">
-                        {{ contact.created_at|date:"M d, Y - h:i A" }}
-                    </time>
+                <div class="message-avatar" aria-hidden="true">
+                    <svg width="21" height="21"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.7"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9"/>
+                        <circle cx="12" cy="9" r="3"/>
+                        <path d="M6.5 19c.5-3 2.5-4.5 5.5-4.5s5 1.5 5.5 4.5"/>
+                    </svg>
                 </div>
 
-                <p>{{ contact.message|linebreaksbr }}</p>
+                <h2>
+                    {{ contact.first_name }}
+                    {{ contact.last_name }}
+                </h2>
+
+                <a href="mailto:{{ contact.email }}"
+                   class="message-email">
+                    {{ contact.email }}
+                </a>
+
+                <p class="message-body">
+                    {{ contact.message|linebreaksbr }}
+                </p>
 
             </article>
-
         {% empty %}
-
-            <div class="messages-empty">
+            <p class="messages-empty">
                 No messages received yet.
-            </div>
-
+            </p>
         {% endfor %}
 
     </div>
 
 </section>
-
 {% endblock %}

@@ -7,45 +7,130 @@
         </a>
 
         <div class="nav-links">
+
             <a href="{% url 'home' %}">Home</a>
-            <a href="{% url 'plant_list' %}">All Plants</a>
-            <a href="{% url 'contact' %}">Contact</a>
+
+            <a href="{% url 'plant_list' %}">
+                All Plants
+            </a>
+
+            <a href="{% url 'contact' %}">
+                Contact
+            </a>
 
             {% if user.is_authenticated %}
-
-                <a href="{% url 'profile' %}">My Profile</a>
 
                 <a href="{% url 'plant_create' %}"
                    class="nav-button">
                     Add Plant
                 </a>
 
-                {% if user.is_staff %}
-                    <a href="{% url 'contact_messages' %}">
-                        Messages
-                    </a>
-                {% endif %}
-
-                <form method="post"
-                      action="{% url 'logout' %}"
-                      class="logout-form">
-                    {% csrf_token %}
-
-                    <button type="submit" class="logout-button">
-                        Logout
-                    </button>
-                </form>
-
-            {% else %}
-
-                <a href="{% url 'login' %}">Login</a>
-
-                <a href="{% url 'register' %}"
-                   class="nav-button">
-                    Sign Up
-                </a>
-
             {% endif %}
+
+            <!-- Account Dropdown -->
+            <details class="account-dropdown">
+
+                <summary class="account-trigger">
+
+                    <span class="account-avatar">
+                        {% if user.is_authenticated %}
+                            {{ user.username|first|upper }}
+                        {% else %}
+                            G
+                        {% endif %}
+                    </span>
+
+                    <span>
+                        {% if user.is_authenticated %}
+                            {{ user.username }}
+                        {% else %}
+                            Account
+                        {% endif %}
+                    </span>
+
+                    <svg
+                        class="dropdown-arrow"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"/>
+                    </svg>
+
+                </summary>
+
+                <div class="account-menu">
+
+                    {% if user.is_authenticated %}
+
+                        <div class="account-menu-header">
+                            <strong>
+                                {{ user.get_full_name|default:user.username }}
+                            </strong>
+
+                            <small>
+                                {% if user.is_superuser %}
+                                    Administrator
+                                {% elif user.is_staff %}
+                                    Staff Member
+                                {% else %}
+                                    Member
+                                {% endif %}
+                            </small>
+                        </div>
+
+                        <a href="{% url 'profile' %}">
+                            My Profile
+                        </a>
+
+                        {% if user.is_staff %}
+
+                            <div class="account-divider"></div>
+
+                            <a href="{% url 'dashboard_home' %}">
+                                Dashboard
+                            </a>
+
+                            <a href="{% url 'dashboard_messages' %}">
+                                Messages
+                            </a>
+
+                        {% endif %}
+
+                        <div class="account-divider"></div>
+
+                        <form method="post"
+                              action="{% url 'logout' %}"
+                              class="account-logout-form">
+
+                            {% csrf_token %}
+
+                            <button type="submit"
+                                    class="account-logout">
+                                Logout
+                            </button>
+
+                        </form>
+
+                    {% else %}
+
+                        <a href="{% url 'login' %}">
+                            Login
+                        </a>
+
+                        <a href="{% url 'register' %}">
+                            Sign Up
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </details>
+
         </div>
 
     </nav>

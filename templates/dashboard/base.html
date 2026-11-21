@@ -1,0 +1,59 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard | Planteer{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+    <aside class="dashboard-sidebar">
+        <a href="{% url 'dashboard_home' %}" class="dashboard-logo">
+            🌿 Planteer
+            <span>Management</span>
+        </a>
+
+        <nav class="dashboard-nav">
+            <a href="{% url 'dashboard_home' %}">Overview</a>
+            <a href="{% url 'dashboard_plants' %}">Plants</a>
+            <a href="{% url 'dashboard_users' %}">Users</a>
+            <a href="{% url 'dashboard_comments' %}">Comments</a>
+            <a href="{% url 'dashboard_messages' %}">Messages</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="{% url 'home' %}">← Back to Website</a>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </aside>
+
+    <div class="dashboard-main">
+        <header class="dashboard-topbar">
+            <div>
+                <strong>Planteer Dashboard</strong>
+                <span>Content Management</span>
+            </div>
+
+            <div class="dashboard-user">
+                {{ user.username }}
+            </div>
+        </header>
+
+        <main class="dashboard-content">
+            {% block dashboard_content %}{% endblock %}
+        </main>
+    </div>
+
+</div>
+
+</body>
+</html>
