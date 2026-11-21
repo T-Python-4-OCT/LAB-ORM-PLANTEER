@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .forms import CommentForm
+from .forms import CommentForm, PlantForm
 from .models import Plant
 
 def plant_list(request):
@@ -32,3 +32,25 @@ def plant_detail(request, plant_id):
         "comment_form": comment_form,
         "comments": plant.comments.all(),
     })
+
+def plant_create(request):
+    form = PlantForm(request.POST or None, request.FILES or None)
+    if request.method == "POST" and form.is_valid():
+        plant = form.save()
+        return redirect("plant_detail", plant_id=plant.pk)
+    return render(request, "plants/plant_form.html", {"form": form, "title": "Add a plant", "submit_label": "Add plant"})
+
+def plant_update(request, plant_id):
+    plant = get_object_or_404(Plant, pk=plant_id)
+    form = PlantForm(request.POST or None, request.FILES or None, instance=plant)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("plant_detail", plant_id=plant.pk)
+    return render(request, "plants/plant_form.html", {"form": form, "plant": plant, "title": f"Edit {plant.name}", "submit_label": "Save changes"})
+
+def plant_delete(request, plant_id):
+    plant = get_object_or_404(Plant, pk=plant_id)
+    if request.method == "POST":
+        plant.delete()
+        return redirect("plant_list")
+    return render(request, "plants/plant_confirm_delete.html", {"plant": plant})

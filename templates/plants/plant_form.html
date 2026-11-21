@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — Planteer{% endblock %}
+{% block content %}
+<section class="editor-page">
+  <p class="eyebrow">PLANTEER PLANT LIBRARY</p>
+  <h1>{{ title }}</h1>
+  <p class="muted">Add clear details so other plant lovers can learn about this plant.</p>
+  <form class="editor-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}<div class="editor-field {% if field.name == 'about' or field.name == 'used_for' %}wide-field{% endif %} {% if field.name == 'is_edible' %}check-field{% endif %}">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}
+      {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+      {% for error in field.errors %}<small class="form-error">{{ error }}</small>{% endfor %}
+    </div>{% endfor %}
+    <div class="editor-buttons"><button class="button" type="submit">{{ submit_label }}</button><a href="{% if plant %}{% url 'plant_detail' plant.id %}{% else %}{% url 'plant_list' %}{% endif %}">Cancel</a></div>
+  </form>
+</section>
+{% endblock %}
