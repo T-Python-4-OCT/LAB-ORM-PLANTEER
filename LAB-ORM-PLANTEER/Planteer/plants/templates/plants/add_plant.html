@@ -1,0 +1,138 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Add Plant{% endblock %}
+
+{% block content %}
+
+<section class="plant-form-section">
+
+    <div class="form-heading">
+
+        <span class="section-label">GROW OUR COLLECTION</span>
+
+        <h1>Add New Plant</h1>
+
+        <p>Share a new plant with the Planteer community.</p>
+
+    </div>
+
+    <form method="POST"
+          action="{% url 'add_plant' %}"
+          enctype="multipart/form-data"
+          class="plant-form">
+
+        {% csrf_token %}
+
+        <!-- Plant Name -->
+
+        <label for="name">Plant Name</label>
+
+        <input type="text"
+               id="name"
+               name="name"
+               placeholder="Enter plant name"
+               maxlength="200"
+               required>
+
+
+        <!-- About -->
+
+        <label for="about">About the Plant</label>
+
+        <textarea id="about"
+                  name="about"
+                  rows="4"
+                  placeholder="Write about the plant..."
+                  required></textarea>
+
+
+        <!-- Used For -->
+
+        <label for="used_for">Used For</label>
+
+        <textarea id="used_for"
+                  name="used_for"
+                  rows="3"
+                  placeholder="What is this plant used for?"
+                  required></textarea>
+
+
+        <div class="form-row">
+
+            <!-- Category -->
+
+            <div>
+
+                <label for="category">Category</label>
+
+                <select id="category" name="category" required>
+
+                    <option value="" disabled selected>
+                        Select Category
+                    </option>
+
+                    {% for value, label in categories %}
+
+                        <option value="{{ value }}">
+                            {{ label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Is Edible -->
+
+            <div>
+
+                <label for="is_edible">Is Edible?</label>
+
+                <select id="is_edible" name="is_edible" required>
+
+                    <option value="True">Yes</option>
+
+                    <option value="False" selected>No</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- Plant Image -->
+
+        <label for="image">Plant Image</label>
+
+        <input type="file"
+               id="image"
+               name="image"
+               accept="image/*"
+               required>
+
+
+        <!-- Form Actions -->
+
+        <div class="form-actions">
+
+            <a href="{% url 'all_plants' %}" class="cancel-btn">
+                Cancel
+            </a>
+
+            <button type="submit" class="submit-btn">
+
+                <i class="bi bi-plus-lg"></i>
+                Add Plant
+
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Planteer | Contact Us{% endblock %}
+
+{% block content %}
+
+<section class="contact-section">
+
+    <div class="contact-content">
+
+        <span class="section-label">GET IN TOUCH</span>
+
+        <h1>Contact Us</h1>
+
+        <p>Have a question or suggestion? We would love to hear from you.</p>
+
+        <form method="POST"
+              action="{% url 'contact' %}"
+              class="plant-form">
+
+            {% csrf_token %}
+
+            <div class="form-row">
+
+                <div>
+
+                    <label for="first_name">First Name</label>
+
+                    <input type="text"
+                           id="first_name"
+                           name="first_name"
+                           placeholder="First name"
+                           maxlength="100"
+                           required>
+
+                </div>
+
+                <div>
+
+                    <label for="last_name">Last Name</label>
+
+                    <input type="text"
+                           id="last_name"
+                           name="last_name"
+                           placeholder="Last name"
+                           maxlength="100"
+                           required>
+
+                </div>
+
+            </div>
+
+            <label for="email">Email Address</label>
+
+            <input type="email"
+                   id="email"
+                   name="email"
+                   placeholder="Enter your email"
+                   required>
+
+
+            <label for="message">Message</label>
+
+            <textarea id="message"
+                      name="message"
+                      rows="5"
+                      placeholder="Write your message..."
+                      required></textarea>
+
+
+            <button type="submit" class="submit-btn">
+
+                <i class="bi bi-send"></i>
+                Send Message
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Contact Image -->
+
+    <div class="contact-image">
+
+        <img src="{% static 'main/images/contact.jpg' %}"
+             alt="Beautiful plants">
+
+        <div class="contact-image-text">
+
+            <h2>Let's Grow Together.</h2>
+
+            <p>Connecting people through nature.</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
