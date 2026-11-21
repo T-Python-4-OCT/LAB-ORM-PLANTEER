@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "All plants" %} | Planteer{% endblock %}
+
+{% block content %}
+    <div class="page-heading">
+        <h1>{% translate "All plants" %}</h1>
+        <a class="text-link" href="{% url 'plants:search' %}">{% translate "Search plants" %}</a>
+    </div>
+    <form class="filters" method="get" action="{% url 'plants:all' %}">
+        {{ filters.as_div }}
+        <div class="filter-actions">
+            <button class="button" type="submit">{% translate "Apply filters" %}</button>
+            <a class="button secondary" href="{% url 'plants:all' %}">{% translate "Clear" %}</a>
+        </div>
+    </form>
+    <p class="result-count">
+        {% blocktranslate count counter=plants|length %}{{ counter }} plant{% plural %}{{ counter }} plants{% endblocktranslate %}
+    </p>
+    {% if request.GET.category or request.GET.is_edible %}
+        {% translate "No plants match these filters. Try a different category or edibility." as empty_text %}
+    {% else %}
+        {% translate "There are no plants in the catalog yet." as empty_text %}
+    {% endif %}
+    {% include "plants/grid.html" with empty_text=empty_text %}
+{% endblock %}

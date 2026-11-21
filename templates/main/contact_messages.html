@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Contact messages" %} | Planteer{% endblock %}
+
+{% block content %}
+    <h1>{% translate "Contact messages" %}</h1>
+    <div class="entries">
+        {% for entry in entries %}
+            <article class="entry">
+                <h2 dir="auto">{{ entry.first_name }} {{ entry.last_name }}</h2>
+                <a href="mailto:{{ entry.email }}">{{ entry.email }}</a>
+                <p dir="auto">{{ entry.message|linebreaksbr }}</p>
+                {% include "timestamp.html" with value=entry.created_at %}
+            </article>
+        {% empty %}
+            <p class="empty">{% translate "No contact messages yet." %}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

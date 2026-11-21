@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="assets/planteer-banner.webp" alt="Planteer botanical catalog" width="100%">
+</p>
+
+<p align="center">
+  <a href="https://suliman-altwaijry.github.io/LAB-ORM-PLANTEER/">
+    <img src="assets/open-planteer.svg" alt="Open Planteer" width="234" height="54">
+  </a>
+</p>
+
 # LAB-ORM-PLANTEER
 
 

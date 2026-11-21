@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}{% translate "Contact" %} | Planteer{% endblock %}
+
+{% block content %}
+    <div class="split contact">
+        <section class="form-panel">
+            <h1>{% translate "Contact us" %}</h1>
+            <form method="post" class="stack">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button class="button" type="submit">{% translate "Send message" %}</button>
+            </form>
+        </section>
+        <img class="contact-image" src="{% get_media_prefix %}samples/orchid.webp" alt="{% translate 'Purple moth orchid blooms' %}">
+    </div>
+{% endblock %}

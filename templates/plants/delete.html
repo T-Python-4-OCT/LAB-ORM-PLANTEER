@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Delete plant" %} | Planteer{% endblock %}
+
+{% block content %}
+    <section class="form-panel">
+        <h1>{% blocktranslate with name=plant.local_name %}Delete {{ name }}?{% endblocktranslate %}</h1>
+        <p>{% translate "This permanently removes the plant and its comments." %}</p>
+        <form method="post" class="actions">
+            {% csrf_token %}
+            <button class="button danger" type="submit">{% translate "Delete plant" %}</button>
+            <a class="button secondary" href="{% url 'plants:detail' plant.pk %}">{% translate "Cancel" %}</a>
+        </form>
+    </section>
+{% endblock %}

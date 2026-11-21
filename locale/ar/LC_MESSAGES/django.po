@@ -1,0 +1,248 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Planteer\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+msgid "English"
+msgstr "الإنجليزية"
+
+msgid "Arabic"
+msgstr "العربية"
+
+msgid "Skip to content"
+msgstr "انتقل إلى المحتوى"
+
+msgid "Main navigation"
+msgstr "التنقل الرئيسي"
+
+msgid "All plants"
+msgstr "كل النباتات"
+
+msgid "Contact"
+msgstr "تواصل معنا"
+
+msgid "Add plant"
+msgstr "أضف نبتة"
+
+msgid "Night garden"
+msgstr "حديقة الليل"
+
+msgid "Day and night garden"
+msgstr "حديقة النهار والليل"
+
+msgid "Contact messages"
+msgstr "رسائل التواصل"
+
+msgid "Photo credits"
+msgstr "حقوق الصور"
+
+msgid "Get to know your plants."
+msgstr "تعرّف على نباتاتك."
+
+msgid "Browse the catalog or search for a plant by name."
+msgstr "تصفّح الدليل أو ابحث عن نبتة باسمها."
+
+msgid "Broad, split leaves on a monstera"
+msgstr "أوراق عريضة مشقوقة لنبتة المونستيرا"
+
+msgid "Recently added"
+msgstr "أُضيفت حديثًا"
+
+msgid "Browse all plants"
+msgstr "تصفّح كل النباتات"
+
+msgid "There are no plants in the catalog yet."
+msgstr "لا توجد نباتات في الدليل بعد."
+
+msgid "Contact us"
+msgstr "تواصل معنا"
+
+msgid "Send message"
+msgstr "أرسل الرسالة"
+
+msgid "Purple moth orchid blooms"
+msgstr "أزهار أوركيد الفراشة البنفسجية"
+
+msgid "No contact messages yet."
+msgstr "لا توجد رسائل بعد."
+
+msgid "Search plants"
+msgstr "ابحث عن نبتة"
+
+msgid "Apply filters"
+msgstr "طبّق التصفية"
+
+msgid "Clear"
+msgstr "مسح"
+
+msgid "%(counter)s plant"
+msgid_plural "%(counter)s plants"
+msgstr[0] "لا توجد نباتات"
+msgstr[1] "نبتة واحدة"
+msgstr[2] "نبتتان"
+msgstr[3] "%(counter)s نباتات"
+msgstr[4] "%(counter)s نبتة"
+msgstr[5] "%(counter)s نبتة"
+
+msgid "No plants match these filters. Try a different category or edibility."
+msgstr "لا توجد نباتات تطابق هذه التصفية. جرّب فئة أخرى أو غيّر قابلية الأكل."
+
+msgid "Edible"
+msgstr "صالحة للأكل"
+
+msgid "Not edible"
+msgstr "غير صالحة للأكل"
+
+msgid "Uses"
+msgstr "الاستخدامات"
+
+msgid "Added"
+msgstr "أُضيفت في"
+
+msgid "Edit plant"
+msgstr "عدّل النبتة"
+
+msgid "Delete plant"
+msgstr "احذف النبتة"
+
+msgid "Related plants"
+msgstr "نباتات مشابهة"
+
+msgid "Comments"
+msgstr "التعليقات"
+
+msgid "Be the first to leave a comment."
+msgstr "كن أول من يترك تعليقًا."
+
+msgid "Post comment"
+msgstr "انشر التعليق"
+
+msgid "Save changes"
+msgstr "احفظ التغييرات"
+
+msgid "Cancel"
+msgstr "إلغاء"
+
+#, python-format
+msgid "Delete %(name)s?"
+msgstr "هل تريد حذف %(name)s؟"
+
+msgid "This permanently removes the plant and its comments."
+msgstr "سيؤدي هذا إلى حذف النبتة وتعليقاتها نهائيًا."
+
+msgid "%(counter)s result for “%(query)s”"
+msgid_plural "%(counter)s results for “%(query)s”"
+msgstr[0] "لا توجد نتائج عن «%(query)s»"
+msgstr[1] "نتيجة واحدة عن «%(query)s»"
+msgstr[2] "نتيجتان عن «%(query)s»"
+msgstr[3] "%(counter)s نتائج عن «%(query)s»"
+msgstr[4] "%(counter)s نتيجة عن «%(query)s»"
+msgstr[5] "%(counter)s نتيجة عن «%(query)s»"
+
+msgid "No plants match your search. Try a different term."
+msgstr "لا توجد نباتات تطابق بحثك. جرّب كلمة أخرى."
+
+msgid "Search"
+msgstr "ابحث"
+
+msgid "j M Y, H:i"
+msgstr "j M Y، H:i"
+
+#, python-format
+msgid "%(time)s Riyadh time"
+msgstr "%(time)s بتوقيت الرياض"
+
+msgid "Herb"
+msgstr "عشبة"
+
+msgid "Flower"
+msgstr "زهرة"
+
+msgid "Houseplant"
+msgstr "نبتة منزلية"
+
+msgid "Tree"
+msgstr "شجرة"
+
+msgid "Shrub"
+msgstr "شجيرة"
+
+msgid "Fruit"
+msgstr "فاكهة"
+
+msgid "Vegetable"
+msgstr "خضار"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Name in Arabic"
+msgstr "الاسم بالعربية"
+
+msgid "Category"
+msgstr "الفئة"
+
+msgid "About"
+msgstr "نبذة"
+
+msgid "About, in Arabic"
+msgstr "نبذة بالعربية"
+
+msgid "Used for"
+msgstr "الاستخدامات"
+
+msgid "Used for, in Arabic"
+msgstr "الاستخدامات بالعربية"
+
+msgid "Image"
+msgstr "الصورة"
+
+msgid "- Select an option -"
+msgstr "- اختر من القائمة -"
+
+msgid "Optional. Shown when the site is in Arabic."
+msgstr "اختياري. يظهر عند تصفّح الموقع بالعربية."
+
+msgid "Full name"
+msgstr "الاسم الكامل"
+
+msgid "Comment"
+msgstr "التعليق"
+
+msgid "All categories"
+msgstr "كل الفئات"
+
+msgid "Edibility"
+msgstr "قابلية الأكل"
+
+msgid "Any"
+msgstr "الكل"
+
+msgid "Plant updated."
+msgstr "تم تحديث النبتة."
+
+msgid "Plant added."
+msgstr "تمت إضافة النبتة."
+
+#, python-format
+msgid "%(name)s was deleted."
+msgstr "تم حذف %(name)s."
+
+msgid "First name"
+msgstr "الاسم الأول"
+
+msgid "Last name"
+msgstr "اسم العائلة"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Message"
+msgstr "الرسالة"
+
+msgid "Your message was sent."
+msgstr "تم إرسال رسالتك."

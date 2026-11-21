@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<form class="search-form" role="search" method="get" action="{% url 'plants:search' %}">
+    <label for="plant-query" class="visually-hidden">{% translate "Search plants" %}</label>
+    <input
+        id="plant-query"
+        type="search"
+        name="q"
+        value="{{ query|default:'' }}"
+        placeholder="{% translate 'Search plants' %}"
+        dir="auto"
+        required
+    >
+    <button class="button" type="submit">{% translate "Search" %}</button>
+</form>

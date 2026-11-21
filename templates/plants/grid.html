@@ -1,0 +1,31 @@
+{% load i18n %}
+
+<div class="plant-grid">
+    {% for plant in plants %}
+        <article class="plant-card">
+            <a href="{% url 'plants:detail' plant.pk %}">
+                {% if plant.image %}
+                    <img class="plant-image" src="{{ plant.image.url }}" alt="" loading="lazy">
+                {% else %}
+                    <div class="plant-image" aria-hidden="true"></div>
+                {% endif %}
+                {% with tag=heading_tag|default:"h2" %}
+                    <{{ tag }} class="plant-name" dir="auto">{{ plant.local_name }}</{{ tag }}>
+                {% endwith %}
+            </a>
+            <p class="plant-meta">
+                {{ plant.get_category_display }}
+                <span>
+                    {% if plant.is_edible %}
+                        {% translate "Edible" %}
+                    {% else %}
+                        {% translate "Not edible" %}
+                    {% endif %}
+                </span>
+            </p>
+            <p dir="auto">{{ plant.local_about|truncatewords:18 }}</p>
+        </article>
+    {% empty %}
+        <p class="empty">{{ empty_text }}</p>
+    {% endfor %}
+</div>

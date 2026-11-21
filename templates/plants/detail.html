@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ plant.local_name }} | Planteer{% endblock %}
+
+{% block content %}
+    <a class="back-link" href="{% url 'plants:all' %}">{% translate "All plants" %}</a>
+    <div class="split">
+        {% if plant.image %}
+            <img class="detail-image" src="{{ plant.image.url }}" alt="{{ plant.local_name }}">
+        {% endif %}
+        <section>
+            <h1 dir="auto">{{ plant.local_name }}</h1>
+            <p class="plant-meta">
+                {{ plant.get_category_display }}
+                <span>
+                    {% if plant.is_edible %}
+                        {% translate "Edible" %}
+                    {% else %}
+                        {% translate "Not edible" %}
+                    {% endif %}
+                </span>
+            </p>
+            <p dir="auto">{{ plant.local_about|linebreaksbr }}</p>
+            <h2 class="subheading">{% translate "Uses" %}</h2>
+            <p dir="auto">{{ plant.local_used_for|linebreaksbr }}</p>
+            <p class="timestamp">{% translate "Added" %} {% include "timestamp.html" with value=plant.created_at %}</p>
+            <div class="actions">
+                <a class="button secondary" href="{% url 'plants:update' plant.pk %}">{% translate "Edit plant" %}</a>
+                <a class="button danger-outline" href="{% url 'plants:delete' plant.pk %}">{% translate "Delete plant" %}</a>
+            </div>
+        </section>
+    </div>
+
+    {% if related %}
+        <section class="section">
+            <h2>{% translate "Related plants" %}</h2>
+            {% include "plants/grid.html" with plants=related heading_tag="h3" %}
+        </section>
+    {% endif %}
+
+    <section class="section" id="comments">
+        <h2>{% translate "Comments" %}</h2>
+        <div class="split">
+            <div>
+                {% for comment in plant.comments.all %}
+                    <article class="entry">
+                        <h3 dir="auto">{{ comment.full_name }}</h3>
+                        {% include "timestamp.html" with value=comment.created_at %}
+                        <p dir="auto">{{ comment.content|linebreaksbr }}</p>
+                    </article>
+                {% empty %}
+                    <p class="empty">{% translate "Be the first to leave a comment." %}</p>
+                {% endfor %}
+            </div>
+            <form method="post" class="stack">
+                {% csrf_token %}
+                {{ form.as_div }}
+                <button class="button" type="submit">{% translate "Post comment" %}</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

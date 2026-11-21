@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% translate "Search plants" %} | Planteer{% endblock %}
+
+{% block content %}
+    <h1>{% translate "Search plants" %}</h1>
+    {% include "plants/search_form.html" %}
+    {% if query %}
+        <p class="result-count">
+            {% blocktranslate with query=query count counter=plants|length %}{{ counter }} result for “{{ query }}”{% plural %}{{ counter }} results for “{{ query }}”{% endblocktranslate %}
+        </p>
+        {% translate "No plants match your search. Try a different term." as empty_text %}
+        {% include "plants/grid.html" with empty_text=empty_text %}
+    {% endif %}
+{% endblock %}

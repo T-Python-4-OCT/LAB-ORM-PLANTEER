@@ -1,0 +1,105 @@
+{% load static i18n %}<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI|yesno:'rtl,ltr' }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Planteer{% endblock %}</title>
+    <meta name="theme-color" content="#f7f9f3">
+    <link rel="icon" href="{% static 'planteer/favicon.ico' %}" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="{% static 'planteer/favicon.svg' %}"
+          data-day="{% static 'planteer/favicon.svg' %}" data-night="{% static 'planteer/favicon-night.svg' %}">
+    <link rel="apple-touch-icon" href="{% static 'planteer/apple-touch-icon.png' %}">
+    <script>
+        (() => {
+            const systemTheme = matchMedia("(prefers-color-scheme: dark)").matches ? "night" : "day";
+            let theme = systemTheme;
+
+            try {
+                const savedTheme = localStorage.getItem("planteer-theme");
+                if (savedTheme === "day" || savedTheme === "night") {
+                    theme = savedTheme;
+                }
+            } catch {}
+
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    <link rel="stylesheet" href="{% static 'planteer/site.css' %}">
+    <script src="{% static 'planteer/theme.js' %}" defer></script>
+</head>
+<body>
+    <a class="skip-link" href="#main">{% translate "Skip to content" %}</a>
+    <header class="site-header">
+        <div class="wrap navigation">
+            <a class="brand" href="{% url 'main:home' %}" dir="ltr">
+                {% include "brand_mark.html" %}Planteer
+            </a>
+            <nav aria-label="{% translate 'Main navigation' %}">
+                <a href="{% url 'plants:all' %}" {% if request.resolver_match.view_name == 'plants:all' %}aria-current="page"{% endif %}>
+                    {% translate "All plants" %}
+                </a>
+                <a href="{% url 'main:contact' %}" {% if request.resolver_match.view_name == 'main:contact' %}aria-current="page"{% endif %}>
+                    {% translate "Contact" %}
+                </a>
+                <a class="button" href="{% url 'plants:new' %}" {% if request.resolver_match.view_name == 'plants:new' %}aria-current="page"{% endif %}>
+                    {% translate "Add plant" %}
+                </a>
+            </nav>
+            <div class="header-tools">
+                <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"
+                        aria-label="{% translate 'Night garden' %}" title="{% translate 'Day and night garden' %}">
+                    <svg class="theme-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+                        <defs>
+                            <mask id="moon-bite" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
+                                <rect width="32" height="32" fill="#fff"/>
+                                <circle class="moon-bite" cx="30" cy="2" r="6.6" fill="#000"/>
+                            </mask>
+                        </defs>
+                        <g class="petals">
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(45 16 16)"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(90 16 16)"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(135 16 16)"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(180 16 16)"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(225 16 16)"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(270 16 16)"/>
+                            <ellipse cx="16" cy="5" rx="2.3" ry="3.7" transform="rotate(315 16 16)"/>
+                        </g>
+                        <g class="stars">
+                            <path d="M6.5 5.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z"/>
+                            <circle cx="26.5" cy="25.5" r="1.1"/>
+                            <circle cx="7" cy="23" r=".8"/>
+                        </g>
+                        <circle class="core" cx="16" cy="16" r="5.2" mask="url(#moon-bite)"/>
+                    </svg>
+                </button>
+                <form class="lang-switch" action="{% url 'set_language' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" name="language" value="en" lang="en"{% if LANGUAGE_CODE == "en" %} aria-current="true"{% endif %}>EN</button>
+                    <button type="submit" name="language" value="ar" lang="ar"{% if LANGUAGE_CODE == "ar" %} aria-current="true"{% endif %}>عربي</button>
+                </form>
+            </div>
+        </div>
+    </header>
+    <main id="main" class="wrap">
+        {% for message in messages %}
+            <p class="notice" role="status">{{ message }}</p>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        <div class="wrap footer-content">
+            <a class="brand" href="{% url 'main:home' %}" dir="ltr">
+                {% include "brand_mark.html" %}Planteer
+            </a>
+            <div class="footer-links">
+                {% if request.user.is_staff %}
+                    <a href="{% url 'main:contact_messages' %}">{% translate "Contact messages" %}</a>
+                {% endif %}
+                <a href="{% static 'planteer/photo-credits.txt' %}">{% translate "Photo credits" %}</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

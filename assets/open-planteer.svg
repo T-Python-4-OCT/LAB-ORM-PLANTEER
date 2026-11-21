@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="234" height="54" viewBox="0 0 234 54" role="img" aria-labelledby="title">
+  <title id="title">Open Planteer</title>
+  <rect x="1" y="1" width="232" height="52" rx="12" fill="#153722" stroke="#779d74" stroke-width="2"/>
+  <circle cx="29" cy="27" r="15" fill="#d9edbc"/>
+  <path d="M23 34c2-5 5-8 10-12m-9 10c-2-6 2-11 11-12 1 7-3 13-11 12Z" fill="none" stroke="#234a30" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="53" y="33" fill="#fff9e9" font-family="system-ui, sans-serif" font-size="18" font-weight="650">Open Planteer</text>
+  <path d="M193 27h18m-7-7 7 7-7 7" fill="none" stroke="#d9edbc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

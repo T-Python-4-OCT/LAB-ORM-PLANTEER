@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% if plant %}{% translate "Edit plant" %}{% else %}{% translate "Add plant" %}{% endif %} | Planteer
+{% endblock %}
+
+{% block content %}
+    <section class="form-panel">
+        <h1>
+            {% if plant %}
+                {% translate "Edit plant" %}
+            {% else %}
+                {% translate "Add plant" %}
+            {% endif %}
+        </h1>
+
+        <form method="post" enctype="multipart/form-data" class="stack">
+            {% csrf_token %}
+            {{ form.as_div }}
+            <div class="actions">
+                {% if plant %}
+                    <button class="button" type="submit">{% translate "Save changes" %}</button>
+                    <a class="button secondary" href="{% url 'plants:detail' plant.pk %}">{% translate "Cancel" %}</a>
+                {% else %}
+                    <button class="button" type="submit">{% translate "Add plant" %}</button>
+                    <a class="button secondary" href="{% url 'plants:all' %}">{% translate "Cancel" %}</a>
+                {% endif %}
+            </div>
+        </form>
+    </section>
+{% endblock %}
