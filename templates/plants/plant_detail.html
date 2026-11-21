@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ plant.name }} — Planteer{% endblock %}
+{% block content %}
+<div class="detail-wrap">
+  <p class="breadcrumbs"><a href="{% url 'plant_list' %}">All plants</a> / {{ plant.name }}</p>
+  <section class="detail-layout">
+    <div class="detail-image"><img src="{{ plant.image_url }}" alt="{{ plant.name }}" onerror="this.onerror=null;this.src='/static/img/plant-placeholder.svg'"></div>
+    <div class="detail-copy"><span class="tag">{{ plant.category }}</span><h1>{{ plant.name }}</h1><p class="latin">{{ plant.scientific_name }}</p><p class="detail-description">{{ plant.description }}</p><dl><div><dt>Native to</dt><dd>{{ plant.native_to }}</dd></div><div><dt>Edible</dt><dd>{% if plant.edible %}Yes{% else %}No{% endif %}</dd></div><div><dt>Used for</dt><dd>{{ plant.used_for }}</dd></div></dl><a class="button" href="{% url 'plant_list' %}">Back to all plants</a></div>
+  </section>
+  <section class="related"><h2>Related plants</h2><p class="muted">More plants in the {{ plant.category|lower }} category.</p><div class="grid">{% for item in related_plants %}<article class="card"><a href="{% url 'plant_detail' item.id %}"><img src="{{ item.image_url }}" alt="{{ item.name }}" loading="lazy" onerror="this.onerror=null;this.src='/static/img/plant-placeholder.svg'"></a><div class="card-body"><h3><a href="{% url 'plant_detail' item.id %}">{{ item.name }}</a></h3><p>{{ item.description }}</p></div></article>{% empty %}<p>There are no other plants in this category yet.</p>{% endfor %}</div></section>
+</div>
+{% endblock %}
