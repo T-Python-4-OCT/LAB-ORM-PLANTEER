@@ -1,0 +1,6 @@
+{# One form field: label, input, and its error message #}
+<div class="field">
+  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+  {{ field }}
+  {% if field.errors %}<p class="error">{{ field.errors.0 }}</p>{% endif %}
+</div>

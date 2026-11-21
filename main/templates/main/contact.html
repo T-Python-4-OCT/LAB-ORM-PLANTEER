@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<section class="section contact">
+  <div>
+    <h1 class="big-title">Contact us</h1>
+    <p class="muted lead">Have a question or a plant to suggest? Send us a message.</p>
+    <form class="form" method="post" action="{% url 'main:contact' %}" novalidate>
+      {% csrf_token %}
+      <div class="field-row">
+        {% include "main/partials/field.html" with field=form.first_name %}
+        {% include "main/partials/field.html" with field=form.last_name %}
+      </div>
+      {% include "main/partials/field.html" with field=form.email %}
+      {% include "main/partials/field.html" with field=form.message %}
+      <button class="btn btn-block" type="submit">Submit</button>
+    </form>
+  </div>
+  {# A fixed photo of plants and fruits (main/static/main/images/contact.jpg) #}
+  <img class="contact-image" src="{% static 'main/images/contact.jpg' %}" alt="Fruits, vegetables and plants">
+</section>
+{% endblock %}

@@ -1,33 +1,48 @@
-# LAB-ORM-PLANTEER
+# Planteer
 
+LAB-ORM-PLANTEER: a plant database for plants lovers, built with Django and SQLite, following the task's wireframe and UML.
 
-## Using what you learned, Create a new website called "Planteer" , this website has the following pages/paths:
-- Home page `/`
-- All Plants page : `plants/all/`
-- Plant Detail Page : `plants/<plant_id>/detail/`
-- Add new plant page : `plants/new/`
-- Update plant page : `plants/<plant_id>/update/`,
-- Delete Plant : `plants/<plant_id>/delete/`
-- Search Page : `plants/search/`
-- (Bonus) Contact Us page : `contact/`
-- (Bonus) Contact Us Messages page : `contact/messages/`
+## Run it
 
+```
+python -m venv venv
+venv\Scripts\activate            # Windows   (Mac/Linux: source venv/bin/activate)
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py seed_plants     # adds the 6 sample plants (photos are inside the project)
+python manage.py runserver
+```
 
-### Notes:
-- Use templates & template inheritance.
-- The website must be responsive (looks good on big and small screens)
-- In all plants page, user can filter by `category` and `is_edible`.
-- For the images, backgrounds, fonts you can use whatever you like. As for the content like categories,  make sure you add real plants with real plants images.
-- Use at least 2 apps, one main and one for the plants.
-- Add a related `Comment` model on the plants (fields: plant relation, full_name, content, created_at).  So, visitors can add comments on the plants.
-- In Plant detail page , Add related plants (based on the same category, use filter !)
-  
-## wireframe for the main pages
-<img width="1771" style="width:100%" alt="Screenshot 2024-03-19 at 2 27 18 PM" src="assets/main-wireframe.png">
+## Pages
 
-## Contact pages wireframe:
-<img width="1015" style="width:100%" alt="Screenshot 2024-03-19 at 3 22 17 PM" src="assets/contact-wireframe.png">
+| Page | Path |
+|---|---|
+| Home | `/` |
+| All Plants (filter by `category` and `is_edible`) | `plants/all/` |
+| Plant Detail (related plants + comments) | `plants/<plant_id>/detail/` |
+| Add Plant | `plants/new/` |
+| Update Plant | `plants/<plant_id>/update/` |
+| Delete Plant | `plants/<plant_id>/delete/` |
+| Search | `plants/search/` |
+| Contact Us (bonus) | `contact/` |
+| Messages from Users (bonus) | `contact/messages/` |
 
+## Apps
 
-## UML for the model `Plant` &  `Contact` Model 
-<img width="618" style="width:100%; height:auto;" alt="Screenshot 2024-03-19 at 3 16 01 PM" src="assets/uml.png">
+- `main`: home, contact us, messages from users (`Contact` model).
+- `plants`: plants and comments (`Plant` and `Comment` models).
+
+## Models
+
+- `Plant`: name, about, used_for, image, category (TextChoices), is_edible, created_at
+- `Comment`: plant (ForeignKey to Plant, `related_name="comments"`), full_name, content, created_at
+- `Contact`: first_name, last_name, email, message, created_at
+
+Forms are ModelForms (`plants/forms.py`, `main/forms.py`). Related plants use `filter(category=...)` with `exclude(id=...)`.
+
+## Images
+
+- Fixed images: `main/static/main/images/hero.jpg` (home header) and `contact.jpg` (contact page).
+- Sample plant photos: `plants/seed_images/`. `seed_plants` copies them to `media/images/`.
+- `python manage.py seed_plants --reset` deletes all the plants, then adds the 6 samples again.
+- All photos are free photos from [Pexels](https://www.pexels.com).
