@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Plant
-
 
 def all_plants(request):
     plants = Plant.objects.all()
@@ -27,7 +26,24 @@ def all_plants(request):
 
 
 def add_plant(request):
-    pass
+
+    if request.method == "POST":
+        Plant.objects.create(
+            name=request.POST.get("name"),
+            category=request.POST.get("category"),
+            about=request.POST.get("about"),
+            used_for=request.POST.get("used_for"),
+            image=request.FILES.get("image"),
+            is_edible=request.POST.get("is_edible") == "on"
+        )
+
+        return redirect("all_plants")
+
+    context = {
+        "categories": Plant.Category.choices,
+    }
+
+    return render(request, "Plants/add_plant.html", context)
 
 
 def search_plants(request):
