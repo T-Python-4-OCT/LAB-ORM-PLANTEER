@@ -1,0 +1,20 @@
+{% extends "main/base.html" %}
+
+{% block title %}Contact Messages | Planteer{% endblock %}
+
+{% block content %}
+<section class="contact-messages-page">
+    <h1>Messages from Users</h1>
+
+    {% for contact in contacts %}
+        <article class="contact-message-card">
+            <h2>{{ contact.first_name }} {{ contact.last_name }}</h2>
+            <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+            <p>{{ contact.message }}</p>
+            <time>{{ contact.created_at|date:"M j, Y, g:i a" }}</time>
+        </article>
+    {% empty %}
+        <p>No messages have been received yet.</p>
+    {% endfor %}
+</section>
+{% endblock %}

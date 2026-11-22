@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+
+{% block title %}Planteer | Plant Database{% endblock %}
+
+{% block content %}
+<!-- Planteer hero copy -->
+<section class="home-hero">
+    <h1>Grow your plant knowledge</h1>
+    <p>Discover plants their uses and what makes each one unique</p>
+
+    <form class="home-search" action="/plants/search/" method="get">
+        <input
+            type="search"
+            name="q"
+            placeholder="Search for a plant..."
+            aria-label="Search for a plant"
+            required
+        >
+        <button type="submit">Find a plant</button>
+    </form>
+</section>
+
+<section class="home-plants">
+    <div class="home-plants-heading">
+        <div>
+            <h2>Explore the collection</h2>
+            <p>A practical guide to plants, their uses, and varieties</p>
+        </div>
+
+        <a href="/plants/all/">More →</a>
+    </div>
+
+    <div class="plant-grid">
+        {% for plant in plants %}
+            <article class="plant-card">
+                <a href="/plants/{{ plant.id }}/detail/">
+                    {% if plant.image %}
+                        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                    {% endif %}
+
+                    <h2>{{ plant.name }}</h2>
+                </a>
+
+                <p>{{ plant.about|truncatewords:15 }}</p>
+                <p>{{ plant.get_category_display }}</p>
+            </article>
+        {% empty %}
+            <p>No plants have been added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

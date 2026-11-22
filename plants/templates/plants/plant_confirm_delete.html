@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+
+{% block title %}Delete {{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="delete-confirmation">
+    <h1>Delete {{ plant.name }}?</h1>
+
+    <p>Are you sure you want to delete this plant?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Delete Plant</button>
+        <a class="cancel-link" href="/plants/{{ plant.id }}/detail/">Cancel</a>
+    </form>
+</section>
+{% endblock %}
