@@ -1,0 +1,13 @@
+<article class="plant-card">
+  <a class="plant-card-image" href="{% url 'plants:detail' plant.pk %}">
+    {% if plant.image %}<img src="{{ plant.image.url }}" alt="{{ plant.name }}" loading="lazy">{% else %}<img src="{{ plant.image_url }}" alt="{{ plant.name }}" loading="lazy">{% endif %}
+    <span class="category-pill">{{ plant.get_category_display }}</span>
+  </a>
+  <div class="plant-card-copy">
+    <h3><a href="{% url 'plants:detail' plant.pk %}">{{ plant.name }}</a></h3>
+    <p>{{ plant.about|truncatewords:18 }}</p>
+    <div class="card-meta"><span>{% if plant.is_edible %}Edible{% else %}Ornamental{% endif %}</span>
+      {% if plant.rating_average %}<span>★ {{ plant.rating_average|floatformat:1 }}</span>{% endif %}
+    </div>
+  </div>
+</article>

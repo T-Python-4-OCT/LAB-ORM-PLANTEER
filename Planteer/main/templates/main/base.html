@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<html lang="en" data-theme="{{ request.COOKIES.planteer_theme|default:'light' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discover, share, and care for plants with Planteer.">
+  <title>{% block title %}Planteer — a little more green{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'main/style.css' %}">
+  <script src="{% static 'main/theme.js' %}" defer></script>
+</head>
+<body>
+  <!-- Primary site navigation -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="brand" href="{% url 'home' %}"><span class="brand-mark">P</span> planteer</a>
+      <div class="nav-links">
+        <a href="{% url 'plants:all' %}">All plants</a>
+        <a href="{% url 'plants:search' %}">Search</a>
+        <a href="{% url 'main:contact' %}">Contact</a>
+        <a class="button button-small" href="{% url 'plants:new' %}">Add a plant <span aria-hidden="true">+</span></a>
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark mode</span>
+        </button>
+      </div>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+    </nav>
+  </header>
+
+  <!-- User feedback -->
+  {% if messages %}
+    <div class="container notices" aria-live="polite">
+      {% for message in messages %}<p class="notice notice-{{ message.tags }}">{{ message }}</p>{% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Page-specific content -->
+  <main>{% block content %}{% endblock %}</main>
+
+  <!-- Shared footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div><a class="brand footer-brand" href="{% url 'home' %}"><span class="brand-mark">P</span> planteer</a><p>Helping good things grow.</p></div>
+      <div class="footer-links"><a href="{% url 'plants:all' %}">Explore plants</a><a href="{% url 'plants:new' %}">Share a plant</a><a href="{% url 'main:contact' %}">Contact us</a><a href="{% url 'main:messages' %}">Community messages</a></div>
+      <small>© {% now "Y" %} Planteer. Grown with care.</small>
+    </div>
+  </footer>
+</body>
+</html>

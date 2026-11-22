@@ -1,0 +1,39 @@
+{% extends "main/base.html" %}
+{% block title %}Planteer — a little more green{% endblock %}
+{% block content %}
+<!-- Hero section -->
+<section class="hero container">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="eyebrow-dot"></span> A growing community of plant lovers</span>
+    <h1>Find your next<br><em>favorite green.</em></h1>
+    <p>Discover plants, share what you know, and help your little corner of the world bloom.</p>
+    <form class="hero-search" action="{% url 'plants:search' %}" method="get">
+      <label class="sr-only" for="hero-query">Search for a plant</label>
+      <input id="hero-query" type="search" name="q" placeholder="Search a plant, e.g. monstera">
+      <button class="button" type="submit">Search <span aria-hidden="true">↗</span></button>
+    </form>
+    <div class="hero-note"> Real plants. Shared by real people.</div>
+  </div>
+  <div class="hero-art">
+    <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85" alt="Lush green houseplants in a sunlit room">
+    <div class="hero-sticker"><span>✳</span><br>grow<br>together</div>
+    <div class="hero-caption">A little green goes a long way.</div>
+  </div>
+</section>
+
+<!-- Featured plant collection -->
+<section class="section container">
+  <div class="section-heading">
+    <div><span class="eyebrow">From the community</span><h2>Freshly planted</h2><p>Meet some of the plants growing in our collection.</p></div>
+    <a class="text-link" href="{% url 'plants:all' %}">Explore all plants <span aria-hidden="true">↗</span></a>
+  </div>
+  {% if plants %}<div class="plant-grid">{% for plant in plants %}{% include "plants/_plant_card.html" %}{% endfor %}</div>
+  {% else %}<div class="empty-state"><span class="empty-icon">✿</span><h3>Your garden starts here</h3><p>Add the first plant to the collection.</p><a class="button" href="{% url 'plants:new' %}">Add a plant</a></div>{% endif %}
+</section>
+
+<!-- Community call to action -->
+<section class="community-banner container">
+  <div><span class="eyebrow">Good things grow when shared</span><h2>Know a plant we should meet?</h2><p>Add it to the community garden. Everyone is welcome to contribute.</p></div>
+  <a class="button button-light" href="{% url 'plants:new' %}">Share a plant <span aria-hidden="true">↗</span></a>
+</section>
+{% endblock %}
