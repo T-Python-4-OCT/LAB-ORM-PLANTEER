@@ -1,33 +1,37 @@
-# LAB-ORM-PLANTEER
+# Planteer
 
+A Django and SQLite botanical catalog for the [LAB-ORM-PLANTEER assignment](https://github.com/M3TZ305/LAB-ORM-PLANTEER). Browse plants by category and edibility, search by name or use, maintain catalog entries, and leave comments. The contact form saves messages to a public messages page.
 
-## Using what you learned, Create a new website called "Planteer" , this website has the following pages/paths:
-- Home page `/`
-- All Plants page : `plants/all/`
-- Plant Detail Page : `plants/<plant_id>/detail/`
-- Add new plant page : `plants/new/`
-- Update plant page : `plants/<plant_id>/update/`,
-- Delete Plant : `plants/<plant_id>/delete/`
-- Search Page : `plants/search/`
-- (Bonus) Contact Us page : `contact/`
-- (Bonus) Contact Us Messages page : `contact/messages/`
+## Run locally
 
+Use Python 3.12 or later. From the project folder in PowerShell, run:
 
-### Notes:
-- Use templates & template inheritance.
-- The website must be responsive (looks good on big and small screens)
-- In all plants page, user can filter by `category` and `is_edible`.
-- For the images, backgrounds, fonts you can use whatever you like. As for the content like categories,  make sure you add real plants with real plants images.
-- Use at least 2 apps, one main and one for the plants.
-- Add a related `Comment` model on the plants (fields: plant relation, full_name, content, created_at).  So, visitors can add comments on the plants.
-- In Plant detail page , Add related plants (based on the same category, use filter !)
-  
-## wireframe for the main pages
-<img width="1771" style="width:100%" alt="Screenshot 2024-03-19 at 2 27 18 PM" src="assets/main-wireframe.png">
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py seed_plants
+.\.venv\Scripts\python.exe manage.py runserver
+```
 
-## Contact pages wireframe:
-<img width="1015" style="width:100%" alt="Screenshot 2024-03-19 at 3 22 17 PM" src="assets/contact-wireframe.png">
+Open [Planteer on localhost](http://127.0.0.1:8000/). Reuse the existing `.venv` if one is already configured. The seed command can be rerun and uses the photographs bundled in the repository.
 
+Visit `/contact/messages/` to read submitted messages.
 
-## UML for the model `Plant` &  `Contact` Model 
-<img width="618" style="width:100%; height:auto;" alt="Screenshot 2024-03-19 at 3 16 01 PM" src="assets/uml.png">
+## Project structure
+
+- `main` contains the home page, contact form, and public messages page.
+- `plants` contains the catalog, combined filters, ORM search, plant CRUD, and visitor comments.
+- `templates` and `static` contain the shared layout, page templates, styles, and theme preference. Django serves uploaded images from `media` in local development.
+- `plants/seed_data` contains the sample records. Their photographs live in `static/img`. User uploads go to `media/img` (plant photos), `media/pdf` (PDF attachments), or `media/fiels` (other supported attachments).
+- The original assignment includes the [main wireframes](https://github.com/M3TZ305/LAB-ORM-PLANTEER/blob/12dbb734dc5daa62f73eb721b0dc057b03d24031/assets/main-wireframe.png), [contact wireframes](https://github.com/M3TZ305/LAB-ORM-PLANTEER/blob/12dbb734dc5daa62f73eb721b0dc057b03d24031/assets/contact-wireframe.png), and [UML](https://github.com/M3TZ305/LAB-ORM-PLANTEER/blob/12dbb734dc5daa62f73eb721b0dc057b03d24031/assets/uml.png).
+
+The local settings enable Django's development server. For a provisioned environment, set `DJANGO_DEBUG=0`, `DJANGO_SECRET_KEY`, and `DJANGO_ALLOWED_HOSTS`, and configure your server to serve collected static files and uploaded media.
+
+## Verification
+
+```powershell
+.\.venv\Scripts\python.exe manage.py check
+.\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
+.\.venv\Scripts\python.exe manage.py test
+```

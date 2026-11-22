@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}{% if plant %}Edit {{ plant.name }}{% else %}Add Plant{% endif %} | Planteer{% endblock %}
+{% block content %}
+<div class="shell page narrow">
+  <header class="page-header"><p class="eyebrow">The collection</p>
+    <h1>{% if plant %}Edit plant{% else %}Add a plant{% endif %}</h1>
+    <p>{% if plant %}Update the catalog entry for {{ plant.name }}.{% else %}Give your plant a name, a photograph, and a short description.{% endif %}</p>
+  </header>
+  <form class="form-panel" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'partials/fields.html' %}
+    <div class="form-actions">
+      <button class="button{% if not plant %} add-plant{% endif %}" type="submit">{% if plant %}Save changes{% else %}Add plant{% endif %}</button>
+      <a class="text-link" href="{% if plant %}{{ plant.get_absolute_url }}{% else %}{% url 'plants:catalog' %}{% endif %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

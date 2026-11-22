@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Delete {{ plant.name }} | Planteer{% endblock %}
+{% block content %}
+<div class="shell page narrow">
+  <header class="page-header"><p class="eyebrow">The collection</p><h1>Delete {{ plant.name }}?</h1></header>
+  <form class="form-panel" method="post">
+    {% csrf_token %}
+    <p>This permanently removes the plant and its visitor comments.</p>
+    <div class="form-actions"><button class="button button-danger" type="submit">Delete plant</button><a class="text-link" href="{{ plant.get_absolute_url }}">Cancel</a></div>
+  </form>
+</div>
+{% endblock %}

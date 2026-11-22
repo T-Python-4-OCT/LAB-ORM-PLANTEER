@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact Us | Planteer{% endblock %}
+{% block content %}
+<div class="shell page contact-layout">
+  <div>
+    <header class="page-header"><p class="eyebrow">Get in touch</p><h1>Contact us</h1><p>Your name and message will be visible to everyone. Your email stays private.</p></header>
+    <form class="contact-form" method="post">
+      {% csrf_token %}
+      {% include 'partials/fields.html' %}
+      <button class="button" type="submit">Post public message <span aria-hidden="true">↗</span></button>
+    </form>
+    <p><a class="text-link" href="{% url 'main:inbox' %}">View submitted messages</a></p>
+  </div>
+  <figure class="contact-photo">
+    <img src="{% static 'img/orchid.webp' %}" alt="Moth orchid blossoms" width="720" height="810">
+    <figcaption>Phalaenopsis amabilis <span>Moth orchid</span></figcaption>
+  </figure>
+</div>
+{% endblock %}

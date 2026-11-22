@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}All Plants | Planteer{% endblock %}
+{% block content %}
+<div class="shell page">
+  <header class="page-header"><h1>All Plants</h1><p>Search by plant name, description, or use.</p></header>
+  <form class="filter-bar" action="{% url 'plants:catalog' %}" method="get">
+    <div class="field catalog-query"><label for="catalog-search">Search plants</label>
+      <input id="catalog-search" type="search" name="q" value="{{ query }}" placeholder="Plant name or use">
+    </div>
+    <div class="field"><label for="category">Category</label><select id="category" name="category">
+      <option value="">All categories</option>
+      {% for value, label in categories %}<option value="{{ value }}"{% if value == category %} selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select></div>
+    <div class="field"><label for="is-edible">Edible</label><select id="is-edible" name="is_edible">
+      <option value="">All</option><option value="yes"{% if edible == 'yes' %} selected{% endif %}>Yes</option><option value="no"{% if edible == 'no' %} selected{% endif %}>No</option>
+    </select></div>
+    <button class="button" type="submit">Show results</button>
+    {% if query or category or edible %}
+      <a class="text-link" href="{% url 'plants:catalog' %}">Clear all</a>
+    {% endif %}
+  </form>
+  <h2 class="count">{{ plants|length }} plant{{ plants|length|pluralize }}</h2>
+  {% if plants %}
+    {% include 'partials/plant_grid.html' %}
+  {% elif query or category or edible %}
+    <div class="empty"><h3>No plants match these filters</h3><p>Try a different search term or clear your filters.</p><a class="button" href="{% url 'plants:catalog' %}">Show all plants</a></div>
+  {% else %}
+    <div class="empty"><h3>The catalog is empty</h3><a class="button add-plant" href="{% url 'plants:create' %}">Add a plant</a></div>
+  {% endif %}
+</div>
+{% endblock %}

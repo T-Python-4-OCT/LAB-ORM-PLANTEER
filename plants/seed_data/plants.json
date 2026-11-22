@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "monstera",
+    "name": "Monstera",
+    "category": "houseplants",
+    "is_edible": true,
+    "about": "Monstera deliciosa is a tropical climber with broad, glossy leaves that develop splits and holes as they mature.",
+    "used_for": "Grown indoors as a foliage plant. Only the fully ripe fruit is edible. Unripe fruit and other parts contain irritating calcium oxalate crystals.",
+    "edible_part": "Fully ripe fruit only"
+  },
+  {
+    "slug": "lavender",
+    "name": "English lavender",
+    "category": "herbs",
+    "is_edible": true,
+    "about": "Lavandula angustifolia is an aromatic shrub with narrow silver-green leaves and spikes of purple flowers.",
+    "used_for": "Dried flowers are used in sachets. Culinary-grade buds can flavor shortbread, sugar, and syrups.",
+    "edible_part": "Culinary-grade flower buds"
+  },
+  {
+    "slug": "basil",
+    "name": "Sweet basil",
+    "category": "herbs",
+    "is_edible": true,
+    "about": "Ocimum basilicum is a tender aromatic herb with soft green leaves and small summer flowers.",
+    "used_for": "The leaves are used fresh in pesto, tomato salads, and sauces.",
+    "edible_part": "Leaves"
+  },
+  {
+    "slug": "mint",
+    "name": "Spearmint",
+    "category": "herbs",
+    "is_edible": true,
+    "about": "Mentha spicata is a spreading perennial with fragrant, pointed leaves and small pale flower spikes.",
+    "used_for": "Fresh leaves flavor tea, salads, and sauces.",
+    "edible_part": "Leaves"
+  },
+  {
+    "slug": "rosemary",
+    "name": "Rosemary",
+    "category": "herbs",
+    "is_edible": true,
+    "about": "Salvia rosmarinus is an evergreen Mediterranean shrub with narrow, resin-scented leaves and pale blue flowers.",
+    "used_for": "The leaves season roasted vegetables, focaccia, and stews.",
+    "edible_part": "Leaves"
+  },
+  {
+    "slug": "thyme",
+    "name": "Common thyme",
+    "category": "herbs",
+    "is_edible": true,
+    "about": "Thymus vulgaris is a low evergreen shrub with tiny aromatic leaves and pink to lilac flowers.",
+    "used_for": "Fresh or dried leaves season soups, beans, and roasted vegetables.",
+    "edible_part": "Leaves"
+  },
+  {
+    "slug": "sunflower",
+    "name": "Common sunflower",
+    "category": "flowers",
+    "is_edible": true,
+    "about": "Helianthus annuus is a tall annual with large flower heads made up of many small florets.",
+    "used_for": "Its mature seeds are eaten roasted or pressed for oil. The flower heads are also grown for cutting.",
+    "edible_part": "Mature seeds"
+  },
+  {
+    "slug": "orchid",
+    "name": "Moth orchid",
+    "category": "flowers",
+    "is_edible": false,
+    "about": "Phalaenopsis amabilis is an epiphytic orchid with leathery leaves and long sprays of white flowers.",
+    "used_for": "Grown as a flowering houseplant and used in ornamental displays."
+  },
+  {
+    "slug": "snake-plant",
+    "name": "Snake plant",
+    "category": "houseplants",
+    "is_edible": false,
+    "about": "Dracaena trifasciata forms upright, sword-shaped leaves with green bands.",
+    "used_for": "Grown as a low-maintenance indoor foliage plant."
+  },
+  {
+    "slug": "pothos",
+    "name": "Golden pothos",
+    "category": "houseplants",
+    "is_edible": false,
+    "about": "Epipremnum aureum is a tropical climber with glossy foliage that often has golden variegation.",
+    "used_for": "Its trailing stems suit hanging baskets, and its climbing stems can be trained on a support."
+  },
+  {
+    "slug": "spider-plant",
+    "name": "Spider plant",
+    "category": "houseplants",
+    "is_edible": false,
+    "about": "Chlorophytum comosum forms tufts of narrow leaves and produces small plantlets on arching stems.",
+    "used_for": "Grown in hanging baskets. The plantlets can be rooted to start new plants."
+  },
+  {
+    "slug": "aloe",
+    "name": "Aloe vera",
+    "category": "succulents",
+    "is_edible": false,
+    "about": "Aloe vera forms a rosette of thick, toothed leaves that store water during dry periods.",
+    "used_for": "Grown in succulent collections. The clear inner gel is used in topical products. Whole leaves and the yellow latex are unsuitable for eating."
+  },
+  {
+    "slug": "echeveria",
+    "name": "Mexican snowball",
+    "category": "succulents",
+    "is_edible": false,
+    "about": "Echeveria elegans forms compact rosettes of pale blue-green leaves with a powdery surface.",
+    "used_for": "Grown in shallow containers, rock gardens, and mixed succulent planters."
+  },
+  {
+    "slug": "calendula",
+    "name": "Pot marigold",
+    "category": "flowers",
+    "is_edible": true,
+    "about": "Calendula officinalis is a short-lived garden plant with daisy-like heads in yellow and orange.",
+    "used_for": "Its petals can be used as a garnish or to add color to rice and salads.",
+    "edible_part": "Petals"
+  },
+  {
+    "slug": "cosmos",
+    "name": "Garden cosmos",
+    "category": "flowers",
+    "is_edible": false,
+    "about": "Cosmos bipinnatus is a branching annual with finely divided foliage and pink, white, or purple flower heads.",
+    "used_for": "Grown for cut flowers and pollinator-friendly garden borders."
+  },
+  {
+    "slug": "hibiscus",
+    "name": "Chinese hibiscus",
+    "category": "flowers",
+    "is_edible": false,
+    "about": "Hibiscus rosa-sinensis is a tropical shrub with glossy leaves and wide flowers with prominent staminal columns.",
+    "used_for": "Grown as an ornamental shrub or patio plant in warm climates."
+  },
+  {
+    "slug": "lemon",
+    "name": "Lemon tree",
+    "category": "fruit-trees",
+    "is_edible": true,
+    "about": "Citrus × limon is an evergreen citrus tree with fragrant white flowers and acidic yellow fruits.",
+    "used_for": "The juice and zest flavor dressings, drinks, and baked goods.",
+    "edible_part": "Fruit juice and zest"
+  },
+  {
+    "slug": "pomegranate",
+    "name": "Pomegranate",
+    "category": "fruit-trees",
+    "is_edible": true,
+    "about": "Punica granatum is a deciduous shrub or small tree with bright flowers and round, leathery fruits.",
+    "used_for": "The juicy arils are eaten fresh or used in salads, juice, and pomegranate molasses.",
+    "edible_part": "Arils"
+  }
+]

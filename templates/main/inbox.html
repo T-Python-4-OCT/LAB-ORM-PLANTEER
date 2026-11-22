@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Contact Messages | Planteer{% endblock %}
+{% block content %}
+<div class="shell page">
+  <header class="page-header"><h1>Messages from users</h1></header>
+  <div class="inbox-grid">
+    {% for entry in entries %}
+      <article class="form-panel">
+        <time datetime="{{ entry.created_at|date:'c' }}">{{ entry.created_at|date:'M j, Y' }}</time>
+        <h2>{{ entry.first_name }} {{ entry.last_name }}</h2>
+        {{ entry.message|linebreaks }}
+      </article>
+    {% empty %}<p class="muted">No contact messages yet.</p>{% endfor %}
+  </div>
+</div>
+{% endblock %}

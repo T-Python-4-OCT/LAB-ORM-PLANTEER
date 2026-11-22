@@ -1,0 +1,8 @@
+<form class="search-form" role="search" action="{% url 'plants:search' %}" method="get">
+  <label class="sr-only" for="{{ search_id }}">Search for a plant</label>
+  <div class="search-field">
+    <span class="search-icon" aria-hidden="true"></span>
+    <input id="{{ search_id }}" name="q" type="search" value="{{ query|default:'' }}" placeholder="{{ search_hint|default:'Search for a plant…' }}">
+  </div>
+  <button class="button" type="submit">Search</button>
+</form>

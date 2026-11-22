@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Page not found | Planteer{% endblock %}
+{% block content %}
+<div class="shell page narrow">
+  <div class="empty"><p class="eyebrow">404</p><h1>Page not found</h1><p>The requested page could not be found.</p><a class="button" href="{% url 'plants:catalog' %}">Browse all plants</a></div>
+</div>
+{% endblock %}

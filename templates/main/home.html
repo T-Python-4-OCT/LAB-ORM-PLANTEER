@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="shell">
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="{% static 'video/hero.mp4' %}" type="video/mp4">
+      </video>
+      <div class="hero-content">
+        <h1>The <em>plant</em> guide</h1>
+        <p class="hero-description">Discover plants by name, category, or use.</p>
+        {% include 'partials/search.html' with search_id='home-search' search_hint='Search by plant name or use…' %}
+        <a class="hero-link" href="{% url 'plants:catalog' %}">Explore all plants <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+    <nav class="collections" aria-label="Plant collections">
+      <span class="collections-label">Browse by category</span>
+      {% for value, label in categories %}<a href="{% url 'plants:catalog' %}?category={{ value|urlencode }}">{{ label }}</a>{% endfor %}
+    </nav>
+    <section class="featured section-space">
+      <div class="section-header">
+        <div><p class="eyebrow">From the collection</p><h2>Featured plants</h2></div>
+        <a class="text-link" href="{% url 'plants:catalog' %}">View all plants <span aria-hidden="true">↗</span></a>
+      </div>
+      {% if featured %}
+        {% include 'partials/plant_grid.html' with plants=featured %}
+      {% else %}
+        <div class="empty"><h3>The collection is ready to grow</h3><a class="button add-plant" href="{% url 'plants:create' %}">Add the first plant</a></div>
+      {% endif %}
+    </section>
+  </div>
+{% endblock %}
