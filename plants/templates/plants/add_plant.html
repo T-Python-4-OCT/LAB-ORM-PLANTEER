@@ -1,0 +1,56 @@
+{% extends "main/base.html" %}
+
+{% block title %}Add Plant | Planteer{% endblock %}
+
+{% block content %}
+    <div class="form-card">
+        <h1>Add a New Plant</h1>
+        <p class="subtitle">Share a plant with the Planteer community 🌱</p>
+
+        {% if error %}
+            <p class="form-error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST" action="{% url 'plants:add_plant_view' %}" enctype="multipart/form-data" class="plant-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" maxlength="1024" placeholder="e.g. Date Palm" required>
+            </div>
+
+            <div class="form-group">
+                <label for="about">About</label>
+                <textarea id="about" name="about" rows="4" placeholder="A short description of the plant" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="used_for">Used For</label>
+                <textarea id="used_for" name="used_for" rows="3" placeholder="e.g. Eaten fresh, used in cooking and medicine" required></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        {% for value, label in categories %}
+                            <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                </div>
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox" name="is_edible">
+                This plant is edible
+            </label>
+
+            <button type="submit" class="btn btn-full">Add Plant</button>
+        </form>
+    </div>
+{% endblock %}

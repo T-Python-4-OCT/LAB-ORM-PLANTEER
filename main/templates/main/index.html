@@ -1,0 +1,33 @@
+{% extends "main/base.html" %}
+
+{% block title %}Planteer | Plant Database For Plants Lovers{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h1>Planteer</h1>
+        <h2>Plant Database For Plants Lovers</h2>
+
+        <form method="GET" action="{% url 'plants:search_view' %}" class="hero-search">
+            <input type="text" name="q" placeholder="Search For Plant...">
+            <button type="submit" class="btn">Search</button>
+        </form>
+    </section>
+
+    <section class="home-plants">
+        <div class="section-header">
+            <div>
+                <h2>Plants</h2>
+                <p class="subtitle">Learn more about plants</p>
+            </div>
+            <a href="{% url 'plants:all_plants_view' %}" class="more-link">More →</a>
+        </div>
+
+        <div class="plants-grid">
+            {% for plant in latest_plants %}
+                {% include "plants/partials/plant_card.html" %}
+            {% empty %}
+                <p class="empty">No plants yet. <a href="{% url 'plants:add_plant_view' %}">Add the first one!</a></p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

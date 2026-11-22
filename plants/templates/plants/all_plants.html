@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>All Plants</h1>
+        <p class="subtitle">{{ total }} plant{{ total|pluralize }}</p>
+    </div>
+
+    <form method="GET" action="{% url 'plants:all_plants_view' %}" class="filter-bar">
+        <select name="category" onchange="this.form.submit()">
+            <option value="">All Categories</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="edible" onchange="this.form.submit()">
+            <option value="">Edible & Non-edible</option>
+            <option value="yes" {% if edible == "yes" %}selected{% endif %}>Edible only</option>
+            <option value="no" {% if edible == "no" %}selected{% endif %}>Non-edible only</option>
+        </select>
+
+        {% if category or edible %}
+            <a href="{% url 'plants:all_plants_view' %}" class="clear-filters">✕ Clear filters</a>
+        {% endif %}
+    </form>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            {% include "plants/partials/plant_card.html" %}
+        {% empty %}
+            <p class="empty">No plants match your filters 🌵</p>
+        {% endfor %}
+    </div>
+{% endblock %}

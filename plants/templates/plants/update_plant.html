@@ -1,0 +1,60 @@
+{% extends "main/base.html" %}
+
+{% block title %}Edit {{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+    <div class="form-card">
+        <h1>Edit Plant</h1>
+        <p class="subtitle">Update the information of {{ plant.name }}</p>
+
+        <form method="POST" action="{% url 'plants:update_plant_view' plant.id %}" enctype="multipart/form-data" class="plant-form">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" maxlength="1024" value="{{ plant.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="about">About</label>
+                <textarea id="about" name="about" rows="4" required>{{ plant.about }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="used_for">Used For</label>
+                <textarea id="used_for" name="used_for" rows="3" required>{{ plant.used_for }}</textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        {% for value, label in categories %}
+                            <option value="{{ value }}" {% if plant.category == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Change Image (optional)</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+            </div>
+
+            <div class="current-image">
+                <p>Current image:</p>
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
+                This plant is edible
+            </label>
+
+            <div class="form-actions">
+                <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-outline">Cancel</a>
+                <button type="submit" class="btn">Save Changes</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
