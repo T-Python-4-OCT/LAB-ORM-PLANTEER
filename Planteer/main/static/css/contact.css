@@ -1,0 +1,39 @@
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+.contact-form h1, .page-title { font-size: 40px; margin-bottom: 8px; }
+.contact-form .muted { margin-bottom: 24px; font-size: 16px; }
+
+.contact-form form { display: flex; flex-direction: column; gap: 14px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.submit-btn { width: 100%; padding: 12px; margin-top: 6px; }
+
+.contact-image img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Messages page */
+.page-title { margin-bottom: 32px; }
+.messages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: 32px;
+}
+.message-card h3 { font-size: 16px; font-weight: 500; margin: 6px 0 2px; }
+.message-card .email { color: #2563eb; font-size: 15px; }
+.message-card p { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.5; }
+.user-icon { font-size: 22px; }
+.contact-layout > *, .row > * { min-width: 0; }
+
+@media (max-width: 800px) {
+    .contact-layout { grid-template-columns: 1fr; }
+    .contact-image { order: 2; }
+    .row { grid-template-columns: 1fr; }
+    .contact-form h1, .page-title { font-size: 32px; }
+}

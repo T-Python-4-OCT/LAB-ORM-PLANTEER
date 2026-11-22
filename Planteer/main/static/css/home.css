@@ -1,0 +1,43 @@
+.hero {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)),
+        url("../images/hero.jpg") center / cover no-repeat;
+    border-radius: 10px;
+    padding: 90px 20px;
+    text-align: center;
+    color: #111;
+}
+[data-theme="dark"] .hero {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("../images/hero.jpg") center / cover no-repeat;
+    color: #fff;
+}
+.hero h1 { font-size: 56px; margin-bottom: 8px; }
+.hero h2 { font-size: 28px; font-weight: 700; margin-bottom: 28px; }
+
+.hero-search {
+    display: flex;
+    gap: 8px;
+    max-width: 520px;
+    margin: 0 auto;
+}
+.hero-search input { flex: 1; }
+
+.plants-section { margin-top: 48px; }
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.hero-search input { min-width: 0; }
+
+
+@media (max-width: 700px) {
+    .hero { padding: 50px 16px; }
+    .hero h1 { font-size: 38px; }
+    .hero h2 { font-size: 20px; }
+    .hero-search { flex-direction: column; }
+}

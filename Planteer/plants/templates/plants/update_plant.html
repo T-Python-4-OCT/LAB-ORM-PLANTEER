@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Update {{ plant.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Update Plant</h1>
+
+<form method="post" enctype="multipart/form-data" class="plant-form">
+    {% csrf_token %}
+
+    <div>
+        <label>Name</label>
+        <input type="text" name="name" value="{{ plant.name }}" required>
+    </div>
+
+    <div>
+        <label>About</label>
+        <textarea name="about" rows="4" required>{{ plant.about }}</textarea>
+    </div>
+
+    <div>
+        <label>Used for</label>
+        <textarea name="used_for" rows="3" required>{{ plant.used_for }}</textarea>
+    </div>
+
+    <div>
+        <label>Image</label>
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="current-image">
+        <input type="file" name="image" accept="image/*">
+        <p class="muted">Leave empty to keep the current image.</p>
+    </div>
+
+    <div>
+        <label>Category</label>
+        <select name="category" required>
+            {% for value, label in categories %}
+            <option value="{{ value }}" {% if value == plant.category %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <label class="checkbox">
+        <input type="checkbox" name="is_edible" {% if plant.is_edible %}checked{% endif %}> Is edible
+    </label>
+
+    <button type="submit" class="btn">Save Changes</button>
+</form>
+{% endblock %}

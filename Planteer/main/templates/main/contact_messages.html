@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Messages{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Messages from Users</h1>
+
+<div class="messages-grid">
+    {% for contact in contacts %}
+    <div class="message-card">
+        <div class="user-icon">&#9786;</div>
+        <h3>{{ contact.first_name }} {{ contact.last_name }}</h3>
+        <a href="mailto:{{ contact.email }}" class="email">{{ contact.email }}</a>
+        <p>{{ contact.message }}</p>
+    </div>
+    {% empty %}
+    <p class="muted">No messages yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

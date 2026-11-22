@@ -1,0 +1,51 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Add Plant{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Add New Plant</h1>
+
+<form method="post" enctype="multipart/form-data" class="plant-form">
+    {% csrf_token %}
+
+    <div>
+        <label>Name</label>
+        <input type="text" name="name" required>
+    </div>
+
+    <div>
+        <label>About</label>
+        <textarea name="about" rows="4" required></textarea>
+    </div>
+
+    <div>
+        <label>Used for</label>
+        <textarea name="used_for" rows="3" required></textarea>
+    </div>
+
+    <div>
+        <label>Image</label>
+        <input type="file" name="image" accept="image/*" required>
+    </div>
+
+    <div>
+        <label>Category</label>
+        <select name="category" required>
+            {% for value, label in categories %}
+            <option value="{{ value }}">{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <label class="checkbox">
+        <input type="checkbox" name="is_edible"> Is edible
+    </label>
+
+    <button type="submit" class="btn">Add Plant</button>
+</form>
+{% endblock %}

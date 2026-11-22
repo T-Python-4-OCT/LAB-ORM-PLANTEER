@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="{{ request.COOKIES.mode|default:'light' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Planteer{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'main:home' %}" class="logo">Planteer</a>
+        <div class="nav-links">
+            <a href="{% url 'plants:all' %}">All Plants</a>
+            <a href="{% url 'main:contact' %}">Contact Us</a>
+
+            {% if request.COOKIES.mode == "dark" %}
+                <a href="{% url 'main:mode' 'light' %}?next={{ request.get_full_path|urlencode }}" class="theme-btn">☀️</a>
+            {% else %}
+                <a href="{% url 'main:mode' 'dark' %}?next={{ request.get_full_path|urlencode }}" class="theme-btn">🌙</a>
+            {% endif %}
+
+            <a href="{% url 'plants:new' %}" class="btn-dark">Add Plant</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-brand">Planteer</div>
+        <div class="footer-cols">
+            <div>
+                <h4>Pages</h4>
+                <a href="{% url 'main:home' %}">Home</a>
+                <a href="{% url 'plants:all' %}">All Plants</a>
+                <a href="{% url 'plants:new' %}">Add Plant</a>
+            </div>
+            <div>
+                <h4>Support</h4>
+                <a href="{% url 'main:contact' %}">Contact Us</a>
+                <a href="{% url 'main:messages' %}">Messages</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
