@@ -26,4 +26,3 @@ urlpatterns = [
     # Contact Messages Page: 
     path("contact/messages/", views.contact_messages, name="contact_messages"),
 ]
-

@@ -1,0 +1,84 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Messages Inbox | Planteer{% endblock %}
+
+{% block content %}
+<section class="inbox-section">
+    <div class="inbox-container">
+
+        <div class="inbox-top">
+            <div>
+                <span class="inbox-label">COMMUNICATION CENTER</span>
+                <h1>Messages Inbox</h1>
+                <p>Manage and review messages received from your visitors.</p>
+            </div>
+
+            <div class="inbox-counter">
+                <span>{{ messages|length }}</span>
+                <small>Total Messages</small>
+            </div>
+        </div>
+
+        <div class="inbox-toolbar">
+            <div>
+                <h2>All Messages</h2>
+                <span>Your latest conversations</span>
+            </div>
+        </div>
+
+        <div class="inbox-list">
+            {% for message in messages %}
+                <article class="inbox-message">
+
+                    <div class="sender-avatar">
+                        {{ message.first_name|first|upper }}
+                    </div>
+
+                    <div class="inbox-message-main">
+
+                        <div class="inbox-message-header">
+                            <div class="sender-details">
+                                <h3>
+                                    {{ message.first_name }} {{ message.last_name }}
+                                </h3>
+                                <a href="mailto:{{ message.email }}">
+                                    {{ message.email }}
+                                </a>
+                            </div>
+
+                            <time>
+                                {{ message.created_at|date:"d M Y" }}
+                                <span>{{ message.created_at|date:"H:i" }}</span>
+                            </time>
+                        </div>
+
+                        <div class="inbox-message-content">
+                            {{ message.message|linebreaksbr }}
+                        </div>
+
+                        <div class="inbox-message-footer">
+                            <span class="message-status">
+                                <span></span>
+                                Received
+                            </span>
+
+                            <a href="mailto:{{ message.email }}" class="reply-link">
+                                Reply to Message →
+                            </a>
+                        </div>
+
+                    </div>
+                </article>
+            {% empty %}
+                <div class="inbox-empty">
+                    <div class="empty-icon">✉</div>
+                    <h2>Your inbox is empty</h2>
+                    <p>New messages from visitors will appear here.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock %}
