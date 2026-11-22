@@ -1,3 +1,4 @@
+
 """
 URL configuration for Planteer project.
 
@@ -19,9 +20,21 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
+from django.templatetags.static import static as static_url
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    path(
+        "favicon.ico",
+        RedirectView.as_view(
+            url=static_url("images/favicon.ico"),
+            permanent=False,
+        ),
+        name="favicon",
+    ),
+
     path("", include("apps.core.urls")),
     path("plants/", include("apps.plants.urls")),
     path("accounts/", include("apps.accounts.urls")),
