@@ -1,0 +1,106 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+{% block description %}{{ plant.about|truncatechars:150 }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <a class="back-link" href="{% url 'plants:all_plants' %}"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>All plants</a>
+
+    <article class="detail">
+      <figure class="detail__media">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+      </figure>
+
+      <div class="detail__info">
+        <a class="badge badge--{{ plant.category }} badge--static" href="{% url 'plants:all_plants' %}?category={{ plant.category }}">{{ plant.get_category_display }}</a>
+        <h1 class="detail__title">{{ plant.name }}</h1>
+        <div class="detail__text">{{ plant.about|linebreaks }}</div>
+
+        <dl class="facts">
+          <div class="facts__row">
+            <dt>Used for</dt>
+            <dd>{{ plant.used_for|linebreaksbr }}</dd>
+          </div>
+          <div class="facts__row">
+            <dt>Edible</dt>
+            <dd>
+              {% if plant.is_edible %}
+                <span class="tag tag--edible"><svg class="icon" aria-hidden="true"><use href="#i-fork"/></svg>Yes, it's edible</span>
+              {% else %}
+                <span class="tag"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg>No, not edible</span>
+              {% endif %}
+            </dd>
+          </div>
+          <div class="facts__row">
+            <dt>Added</dt>
+            <dd><time datetime="{{ plant.created_at|date:'c' }}">{{ plant.created_at|date:"F j, Y" }}</time></dd>
+          </div>
+        </dl>
+
+        <div class="detail__actions">
+          <a class="btn btn--dark" href="{% url 'plants:update_plant' plant.id %}"><svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg>Update</a>
+          <a class="btn btn--danger-outline" href="{% url 'plants:delete_plant' plant.id %}"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>Delete</a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+{# Related plants: same category (Plant.objects.filter(category=...).exclude(pk=plant.pk)) #}
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2 class="section__title">Related Plants</h2>
+        <p class="section__lead">More plants from the {{ plant.get_category_display|lower }} category.</p>
+      </div>
+      <a class="link-more" href="{% url 'plants:all_plants' %}?category={{ plant.category }}">See all <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    {% if related_plants %}
+      <div class="grid">
+        {% for plant in related_plants %}{% include "main/partials/_plant_card.html" %}{% endfor %}
+      </div>
+    {% else %}
+      <p class="empty empty--inline">No other plants in this category yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+{# Comments: plant.comments.all() — every comment whose plant_id is this plant's id #}
+<section class="section" id="comments">
+  <div class="container comments">
+    <h2 class="section__title">
+      Comments <span class="count">({{ comments|length }})</span>
+    </h2>
+
+    <form class="card form comment-form" method="post" action="{% url 'plants:add_comment' plant.id %}" novalidate>
+      {% csrf_token %}
+      <h3 class="comment-form__title">Leave a comment</h3>
+      {% include "main/partials/_field.html" with field=comment_form.full_name %}
+      {% include "main/partials/_field.html" with field=comment_form.content %}
+      <button class="btn btn--dark" type="submit"><svg class="icon" aria-hidden="true"><use href="#i-comment"/></svg>Post comment</button>
+    </form>
+
+    {% if comments %}
+      <ol class="comment-list">
+        {% for comment in comments %}
+        <li class="comment">
+          <div class="comment__avatar" aria-hidden="true">{{ comment.full_name|first|upper }}</div>
+          <div class="comment__body">
+            <div class="comment__head">
+              <strong>{{ comment.full_name }}</strong>
+              <time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"M j, Y · H:i" }}</time>
+            </div>
+            <p>{{ comment.content|linebreaksbr }}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <p class="empty empty--inline">No comments yet — be the first to share something about {{ plant.name }}.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

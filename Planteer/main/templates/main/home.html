@@ -1,0 +1,62 @@
+{% extends "main/base.html" %}
+
+{% block title %}Plant database for plant lovers{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <div class="hero__card">
+      {# background: a collage of the newest plants' photos #}
+      <div class="hero__collage" aria-hidden="true">
+        {% for plant in plants %}<img src="{{ plant.image.url }}" alt="">{% endfor %}
+      </div>
+      <div class="hero__content">
+        <p class="hero__kicker"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>{{ plants_count }} plant{{ plants_count|pluralize }} and growing</p>
+        <h1 class="hero__title">Planteer</h1>
+        <p class="hero__lead">Plant Database For Plants Lovers</p>
+        <form class="search-box" action="{% url 'plants:search' %}" method="get" role="search">
+          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <input type="search" name="q" placeholder="Search for plants — mango, jasmine, sage…" aria-label="Search for plants">
+          <button class="btn btn--dark" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="chips" aria-label="Browse by category">
+      {% for value, label in categories %}
+        <a class="chip" href="{% url 'plants:all_plants' %}?category={{ value }}">{{ label }}s</a>
+      {% endfor %}
+      <a class="chip chip--edible" href="{% url 'plants:all_plants' %}?is_edible=yes"><svg class="icon" aria-hidden="true"><use href="#i-fork"/></svg>Edible</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h2 class="section__title">Plants</h2>
+        <p class="section__lead">The newest plants added to Planteer.</p>
+      </div>
+      <a class="link-more" href="{% url 'plants:all_plants' %}">More <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+
+    {% if plants %}
+      <div class="grid">
+        {% for plant in plants %}{% include "main/partials/_plant_card.html" %}{% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        <svg class="icon empty__icon" aria-hidden="true"><use href="#i-leaf"/></svg>
+        <h3>No plants yet</h3>
+        <p>Be the first to add a plant to the database.</p>
+        <a class="btn btn--dark" href="{% url 'plants:add_plant' %}"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add a plant</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

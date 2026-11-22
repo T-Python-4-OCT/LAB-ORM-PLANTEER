@@ -1,0 +1,59 @@
+{% extends "main/base.html" %}
+
+{% block title %}All plants{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <h1 class="page-title">All Plants</h1>
+        <p class="page-lead">{{ plants|length }} plant{{ plants|length|pluralize }}{% if is_filtered %} match your filters{% endif %}.</p>
+      </div>
+    </div>
+
+    {# Filter by category and is_edible — a GET form, so the filters show in the URL #}
+    <form class="filters" method="get" action="{% url 'plants:all_plants' %}" data-autosubmit>
+      <svg class="icon filters__icon" aria-hidden="true"><use href="#i-filter"/></svg>
+      <label class="filters__field">
+        <span>Category</span>
+        <select class="input" name="category">
+          <option value="">All categories</option>
+          {% for value, label in categories %}
+            <option value="{{ value }}" {% if current_category == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="filters__field">
+        <span>Edible</span>
+        <select class="input" name="is_edible">
+          <option value="">Edible &amp; not edible</option>
+          <option value="yes" {% if current_is_edible == "yes" %}selected{% endif %}>Edible only</option>
+          <option value="no" {% if current_is_edible == "no" %}selected{% endif %}>Not edible only</option>
+        </select>
+      </label>
+      <div class="filters__actions">
+        <button class="btn btn--dark" type="submit">Filter</button>
+        {% if is_filtered %}<a class="btn btn--ghost" href="{% url 'plants:all_plants' %}">Reset</a>{% endif %}
+      </div>
+    </form>
+
+    {% if plants %}
+      <div class="grid">
+        {% for plant in plants %}{% include "main/partials/_plant_card.html" %}{% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        <svg class="icon empty__icon" aria-hidden="true"><use href="#i-leaf"/></svg>
+        <h3>No plants found</h3>
+        <p>{% if is_filtered %}No plant matches these filters — try another combination.{% else %}The database is empty. Add the first plant!{% endif %}</p>
+        {% if is_filtered %}
+          <a class="btn btn--outline" href="{% url 'plants:all_plants' %}">Show all plants</a>
+        {% else %}
+          <a class="btn btn--dark" href="{% url 'plants:add_plant' %}"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add a plant</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

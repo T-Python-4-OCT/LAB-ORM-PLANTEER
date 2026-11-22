@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+
+{% block title %}{% if query %}Search: {{ query }}{% else %}Search{% endif %}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="page-title">Search Results</h1>
+
+    <form class="search-box search-box--page" action="{% url 'plants:search' %}" method="get" role="search">
+      <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" name="q" value="{{ query }}" placeholder="Search by name or description…" aria-label="Search for plants" {% if not query %}autofocus{% endif %}>
+      <button class="btn btn--dark" type="submit">Search</button>
+    </form>
+
+    {% if query %}
+      <p class="page-lead">{{ results|length }} result{{ results|length|pluralize }} for “<strong>{{ query }}</strong>”.</p>
+      {% if results %}
+        <div class="grid">
+          {% for plant in results %}{% include "main/partials/_plant_card.html" %}{% endfor %}
+        </div>
+      {% else %}
+        <div class="empty">
+          <svg class="icon empty__icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <h3>No plants found</h3>
+          <p>Try another word, or browse all the plants.</p>
+          <a class="btn btn--outline" href="{% url 'plants:all_plants' %}">All plants</a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="suggest">
+        <span>Try:</span>
+        <a class="chip" href="?q=mango">mango</a>
+        <a class="chip" href="?q=jasmine">jasmine</a>
+        <a class="chip" href="?q=cactus">cactus</a>
+        <a class="chip" href="?q=tea">tea</a>
+        <a class="chip" href="?q=medicine">medicine</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

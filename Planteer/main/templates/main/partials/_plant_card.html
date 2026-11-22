@@ -1,0 +1,23 @@
+{# One plant card — used on Home, All Plants, Search and Related Plants #}
+<article class="plant-card">
+  <div class="plant-card__media">
+    <img src="{{ plant.image.url }}" alt="{{ plant.name }}" loading="lazy">
+    <span class="badge badge--{{ plant.category }}">{{ plant.get_category_display }}</span>
+  </div>
+  <div class="plant-card__body">
+    <h3 class="plant-card__title">
+      <a href="{% url 'plants:plant_detail' plant.id %}">{{ plant.name }}</a>
+    </h3>
+    <p class="plant-card__about">{{ plant.about|truncatechars:90 }}</p>
+    <div class="plant-card__meta">
+      {% if plant.is_edible %}
+        <span class="tag tag--edible"><svg class="icon" aria-hidden="true"><use href="#i-fork"/></svg>Edible</span>
+      {% else %}
+        <span class="tag"><svg class="icon" aria-hidden="true"><use href="#i-ban"/></svg>Not edible</span>
+      {% endif %}
+      {% if plant.comments_count %}
+        <span class="tag tag--plain"><svg class="icon" aria-hidden="true"><use href="#i-comment"/></svg>{{ plant.comments_count }}</span>
+      {% endif %}
+    </div>
+  </div>
+</article>

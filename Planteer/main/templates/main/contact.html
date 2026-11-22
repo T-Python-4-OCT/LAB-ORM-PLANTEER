@@ -1,0 +1,50 @@
+{% extends "main/base.html" %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container contact">
+    <div class="contact__form">
+      <h1 class="page-title">Contact us</h1>
+      <p class="page-lead">Have a question, a suggestion or a plant we should add? Send us a message and we'll get back to you.</p>
+
+      <form class="form" method="post" action="{% url 'main:contact' %}" novalidate>
+        {% csrf_token %}
+        <div class="form__row">
+          {% include "main/partials/_field.html" with field=form.first_name %}
+          {% include "main/partials/_field.html" with field=form.last_name %}
+        </div>
+        {% include "main/partials/_field.html" with field=form.email %}
+        {% include "main/partials/_field.html" with field=form.message %}
+        <button class="btn btn--dark btn--block" type="submit">Submit</button>
+      </form>
+
+      <a class="link-more contact__messages" href="{% url 'main:contact_messages' %}">
+        <svg class="icon" aria-hidden="true"><use href="#i-inbox"/></svg>See messages from users
+      </a>
+    </div>
+
+    <div class="contact__art" aria-hidden="true">
+      <svg viewBox="0 0 300 380" class="contact__svg">
+        <defs>
+          <linearGradient id="bgc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7eee3"/><stop offset="1" stop-color="#cfdcc8"/></linearGradient>
+        </defs>
+        <rect width="300" height="380" rx="22" fill="url(#bgc)"/>
+        <path d="M150 360 C150 280 150 200 150 120" stroke="#2f6b45" stroke-width="5" fill="none"/>
+        <path d="M150 300 C110 290 80 260 70 220 C110 225 140 255 150 300Z" fill="#3f8a5a"/>
+        <path d="M150 260 C190 250 220 220 232 180 C192 186 160 214 150 260Z" fill="#2f6b45"/>
+        <path d="M150 210 C118 200 98 178 92 150 C122 154 144 176 150 210Z" fill="#4c9a66"/>
+        <g transform="translate(150 105)">
+          <ellipse rx="20" ry="34" fill="#d98fb5" transform="rotate(-40)"/><ellipse rx="20" ry="34" fill="#d98fb5" transform="rotate(40)"/>
+          <ellipse rx="16" ry="28" fill="#e7a9c8" transform="rotate(0) translate(0 -18)"/>
+          <ellipse rx="16" ry="26" fill="#c9739d" transform="translate(0 20)"/>
+          <circle r="9" fill="#f3d36b"/>
+        </g>
+        <rect x="104" y="330" width="92" height="40" rx="8" fill="#b9673f"/>
+        <rect x="96" y="322" width="108" height="16" rx="6" fill="#c8794f"/>
+      </svg>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% with url_name=request.resolver_match.url_name %}
+<header class="navbar">
+  <div class="container navbar__inner">
+    <a class="brand" href="{% url 'main:home' %}" aria-label="Planteer home">
+      <span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+      <span class="brand__name">Planteer</span>
+    </a>
+
+    <button class="navbar__toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+      <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg><span class="sr-only">Menu</span>
+    </button>
+
+    <nav class="navbar__links" id="nav-links" aria-label="Main">
+      <a class="navbar__link {% if url_name == 'all_plants' or url_name == 'plant_detail' %}is-active{% endif %}" href="{% url 'plants:all_plants' %}">All Plants</a>
+      <a class="navbar__link {% if url_name == 'search' %}is-active{% endif %}" href="{% url 'plants:search' %}">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>Search
+      </a>
+      <a class="navbar__link {% if url_name == 'contact' or url_name == 'contact_messages' %}is-active{% endif %}" href="{% url 'main:contact' %}">Contact Us</a>
+      <a class="btn btn--dark btn--sm" href="{% url 'plants:add_plant' %}">
+        <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>Add Plant
+      </a>
+    </nav>
+  </div>
+</header>
+{% endwith %}
