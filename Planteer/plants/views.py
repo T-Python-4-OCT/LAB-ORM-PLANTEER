@@ -111,3 +111,14 @@ def add_comment_view(request: HttpRequest, plant_id: int):
         new_comment.save()
 
     return redirect("plants:plant_detail_view", plant_id=plant.id)
+
+
+def delete_comment_view(request: HttpRequest, comment_id: int):
+
+    comment = get_object_or_404(Comment, pk=comment_id)
+    plant_id = comment.plant.id
+
+    if request.method == "POST":
+        comment.delete()
+
+    return redirect("plants:plant_detail_view", plant_id=plant_id)

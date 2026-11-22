@@ -7,11 +7,11 @@
 <div class="container page">
     <div class="form-page">
         <div class="page-head">
-            <h1 class="page-title">Add a Plant</h1>
-            <p class="page-subtitle">Share a real plant with a real photo.</p>
+            <h1 class="display-title">Add a Plant</h1>
+            <p class="display-subtitle">Share a real plant with a real photo.</p>
         </div>
 
-        <form action="{% url 'plants:add_plant_view' %}" method="post" enctype="multipart/form-data" class="form form-panel">
+        <form action="{% url 'plants:add_plant_view' %}" method="post" enctype="multipart/form-data" class="form">
             {% csrf_token %}
 
             <div class="field">

@@ -5,21 +5,16 @@
 {% block content %}
 
 <div class="container page">
-    <div class="page-head">
-        <h1 class="page-title">Search Results</h1>
-        {% if query %}
-            <p class="page-subtitle">{{ plants|length }} plant{{ plants|length|pluralize }} found for "{{ query }}".</p>
-        {% else %}
-            <p class="page-subtitle">Type a plant name to search the collection.</p>
-        {% endif %}
-    </div>
+    <h1 class="page-title">Search Results</h1>
 
-    <form action="{% url 'plants:search_view' %}" method="get" class="search-form search-page-form">
+    <form action="{% url 'plants:search_view' %}" method="get" class="search-form search-page-form" role="search">
         <input type="search" name="q" value="{{ query }}" placeholder="Search for a plant..." aria-label="Search for a plant" dir="auto" required>
         <button type="submit" class="btn">Search</button>
     </form>
 
     {% if query %}
+        <p class="results-count">{{ plants|length }} plant{{ plants|length|pluralize }} found for "{{ query }}"</p>
+
         <div class="plants-grid">
             {% for plant in plants %}
                 {% include 'plants/plant_card.html' %}

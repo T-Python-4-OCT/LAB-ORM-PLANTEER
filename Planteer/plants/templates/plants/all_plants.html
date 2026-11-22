@@ -5,10 +5,7 @@
 {% block content %}
 
 <div class="container page">
-    <div class="page-head">
-        <h1 class="page-title">All Plants</h1>
-        <p class="page-subtitle">Browse every plant in the collection, or narrow it down by category.</p>
-    </div>
+    <h1 class="page-title">All Plants</h1>
 
     <form action="{% url 'plants:all_plants_view' %}" method="get" class="filter-bar">
         <select name="category" aria-label="Category">
@@ -27,11 +24,11 @@
         <button type="submit" class="btn">Filter</button>
 
         {% if category or edible %}
-            <a href="{% url 'plants:all_plants_view' %}" class="text-link">Clear</a>
+            <a href="{% url 'plants:all_plants_view' %}" class="more-link">Clear</a>
         {% endif %}
-    </form>
 
-    <p class="results-count">{{ plants_count }} plant{{ plants_count|pluralize }}</p>
+        <p class="results-count">{{ plants_count }} plant{{ plants_count|pluralize }}</p>
+    </form>
 
     <div class="plants-grid">
         {% for plant in plants %}

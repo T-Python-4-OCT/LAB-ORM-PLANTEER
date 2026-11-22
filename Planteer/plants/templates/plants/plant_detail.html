@@ -5,43 +5,24 @@
 {% block content %}
 
 <div class="container page">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="{% url 'plants:all_plants_view' %}">All Plants</a>
-        <span aria-hidden="true">/</span>
-        <a href="{% url 'plants:all_plants_view' %}?category={{ plant.category }}">{{ plant.get_category_display }}</a>
-        <span aria-hidden="true">/</span>
-        <span>{{ plant.name }}</span>
-    </nav>
-
     <article class="plant-detail">
         <div class="plant-photo">
             <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
         </div>
 
         <div class="plant-info">
-            <p class="plant-meta">
-                <span>{{ plant.get_category_display }}</span>
-                {% if plant.is_edible %}<span class="edible-tag">Edible</span>{% endif %}
-            </p>
             <h1 class="plant-title">{{ plant.name }}</h1>
+            <p class="plant-category">{{ plant.get_category_display }}</p>
             <p class="plant-about" dir="auto">{{ plant.about|linebreaksbr }}</p>
 
             <dl class="plant-facts">
-                <div>
-                    <dt>Specimen</dt>
-                    <dd>No. {{ plant.id|stringformat:"03d" }}</dd>
-                </div>
-                <div>
-                    <dt>Edible</dt>
+                <div class="fact-inline">
+                    <dt>Is Edible:</dt>
                     <dd>{{ plant.is_edible|yesno:"Yes,No" }}</dd>
                 </div>
                 <div>
-                    <dt>Used for</dt>
+                    <dt>Used For:</dt>
                     <dd dir="auto">{{ plant.used_for|linebreaksbr }}</dd>
-                </div>
-                <div>
-                    <dt>Added</dt>
-                    <dd>{{ plant.created_at|date:"F j, Y" }}</dd>
                 </div>
             </dl>
 
@@ -56,38 +37,34 @@
     </article>
 
     <section class="section">
-        <div class="section-head">
-            <div>
-                <h2 class="section-title">Related Plants</h2>
-                <p class="section-subtitle">More plants from the {{ plant.get_category_display }} category</p>
-            </div>
-            <a href="{% url 'plants:all_plants_view' %}?category={{ plant.category }}" class="text-link">See all</a>
-        </div>
+        <h2 class="block-title">Related Plants</h2>
 
         <div class="plants-grid">
             {% for related in related_plants %}
                 {% include 'plants/plant_card.html' with plant=related %}
             {% empty %}
-                <div class="empty">
-                    <p>No other plants in this category yet.</p>
-                </div>
+                <p class="muted">No other plants in this category yet.</p>
             {% endfor %}
         </div>
     </section>
 
     <section class="section" id="comments">
-        <div class="section-head">
-            <h2 class="section-title">{{ comments|length }} Comment{{ comments|length|pluralize }}</h2>
-        </div>
+        <h2 class="block-title">Comments ({{ comments|length }})</h2>
 
         <div class="comments-layout">
             <div class="comment-list">
                 {% for comment in comments %}
                     <div class="comment">
-                        <p class="comment-head">
-                            <span class="comment-name" dir="auto">{{ comment.full_name }}</span>
-                            <time class="comment-date" datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"F j, Y, g:i A" }}</time>
-                        </p>
+                        <div class="comment-head">
+                            <p>
+                                <span class="comment-name" dir="auto">{{ comment.full_name }}</span>
+                                <time class="comment-date" datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"F j, Y, g:i A" }}</time>
+                            </p>
+                            <form action="{% url 'plants:delete_comment_view' comment.id %}" method="post" onsubmit="return confirm('Delete this comment?');">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-link">Delete</button>
+                            </form>
+                        </div>
                         <p class="comment-text" dir="auto">{{ comment.content|linebreaksbr }}</p>
                     </div>
                 {% empty %}
@@ -95,22 +72,20 @@
                 {% endfor %}
             </div>
 
-            <form action="{% url 'plants:add_comment_view' plant.id %}" method="post" class="form form-panel">
+            <form action="{% url 'plants:add_comment_view' plant.id %}" method="post" class="form">
                 {% csrf_token %}
 
                 <div class="field">
                     <label for="full_name">Full name</label>
-                    <input type="text" id="full_name" name="full_name" maxlength="128" dir="auto" required>
+                    <input type="text" id="full_name" name="full_name" maxlength="128" placeholder="Your name" dir="auto" required>
                 </div>
 
                 <div class="field">
                     <label for="content">Comment</label>
-                    <textarea id="content" name="content" dir="auto" required></textarea>
+                    <textarea id="content" name="content" placeholder="Write your comment" dir="auto" required></textarea>
                 </div>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn">Post comment</button>
-                </div>
+                <button type="submit" class="btn btn-block">Post comment</button>
             </form>
         </div>
     </section>

@@ -5,23 +5,26 @@
 {% block content %}
 
 <div class="container page">
-    <div class="page-head">
-        <h1 class="page-title">Messages from Users</h1>
-        <p class="page-subtitle">{{ contacts|length }} message{{ contacts|length|pluralize }}</p>
-    </div>
+    <h1 class="display-title">Messages from Users</h1>
 
     <div class="messages-grid">
         {% for contact in contacts %}
             <article class="message">
-                <div class="message-head">
-                    <span class="avatar" aria-hidden="true">{{ contact.first_name|first }}{{ contact.last_name|first }}</span>
-                    <div>
-                        <p class="message-name" dir="auto">{{ contact.first_name }} {{ contact.last_name }}</p>
-                        <a href="mailto:{{ contact.email }}" class="message-email">{{ contact.email }}</a>
-                    </div>
-                </div>
+                <svg class="message-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9.5"/>
+                    <circle cx="12" cy="10" r="3.2"/>
+                    <path d="M6.2 18.6c1.3-2.3 3.4-3.6 5.8-3.6s4.5 1.3 5.8 3.6"/>
+                </svg>
+                <p class="message-name" dir="auto">{{ contact.first_name }} {{ contact.last_name }}</p>
+                <a href="mailto:{{ contact.email }}" class="message-email">{{ contact.email }}</a>
                 <p class="message-text" dir="auto">{{ contact.message|linebreaksbr }}</p>
-                <p class="message-date">{{ contact.created_at|date:"F j, Y, g:i A" }}</p>
+                <div class="message-foot">
+                    <time datetime="{{ contact.created_at|date:'c' }}">{{ contact.created_at|date:"F j, Y" }}</time>
+                    <form action="{% url 'main:delete_contact_view' contact.id %}" method="post" onsubmit="return confirm('Delete this message?');">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-link">Delete</button>
+                    </form>
+                </div>
             </article>
         {% empty %}
             <div class="empty">

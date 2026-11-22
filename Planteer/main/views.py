@@ -1,31 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest
-from plants.models import Plant, Comment
+from plants.models import Plant
 from .models import Contact
 
 
 def home_view(request: HttpRequest):
 
     plants = Plant.objects.order_by("-created_at")[:3]
-    spotlight = Plant.objects.order_by("?").first()
-    latest_comments = Comment.objects.order_by("-created_at")[:3]
 
-    categories = []
-    for value, label in Plant.Category.choices:
-        category_plants = Plant.objects.filter(category=value)
-        categories.append({
-            "value": value,
-            "label": label,
-            "count": category_plants.count(),
-            "cover": category_plants.first(),
-        })
-
-    return render(request, "main/home.html", {
-        "plants": plants,
-        "spotlight": spotlight,
-        "latest_comments": latest_comments,
-        "categories": categories,
-    })
+    return render(request, "main/home.html", {"plants": plants})
 
 
 def contact_view(request: HttpRequest):
@@ -49,3 +32,13 @@ def contact_messages_view(request: HttpRequest):
     contacts = Contact.objects.order_by("-created_at")
 
     return render(request, "main/contact_messages.html", {"contacts": contacts})
+
+
+def delete_contact_view(request: HttpRequest, contact_id: int):
+
+    contact = get_object_or_404(Contact, pk=contact_id)
+
+    if request.method == "POST":
+        contact.delete()
+
+    return redirect("main:contact_messages_view")
