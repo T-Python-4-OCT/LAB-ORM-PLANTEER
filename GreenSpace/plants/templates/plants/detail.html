@@ -5,6 +5,7 @@
 
 {% block content %}
 
+<!-- Plant Details -->
 <section class="section">
     <div class="container">
 
@@ -12,100 +13,240 @@
             ← Back to Plants
         </a>
 
-        <div class="card">
+        <div class="detail-card">
 
+            <!-- Plant Image -->
             {% if plant.image %}
-                <img src="{{ plant.image.url }}" alt="{{ plant.name }}" width="100%">
+                <img
+                    src="{{ plant.image.url }}"
+                    alt="{{ plant.name }}"
+                    class="detail-image"
+                >
+            {% else %}
+                <div class="plant-placeholder detail-image">
+                    🌿
+                </div>
             {% endif %}
 
-            <h1>{{ plant.name }}</h1>
-            <p><i>{{ plant.scientific_name }}</i></p>
+            <!-- Plant Information -->
+            <div class="detail-info">
 
-            <p>{{ plant.description }}</p>
+                <h1>{{ plant.name }}</h1>
 
-            <p><strong>Category:</strong> {{ plant.get_category_display }}</p>
-            <p><strong>Sunlight:</strong> {{ plant.sunlight }}</p>
-            <p><strong>Water:</strong> {{ plant.water }}</p>
+                <p class="scientific-name">
+                    <i>{{ plant.scientific_name }}</i>
+                </p>
 
-            <p>
-                <strong>Edible:</strong>
-                {% if plant.is_edible %}Yes{% else %}No{% endif %}
-            </p>
+                <p class="plant-description">
+                    {{ plant.description }}
+                </p>
 
-            <!-- Edit and Delete Buttons -->
-            <div class="form-group">
-                <a href="{% url 'update_plant' plant.id %}"
-                   class="btn btn-primary">
-                    Edit Plant
-                </a>
+                <div class="plant-details-list">
 
-                <a href="{% url 'delete_plant' plant.id %}"
-                   class="btn btn-outline">
-                    Delete Plant
-                </a>
+                    <div class="info-item">
+                        <strong>Category</strong>
+                        <span>{{ plant.get_category_display }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Sunlight Requirements</strong>
+                        <span>{{ plant.sunlight }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Water Requirements</strong>
+                        <span>{{ plant.water }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <strong>Edible</strong>
+                        <span>
+                            {% if plant.is_edible %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- Edit and Delete -->
+                <div class="btn-group">
+
+                    <a
+                        href="{% url 'update_plant' plant.id %}"
+                        class="btn btn-primary"
+                    >
+                        Edit Plant
+                    </a>
+
+                    <a
+                        href="{% url 'delete_plant' plant.id %}"
+                        class="btn btn-danger"
+                    >
+                        Delete Plant
+                    </a>
+
+                </div>
+
             </div>
 
         </div>
 
-        <div class="section">
-            <h2 class="section-title">Comments</h2>
+    </div>
+</section>
+
+
+<!-- Comments Section -->
+<section class="section">
+    <div class="container">
+
+        <h2 class="section-title">Comments</h2>
+
+        <p class="text-muted">
+            Share your thoughts about this plant.
+        </p>
+
+        <!-- Add Comment Form -->
+        <div class="form-container">
 
             <form method="POST">
                 {% csrf_token %}
 
                 <div class="form-group">
-                    <input type="text" name="full_name"
-                           class="form-control"
-                           placeholder="Your Name" required>
+                    <label>Your Name</label>
+
+                    <input
+                        type="text"
+                        name="full_name"
+                        class="form-control"
+                        placeholder="Enter your name"
+                        required
+                    >
                 </div>
 
                 <div class="form-group">
-                    <textarea name="content"
-                              class="form-control"
-                              placeholder="Write your comment..."
-                              required></textarea>
+                    <label>Your Comment</label>
+
+                    <textarea
+                        name="content"
+                        class="form-control"
+                        placeholder="Write your comment..."
+                        rows="4"
+                        required
+                    ></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">
                     Submit Comment
                 </button>
+
             </form>
 
-            {% for comment in comments %}
-                <div class="card">
-                    <h3>{{ comment.full_name }}</h3>
-                    <p>{{ comment.content }}</p>
-                    <small>{{ comment.created_at|date:"F d, Y" }}</small>
-                </div>
-            {% empty %}
-                <p class="text-muted">No comments yet.</p>
-            {% endfor %}
         </div>
 
-        <div class="section">
-            <h2 class="section-title">Related Plants</h2>
+        <!-- Display Comments -->
+        <div class="comments-list">
 
-            <div class="grid">
-                {% for related in related_plants %}
-                    <div class="card">
+            {% for comment in comments %}
 
-                        {% if related.image %}
-                            <img src="{{ related.image.url }}"
-                                 alt="{{ related.name }}" width="100%">
-                        {% endif %}
+                <div class="comment-card">
+
+                    <h3>{{ comment.full_name }}</h3>
+
+                    <p>{{ comment.content }}</p>
+
+                    <small>
+                        {{ comment.created_at|date:"F d, Y" }}
+                    </small>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-muted">
+                    No comments yet. Be the first to comment!
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- Similar Plants Section -->
+<section class="section">
+    <div class="container">
+
+        <div class="section-header">
+
+            <div>
+                <h2 class="section-title">Similar Plants</h2>
+
+                <p class="text-muted">
+                    Discover more plants you may like.
+                </p>
+            </div>
+
+            <a href="{% url 'all_plants' %}" class="more-link">
+                Explore All Plants →
+            </a>
+
+        </div>
+
+        <div class="grid">
+
+            {% for related in related_plants %}
+
+                <div class="plant-card">
+
+                    <!-- Plant Image -->
+                    {% if related.image %}
+                        <img
+                            src="{{ related.image.url }}"
+                            alt="{{ related.name }}"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <div class="plant-placeholder">
+                            🌿
+                        </div>
+                    {% endif %}
+
+                    <div class="plant-card-content">
 
                         <h3>{{ related.name }}</h3>
 
-                        <a href="{% url 'plant_detail' related.id %}"
-                           class="btn btn-outline">
-                            View Details
+                        <p>
+                            {{ related.description|truncatewords:12 }}
+                        </p>
+
+                        <span class="plant-category">
+                            {{ related.get_category_display }}
+                        </span>
+
+                        <a
+                            href="{% url 'plant_detail' related.id %}"
+                            class="plant-link"
+                        >
+                            View Details →
                         </a>
 
                     </div>
-                {% empty %}
-                    <p>No related plants available.</p>
-                {% endfor %}
-            </div>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-muted">
+                    No similar plants available yet.
+                </p>
+
+            {% endfor %}
+
         </div>
 
     </div>
