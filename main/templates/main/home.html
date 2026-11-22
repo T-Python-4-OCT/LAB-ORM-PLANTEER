@@ -1,0 +1,47 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Plant Database For Plants Lovers{% endblock %}
+
+{% block content %}
+<section class="container page">
+  <div class="hero">
+    <img src="{% static 'main/images/hero.jpg' %}" alt="A young seedling growing from dark soil" class="hero-image">
+
+    <div class="hero-content">
+      <h1 class="hero-title">Planteer</h1>
+      <p class="hero-subtitle">Plant Database For Plants Lovers</p>
+
+      <form method="get" action="{% url 'plants:search' %}" class="hero-search" role="search">
+        <label for="hero-q" class="sr-only">Search for a plant</label>
+        <input type="search" id="hero-q" name="q" class="input" placeholder="Search for a plant...">
+        <button type="submit" class="btn">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <div>
+      <h2 class="section-title">Plants</h2>
+      <p class="section-subtitle">Learn more about plants</p>
+    </div>
+    <a href="{% url 'plants:all_plants' %}" class="link-more">
+      More <i class="ti ti-arrow-right" aria-hidden="true"></i>
+    </a>
+  </div>
+
+   {% if latest_plants %}
+    <div class="plant-grid">
+      {% for plant in latest_plants %}
+        {% include "plants/_plant_card.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty">
+      <p class="empty-title">No plants yet</p>
+      <p>Add the first plant to Planteer.</p>
+      <a href="{% url 'plants:add_plant' %}" class="btn">Add Plant</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

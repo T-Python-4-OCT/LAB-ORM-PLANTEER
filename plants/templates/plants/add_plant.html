@@ -1,0 +1,83 @@
+{% extends "main/base.html" %}
+
+{% block title %}Planteer | Add Plant{% endblock %}
+
+{% block content %}
+<section class="container page form-page">
+  <h1 class="page-title">Add a new plant</h1>
+  <p class="page-subtitle">Share a real plant with the Planteer community.</p>
+
+  {% if errors %}
+    <div class="form-alert" role="alert">
+      <i class="ti ti-alert-circle" aria-hidden="true"></i>
+      Fix the highlighted fields, then save again.
+    </div>
+  {% endif %}
+
+  <form method="post" action="{% url 'plants:add_plant' %}" enctype="multipart/form-data" class="form-card">
+    {% csrf_token %}
+
+    <div class="form-grid">
+      <div class="field {% if errors.name %}has-error{% endif %}">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" class="input" maxlength="200" required
+               value="{{ plant.name }}" placeholder="Date Palm">
+        {% if errors.name %}<p class="field-error">{{ errors.name }}</p>{% endif %}
+      </div>
+
+      <div class="field {% if errors.category %}has-error{% endif %}">
+        <label for="category">Category</label>
+        <select id="category" name="category" class="input" required>
+          <option value="" disabled {% if not plant.category %}selected{% endif %}>Choose a category</option>
+          {% for value, label in categories %}
+            <option value="{{ value }}" {% if plant.category == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+        {% if errors.category %}<p class="field-error">{{ errors.category }}</p>{% endif %}
+      </div>
+    </div>
+
+    <div class="field {% if errors.about %}has-error{% endif %}">
+      <label for="about">About</label>
+      <textarea id="about" name="about" class="input" rows="4" required
+                placeholder="A short description of the plant">{{ plant.about }}</textarea>
+      {% if errors.about %}<p class="field-error">{{ errors.about }}</p>{% endif %}
+    </div>
+
+    <div class="field {% if errors.used_for %}has-error{% endif %}">
+      <label for="used_for">Used for</label>
+      <textarea id="used_for" name="used_for" class="input" rows="3" required
+                placeholder="How people use this plant">{{ plant.used_for }}</textarea>
+      {% if errors.used_for %}<p class="field-error">{{ errors.used_for }}</p>{% endif %}
+    </div>
+
+    <fieldset class="field">
+      <legend>Is it edible?</legend>
+      <div class="choice-group">
+        <label class="choice">
+          <input type="radio" name="is_edible" value="yes" {% if plant.is_edible %}checked{% endif %}>
+          <span>Yes, it's edible</span>
+        </label>
+        <label class="choice">
+          <input type="radio" name="is_edible" value="no" {% if not plant.is_edible %}checked{% endif %}>
+          <span>No, not edible</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="field {% if errors.image %}has-error{% endif %}">
+      <label for="image">Image</label>
+      <div class="upload">
+        <input type="file" id="image" name="image" accept="image/*" class="upload-input" required>
+        <p class="field-hint">Use a real photo of the plant. JPG or PNG.</p>
+      </div>
+      {% if errors.image %}<p class="field-error">{{ errors.image }}</p>{% endif %}
+    </div>
+
+    <div class="form-actions">
+      <a href="{% url 'main:home' %}" class="link-cancel">Cancel</a>
+      <button type="submit" class="btn">Save plant</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,981 @@
+/* ===== الألوان والخطوط ===== */
+:root {
+  --bg: #F4F7F1;
+  --surface: #FFFFFF;
+  --leaf-dark: #2D4A26;
+  --leaf-mid: #4F7A3A;
+  --leaf-soft: #A9C29A;
+  --leaf-pale: #DCE7D3;
+  --text: #22331F;
+  --text-muted: #5E715A;
+  --line: #D3DFCB;
+  --danger: #B2432F;
+  --danger-soft: #F6E3DE;
+
+  /* شكل الورقة: زاويتان مدورتان وزاويتان حادتان */
+  --leaf: 0 22px 0 22px;
+  --leaf-sm: 0 12px 0 12px;
+
+  --font-head: "Bricolage Grotesque", sans-serif;
+  --font-body: "Nunito Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+main { flex: 1; }
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--leaf-mid);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* نص يقرؤه قارئ الشاشة فقط */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===== الهيدر ===== */
+.site-header {
+  border-bottom: 1px solid var(--line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--leaf-dark);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.logo .ti { font-size: 26px; color: var(--leaf-mid); }
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.nav-link {
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav-link:hover { color: var(--leaf-mid); }
+
+.nav-link.is-active {
+  color: var(--leaf-mid);
+  border-bottom-color: var(--leaf-mid);
+}
+
+/* ===== الأزرار (شكل الورقة) ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-dark);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover { background: var(--leaf-mid); }
+
+.btn-sm {
+  min-height: 38px;
+  padding: 7px 16px;
+  font-size: 14px;
+}
+
+.btn-block { width: 100%; }
+
+.btn-light {
+  background: var(--leaf-pale);
+  color: var(--leaf-dark);
+}
+
+.btn-light:hover { background: var(--leaf-soft); }
+
+.btn-danger { background: var(--danger); }
+
+.btn-danger:hover { background: #C9553F; }
+
+/* ===== تأكيد الحذف ===== */
+.confirm-delete {
+  position: relative;
+}
+
+.confirm-delete summary {
+  list-style: none;
+}
+
+.confirm-delete summary::-webkit-details-marker {
+  display: none;
+}
+
+.confirm-delete[open] summary {
+  background: var(--danger);
+  color: #FFFFFF;
+}
+
+.confirm-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 10;
+  width: 280px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid #E8C6BD;
+  border-radius: var(--leaf-sm);
+  box-shadow: 0 8px 24px rgba(34, 51, 31, 0.12);
+}
+
+.confirm-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.confirm-text {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.confirm-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+/* ===== عناوين الصفحات ===== */
+.page { padding-top: 40px; padding-bottom: 24px; }
+
+.page-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.15;
+  color: var(--leaf-dark);
+  margin: 0 0 6px;
+}
+
+.page-subtitle {
+  margin: 0 0 28px;
+  color: var(--text-muted);
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--leaf-dark);
+  margin: 0;
+}
+
+.section-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--leaf-dark);
+  text-decoration: none;
+}
+
+.link-more:hover { color: var(--leaf-mid); }
+
+/* ===== الصفحة الرئيسية: Hero (صورة ورقة + نص) ===== */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.hero-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0 120px 0 120px;
+  background: var(--leaf-soft);
+}
+
+.hero-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--leaf-dark);
+  margin: 0;
+}
+
+.hero-subtitle {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--text-muted);
+  margin: 12px 0 28px;
+}
+
+.hero-search {
+  display: flex;
+  gap: 10px;
+}
+
+.hero-search .input { flex: 1; min-width: 0; }
+
+/* ===== شبكة بطاقات النباتات (3 أعمدة) ===== */
+.plant-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.plant-card {
+  display: block;
+  padding: 10px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+  text-decoration: none;
+}
+
+.plant-card:hover .plant-card-name { color: var(--leaf-mid); }
+
+.plant-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-pale);
+}
+
+.plant-card-body { padding: 12px 6px 6px; }
+
+.plant-card-name {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--text);
+  margin: 0 0 2px;
+}
+
+.plant-card-about {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.plant-card-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--leaf-mid);
+}
+
+.plant-card-category::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--leaf-mid);
+}
+
+/* ===== الحقول ===== */
+.field {
+  margin: 0 0 18px;
+  border: none;
+  padding: 0;
+}
+
+.field label,
+.field legend {
+  display: block;
+  margin: 0 0 6px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.input::placeholder { color: #93A28C; }
+
+.input:focus {
+  outline: none;
+  border-color: var(--leaf-mid);
+}
+
+textarea.input { resize: vertical; }
+
+select.input { cursor: pointer; }
+
+.field-hint {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ===== حالة عدم وجود نتائج ===== */
+.empty {
+  padding: 48px 20px;
+  text-align: center;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.empty-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--leaf-dark);
+  margin: 0 0 4px;
+}
+
+.empty p { color: var(--text-muted); }
+
+/* ===== الفوتر ===== */
+.site-footer {
+  margin-top: 64px;
+  background: var(--leaf-dark);
+  color: #C7D6BE;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 32px;
+  padding-top: 40px;
+  padding-bottom: 32px;
+}
+
+.footer-logo {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 24px;
+  color: #FFFFFF;
+  margin: 0 0 8px;
+}
+
+.footer-text {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 14px;
+}
+
+.footer-title {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 15px;
+  color: #FFFFFF;
+  margin: 0 0 10px;
+}
+
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-links a {
+  display: inline-block;
+  padding: 3px 0;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.footer-links a:hover { color: #FFFFFF; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 13px;
+}
+
+.footer-bottom .container {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+/* ===== صفحات النماذج ===== */
+.form-page { max-width: 760px; }
+
+.form-card {
+  padding: 28px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 16px;
+}
+
+.choice-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--leaf-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.choice input { accent-color: var(--leaf-dark); }
+
+.choice:has(input:checked) {
+  background: var(--leaf-pale);
+  border-color: var(--leaf-mid);
+  color: var(--leaf-dark);
+}
+
+.upload {
+  padding: 16px;
+  border: 1.5px dashed var(--leaf-soft);
+  border-radius: var(--leaf-sm);
+  background: var(--bg);
+}
+
+.upload-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.upload-input::file-selector-button {
+  margin-right: 12px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-pale);
+  color: var(--leaf-dark);
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upload-input::file-selector-button:hover { background: var(--leaf-soft); }
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.link-cancel {
+  padding: 10px 0;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.link-cancel:hover { color: var(--text); }
+
+/* ===== رسائل الأخطاء ===== */
+.form-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border-radius: var(--leaf-sm);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.has-error .input,
+.has-error .upload { border-color: var(--danger); }
+
+.has-error label { color: var(--danger); }
+
+/* ===== شريط الفلتر ===== */
+.filter-bar {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 18px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.filter-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+.filter-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.filter-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.result-count {
+  margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ===== صفحة تفاصيل النبات ===== */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.back-link:hover { color: var(--leaf-dark); }
+
+.plant-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.plant-detail-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0 80px 0 80px;
+  background: var(--leaf-pale);
+}
+
+.plant-detail-info .page-title {
+  font-size: 40px;
+  margin-bottom: 4px;
+}
+
+.plant-detail-about {
+  margin: 18px 0 24px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+
+.plant-facts {
+  margin: 0;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.plant-fact + .plant-fact {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.plant-fact dt {
+  margin-bottom: 4px;
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--leaf-dark);
+}
+
+.plant-fact dd { margin: 0; }
+
+/* ===== الشارات ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 12px;
+  border-radius: var(--leaf-sm);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.badge-yes {
+  background: var(--leaf-pale);
+  color: var(--leaf-dark);
+}
+
+.badge-no {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ===== رأس صفحة النبات (العنوان + زر التعديل) ===== */
+.plant-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.plant-detail-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-danger-soft {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.btn-danger-soft:hover {
+  background: var(--danger);
+  color: #FFFFFF;
+}
+
+/* ===== صفحة التعديل: الصورة الحالية ===== */
+.upload-preview {
+  width: 160px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border-radius: var(--leaf-sm);
+}
+
+/* ===== التعليقات ===== */
+.comments {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.comments .section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.count {
+  min-width: 28px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: var(--leaf-pale);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--leaf-dark);
+}
+
+.comment-form {
+  max-width: 720px;
+  margin-bottom: 28px;
+  padding: 22px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.comment-form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment-list {
+  max-width: 720px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment {
+  display: flex;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.comment:last-child { border-bottom: none; }
+
+.comment-avatar {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-pale);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--leaf-dark);
+}
+
+.comment-body { min-width: 0; }
+
+.comment-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.comment-name { font-weight: 600; }
+
+.comment-head time {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.comment-text {
+  margin: 4px 0 0;
+  overflow-wrap: break-word;
+}
+
+.comments-empty { color: var(--text-muted); }
+
+.related {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.related .section-title { margin-bottom: 18px; }
+
+.comments-empty a {
+  font-weight: 600;
+  color: var(--leaf-mid);
+}
+
+
+/* ===== صفحة البحث ===== */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-category {
+  width: 200px;
+  flex: none;
+}
+
+/* ===== صفحة التواصل ===== */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.contact-title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.1;
+  color: var(--leaf-dark);
+  margin: 0 0 10px;
+}
+
+.contact-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 0 80px 0 80px;
+  background: var(--leaf-soft);
+}
+
+.form-success {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border-radius: var(--leaf-sm);
+  background: var(--leaf-pale);
+  font-weight: 600;
+  color: var(--leaf-dark);
+}
+
+.form-success .ti { font-size: 20px; }
+
+.form-success a { color: var(--leaf-mid); }
+
+/* ===== صفحة الرسائل ===== */
+.message-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.message-card {
+  padding: 22px;
+  background: var(--surface);
+  border-radius: var(--leaf);
+}
+
+.message-icon {
+  font-size: 28px;
+  color: var(--leaf-mid);
+}
+
+.message-name {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 20px;
+  margin: 6px 0 0;
+}
+
+.message-email {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--leaf-mid);
+  overflow-wrap: anywhere;
+}
+
+.message-text {
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  overflow-wrap: break-word;
+}
+
+.message-date {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ===== التابلت ===== */
+@media (max-width: 900px) {
+  .plant-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hero { gap: 28px; }
+  .hero-title { font-size: 52px; }
+}
+
+/* ===== الجوال ===== */
+@media (max-width: 600px) {
+  .container { padding: 0 18px; }
+  .header-inner { flex-wrap: wrap; }
+  .nav { gap: 14px; }
+  .page-title { font-size: 28px; }
+  .hero { grid-template-columns: 1fr; gap: 24px; }
+  .hero-image { aspect-ratio: 4 / 3; border-radius: 0 60px 0 60px; }
+  .hero-title { font-size: 44px; }
+  .hero-subtitle { font-size: 20px; }
+  .plant-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 20px; }
+}

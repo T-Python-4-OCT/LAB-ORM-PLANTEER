@@ -1,0 +1,68 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Contact Us{% endblock %}
+
+{% block content %}
+<section class="container page">
+  <div class="contact">
+    <div class="contact-form-side">
+      <h1 class="contact-title">Contact us</h1>
+      <p class="page-subtitle">Have a question about a plant, or a plant you'd like us to add? Send us a message.</p>
+
+      {% if sent %}
+        <div class="form-success" role="status">
+          <i class="ti ti-circle-check" aria-hidden="true"></i>
+          Thanks! Your message was sent.
+          <a href="{% url 'main:messages' %}">View messages</a>
+        </div>
+      {% endif %}
+
+      {% if errors %}
+        <div class="form-alert" role="alert">
+          <i class="ti ti-alert-circle" aria-hidden="true"></i>
+          Fix the highlighted fields, then send again.
+        </div>
+      {% endif %}
+
+      <form method="post" action="{% url 'main:contact' %}">
+        {% csrf_token %}
+
+        <div class="form-grid">
+          <div class="field {% if errors.first_name %}has-error{% endif %}">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="first_name" class="input" maxlength="100" required
+                   value="{{ entry.first_name }}" placeholder="Jane">
+            {% if errors.first_name %}<p class="field-error">{{ errors.first_name }}</p>{% endif %}
+          </div>
+
+          <div class="field {% if errors.last_name %}has-error{% endif %}">
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="last_name" class="input" maxlength="100" required
+                   value="{{ entry.last_name }}" placeholder="Smith">
+            {% if errors.last_name %}<p class="field-error">{{ errors.last_name }}</p>{% endif %}
+          </div>
+        </div>
+
+        <div class="field {% if errors.email %}has-error{% endif %}">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" class="input" required
+                 value="{{ entry.email }}" placeholder="name@example.com">
+          {% if errors.email %}<p class="field-error">{{ errors.email }}</p>{% endif %}
+        </div>
+
+        <div class="field {% if errors.message %}has-error{% endif %}">
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" class="input" rows="6" required
+                    placeholder="Enter your question or message">{{ entry.message }}</textarea>
+          {% if errors.message %}<p class="field-error">{{ errors.message }}</p>{% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-block">Submit</button>
+      </form>
+    </div>
+
+    <img src="{% static 'main/images/contact.jpg' %}" alt="Looking up at a green tree canopy" class="contact-image">
+  </div>
+</section>
+{% endblock %}

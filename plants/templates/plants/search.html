@@ -1,0 +1,52 @@
+{% extends "main/base.html" %}
+
+{% block title %}Planteer | Search{% endblock %}
+
+{% block content %}
+<section class="container page">
+  <h1 class="page-title">Search Results</h1>
+
+  <form method="get" action="{% url 'plants:search' %}" class="search-bar" role="search">
+    <label for="q" class="sr-only">Plant name</label>
+    <input type="search" id="q" name="q" value="{{ q }}" class="input search-input"
+           placeholder="Search by plant name">
+
+    <label for="search-category" class="sr-only">Category</label>
+    <select id="search-category" name="category" class="input search-category">
+      <option value="">All categories</option>
+      {% for value, label in categories %}
+        <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="btn">Search</button>
+  </form>
+
+  {% if searched %}
+    <p class="result-count">
+      {{ plants|length }} result{{ plants|length|pluralize }}
+      {% if q %}for "{{ q }}"{% endif %}
+      {% if category %}in {{ category|capfirst }}{% endif %}
+    </p>
+
+    {% if plants %}
+      <div class="plant-grid">
+        {% for plant in plants %}
+          {% include "plants/_plant_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        <p class="empty-title">No plants found</p>
+        <p>Try a different name, or choose another category.</p>
+        <a href="{% url 'plants:search' %}" class="btn">Clear search</a>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="empty">
+      <p class="empty-title">Find a plant</p>
+      <p>Type a plant name, pick a category, or both.</p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
