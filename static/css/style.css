@@ -400,3 +400,260 @@ main {
         padding: 70px 20px;
     }
 }
+
+/* =========================
+   ALL PLANTS PAGE
+========================= */
+
+.plants-hero {
+    padding: 90px 8% 75px;
+    text-align: center;
+    background: var(--surface);
+}
+
+.plants-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    margin-bottom: 18px;
+}
+
+.plants-hero h1 span {
+    color: var(--primary);
+}
+
+.plants-hero p {
+    max-width: 600px;
+    margin: auto;
+    color: var(--muted);
+}
+
+/* Plants Section */
+.plants-section {
+    padding: 70px 8% 100px;
+}
+
+.plants-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.plants-toolbar h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+}
+
+.plants-toolbar p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.plants-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.plants-filters select {
+    min-width: 155px;
+    padding: 12px 15px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+}
+
+.plants-filters select:focus {
+    border-color: var(--primary);
+}
+
+.plants-filters button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary);
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.plants-filters button:hover {
+    background: var(--primary-dark);
+}
+
+/* Plants Grid */
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.plant-card {
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plant-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.plant-image {
+    display: block;
+    height: 260px;
+    overflow: hidden;
+    background: var(--background);
+}
+
+.plant-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.plant-card:hover .plant-image img {
+    transform: scale(1.06);
+}
+
+.plant-card-content {
+    padding: 22px;
+}
+
+.plant-category {
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.plant-card-content h3 {
+    margin: 9px 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+}
+
+.plant-card-content h3 a:hover {
+    color: var(--primary);
+}
+
+.plant-card-content > p {
+    min-height: 48px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.plant-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.plant-card-footer a {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.edible-badge,
+.non-edible-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.edible-badge {
+    background: #e5f2e5;
+    color: #315c45;
+}
+
+.non-edible-badge {
+    background: #f3ece7;
+    color: #91664d;
+}
+
+/* Empty State */
+.empty-plants {
+    grid-column: 1 / -1;
+    padding: 70px 20px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.empty-plants h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.empty-plants p {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.empty-plants a {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+
+/* Responsive */
+@media (max-width: 900px) {
+    .plants-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .plants-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .plants-hero {
+        padding: 65px 6%;
+    }
+
+    .plants-section {
+        padding: 50px 6% 70px;
+    }
+
+    .plants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .plants-filters {
+        width: 100%;
+    }
+
+    .plants-filters select,
+    .plants-filters button {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .plant-image {
+        height: 240px;
+    }
+}
