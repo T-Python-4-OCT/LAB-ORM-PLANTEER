@@ -1,0 +1,93 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+
+<div class="row g-4 g-lg-5 detail-card">
+    <div class="col-md-5">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="detail-img">
+    </div>
+
+    <div class="col-md-7">
+        <h1 class="detail-title">{{ plant.name }}</h1>
+        <p class="detail-category"><span class="cat-pill cat-{{ plant.category }}">{{ plant.get_category_display }}</span></p>
+        <p class="detail-about">{{ plant.about }}</p>
+
+        <p class="detail-item"><strong>Is Edible:</strong> {% if plant.is_edible %}<span class="text-leaf"><i class="bi bi-check-circle-fill"></i> Yes</span>{% else %}<span class="text-muted"><i class="bi bi-x-circle"></i> No</span>{% endif %}</p>
+
+        <div class="detail-item">
+            <strong>Used For:</strong>
+            <p>{{ plant.used_for }}</p>
+        </div>
+
+        <p class="detail-date">Added on {{ plant.created_at|date:"M j, Y" }}</p>
+
+        <div class="d-flex gap-2">
+            <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-outline-leaf px-4">Update</a>
+            <button type="button" class="btn btn-outline-danger px-4" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <h2 class="subsection-title">Related Plants</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        {% for plant in related_plants %}
+            <div class="col">
+                {% include "plants/partials/plant_card.html" %}
+            </div>
+        {% empty %}
+            <p class="col-12 text-muted">No related plants in this category yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <h2 class="subsection-title">Comments ({{ comments|length }})</h2>
+
+    <form method="post" action="{% url 'plants:add_comment_view' plant.id %}" class="comment-form">
+        {% csrf_token %}
+        <div class="mb-3">{{ comment_form.full_name }}</div>
+        <div class="mb-3">{{ comment_form.content }}</div>
+        <button type="submit" class="btn btn-leaf px-4">Add Comment</button>
+    </form>
+
+    {% for comment in comments %}
+        <div class="comment">
+            <div class="comment-head">
+                <i class="bi bi-person-circle comment-avatar"></i>
+                <div>
+                    <div class="comment-name">{{ comment.full_name }}</div>
+                    <div class="comment-date">{{ comment.created_at|date:"M j, Y · g:i A" }}</div>
+                </div>
+            </div>
+            <p class="comment-body">{{ comment.content }}</p>
+        </div>
+    {% empty %}
+        <p class="text-muted">No comments yet. Be the first to comment!</p>
+    {% endfor %}
+</section>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="deleteModalLabel">Delete Plant</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete <strong>{{ plant.name }}</strong>? This can't be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-leaf" data-bs-dismiss="modal">Cancel</button>
+                <form method="post" action="{% url 'plants:delete_plant_view' plant.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

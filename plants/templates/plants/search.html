@@ -1,0 +1,30 @@
+{% extends "main/base.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Search Results</h1>
+
+<form method="get" action="{% url 'plants:search_view' %}" class="search-form">
+    <input type="search" name="search" value="{{ query }}" class="form-control" placeholder="Search for a plant..." required>
+    <button type="submit" class="btn btn-leaf px-4">Search</button>
+</form>
+
+{% if query %}
+    <p class="results-count">{{ plants|length }} result{{ plants|length|pluralize }} for "{{ query }}"</p>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        {% for plant in plants %}
+            <div class="col">
+                {% include "plants/partials/plant_card.html" %}
+            </div>
+        {% empty %}
+            <p class="col-12 text-muted">No plants found. Try another name.</p>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-muted">Type a plant name to start searching.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="plant-card">
+    <div class="plant-card-media">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="plant-card-img">
+        {% if plant.is_edible %}<span class="edible-badge"><i class="bi bi-check-circle-fill"></i> Edible</span>{% endif %}
+    </div>
+    <h3 class="plant-card-title">
+        <a href="{% url 'plants:plant_detail_view' plant.id %}" class="stretched-link">{{ plant.name }}</a>
+    </h3>
+    <p class="plant-card-about">{{ plant.about|truncatewords:8 }}</p>
+    <span class="cat-pill cat-{{ plant.category }}">{{ plant.get_category_display }}</span>
+</div>

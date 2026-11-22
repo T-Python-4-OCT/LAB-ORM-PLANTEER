@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<section class="hero" style="background-image: url('{% static 'main/images/hero.jpg' %}');">
+    <div class="hero-content">
+        <span class="hero-eyebrow"><i class="bi bi-flower1"></i> Welcome to Planteer</span>
+        <h1 class="hero-title">Planteer</h1>
+        <p class="hero-subtitle">Plant Database For Plants Lovers</p>
+        <form class="hero-search" method="get" action="{% url 'plants:search_view' %}">
+            <input type="search" name="search" class="form-control" placeholder="Search For Plant..." required>
+            <button type="submit" class="btn btn-leaf px-4">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Plants</h2>
+            <p class="section-subtitle">Learn more about plants</p>
+        </div>
+        <a href="{% url 'plants:all_plants_view' %}" class="more-link">More <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        {% for plant in plants %}
+            <div class="col">
+                {% include "plants/partials/plant_card.html" %}
+            </div>
+        {% empty %}
+            <p class="col-12 text-muted">No plants yet. <a href="{% url 'plants:new_plant_view' %}">Add the first one</a>.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

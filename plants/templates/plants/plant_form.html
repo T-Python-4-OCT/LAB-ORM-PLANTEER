@@ -1,0 +1,63 @@
+{% extends "main/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+    <h1 class="page-title">{{ title }}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">Name</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.about.id_for_label }}" class="form-label">About</label>
+            {{ form.about }}
+            {{ form.about.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.used_for.id_for_label }}" class="form-label">Used For</label>
+            {{ form.used_for }}
+            {{ form.used_for.errors }}
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.category.id_for_label }}" class="form-label">Category</label>
+                {{ form.category }}
+                {{ form.category.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.image.id_for_label }}" class="form-label">Image</label>
+                {% if plant %}
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="current-img">
+                {% endif %}
+                {{ form.image }}
+                {{ form.image.errors }}
+            </div>
+        </div>
+
+        <div class="form-check mb-4">
+            {{ form.is_edible }}
+            <label for="{{ form.is_edible.id_for_label }}" class="form-check-label">Is edible</label>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-leaf px-4">{{ button }}</button>
+            {% if plant %}
+                <a href="{% url 'plants:plant_detail_view' plant.id %}" class="btn btn-outline-leaf px-4">Cancel</a>
+            {% else %}
+                <a href="{% url 'plants:all_plants_view' %}" class="btn btn-outline-leaf px-4">Cancel</a>
+            {% endif %}
+        </div>
+    </form>
+</section>
+
+{% endblock %}
