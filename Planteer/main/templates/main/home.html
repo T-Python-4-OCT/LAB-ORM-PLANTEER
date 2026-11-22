@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Home{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Planteer</h1>
+    <h2>Plant Database For Plants Lovers</h2>
+    <form action="{% url 'plants:search' %}" method="get" class="hero-search">
+        <input type="text" name="q" placeholder="Search For Plant...">
+        <button type="submit" class="btn">Search</button>
+    </form>
+</section>
+
+<section class="plants-section">
+    <div class="section-head">
+        <div>
+            <h2>Plants</h2>
+            <p class="muted">Learn more about plants</p>
+        </div>
+        <a href="{% url 'plants:all' %}">More &rarr;</a>
+    </div>
+
+    <div class="plant-grid">
+        {% for plant in plants %}
+        <a href="{% url 'plants:detail' plant.id %}" class="plant-card">
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            <h3>{{ plant.name }}</h3>
+            <p>{{ plant.about|truncatechars:60 }}</p>
+            <span class="category">{{ plant.get_category_display }}</span>
+        </a>
+        {% empty %}
+        <p class="muted">No plants yet. Add the first one!</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

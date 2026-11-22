@@ -1,0 +1,34 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | Search{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Search Results</h1>
+
+<form method="get" class="search-bar">
+    <input type="text" name="q" value="{{ query }}" placeholder="Search for plant...">
+    <button type="submit" class="btn">Search</button>
+</form>
+
+{% if query %}
+    <div class="plant-grid">
+        {% for plant in plants %}
+        <a href="{% url 'plants:detail' plant.id %}" class="plant-card">
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            <h3>{{ plant.name }}</h3>
+            <p>{{ plant.about|truncatechars:60 }}</p>
+            <span class="category">{{ plant.get_category_display }}</span>
+        </a>
+        {% empty %}
+        <p class="muted">No plants found for "{{ query }}".</p>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="muted">Type a plant name to search.</p>
+{% endif %}
+{% endblock %}

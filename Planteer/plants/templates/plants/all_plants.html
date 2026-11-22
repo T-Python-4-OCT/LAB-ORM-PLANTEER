@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Planteer | All Plants{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/plants.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="page-title">All Plants</h1>
+
+<form method="get" class="filter-bar">
+    <div>
+        <label>Category</label>
+        <select name="category">
+            <option value="">All</option>
+            {% for value, label in categories %}
+            <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <label>Edible</label>
+        <select name="is_edible">
+            <option value="">All</option>
+            <option value="true" {% if selected_edible == "true" %}selected{% endif %}>Edible</option>
+            <option value="false" {% if selected_edible == "false" %}selected{% endif %}>Not edible</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn">Filter</button>
+</form>
+
+<div class="plant-grid">
+    {% for plant in plants %}
+    <a href="{% url 'plants:detail' plant.id %}" class="plant-card">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        <h3>{{ plant.name }}</h3>
+        <p>{{ plant.about|truncatechars:60 }}</p>
+        <span class="category">{{ plant.get_category_display }}</span>
+    </a>
+    {% empty %}
+    <p class="muted">No plants found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
