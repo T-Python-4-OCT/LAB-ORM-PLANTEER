@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home | Planteer{% endblock %}
 
 {% block content %}
 
-<!-- Hero Section -->
-<section class="hero">
+<!-- Dynamic Video Hero -->
+<section class="hero-video-section">
 
-    <div class="hero-content">
+    <video class="hero-video active" autoplay muted playsinline>
+        <source src="{% static 'videos/Nature-1.mp4' %}" type="video/mp4">
+    </video>
+
+    <video class="hero-video" muted playsinline>
+        <source src="{% static 'videos/Nature-2.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="hero-video-overlay"></div>
+
+    <div class="hero-video-content">
+
         <span class="hero-label">WELCOME TO PLANTEER</span>
 
         <h1>
@@ -20,26 +32,28 @@
             companions to make your space feel more alive.
         </p>
 
-        <div class="hero-buttons">
-            <a href="{% url 'all_plants' %}" class="btn-primary">
-                Explore Plants
-            </a>
+        <form method="GET"
+              action="{% url 'search_plants' %}"
+              class="hero-video-search">
 
-            <a href="{% url 'contact' %}" class="btn-secondary">
-                Get in Touch
-            </a>
-        </div>
-    </div>
+            <input
+                type="search"
+                name="q"
+                placeholder="Search for plants..."
+                required
+            >
 
-    <div class="hero-image">
-        <img
-            src="https://images.unsplash.com/photo-1485955900006-10f4d324d411"
-            alt="Beautiful green indoor plant"
-        >
+            <button type="submit">Search</button>
+
+        </form>
+
+        <a href="{% url 'all_plants' %}" class="hero-explore-link">
+            Explore Our Collection →
+        </a>
+
     </div>
 
 </section>
-
 
 <!-- Introduction Section -->
 <section class="intro-section">
@@ -138,4 +152,82 @@
 
 </section>
 
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    const heroVideos = document.querySelectorAll(".hero-video");
+
+    const themeVideos = {
+        nature: [
+            "{% static 'videos/Nature-1.mp4' %}",
+            "{% static 'videos/Nature-2.mp4' %}"
+        ],
+        sage: [
+            "{% static 'videos/Sage-1.mp4' %}",
+            "{% static 'videos/Sage-2.mp4' %}"
+        ],
+        ocean: [
+            "{% static 'videos/Ocean-1.mp4' %}",
+            "{% static 'videos/Ocean-2.mp4' %}"
+        ],
+        rose: [
+            "{% static 'videos/Rose-1.mp4' %}",
+            "{% static 'videos/Rose-2.mp4' %}"
+        ]
+    };
+
+    let currentVideo = 0;
+    let currentTheme = "";
+
+    function changeHeroTheme(theme) {
+        if (!themeVideos[theme] || theme === currentTheme) return;
+
+        currentTheme = theme;
+        currentVideo = 0;
+
+        heroVideos.forEach((video, index) => {
+            video.classList.toggle("active", index === 0);
+            video.pause();
+            video.src = themeVideos[theme][index];
+            video.load();
+        });
+
+        heroVideos[0].play().catch(error => {
+            console.log("Video autoplay:", error);
+        });
+    }
+
+    heroVideos.forEach((video, index) => {
+        video.addEventListener("ended", function () {
+            if (index !== currentVideo) return;
+
+            video.classList.remove("active");
+            video.pause();
+
+            currentVideo = (currentVideo + 1) % 2;
+
+            const nextVideo = heroVideos[currentVideo];
+
+            nextVideo.classList.add("active");
+            nextVideo.currentTime = 0;
+
+            nextVideo.play().catch(error => {
+                console.log("Video playback:", error);
+            });
+        });
+    });
+
+    // Load the saved theme
+    changeHeroTheme(
+        document.documentElement.dataset.theme || "nature"
+    );
+
+    // Change videos when the user selects another theme
+    document.getElementById("theme-selector")
+        .addEventListener("change", function () {
+            changeHeroTheme(this.value);
+        });
+</script>
 {% endblock %}

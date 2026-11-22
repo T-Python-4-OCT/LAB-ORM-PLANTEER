@@ -2,7 +2,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="nature" data-mode="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,7 @@
 
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -23,11 +24,30 @@
                 Planteer<span>.</span>
             </a>
 
+
             <div class="nav-links">
                 <a href="{% url 'home' %}">Home</a>
                 <a href="{% url 'all_plants' %}">Plants</a>
                 <a href="{% url 'add_plant' %}">Add Plant</a>
                 <a href="{% url 'contact' %}">Contact Us</a>
+                <a href="{% url 'contact_messages' %}">Messages Inbox</a>
+            </div>
+            
+
+            <!-- Appearance Controls -->
+            <div class="appearance-controls">
+
+                <select id="theme-selector" aria-label="Choose website theme">
+                    <option value="nature">Nature</option>
+                    <option value="sage">Sage</option>
+                    <option value="ocean">Ocean</option>
+                    <option value="rose">Rose</option>
+                </select>
+
+                <button type="button" id="mode-toggle" aria-label="Toggle dark mode">
+                    <span id="mode-icon">🌙</span>
+                </button>
+
             </div>
 
         </nav>
@@ -36,8 +56,7 @@
 
     <!-- Main Content -->
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
 
@@ -46,21 +65,82 @@
 
         <div class="footer-content">
 
-            <a href="{% url 'home' %}" class="logo">
-                Planteer<span>.</span>
-            </a>
+            <div class="footer-brand">
+                <a href="{% url 'home' %}" class="logo">
+                    Planteer<span>.</span>
+                </a>
 
-            <p>
-                Bringing nature closer to your everyday life.
-            </p>
+                <p>
+                    Bringing nature closer to your everyday life.
+                </p>
+            </div>
 
-            <p class="copyright">
-                &copy; 2026 Planteer. All Rights Reserved.
-            </p>
+            <div class="footer-links">
+                <h3>Explore</h3>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'all_plants' %}">Our Plants</a>
+                <a href="{% url 'add_plant' %}">Add a Plant</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+                <a href="{% url 'contact_messages' %}">Messages Inbox</a>
+            </div>
+
+            <div class="footer-links">
+                <h3>Discover</h3>
+                <a href="{% url 'all_plants' %}">Indoor Plants</a>
+                <a href="{% url 'all_plants' %}">Outdoor Plants</a>
+                <a href="{% url 'all_plants' %}">Succulents</a>
+            </div>
 
         </div>
 
+        <div class="footer-bottom">
+            <p>&copy; 2026 Planteer. All Rights Reserved.</p>
+            <span>Made with care for nature.</span>
+        </div>
+
     </footer>
+
+
+    <!-- Theme and Dark Mode -->
+    <script>
+        const root = document.documentElement;
+        const themeSelector = document.getElementById("theme-selector");
+        const modeToggle = document.getElementById("mode-toggle");
+        const modeIcon = document.getElementById("mode-icon");
+
+        function applyTheme(theme) {
+            root.dataset.theme = theme;
+            localStorage.setItem("planteer-theme", theme);
+            themeSelector.value = theme;
+        }
+
+        function applyMode(mode) {
+            root.dataset.mode = mode;
+            localStorage.setItem("planteer-mode", mode);
+
+            modeIcon.textContent = mode === "dark" ? "☀️" : "🌙";
+
+            modeToggle.setAttribute(
+                "aria-label",
+                mode === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            );
+        }
+
+        const savedTheme = localStorage.getItem("planteer-theme") || "nature";
+        const savedMode = localStorage.getItem("planteer-mode") || "light";
+
+        applyTheme(savedTheme);
+        applyMode(savedMode);
+
+        themeSelector.addEventListener("change", function () {
+            applyTheme(this.value);
+        });
+
+        modeToggle.addEventListener("click", function () {
+            const newMode = root.dataset.mode === "dark" ? "light" : "dark";
+            applyMode(newMode);
+        });
+    </script>
 
     {% block extra_js %}{% endblock %}
 
