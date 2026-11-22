@@ -1,0 +1,132 @@
+[
+  {
+    "model": "plants.plant",
+    "pk": 1,
+    "fields": {
+      "name": "Date Palm",
+      "about": "The date palm is a flowering tree in the palm family, cultivated for its sweet edible fruit. It is one of the oldest cultivated trees in the Arabian Peninsula.",
+      "used_for": "Its fruit (dates) is eaten fresh or dried, its leaves are used for weaving baskets and mats, and its trunk is used in construction.",
+      "image": "images/01-date-palm.jpg",
+      "category": "tree",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:01:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 2,
+    "fields": {
+      "name": "Olive Tree",
+      "about": "The olive is a small evergreen tree native to the Mediterranean region, known for living for hundreds of years.",
+      "used_for": "Its fruit is eaten pickled and pressed to make olive oil, and its wood is used for furniture and crafts.",
+      "image": "images/02-olive-tree.jpg",
+      "category": "tree",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:02:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 3,
+    "fields": {
+      "name": "Mango",
+      "about": "The mango is a juicy tropical stone fruit native to South Asia, known as the \"king of fruits\".",
+      "used_for": "Eaten fresh, and used in juices, smoothies, desserts and chutneys.",
+      "image": "images/03-mango.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:03:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 4,
+    "fields": {
+      "name": "Strawberry",
+      "about": "The strawberry is a small flowering plant that produces sweet red fruit with seeds on its surface.",
+      "used_for": "Eaten fresh, and used in jams, desserts, juices and ice cream.",
+      "image": "images/04-strawberry.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:04:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 5,
+    "fields": {
+      "name": "Tomato",
+      "about": "The tomato is a plant from the nightshade family, originating in South America. Its red fruit is one of the most used foods in the world.",
+      "used_for": "Used in salads, sauces, soups and cooking.",
+      "image": "images/05-tomato.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:05:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 6,
+    "fields": {
+      "name": "Carrot",
+      "about": "The carrot is a root vegetable, usually orange, rich in beta-carotene and vitamin A.",
+      "used_for": "Eaten raw in salads, cooked in meals, and used in juices and cakes.",
+      "image": "images/06-carrot.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:06:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 7,
+    "fields": {
+      "name": "Mint",
+      "about": "Mint is an aromatic herb with a fresh, cool flavor, which grows quickly in moist soil.",
+      "used_for": "Added to tea and drinks, used in salads and cooking, and in some medicines.",
+      "image": "images/07-mint.jpg",
+      "category": "herb",
+      "is_edible": true,
+      "created_at": "2026-11-19T12:07:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 8,
+    "fields": {
+      "name": "Lavender",
+      "about": "Lavender is a flowering plant from the mint family, famous for its purple flowers and calming scent.",
+      "used_for": "Used in perfumes, soaps, essential oils and as a decorative garden plant.",
+      "image": "images/08-lavender.jpg",
+      "category": "flower",
+      "is_edible": false,
+      "created_at": "2026-11-19T12:08:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 9,
+    "fields": {
+      "name": "Rose",
+      "about": "The rose is a flowering shrub known for its beautiful, fragrant flowers, and Taif in Saudi Arabia is famous for its roses.",
+      "used_for": "Used for decoration, gifts, perfumes and rose water.",
+      "image": "images/09-rose.jpg",
+      "category": "flower",
+      "is_edible": false,
+      "created_at": "2026-11-19T12:09:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 10,
+    "fields": {
+      "name": "Aloe Vera",
+      "about": "Aloe vera is a succulent plant with thick, fleshy leaves that store water, and it grows well in dry climates.",
+      "used_for": "Its gel is used in skin care, to soothe burns, and in cosmetics.",
+      "image": "images/10-aloe-vera.jpg",
+      "category": "succulent",
+      "is_edible": false,
+      "created_at": "2026-11-19T12:10:00Z"
+    }
+  }
+]

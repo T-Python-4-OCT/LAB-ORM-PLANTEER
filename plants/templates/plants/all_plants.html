@@ -1,0 +1,43 @@
+{% extends "main/base.html" %}
+
+{% block title %}All Plants{% endblock %}
+
+{% block content %}
+
+<div class="d-flex flex-wrap align-items-end justify-content-between gap-3 mb-3">
+    <h1 class="page-title mb-0">All Plants</h1>
+
+    <form method="get" action="{% url 'plants:all_plants_view' %}" class="filter-form">
+        <select name="category" class="form-select" aria-label="Category">
+            <option value="">All categories</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="is_edible" class="form-select" aria-label="Is edible">
+            <option value="">Edible &amp; not edible</option>
+            <option value="yes" {% if selected_edible == "yes" %}selected{% endif %}>Edible</option>
+            <option value="no" {% if selected_edible == "no" %}selected{% endif %}>Not edible</option>
+        </select>
+
+        <button type="submit" class="btn btn-leaf px-4">Filter</button>
+        {% if selected_category or selected_edible %}
+            <a href="{% url 'plants:all_plants_view' %}" class="btn btn-outline-leaf">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<p class="results-count">{{ plants|length }} plant{{ plants|length|pluralize }}</p>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 g-lg-5">
+    {% for plant in plants %}
+        <div class="col">
+            {% include "plants/partials/plant_card.html" %}
+        </div>
+    {% empty %}
+        <p class="col-12 text-muted">No plants match these filters.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

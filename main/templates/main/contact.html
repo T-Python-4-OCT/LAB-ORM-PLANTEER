@@ -1,0 +1,54 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+
+<div class="row g-5 align-items-start">
+    <div class="col-lg-6">
+        <h1 class="contact-title">Contact us</h1>
+        <p class="contact-subtitle">Have a question about a plant or a suggestion for Planteer? Send us a message.</p>
+
+        {% if sent %}
+            <div class="alert alert-success" role="alert">Thank you! Your message has been sent.</div>
+        {% endif %}
+
+        <form method="post" action="{% url 'main:contact_view' %}">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-sm-6 mb-3">
+                    <label for="{{ form.first_name.id_for_label }}" class="form-label">First name</label>
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <label for="{{ form.last_name.id_for_label }}" class="form-label">Last name</label>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.email.id_for_label }}" class="form-label">Email address</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="mb-4">
+                <label for="{{ form.message.id_for_label }}" class="form-label">Your message</label>
+                {{ form.message }}
+                {{ form.message.errors }}
+            </div>
+
+            <button type="submit" class="btn btn-leaf w-100 py-2">Submit</button>
+        </form>
+    </div>
+
+    <div class="col-lg-5 offset-lg-1 d-none d-lg-block">
+        <div class="contact-image" style="background-image: url('{% static 'main/images/contact.jpg' %}');"></div>
+    </div>
+</div>
+
+{% endblock %}
