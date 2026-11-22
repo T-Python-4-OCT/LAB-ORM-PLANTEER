@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+
+{% block title %}Messages from Users | Planteer{% endblock %}
+
+{% block content %}
+<section class="messages-page">
+    <h1>Messages from Users</h1>
+
+    <div class="messages-grid">
+        {% for message in messages %}
+            <article class="user-message">
+                <div class="message-avatar">♙</div>
+
+                <h3>{{ message.first_name }} {{ message.last_name }}</h3>
+
+                <a href="mailto:{{ message.email }}" class="message-email">
+                    {{ message.email }}
+                </a>
+
+                <p>{{ message.message }}</p>
+            </article>
+        {% empty %}
+            <p>No messages received yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
