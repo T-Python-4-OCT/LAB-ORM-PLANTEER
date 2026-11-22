@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Plant Database For Plants Lovers{% endblock %}
+
+{% block content %}
+
+<section class="container">
+    <div class="hero">
+        <h1 class="hero-title">Planteer</h1>
+        <p class="hero-subtitle">Plant Database For Plants Lovers</p>
+
+        <form action="{% url 'plants:search_view' %}" method="get" class="search-form hero-search" role="search">
+            <input type="search" name="q" placeholder="Search For Plant..." aria-label="Search for a plant" dir="auto" required>
+            <button type="submit" class="btn">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="container section">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Plants</h2>
+            <p class="section-subtitle">Learn more about plants</p>
+        </div>
+        <a href="{% url 'plants:all_plants_view' %}" class="more-link">More &rarr;</a>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            {% include 'plants/plant_card.html' %}
+        {% empty %}
+            <div class="empty">
+                <p>No plants yet. Add the first one to start the collection.</p>
+                <a href="{% url 'plants:add_plant_view' %}" class="btn">Add a plant</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

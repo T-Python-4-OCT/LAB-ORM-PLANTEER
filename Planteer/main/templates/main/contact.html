@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Planteer{% endblock %}
+
+{% block content %}
+
+<div class="container page">
+    <section class="contact">
+        <div>
+            <h1 class="display-title">Contact us</h1>
+            <p class="display-subtitle">Spotted a mistake or want a plant added? Send us a message.</p>
+
+            <form action="{% url 'main:contact_view' %}" method="post" class="form">
+                {% csrf_token %}
+
+                <div class="field-row">
+                    <div class="field">
+                        <label for="first_name">First name</label>
+                        <input type="text" id="first_name" name="first_name" maxlength="64" placeholder="Jane" dir="auto" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="last_name">Last name</label>
+                        <input type="text" id="last_name" name="last_name" maxlength="64" placeholder="Smith" dir="auto" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" placeholder="email@example.com" required>
+                </div>
+
+                <div class="field">
+                    <label for="message">Your message</label>
+                    <textarea id="message" name="message" placeholder="Enter your question or message" dir="auto" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-block">Submit</button>
+            </form>
+        </div>
+
+        <div class="contact-photo">
+            <img src="{% static 'images/contact.jpg' %}" alt="Flowering plant">
+        </div>
+    </section>
+</div>
+
+{% endblock %}

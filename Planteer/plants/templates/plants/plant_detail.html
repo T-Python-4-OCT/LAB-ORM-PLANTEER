@@ -1,0 +1,94 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+
+<div class="container page">
+    <article class="plant-detail">
+        <div class="plant-photo">
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        </div>
+
+        <div class="plant-info">
+            <h1 class="plant-title">{{ plant.name }}</h1>
+            <p class="plant-category">{{ plant.get_category_display }}</p>
+            <p class="plant-about" dir="auto">{{ plant.about|linebreaksbr }}</p>
+
+            <dl class="plant-facts">
+                <div class="fact-inline">
+                    <dt>Is Edible:</dt>
+                    <dd>{{ plant.is_edible|yesno:"Yes,No" }}</dd>
+                </div>
+                <div>
+                    <dt>Used For:</dt>
+                    <dd dir="auto">{{ plant.used_for|linebreaksbr }}</dd>
+                </div>
+            </dl>
+
+            <div class="plant-actions">
+                <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-outline">Edit plant</a>
+                <form action="{% url 'plants:delete_plant_view' plant.id %}" method="post" onsubmit="return confirm('Delete this plant? Its comments will be deleted too.');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete plant</button>
+                </form>
+            </div>
+        </div>
+    </article>
+
+    <section class="section">
+        <h2 class="block-title">Related Plants</h2>
+
+        <div class="plants-grid">
+            {% for related in related_plants %}
+                {% include 'plants/plant_card.html' with plant=related %}
+            {% empty %}
+                <p class="muted">No other plants in this category yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="section" id="comments">
+        <h2 class="block-title">Comments ({{ comments|length }})</h2>
+
+        <div class="comments-layout">
+            <div class="comment-list">
+                {% for comment in comments %}
+                    <div class="comment">
+                        <div class="comment-head">
+                            <p>
+                                <span class="comment-name" dir="auto">{{ comment.full_name }}</span>
+                                <time class="comment-date" datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"F j, Y, g:i A" }}</time>
+                            </p>
+                            <form action="{% url 'plants:delete_comment_view' comment.id %}" method="post" onsubmit="return confirm('Delete this comment?');">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-link">Delete</button>
+                            </form>
+                        </div>
+                        <p class="comment-text" dir="auto">{{ comment.content|linebreaksbr }}</p>
+                    </div>
+                {% empty %}
+                    <p class="muted">No comments yet. Share what you know about this plant.</p>
+                {% endfor %}
+            </div>
+
+            <form action="{% url 'plants:add_comment_view' plant.id %}" method="post" class="form">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="full_name">Full name</label>
+                    <input type="text" id="full_name" name="full_name" maxlength="128" placeholder="Your name" dir="auto" required>
+                </div>
+
+                <div class="field">
+                    <label for="content">Comment</label>
+                    <textarea id="content" name="content" placeholder="Write your comment" dir="auto" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-block">Post comment</button>
+            </form>
+        </div>
+    </section>
+</div>
+
+{% endblock %}

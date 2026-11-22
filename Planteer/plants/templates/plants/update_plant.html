@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Edit {{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+
+<div class="container page">
+    <div class="form-page">
+        <div class="page-head">
+            <h1 class="display-title">Edit Plant</h1>
+            <p class="display-subtitle">{{ plant.name }}</p>
+        </div>
+
+        <form action="{% url 'plants:update_plant_view' plant.id %}" method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" maxlength="128" value="{{ plant.name }}" dir="auto" required>
+            </div>
+
+            <div class="field-row">
+                <div class="field">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        {% for value, label in categories %}
+                            <option value="{{ value }}" {% if plant.category == value %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="image">New photo</label>
+                    <input type="file" id="image" name="image" accept="image/*">
+                </div>
+            </div>
+
+            <div class="current-photo">
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="current-image">
+                <p class="hint">Current photo. Choose a new one to replace it.</p>
+            </div>
+
+            <div class="field">
+                <label for="about">About</label>
+                <textarea id="about" name="about" dir="auto" required>{{ plant.about }}</textarea>
+            </div>
+
+            <div class="field">
+                <label for="used_for">Used for</label>
+                <textarea id="used_for" name="used_for" dir="auto" required>{{ plant.used_for }}</textarea>
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox" name="is_edible" {% if plant.is_edible %}checked{% endif %}>
+                This plant is edible
+            </label>
+
+            <div class="form-actions">
+                <button type="submit" class="btn">Save changes</button>
+                <a href="{% url 'plants:plant_detail_view' plant.id %}" class="text-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
