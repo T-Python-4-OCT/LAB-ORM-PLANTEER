@@ -1,15 +1,15 @@
 from django.db import models
 
-# Create your models here.
+# Create your models here
 class Plant(models.Model):
 
     class Category(models.TextChoices):
-        INDOOR = "Indoor", "Indoor" # Indoor Plants
-        OUTDOOR = "Outdoor", "Outdoor" # Outdoor Plants
-        SUCCULENTS = "Succulents", "Succulents" # Succulents Plants
-        HERBS = "Herbs", "Herbs" # Herps Plants
-        FLOWERING = "Flowering", "Flowering" # Flowering Plants
-        TREES = "Trees", "Trees" 
+        INDOOR = "Indoor", "Indoor"
+        OUTDOOR = "Outdoor", "Outdoor"
+        SUCCULENTS = "Succulents", "Succulents"
+        HERBS = "Herbs", "Herbs"
+        FLOWERING = "Flowering", "Flowering"
+        TREES = "Trees", "Trees"
 
     name = models.CharField(max_length=100)
     about = models.TextField()
@@ -24,3 +24,17 @@ class Plant(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    plant = models.ForeignKey(
+        Plant,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+    full_name = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Comment by {self.full_name} on {self.plant.name}"
