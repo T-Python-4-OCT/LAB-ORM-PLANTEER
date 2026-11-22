@@ -54,7 +54,9 @@ def search_plants(request):
 
     if request.GET.get("live") == "1":
         plants = Plant.objects.filter(
-            name__istartswith=query
+            Q(name__istartswith=query) |
+            Q(about__icontains=query) |
+            Q(used_for__icontains=query)
         ) if query else Plant.objects.none()
 
         results = [

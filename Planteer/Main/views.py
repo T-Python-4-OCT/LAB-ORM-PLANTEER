@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import Contact
+from Plants.models import Plant
 
 # Create your views here.
 def home(request):
-    return render(request, "Main/home.html")
+    plants = Plant.objects.all().order_by("-created_at")
+
+    return render(request, "Main/home.html", {
+        "plants": plants
+    })
 
 
 def contact(request):

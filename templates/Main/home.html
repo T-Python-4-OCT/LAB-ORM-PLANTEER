@@ -74,7 +74,60 @@
 </section>
 
 
-<!-- Categories Section -->
+<!-- All Plants Section -->
+<section class="home-plants-section">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">OUR GREEN COLLECTION</span>
+            <h2>Discover Our Plants</h2>
+        </div>
+
+        <a href="{% url 'all_plants' %}" class="view-all">
+            View All Plants →
+        </a>
+    </div>
+
+    <div class="home-plants-slider">
+
+        <div class="home-plants-track">
+
+            {% for plant in plants %}
+
+            <a href="{% url 'plant_detail' plant.id %}"
+               class="home-plant-card">
+
+                <div class="home-plant-image">
+                    {% if plant.image %}
+                        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                    {% endif %}
+                </div>
+
+                <div class="home-plant-info">
+                    <span>{{ plant.category }}</span>
+                    <h3>{{ plant.name }}</h3>
+                    <p>{{ plant.about|truncatewords:12 }}</p>
+                    <div class="home-plant-link">
+                        Discover Plant →
+                    </div>
+                </div>
+
+            </a>
+
+            {% empty %}
+
+            <p>No plants available yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Categories Video Slider -->
 <section class="categories-section">
 
     <div class="section-heading">
@@ -88,50 +141,76 @@
         </a>
     </div>
 
+    <div class="category-slider">
 
-    <div class="category-grid">
+        <div class="category-track">
 
-        <div class="category-card">
-            <img
-                src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e"
-                alt="Indoor plants"
-            >
-
-            <div class="category-info">
-                <h3>Indoor Plants</h3>
-                <p>Bring freshness into your home.</p>
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Nature-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Indoor Plants</h3>
+                    <p>Bring freshness into your home.</p>
+                </div>
             </div>
-        </div>
 
-
-        <div class="category-card">
-            <img
-                src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6"
-                alt="Outdoor plants"
-            >
-
-            <div class="category-info">
-                <h3>Outdoor Plants</h3>
-                <p>Make your outdoor space greener.</p>
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Ocean-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Outdoor Plants</h3>
+                    <p>Make your outdoor space greener.</p>
+                </div>
             </div>
-        </div>
+
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Sage-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Succulents</h3>
+                    <p>Small plants with unique beauty.</p>
+                </div>
+            </div>
 
 
-        <div class="category-card">
-            <img
-                src="https://images.unsplash.com/photo-1509423350716-97f2360afeb4"
-                alt="Succulent plants"
-            >
-
-            <div class="category-info">
-                <h3>Succulents</h3>
-                <p>Small plants with unique beauty.</p>
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Rose-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Herbs</h3>
+                    <p>Discover fresh and aromatic herbs.</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Rose-2.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Flowering Plants</h3>
+                    <p>Add color and beauty to your space.</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Sage-2.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Trees</h3>
+                    <p>Bring natural beauty and shade to your surroundings.</p>
+                </div>
             </div>
         </div>
 
     </div>
 
 </section>
+
 
 
 <!-- Call To Action -->
@@ -229,5 +308,138 @@
         .addEventListener("change", function () {
             changeHeroTheme(this.value);
         });
+
+
+
+/* Automatic Category Slider */
+
+const categoryTrack = document.querySelector(".category-track");
+
+if (categoryTrack) {
+
+    const originalCards = Array.from(categoryTrack.children);
+    const totalCards = originalCards.length;
+
+    // Duplicate cards for infinite sliding
+    originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        categoryTrack.appendChild(clone);
+
+        clone.querySelectorAll("video").forEach(video => {
+            video.muted = true;
+            video.play().catch(() => {});
+        });
+    });
+
+    let sliderIndex = 0;
+    let isSliding = false;
+
+    function getSlideStep() {
+        const card = categoryTrack.querySelector(".category-card");
+        const gap = parseFloat(getComputedStyle(categoryTrack).gap) || 0;
+
+        return card.getBoundingClientRect().width + gap;
+    }
+
+    function slideCategories() {
+        if (isSliding) return;
+
+        isSliding = true;
+        sliderIndex++;
+
+        categoryTrack.style.transition = "transform 0.7s ease";
+        categoryTrack.style.transform =
+            `translateX(-${getSlideStep() * sliderIndex}px)`;
+    }
+
+    categoryTrack.addEventListener("transitionend", function () {
+
+        if (sliderIndex >= totalCards) {
+            categoryTrack.style.transition = "none";
+            categoryTrack.style.transform = "translateX(0)";
+
+            sliderIndex = 0;
+        }
+
+        categoryTrack.offsetHeight;
+        isSliding = false;
+    });
+
+    setInterval(slideCategories, 4000);
+
+    window.addEventListener("resize", function () {
+        categoryTrack.style.transition = "none";
+        categoryTrack.style.transform =
+            `translateX(-${getSlideStep() * sliderIndex}px)`;
+    });
+}
+
+
+/* Automatic Home Plants Slider */
+
+const plantsTrack = document.querySelector(".home-plants-track");
+
+if (plantsTrack) {
+
+    const originalPlants = Array.from(plantsTrack.children);
+    const totalPlants = originalPlants.length;
+
+    if (totalPlants > 1) {
+
+        // Duplicate all plant cards
+        originalPlants.forEach(plant => {
+            plantsTrack.appendChild(plant.cloneNode(true));
+        });
+
+        let plantIndex = 0;
+        let plantSliding = false;
+
+        function getPlantStep() {
+            const card = plantsTrack.querySelector(".home-plant-card");
+            const gap = parseFloat(
+                getComputedStyle(plantsTrack).gap
+            ) || 0;
+
+            return card.getBoundingClientRect().width + gap;
+        }
+
+        function movePlants() {
+            if (plantSliding) return;
+
+            plantSliding = true;
+            plantIndex++;
+
+            plantsTrack.style.transition = "transform 0.8s ease";
+            plantsTrack.style.transform =
+                `translateX(-${getPlantStep() * plantIndex}px)`;
+        }
+
+        plantsTrack.addEventListener("transitionend", function (event) {
+
+            if (event.propertyName !== "transform") return;
+
+            if (plantIndex >= totalPlants) {
+                plantsTrack.style.transition = "none";
+                plantsTrack.style.transform = "translateX(0)";
+
+                plantIndex = 0;
+                plantsTrack.offsetHeight;
+            }
+
+            plantSliding = false;
+        });
+
+        // Move every 3 seconds
+        setInterval(movePlants, 3000);
+
+        window.addEventListener("resize", function () {
+            plantsTrack.style.transition = "none";
+            plantsTrack.style.transform =
+                `translateX(-${getPlantStep() * plantIndex}px)`;
+        });
+    }
+}
+
+
 </script>
 {% endblock %}
