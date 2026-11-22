@@ -36,11 +36,14 @@
                     {% if plant.image %}
                         <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
                     {% endif %}
-
-                    <h2>{{ plant.name }}</h2>
+                    
+                    <h2 dir="rtl">{{ plant.name }}</h2>
+                    <p class="plant-description" dir="rtl">
+                        {{ plant.about|truncatewords:15 }}
+                    </p>
                 </a>
 
-                <p>{{ plant.about|truncatewords:20 }}</p>
+                
                 <p>{{ plant.get_category_display }}</p>
 
                 {% if plant.is_edible %}

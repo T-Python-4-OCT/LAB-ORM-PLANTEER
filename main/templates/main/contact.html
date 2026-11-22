@@ -1,8 +1,9 @@
 {% extends "main/base.html" %}
-
+{% load static %}
 {% block title %}Contact Us | Planteer{% endblock %}
 
 {% block content %}
+<div class="contact-layout">
 <section class="contact-page">
     <h1>Contact us</h1>
     <p>Have a question or a plant tip? Send us a message.</p>
@@ -16,6 +17,13 @@
         {{ form.as_p }}
         <button type="submit">Send message</button>
         <p><a class="back-link" href="{% url 'contact_messages' %}">View submitted messages</a></p>
+        
     </form>
 </section>
+    <img
+        class="contact-page-image"
+        src="{% static 'main/images/contact-orchid.png' %}"
+        alt="زهرة أوركيد"
+    >
+</div>
 {% endblock %}
