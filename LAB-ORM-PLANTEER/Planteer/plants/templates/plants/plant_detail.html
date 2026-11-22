@@ -1,0 +1,329 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | {{ plant.name }}{% endblock %}
+
+{% block content %}
+
+<section class="plant-detail-section">
+
+    <a href="{% url 'all_plants' %}" class="back-link">
+        <i class="bi bi-arrow-left"></i>
+        Back to All Plants
+    </a>
+
+    <!-- Plant Details -->
+
+    <div class="plant-detail">
+
+        <div class="detail-image">
+
+            {% if plant.image %}
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            {% endif %}
+
+        </div>
+
+        <div class="detail-content">
+
+            <span class="plant-category">
+                {{ plant.get_category_display }}
+            </span>
+
+            <h1>{{ plant.name }}</h1>
+
+            {% if plant.is_edible %}
+
+                <span class="detail-edible">
+                    <i class="bi bi-check-circle"></i>
+                    Edible
+                </span>
+
+            {% else %}
+
+                <span class="detail-not-edible">
+                    <i class="bi bi-x-circle"></i>
+                    Not Edible
+                </span>
+
+            {% endif %}
+
+            <h3>About the Plant</h3>
+
+            <p>{{ plant.about|linebreaksbr }}</p>
+
+            <h3>Used For</h3>
+
+            <p>{{ plant.used_for|linebreaksbr }}</p>
+
+            <small class="detail-date">
+                <i class="bi bi-calendar3"></i>
+                Added on {{ plant.created_at|date:"d M Y" }}
+            </small>
+
+            <!-- Actions -->
+
+            <div class="detail-actions">
+
+                <a href="{% url 'update_plant' plant.id %}"
+                   class="submit-btn">
+
+                    <i class="bi bi-pencil"></i>
+                    Update Plant
+
+                </a>
+
+                <button type="button"
+                        class="delete-btn"
+                        data-bs-toggle="dialog"
+                        data-bs-target="#deleteDialog">
+
+                    <i class="bi bi-trash"></i>
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Related Plants -->
+
+    <section class="related-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">DISCOVER MORE</span>
+
+                <h2>Related Plants</h2>
+
+                <p>Explore plants from the same category.</p>
+
+            </div>
+
+        </div>
+
+        <div class="plants-grid">
+
+            {% for related in related_plants %}
+
+                <a href="{% url 'plant_detail' related.id %}"
+                   class="plant-card">
+
+                    <div class="plant-image">
+
+                        {% if related.image %}
+
+                            <img src="{{ related.image.url }}"
+                                 alt="{{ related.name }}">
+
+                        {% endif %}
+
+                        {% if related.is_edible %}
+
+                            <span class="edible-badge">Edible</span>
+
+                        {% else %}
+
+                            <span class="not-edible-badge">
+                                Not Edible
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="plant-content">
+
+                        <span class="plant-category">
+                            {{ related.get_category_display }}
+                        </span>
+
+                        <h3>{{ related.name }}</h3>
+
+                        <p>{{ related.about|truncatewords:18 }}</p>
+
+                        <div class="plant-card-footer">
+
+                            <span>Explore Plant</span>
+
+                            <i class="bi bi-arrow-up-right"></i>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% empty %}
+
+                <div class="empty-plants">
+
+                    <i class="bi bi-flower1"></i>
+
+                    <h3>No Related Plants</h3>
+
+                    <p>No other plants in this category yet.</p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- Comments -->
+
+    <section class="comments-section">
+
+        <div class="section-heading">
+
+            <h2>Comments</h2>
+
+            <span class="plants-count">
+                {{ comments|length }} Comments
+            </span>
+
+        </div>
+
+        {% for comment in comments %}
+
+            <div class="comment-card">
+
+                <div class="comment-header">
+
+                    <div class="comment-avatar">
+                        {{ comment.full_name|first|upper }}
+                    </div>
+
+                    <div>
+
+                        <h4>{{ comment.full_name }}</h4>
+
+                        <small>
+                            {{ comment.created_at|date:"d M Y, h:i A" }}
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <p>{{ comment.content|linebreaksbr }}</p>
+
+            </div>
+
+        {% empty %}
+
+            <div class="empty-comments">
+
+                <i class="bi bi-chat-dots"></i>
+
+                <p>No comments yet. Be the first to comment!</p>
+
+            </div>
+
+        {% endfor %}
+
+
+        <!-- Add Comment -->
+
+        <div class="add-comment">
+
+            <h3>Add Comment</h3>
+
+            <form method="POST"
+                  action="{% url 'add_comment' plant.id %}"
+                  class="comment-form">
+
+                {% csrf_token %}
+
+                <input type="text"
+                       name="full_name"
+                       placeholder="Your full name"
+                       aria-label="Your full name"
+                       maxlength="200"
+                       required>
+
+                <textarea name="content"
+                          rows="2"
+                          placeholder="Write your comment..."
+                          aria-label="Your comment"
+                          required></textarea>
+
+                <button type="submit" class="submit-btn">
+
+                    <i class="bi bi-send"></i>
+                    Submit Comment
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</section>
+
+
+<!-- Delete Confirmation Dialog -->
+
+<dialog class="dialog dialog-instant" id="deleteDialog">
+
+    <div class="dialog-header">
+
+        <h2 class="dialog-title">Delete Plant?</h2>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="dialog"
+                aria-label="Close">
+        </button>
+
+    </div>
+
+    <div class="dialog-body">
+
+        <p>Are you sure you want to delete {{ plant.name }}?</p>
+
+        <p class="text-danger">
+            This plant and its comments will be permanently deleted.
+        </p>
+
+    </div>
+
+    <div class="dialog-footer d-flex justify-content-end gap-2">
+
+        <button type="button"
+                class="btn-outline theme-secondary"
+                data-bs-dismiss="dialog">
+            Cancel
+        </button>
+
+        <button type="submit"
+                form="deletePlantForm"
+                class="btn-solid theme-danger">
+            Delete Plant
+        </button>
+
+    </div>
+
+</dialog>
+
+
+<form method="POST"
+      id="deletePlantForm"
+      action="{% url 'delete_plant' plant.id %}"
+      hidden>
+
+    {% csrf_token %}
+
+</form>
+
+{% endblock %}

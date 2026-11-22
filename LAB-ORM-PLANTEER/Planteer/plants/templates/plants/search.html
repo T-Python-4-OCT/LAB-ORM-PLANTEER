@@ -1,0 +1,137 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Search{% endblock %}
+
+{% block content %}
+
+<section class="plants-section">
+
+    <!-- Search Heading -->
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">FIND YOUR PLANT</span>
+
+            <h2>Search Plants</h2>
+
+            <p>Find your favorite plants in our collection.</p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Search Form -->
+
+    <form method="GET"
+          action="{% url 'search_plant' %}"
+          class="search-page-form">
+
+        <input type="search"
+               name="search"
+               value="{{ search }}"
+               placeholder="Enter plant name..."
+               required>
+
+        <button type="submit" class="submit-btn">
+
+            <i class="bi bi-search"></i>
+            Search
+
+        </button>
+
+    </form>
+
+
+    <!-- Search Results -->
+
+    <div class="search-results-heading">
+
+        <h3>Search Results for "{{ search }}"</h3>
+
+        <span>{{ plants|length }} Plants Found</span>
+
+    </div>
+
+
+    <!-- Plants Grid -->
+
+    <div class="plants-grid">
+
+        {% for plant in plants %}
+
+            <a href="{% url 'plant_detail' plant.id %}"
+               class="plant-card">
+
+                <div class="plant-image">
+
+                    {% if plant.image %}
+
+                        <img src="{{ plant.image.url }}"
+                             alt="{{ plant.name }}">
+
+                    {% endif %}
+
+                    {% if plant.is_edible %}
+
+                        <span class="edible-badge">
+                            Edible
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-edible-badge">
+                            Not Edible
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="plant-content">
+
+                    <span class="plant-category">
+                        {{ plant.get_category_display }}
+                    </span>
+
+                    <h3>{{ plant.name }}</h3>
+
+                    <p>{{ plant.about|truncatewords:18 }}</p>
+
+                    <div class="plant-card-footer">
+
+                        <span>Explore Plant</span>
+
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        {% empty %}
+
+            <div class="empty-plants">
+
+                <i class="bi bi-search"></i>
+
+                <h3>No Plants Found</h3>
+
+                <p>Try searching for a different plant name.</p>
+
+                <a href="{% url 'all_plants' %}">
+                    Browse All Plants
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

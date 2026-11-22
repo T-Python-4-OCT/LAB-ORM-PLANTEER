@@ -1,0 +1,158 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Planteer | Home{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span class="hero-label">
+            DISCOVER THE WORLD OF PLANTS
+        </span>
+
+        <h1>
+            Grow Your<br>
+            Knowledge of Nature.
+        </h1>
+
+        <p>
+            Explore different plants, discover their benefits
+            and learn more about the green world around you.
+        </p>
+
+        <form method="GET"
+              action="{% url 'search_plant' %}"
+              class="hero-search">
+
+            <input type="search"
+                   name="search"
+                   placeholder="Find your favorite plant..."
+                   aria-label="Search plants"
+                   required>
+
+            <button type="submit">
+                <i class="bi bi-search"></i>
+                Search
+            </button>
+
+        </form>
+
+        <a href="{% url 'all_plants' %}" class="hero-link">
+            Explore All Plants
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- Latest Plants -->
+
+<section class="plants-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                EXPLORE NATURE
+            </span>
+
+            <h2>Latest Plants</h2>
+
+            <p>Discover our newest additions.</p>
+
+        </div>
+
+        <a href="{% url 'all_plants' %}" class="view-all">
+            View All Plants
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+    </div>
+
+
+    <div class="plants-grid">
+
+        {% for plant in plants %}
+
+            <a href="{% url 'plant_detail' plant.id %}"
+               class="plant-card">
+
+                <div class="plant-image">
+
+                    {% if plant.image %}
+
+                        <img src="{{ plant.image.url }}"
+                             alt="{{ plant.name }}">
+
+                    {% endif %}
+
+                    {% if plant.is_edible %}
+
+                        <span class="edible-badge">
+                            <i class="bi bi-check-circle"></i>
+                            Edible
+                        </span>
+
+                    {% else %}
+
+                        <span class="not-edible-badge">
+                            Not Edible
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="plant-content">
+
+                    <span class="plant-category">
+                        {{ plant.get_category_display }}
+                    </span>
+
+                    <h3>{{ plant.name }}</h3>
+
+                    <p>{{ plant.about|truncatewords:18 }}</p>
+
+                    <div class="plant-card-footer">
+
+                        <span>Explore Plant</span>
+
+                        <i class="bi bi-arrow-up-right"></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        {% empty %}
+
+            <div class="empty-plants">
+
+                <i class="bi bi-flower1"></i>
+
+                <h3>No Plants Yet</h3>
+
+                <p>Add your first plant to start exploring.</p>
+
+                <a href="{% url 'add_plant' %}">
+                    + Add Plant
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

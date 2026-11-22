@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Contact Messages{% endblock %}
+
+{% block content %}
+
+<section class="messages-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">OUR COMMUNITY</span>
+
+            <h2>Contact Messages</h2>
+
+            <p>View messages received from our visitors.</p>
+
+        </div>
+
+        <span class="messages-count">
+            {{ messages|length }} Messages
+        </span>
+
+    </div>
+
+
+    <div class="messages-grid">
+
+        {% for message in messages %}
+
+            <div class="message-card">
+
+                <div class="message-header">
+
+                    <div class="message-avatar">
+                        {{ message.first_name|first|upper }}{{ message.last_name|first|upper }}
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            {{ message.first_name }}
+                            {{ message.last_name }}
+                        </h3>
+
+                        <a href="mailto:{{ message.email }}">
+                            {{ message.email }}
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="message-body">
+
+                    <p>{{ message.message|linebreaksbr }}</p>
+
+                </div>
+
+                <div class="message-footer">
+
+                    <i class="bi bi-calendar3"></i>
+
+                    {{ message.created_at|date:"d M Y, h:i A" }}
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <div class="empty-plants">
+
+                <i class="bi bi-envelope"></i>
+
+                <h3>No Messages Yet</h3>
+
+                <p>Received messages will appear here.</p>
+
+                <a href="{% url 'contact' %}">
+                    Contact Us
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

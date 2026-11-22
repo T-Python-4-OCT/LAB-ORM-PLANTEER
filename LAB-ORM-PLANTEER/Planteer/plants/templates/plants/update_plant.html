@@ -1,0 +1,167 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Update Plant{% endblock %}
+
+{% block content %}
+
+<section class="plant-form-section">
+
+    <div class="form-heading">
+
+        <span class="section-label">UPDATE OUR COLLECTION</span>
+
+        <h1>Update Plant</h1>
+
+        <p>Edit the information about {{ plant.name }}.</p>
+
+    </div>
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="plant-form">
+
+        {% csrf_token %}
+
+        <!-- Plant Name -->
+
+        <label for="name">Plant Name</label>
+
+        <input type="text"
+               id="name"
+               name="name"
+               value="{{ plant.name }}"
+               maxlength="200"
+               required>
+
+
+        <!-- About -->
+
+        <label for="about">About the Plant</label>
+
+        <textarea id="about"
+                  name="about"
+                  rows="4"
+                  required>{{ plant.about }}</textarea>
+
+
+        <!-- Used For -->
+
+        <label for="used_for">Used For</label>
+
+        <textarea id="used_for"
+                  name="used_for"
+                  rows="3"
+                  required>{{ plant.used_for }}</textarea>
+
+
+        <div class="form-row">
+
+            <!-- Category -->
+
+            <div>
+
+                <label for="category">Category</label>
+
+                <select id="category"
+                        name="category"
+                        required>
+
+                    {% for value, label in categories %}
+
+                        <option value="{{ value }}"
+                            {% if plant.category == value %}selected{% endif %}>
+
+                            {{ label }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Is Edible -->
+
+            <div>
+
+                <label for="is_edible">Is Edible?</label>
+
+                <select id="is_edible" name="is_edible">
+
+                    <option value="True"
+                        {% if plant.is_edible %}selected{% endif %}>
+                        Yes
+                    </option>
+
+                    <option value="False"
+                        {% if not plant.is_edible %}selected{% endif %}>
+                        No
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- Plant Image -->
+
+        <div class="image-update-row">
+
+            {% if plant.image %}
+
+                <div class="current-image">
+
+                    <label>Current Image</label>
+
+                    <img src="{{ plant.image.url }}"
+                         alt="{{ plant.name }}">
+
+                </div>
+
+            {% endif %}
+
+            <div class="image-upload">
+
+                <label for="image">Change Image</label>
+
+                <input type="file"
+                       id="image"
+                       name="image"
+                       accept="image/*">
+
+                <small>
+                    Leave empty to keep the current image.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- Form Actions -->
+
+        <div class="form-actions">
+
+            <a href="{% url 'plant_detail' plant.id %}"
+               class="cancel-btn">
+                Cancel
+            </a>
+
+            <button type="submit" class="submit-btn">
+
+                <i class="bi bi-check-lg"></i>
+                Save Changes
+
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}
