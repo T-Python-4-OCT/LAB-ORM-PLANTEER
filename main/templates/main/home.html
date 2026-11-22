@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero" style="background-image: url('{% static 'images/hero.jpg' %}');">
+    <div class="hero-content">
+        <h1>Planteer</h1>
+        <p class="hero-sub">The plant database for plant lovers. Find what grows, what you can eat, and what it's used for.</p>
+        {# The search page is built in a later stage #}
+        <form action="#" method="get" class="search-bar" role="search">
+            <input type="text" name="q" placeholder="Search for a plant, e.g. mint" aria-label="Search plants">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2>Plants</h2>
+            <p class="muted">Learn more about plants</p>
+        </div>
+        <a href="#" class="btn btn-outline btn-sm">See all plants</a>
+    </div>
+
+    {% if plants %}
+        <div class="plant-grid">
+            {% for plant in plants %}
+                {% include "partials/plant_card.html" with plant=plant %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <strong>No plants yet</strong>
+            Add the first plant to start the collection.
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

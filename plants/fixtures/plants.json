@@ -1,0 +1,184 @@
+[
+  {
+    "model": "plants.plant",
+    "pk": 1,
+    "fields": {
+      "name": "Date Palm",
+      "about": "A tall desert palm (Phoenix dactylifera) that has been grown across Arabia for thousands of years. It tolerates heat and drought and can live for over 100 years.",
+      "used_for": "Its sweet fruit (dates) is eaten fresh or dried. Leaves are woven into baskets and mats, and the trunk is used for building.",
+      "image": "plants/date-palm.jpg",
+      "category": "tree",
+      "is_edible": true,
+      "created_at": "2026-11-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 2,
+    "fields": {
+      "name": "Olive Tree",
+      "about": "An evergreen Mediterranean tree (Olea europaea) with silvery-green leaves and a twisted trunk. Very long-lived and drought tolerant.",
+      "used_for": "Olives are cured and eaten, and pressed to make olive oil. The wood is used for carving and utensils.",
+      "image": "plants/olive-tree.jpg",
+      "category": "tree",
+      "is_edible": true,
+      "created_at": "2026-11-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 3,
+    "fields": {
+      "name": "Neem Tree",
+      "about": "A fast-growing evergreen tree (Azadirachta indica) native to the Indian subcontinent, widely planted for shade in hot climates.",
+      "used_for": "Used for shade and as a windbreak. Neem oil from its seeds is used as a natural insect repellent and in soaps.",
+      "image": "plants/neem-tree.jpg",
+      "category": "tree",
+      "is_edible": false,
+      "created_at": "2026-11-01T11:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 4,
+    "fields": {
+      "name": "Mango",
+      "about": "A tropical tree (Mangifera indica) that produces large, juicy stone fruits with orange flesh. Grown in Jazan in southern Saudi Arabia.",
+      "used_for": "The fruit is eaten fresh, in juices, smoothies, and desserts. Unripe mangoes are used in pickles and chutneys.",
+      "image": "plants/mango.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "created_at": "2026-11-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 5,
+    "fields": {
+      "name": "Pomegranate",
+      "about": "A small deciduous tree (Punica granatum) whose round fruit is packed with juicy red seeds called arils. Grown in Taif and Al Baha.",
+      "used_for": "The seeds are eaten fresh, added to salads, or pressed into juice and molasses.",
+      "image": "plants/pomegranate.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "created_at": "2026-11-01T13:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 6,
+    "fields": {
+      "name": "Watermelon",
+      "about": "A vining plant (Citrullus lanatus) that produces large fruits with sweet, red, water-rich flesh. Thrives in hot, sunny weather.",
+      "used_for": "Eaten fresh as a refreshing summer fruit and used in juices. The seeds can be roasted as a snack.",
+      "image": "plants/watermelon.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "created_at": "2026-11-01T14:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 7,
+    "fields": {
+      "name": "Tomato",
+      "about": "A plant (Solanum lycopersicum) that produces red, juicy fruits. Botanically a fruit, but used in cooking as a vegetable.",
+      "used_for": "Used in salads, sauces, soups, and stews. One of the most used ingredients in kitchens worldwide.",
+      "image": "plants/tomato.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "created_at": "2026-11-01T15:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 8,
+    "fields": {
+      "name": "Carrot",
+      "about": "A root vegetable (Daucus carota) with a crunchy orange taproot and feathery green leaves.",
+      "used_for": "Eaten raw as a snack or in salads, cooked in soups and stews, and juiced. Rich in beta-carotene.",
+      "image": "plants/carrot.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "created_at": "2026-11-01T16:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 9,
+    "fields": {
+      "name": "Mint",
+      "about": "A fast-spreading aromatic herb (Mentha) with fresh-smelling green leaves. Easy to grow in pots.",
+      "used_for": "Added to tea, especially Arabic tea, and used in salads, drinks, and sauces.",
+      "image": "plants/mint.jpg",
+      "category": "herb",
+      "is_edible": true,
+      "created_at": "2026-11-01T17:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 10,
+    "fields": {
+      "name": "Basil",
+      "about": "A fragrant herb (Ocimum basilicum) with soft, bright green leaves. It loves warmth and sunlight.",
+      "used_for": "Used in pesto, pasta, pizza, and salads. Also used to flavour drinks and teas.",
+      "image": "plants/basil.jpg",
+      "category": "herb",
+      "is_edible": true,
+      "created_at": "2026-11-01T18:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 11,
+    "fields": {
+      "name": "Taif Rose",
+      "about": "A highly fragrant pink damask rose (Rosa x damascena) grown in the mountains of Taif, famous for its scent.",
+      "used_for": "Distilled into rose water and rose oil for perfumes. Rose water is also used to flavour desserts and drinks.",
+      "image": "plants/taif-rose.jpg",
+      "category": "flower",
+      "is_edible": true,
+      "created_at": "2026-11-01T19:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 12,
+    "fields": {
+      "name": "Moth Orchid",
+      "about": "A popular indoor orchid (Phalaenopsis) with long-lasting flowers shaped like moths. Prefers bright, indirect light.",
+      "used_for": "Grown as a decorative houseplant and given as a gift. Its flowers can last for several months.",
+      "image": "plants/moth-orchid.jpg",
+      "category": "flower",
+      "is_edible": false,
+      "created_at": "2026-11-01T20:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 13,
+    "fields": {
+      "name": "Jade Plant",
+      "about": "A succulent (Crassula ovata) with thick, shiny, coin-shaped leaves. Stores water in its leaves and needs little care.",
+      "used_for": "Grown as an indoor decorative plant and bonsai. Toxic to cats and dogs, so keep it away from pets.",
+      "image": "plants/jade-plant.jpg",
+      "category": "succulent",
+      "is_edible": false,
+      "created_at": "2026-11-01T21:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 14,
+    "fields": {
+      "name": "Snake Plant",
+      "about": "A hardy plant (Dracaena trifasciata) with tall, stiff, upright leaves. Survives low light and irregular watering.",
+      "used_for": "A popular low-maintenance houseplant for homes and offices. Toxic if eaten by pets.",
+      "image": "plants/snake-plant.jpg",
+      "category": "succulent",
+      "is_edible": false,
+      "created_at": "2026-11-01T22:00:00Z"
+    }
+  }
+]

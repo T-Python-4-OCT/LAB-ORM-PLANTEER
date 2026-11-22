@@ -1,0 +1,16 @@
+{# Reusable card. Use it with: {% include "partials/plant_card.html" with plant=plant %} #}
+<a href="{% url 'plants:plant_detail' plant.id %}" class="plant-card">
+    <div class="plant-card-img">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}" loading="lazy">
+        {% endif %}
+    </div>
+    <div class="plant-card-body">
+        <div class="plant-card-top">
+            <h3>{{ plant.name }}</h3>
+            <span class="plant-card-category">{{ plant.get_category_display }}</span>
+        </div>
+        <p>{{ plant.about|truncatewords:14 }}</p>
+        {% if plant.is_edible %}<span class="badge-edible">Edible</span>{% endif %}
+    </div>
+</a>

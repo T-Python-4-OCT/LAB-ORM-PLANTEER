@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+<article class="detail">
+    <div class="detail-img">
+        {% if plant.image %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        {% endif %}
+    </div>
+
+    <div class="detail-info">
+        <p class="detail-category">{{ plant.get_category_display }}</p>
+        <h1>{{ plant.name }}</h1>
+        <p class="detail-about">{{ plant.about|linebreaksbr }}</p>
+
+        <dl class="facts">
+            <div class="fact">
+                <dt>Category</dt>
+                <dd>{{ plant.get_category_display }}</dd>
+            </div>
+            <div class="fact">
+                <dt>Is edible</dt>
+                <dd>{{ plant.is_edible|yesno:"Yes,No" }}</dd>
+            </div>
+            <div class="fact fact-wide">
+                <dt>Used for</dt>
+                <dd>{{ plant.used_for|linebreaksbr }}</dd>
+            </div>
+        </dl>
+        {# Edit/Delete buttons, comments and related plants are added in later stages #}
+    </div>
+</article>
+{% endblock %}
