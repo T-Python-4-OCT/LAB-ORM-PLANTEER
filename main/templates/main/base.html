@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Planteer{% endblock %} | Planteer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+<body>
+    <header class="navbar container">
+        <a href="{% url 'main:home_view' %}" class="brand">🌿 Planteer</a>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle">
+        <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu">☰</label>
+        <nav class="nav-links">
+            <a href="{% url 'plants:all_plants_view' %}">All Plants</a>
+            <a href="{% url 'plants:search_plants_view' %}">Search</a>
+            <a href="{% url 'main:contact_view' %}">Contact Us</a>
+            <a href="{% url 'plants:add_plant_view' %}" class="btn btn-dark btn-sm">Add Plant</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer container">
+        <div class="footer-brand">
+            <p class="brand">🌿 Planteer</p>
+            <p class="muted small">Plant database for plant lovers.</p>
+            <div class="socials">
+                <a href="#" aria-label="Facebook">f</a>
+                <a href="#" aria-label="LinkedIn">in</a>
+                <a href="#" aria-label="YouTube">▶</a>
+                <a href="#" aria-label="Instagram">◎</a>
+            </div>
+        </div>
+        <div class="footer-cols">
+            <div>
+                <h4>Explore</h4>
+                <a href="{% url 'main:home_view' %}">Home</a>
+                <a href="{% url 'plants:all_plants_view' %}">All Plants</a>
+                <a href="{% url 'plants:search_plants_view' %}">Search</a>
+            </div>
+            <div>
+                <h4>Categories</h4>
+                <a href="{% url 'plants:all_plants_view' %}?category=tree">Trees</a>
+                <a href="{% url 'plants:all_plants_view' %}?category=fruit">Fruits</a>
+                <a href="{% url 'plants:all_plants_view' %}?category=herb">Herbs</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="{% url 'main:contact_view' %}">Contact Us</a>
+                <a href="{% url 'main:contact_messages_view' %}">Messages</a>
+                <a href="{% url 'plants:add_plant_view' %}">Add Plant</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

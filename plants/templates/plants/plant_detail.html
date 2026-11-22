@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+<section class="section detail">
+    <div class="detail-img">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    </div>
+    <div class="detail-info">
+        <h1>{{ plant.name }}</h1>
+        <p class="muted">{{ plant.get_category_display }}</p>
+        <p class="muted">{{ plant.about|linebreaksbr }}</p>
+        {% if plant.native_to %}
+            <p><strong>Native to:</strong><br>{{ plant.native_to }}</p>
+        {% endif %}
+        <p><strong>Is Edible:</strong> {{ plant.is_edible|yesno:"Yes,No" }}</p>
+        <p><strong>Used For:</strong><br>{{ plant.used_for|linebreaksbr }}</p>
+
+        <div class="actions">
+            <a href="{% url 'plants:update_plant_view' plant.id %}" class="btn btn-dark">Update</a>
+            <form action="{% url 'plants:delete_plant_view' plant.id %}" method="post"
+                  onsubmit="return confirm('Delete {{ plant.name|escapejs }}? This cannot be undone.');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2 class="section-title">Related Plants</h2>
+    <div class="grid">
+        {% for plant in related_plants %}
+            {% include 'main/partials/plant_card.html' %}
+        {% empty %}
+            <p class="muted">No related plants in this category yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section comments">
+    <h2 class="section-title">Comments ({{ comments|length }})</h2>
+    <form method="post" class="form" novalidate>
+        {% csrf_token %}
+        {% include 'main/partials/field.html' with field=comment_form.full_name %}
+        {% include 'main/partials/field.html' with field=comment_form.content %}
+        <button type="submit" class="btn btn-dark">Add Comment</button>
+    </form>
+    <div class="comment-list">
+        {% for comment in comments %}
+            <article class="comment">
+                <p><strong>{{ comment.full_name }}</strong> <span class="muted small">· {{ comment.created_at|date:"M d, Y H:i" }}</span></p>
+                <p>{{ comment.content|linebreaksbr }}</p>
+            </article>
+        {% empty %}
+            <p class="muted">Be the first to comment on this plant.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

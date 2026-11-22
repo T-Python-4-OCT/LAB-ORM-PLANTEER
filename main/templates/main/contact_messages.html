@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1 class="page-title">Messages from Users</h1>
+    <div class="messages-grid">
+        {% for msg in messages_list %}
+            <article class="message">
+                <span class="avatar">👤</span>
+                <h3>{{ msg.first_name }} {{ msg.last_name }}</h3>
+                <a href="mailto:{{ msg.email }}" class="email">{{ msg.email }}</a>
+                <p class="muted">{{ msg.message|linebreaksbr }}</p>
+                <p class="muted small">{{ msg.created_at|date:"M d, Y · H:i" }}</p>
+            </article>
+        {% empty %}
+            <p class="muted">No messages yet. <a href="{% url 'main:contact_view' %}">Send the first one</a>.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
