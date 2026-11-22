@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Messages from Users</h1>
+<div class="messages-grid">
+  {% for contact in contacts %}
+    <article class="message-card">
+      <div class="avatar">{{ contact.first_name|first|upper }}</div>
+      <h3>{{ contact.first_name }} {{ contact.last_name }}</h3>
+      <a href="mailto:{{ contact.email }}" class="link">{{ contact.email }}</a>
+      <p class="muted">{{ contact.message|linebreaksbr }}</p>
+      <small class="muted">{{ contact.created_at|date:"M d, Y H:i" }}</small>
+    </article>
+  {% empty %}
+    <p class="muted">No messages yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

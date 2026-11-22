@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ plant.name }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb">
+  <a href="{% url 'main:home' %}">Home</a> /
+  <a href="{% url 'plants:all_plants' %}">All Plants</a> /
+  <a href="{% url 'plants:all_plants' %}?category={{ plant.category }}">{{ plant.get_category_display }}</a> /
+  <span>{{ plant.name }}</span>
+</nav>
+
+<section class="detail">
+  <div class="detail-img">
+    {% if plant.image %}<img src="{{ plant.image.url }}" alt="{{ plant.name }}">{% endif %}
+  </div>
+  <div class="detail-info">
+    <h1>{{ plant.name }}</h1>
+    <div class="detail-tags">
+      <a href="{% url 'plants:all_plants' %}?category={{ plant.category }}" class="tag">{{ plant.get_category_display }}</a>
+      {% if plant.is_edible %}<span class="tag tag-green">✔ Edible</span>{% else %}<span class="tag tag-red">✖ Not edible</span>{% endif %}
+    </div>
+    <p class="about">{{ plant.about|linebreaksbr }}</p>
+    <dl class="info-list">
+      <div><dt>🍽️ Is Edible</dt><dd>{{ plant.is_edible|yesno:"Yes,No" }}</dd></div>
+      <div><dt>🧺 Used For</dt><dd>{{ plant.used_for|linebreaksbr }}</dd></div>
+      <div><dt>💬 Comments</dt><dd>{{ comments|length }}</dd></div>
+      <div><dt>📅 Added</dt><dd>{{ plant.created_at|date:"M d, Y" }}</dd></div>
+    </dl>
+    <div class="actions">
+      <a href="{% url 'plants:update_plant' plant.id %}" class="btn btn-light">✏️ Update</a>
+      <form action="{% url 'plants:delete_plant' plant.id %}" method="post" onsubmit="return confirm('Delete {{ plant.name|escapejs }}?');">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">🗑️ Delete</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section comments">
+  <h2>Comments ({{ comments|length }})</h2>
+  <form method="post" class="form comment-form" novalidate>
+    {% csrf_token %}
+    <div class="field">{{ comment_form.full_name }}{{ comment_form.full_name.errors }}</div>
+    <div class="field">{{ comment_form.content }}{{ comment_form.content.errors }}</div>
+    <button type="submit" class="btn btn-dark">Add Comment</button>
+  </form>
+  {% for comment in comments %}
+    <article class="comment">
+      <div class="avatar">{{ comment.full_name|first|upper }}</div>
+      <div>
+        <strong>{{ comment.full_name }}</strong>
+        <small class="muted">· {{ comment.created_at|timesince }} ago</small>
+        <p>{{ comment.content|linebreaksbr }}</p>
+      </div>
+    </article>
+  {% empty %}
+    <p class="muted">No comments yet. Be the first!</p>
+  {% endfor %}
+</section>
+
+<section class="section">
+  <h2>Related Plants</h2>
+  <div class="grid">
+    {% for plant in related_plants %}
+      {% include 'partials/plant_card.html' %}
+    {% empty %}
+      <p class="muted">No related plants in this category yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
