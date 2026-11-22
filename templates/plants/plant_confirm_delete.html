@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Delete {{ plant.name }} — Planteer{% endblock %}
+{% block content %}
+<section class="delete-page">
+  <p class="eyebrow">REMOVE FROM THE LIBRARY</p>
+  <h1>Delete {{ plant.name }}?</h1>
+  <p>This will permanently remove this plant and its comments.</p>
+  <form method="post">{% csrf_token %}<button class="delete-button" type="submit">Yes, delete plant</button><a class="button secondary-button" href="{% url 'plant_detail' plant.id %}">Keep plant</a></form>
+</section>
+{% endblock %}

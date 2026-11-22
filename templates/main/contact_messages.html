@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Visitor messages — Planteer{% endblock %}
+{% block content %}
+<section class="page-intro"><p class="eyebrow">COMMUNITY NOTES</p><h1>Messages from visitors</h1><p>Questions and kind notes shared with the Planteer team.</p></section>
+<section class="section"><div class="message-list">{% for contact in contacts %}<article class="message-card"><div class="message-heading"><div class="avatar">{{ contact.first_name|first|upper }}</div><div><h2>{{ contact.first_name }} {{ contact.last_name }}</h2><a href="mailto:{{ contact.email }}">{{ contact.email }}</a></div><time>{{ contact.created_at|date:"M j, Y" }}</time></div><p>{{ contact.message|linebreaksbr }}</p></article>{% empty %}<div class="empty-message"><h2>No messages yet</h2><p>When visitors send a note, it will appear here.</p><a class="button" href="{% url 'contact' %}">Send the first message</a></div>{% endfor %}</div></section>
+{% endblock %}

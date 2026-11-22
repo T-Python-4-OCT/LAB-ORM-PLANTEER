@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}All plants — Planteer{% endblock %}
+{% block content %}
+<section class="page-intro"><p class="eyebrow">THE PLANTEER LIBRARY</p><h1>All plants</h1><p>Browse the collection and find a plant you would like to know better.</p></section>
+<section class="section">
+  <form class="filters" method="get">
+    <label>Category<select name="category"><option value="">All categories</option>{% for value,label in categories %}<option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+    <label>Edibility<select name="is_edible"><option value="">Any</option><option value="true" {% if selected_edible == 'true' %}selected{% endif %}>Edible</option><option value="false" {% if selected_edible == 'false' %}selected{% endif %}>Not edible</option></select></label>
+    <button type="submit">Filter plants</button>{% if selected_category or selected_edible %}<a href="{% url 'plant_list' %}">Clear filters</a>{% endif %}
+  </form>
+  <p class="muted">{{ plants|length }} plants in this view.</p>
+  <div class="grid">{% for plant in plants %}<article class="card"><a href="{% url 'plant_detail' plant.id %}"><img src="{{ plant.image.url }}" alt="{{ plant.name }}" loading="lazy" onerror="this.onerror=null;this.src='/static/img/plant-placeholder.svg'"></a><div class="card-body"><span class="tag">{{ plant.get_category_display }}{% if plant.is_edible %} · Edible{% endif %}</span><h2><a href="{% url 'plant_detail' plant.id %}">{{ plant.name }}</a></h2><p class="latin">{{ plant.scientific_name|default:"Plant profile" }}</p><p>{{ plant.about }}</p></div></article>{% empty %}<p>No plants match these filters yet. Try clearing the filters.</p>{% endfor %}</div>
+</section>
+{% endblock %}

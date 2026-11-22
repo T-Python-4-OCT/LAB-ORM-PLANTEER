@@ -31,3 +31,16 @@
 
 ## UML for the model `Plant` &  `Contact` Model 
 <img width="618" style="width:100%; height:auto;" alt="Screenshot 2024-03-19 at 3 16 01 PM" src="assets/uml.png">
+
+## Run the project locally
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+py manage.py migrate
+py manage.py seed_plants
+py manage.py runserver
+```
+
+Open http://127.0.0.1:8000. For the admin panel, create a login with `py manage.py createsuperuser`, then open `/admin/`.

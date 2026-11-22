@@ -1,0 +1,9 @@
+{% load static %}<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{% block title %}Planteer{% endblock %}</title><link rel="stylesheet" href="{% static 'css/site.css' %}?v=4"></head>
+<body>
+  <header class="header"><a class="brand" href="{% url 'home' %}">Planteer</a><nav><a href="{% url 'plant_list' %}">All Plants</a><a href="{% url 'contact' %}">Contact Us</a><a class="nav-add" href="{% url 'plant_create' %}">Add Plant</a></nav></header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer class="footer"><a class="brand" href="{% url 'home' %}">Planteer</a><p>A simple guide to the plants around us.</p><div class="footer-links"><a href="{% url 'plant_search' %}">Search</a><a href="{% url 'contact' %}">Contact us</a><a href="{% url 'contact_messages' %}">Visitor messages</a></div></footer>
+</body></html>
+
