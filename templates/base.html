@@ -1,0 +1,68 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Planteer | Discover Nature{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar">
+
+            <a href="{% url 'home' %}" class="logo">
+                Planteer<span>.</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'all_plants' %}">Plants</a>
+                <a href="{% url 'add_plant' %}">Add Plant</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+            </div>
+
+        </nav>
+    </header>
+
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <a href="{% url 'home' %}" class="logo">
+                Planteer<span>.</span>
+            </a>
+
+            <p>
+                Bringing nature closer to your everyday life.
+            </p>
+
+            <p class="copyright">
+                &copy; 2026 Planteer. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>
