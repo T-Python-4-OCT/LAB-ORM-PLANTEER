@@ -1,0 +1,38 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Contact Messages | Planteer{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+
+    <div class="contact-header">
+        <h1>Contact Messages</h1>
+        <p>Messages received from visitors.</p>
+    </div>
+
+    <div class="messages-grid">
+        {% for message in messages %}
+            <div class="message-card">
+                <h3>
+                    {{ message.first_name }}
+                    {{ message.last_name }}
+                </h3>
+
+                <p class="message-email">
+                    {{ message.email }}
+                </p>
+
+                <p>{{ message.message }}</p>
+
+                <small>
+                    {{ message.created_at|date:"M d, Y - H:i" }}
+                </small>
+            </div>
+        {% empty %}
+            <p>No messages received yet.</p>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

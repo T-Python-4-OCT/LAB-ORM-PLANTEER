@@ -1,0 +1,1097 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #111;
+    background: #fff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 32px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 14px;
+}
+
+.btn {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    min-height: 65vh;
+}
+
+.footer {
+    max-width: 1152px;
+    margin: 80px auto 0;
+    padding: 40px 0 60px;
+    border-top: 1px solid #eee;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.footer-brand > a {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.social-links {
+    display: flex;
+    gap: 18px;
+    color: #888;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 13px;
+}
+
+.footer-column h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer-column a {
+    color: #777;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .footer {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 30px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Home Hero */
+.hero {
+    min-height: 430px;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.94) 0%,
+        rgba(255,255,255,0.65) 55%,
+        rgba(255,255,255,0.1) 100%
+    ), url("https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1400") center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 4px;
+    padding: 40px 20px;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 64px;
+    margin: 0 0 10px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin: 0 0 28px;
+}
+
+.hero-search {
+    display: flex;
+    gap: 8px;
+    max-width: 550px;
+    margin: auto;
+}
+
+.hero-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+/* Plants Section */
+.plants-section {
+    margin-top: 60px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.section-header h2 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.section-header p {
+    margin: 0;
+    color: #888;
+}
+
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.plant-card {
+    display: block;
+}
+
+.plant-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.plant-card h3 {
+    margin: 12px 0 5px;
+    font-size: 17px;
+}
+
+.plant-card p {
+    color: #888;
+    margin: 0 0 7px;
+    font-size: 14px;
+}
+
+.plant-card span {
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero {
+        min-height: 350px;
+    }
+
+    .hero h1 {
+        font-size: 44px;
+    }
+
+    .hero h2 {
+        font-size: 22px;
+    }
+
+    .plants-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero h2 {
+        font-size: 18px;
+    }
+
+    .plants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-search {
+        flex-direction: column;
+    }
+}
+.filters {
+    display: flex;
+    gap: 12px;
+    margin: 25px 0 35px;
+    flex-wrap: wrap;
+}
+
+.filters select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    min-width: 170px;
+}
+
+@media (max-width: 480px) {
+    .filters select,
+    .filters button {
+        width: 100%;
+    }
+}
+
+/* Plant Details */
+.plant-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+    margin: 35px 0 50px;
+}
+
+.plant-detail img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.plant-detail h2 {
+    margin-bottom: 12px;
+    color: #243b2a;
+}
+
+.plant-detail p {
+    margin-bottom: 18px;
+    line-height: 1.8;
+    color: #555;
+}
+
+/* Comments */
+.comment-form {
+    max-width: 650px;
+    margin: 25px 0 40px;
+    padding: 25px;
+    background: #f7f9f6;
+    border: 1px solid #e0e8df;
+    border-radius: 12px;
+}
+
+.comment-form p {
+    margin-bottom: 18px;
+}
+
+.comment-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.comment-form textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.comment {
+    padding: 20px;
+    margin-bottom: 15px;
+    background: #f8f9f8;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.comment h3 {
+    margin-bottom: 8px;
+    color: #243b2a;
+}
+
+.comment p {
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .plant-detail {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .plant-detail img {
+        height: 260px;
+    }
+
+    .comment-form {
+        padding: 18px;
+    }
+}
+
+/* ==================================
+   PLANTEER - GENERAL IMPROVEMENTS
+================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ffffff;
+    color: #222;
+}
+
+.plants-section {
+    padding: 25px 0 60px;
+}
+
+.plants-section > h1 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #243b2a;
+}
+
+.plants-section > h2 {
+    font-size: 27px;
+    margin: 45px 0 20px;
+    color: #243b2a;
+}
+
+/* ==================================
+   HOME PAGE
+================================== */
+
+.hero {
+    min-height: 440px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 45px 20px;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+}
+
+.hero h2 {
+    font-size: 23px;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 28px;
+}
+
+.hero-search {
+    display: flex;
+    gap: 10px;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.hero-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.hero-search button {
+    padding: 14px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ==================================
+   PLANTS CARDS
+================================== */
+
+.plants-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.plant-card {
+    display: block;
+    background: #fff;
+    border: 1px solid #e5e9e5;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #222;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.plant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.09);
+}
+
+.plant-card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    display: block;
+}
+
+.plant-card h3 {
+    font-size: 21px;
+    margin: 18px 18px 8px;
+    color: #243b2a;
+}
+
+.plant-card p {
+    margin: 0 18px 15px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.plant-card span {
+    display: inline-block;
+    margin: 0 18px 20px;
+    padding: 7px 13px;
+    background: #eaf3e8;
+    color: #35613a;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+/* ==================================
+   ALL PLANTS FILTERS
+================================== */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    padding: 22px;
+    background: #f7f9f6;
+    border: 1px solid #e2e9e0;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.filters select {
+    min-width: 190px;
+    flex: 1;
+    padding: 13px 15px;
+    border: 1px solid #d2d9d0;
+    border-radius: 8px;
+    background: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.filters select:focus {
+    outline: 2px solid #8ebd91;
+    border-color: #477b4c;
+}
+
+/* ==================================
+   ADD PLANT FORM
+================================== */
+
+/* Targets the form inside Add Plant page */
+.plants-section > form:not(.filters) {
+    max-width: 750px;
+    padding: 35px;
+    background: #f8faf7;
+    border: 1px solid #e1e9df;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.plants-section > form:not(.filters) p {
+    margin-bottom: 22px;
+}
+
+.plants-section > form:not(.filters) label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 9px;
+    color: #243b2a;
+}
+
+.plants-section > form:not(.filters) input[type="text"],
+.plants-section > form:not(.filters) textarea,
+.plants-section > form:not(.filters) select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #cfd9cd;
+    border-radius: 8px;
+    background: white;
+    font: inherit;
+}
+
+.plants-section > form:not(.filters) textarea {
+    min-height: 115px;
+    resize: vertical;
+}
+
+.plants-section > form:not(.filters) input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px dashed #9bb59b;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.plants-section > form:not(.filters) input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #35613a;
+}
+
+.plants-section > form:not(.filters) input:focus,
+.plants-section > form:not(.filters) textarea:focus,
+.plants-section > form:not(.filters) select:focus {
+    outline: 2px solid #9cc99f;
+    border-color: #477b4c;
+}
+
+.plants-section > form:not(.filters) .errorlist {
+    color: #b42318;
+    margin: 8px 0;
+}
+
+/* ==================================
+   BUTTONS
+================================== */
+
+.btn {
+    display: inline-block;
+    background: #243b2a;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn:hover {
+    background: #3e6545;
+    color: white;
+}
+
+/* ==================================
+   SECTION HEADER
+================================== */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.section-header h2 {
+    color: #243b2a;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.section-header p {
+    color: #777;
+}
+
+.section-header a {
+    color: #35613a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ==================================
+   RESPONSIVE DESIGN
+================================== */
+
+@media (max-width: 900px) {
+    .plants-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        min-height: 350px;
+        padding: 35px 18px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero h2 {
+        font-size: 18px;
+    }
+
+    .hero-search {
+        flex-direction: column;
+    }
+
+    .plants-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .plants-section > h1 {
+        font-size: 28px;
+    }
+
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filters select,
+    .filters button {
+        width: 100%;
+    }
+
+    .plants-section > form:not(.filters) {
+        padding: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 26px;
+    }
+}
+
+/* Update and Delete Plant */
+
+.plant-form {
+    max-width: 750px;
+}
+
+.plant-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 25px 0 40px;
+}
+
+.btn-secondary {
+    background: #e8ece8;
+    color: #243b2a;
+}
+
+.btn-secondary:hover {
+    background: #d5ded5;
+    color: #243b2a;
+}
+
+.btn-danger {
+    background: #c0392b;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #a93226;
+    color: #fff;
+}
+
+.delete-box {
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 40px;
+    border: 1px solid #e8d6d4;
+    border-radius: 14px;
+    background: #fffafa;
+    text-align: center;
+}
+
+.delete-box h1 {
+    color: #9f3026;
+    margin-bottom: 20px;
+}
+
+.delete-box p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.warning-text {
+    color: #b42318;
+    font-weight: 600;
+}
+
+.delete-box form {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+@media (max-width: 600px) {
+    .delete-box {
+        padding: 24px 18px;
+    }
+
+    .plant-actions {
+        flex-direction: column;
+    }
+
+    .plant-actions .btn {
+        text-align: center;
+    }
+}
+
+/* CONTACT PAGE */
+
+.contact-section {
+    max-width: 950px;
+    margin: 45px auto 70px;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.contact-header h1 {
+    font-size: 38px;
+    color: #243b2a;
+    margin-bottom: 12px;
+}
+
+.contact-header p {
+    color: #777;
+    font-size: 16px;
+}
+
+.contact-form {
+    max-width: 750px;
+    margin: auto;
+    padding: 35px;
+    background: #f8faf7;
+    border: 1px solid #e1e9df;
+    border-radius: 14px;
+}
+
+.contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #243b2a;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #cfd9cd;
+    border-radius: 8px;
+    background: white;
+    font: inherit;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: 2px solid #9cc99f;
+    border-color: #477b4c;
+}
+
+.contact-form .errorlist {
+    color: #b42318;
+    margin: 8px 0;
+}
+
+/* CONTACT MESSAGES */
+
+.messages-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.message-card {
+    padding: 25px;
+    background: #f8faf7;
+    border: 1px solid #e1e9df;
+    border-radius: 12px;
+}
+
+.message-card h3 {
+    color: #243b2a;
+    margin-bottom: 8px;
+}
+
+.message-email {
+    color: #477b4c;
+    margin-bottom: 15px;
+}
+
+.message-card p {
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.message-card small {
+    display: block;
+    color: #888;
+    margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+    .contact-section {
+        margin: 25px auto 50px;
+    }
+
+    .contact-header h1 {
+        font-size: 30px;
+    }
+
+    .contact-form {
+        padding: 20px;
+    }
+
+    .contact-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* CONTACT PAGE - WIREFRAME DESIGN */
+
+.contact-section {
+    max-width: 1150px;
+    margin: 70px auto 100px;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 75px;
+    align-items: center;
+}
+
+.contact-left {
+    min-width: 0;
+}
+
+.contact-left .contact-header {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.contact-left .contact-header h1 {
+    font-size: 42px;
+    color: #111;
+    margin-bottom: 12px;
+}
+
+.contact-left .contact-header p {
+    color: #888;
+    font-size: 15px;
+}
+
+.contact-left .contact-form {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.contact-form .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 14px;
+}
+
+.contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.contact-submit {
+    width: 100%;
+    padding: 14px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.contact-submit:hover {
+    background: #333;
+}
+
+.contact-right img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    .contact-section {
+        margin: 35px auto 60px;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .contact-left .contact-header h1 {
+        font-size: 32px;
+    }
+
+    .contact-right img {
+        height: 320px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* SEARCH PAGE */
+
+.search-section {
+    min-height: 60vh;
+}
+
+.search-form {
+    display: flex;
+    gap: 12px;
+    max-width: 750px;
+    margin: 25px 0 40px;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #d1d9cf;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.search-form input:focus {
+    outline: 2px solid #9cc99f;
+    border-color: #477b4c;
+}
+
+.search-section h2 {
+    margin-bottom: 25px;
+    color: #243b2a;
+}
+
+@media (max-width: 600px) {
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-form input,
+    .search-form button {
+        width: 100%;
+    }
+}

@@ -1,0 +1,51 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Home | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Planteer</h1>
+        <h2>Plant Database For Plants Lovers</h2>
+
+        <!-- Search using Django ORM -->
+        <form action="{% url 'search_plants' %}" method="GET" class="hero-search">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search For Plant..."
+                required
+            >
+            <button type="submit" class="btn">Search</button>
+        </form>
+    </div>
+</section>
+
+<section class="plants-section">
+    <div class="section-header">
+        <div>
+            <h2>Plants</h2>
+            <p>Learn more about plants</p>
+        </div>
+
+        <a href="{% url 'all_plants' %}">More →</a>
+    </div>
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+        <a href="{% url 'plant_detail' plant.id %}" class="plant-card">
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            <h3>{{ plant.name }}</h3>
+            <p>{{ plant.about|truncatewords:8 }}</p>
+            <span>{{ plant.get_category_display }}</span>
+        </a>
+        {% empty %}
+        <p>No plants available yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

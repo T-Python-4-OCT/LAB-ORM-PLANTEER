@@ -1,0 +1,80 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}{{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="plants-section">
+    <h1>{{ plant.name }}</h1>
+
+    <div class="plant-detail">
+        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+
+        <div>
+            <h2>About</h2>
+            <p>{{ plant.about }}</p>
+
+            <h2>Used For</h2>
+            <p>{{ plant.used_for }}</p>
+
+            <p>
+                <strong>Category:</strong>
+                {{ plant.get_category_display }}
+            </p>
+
+            <p>
+                <strong>Edible:</strong>
+                {% if plant.is_edible %}Yes{% else %}No{% endif %}
+            </p>
+        </div>
+    </div>
+
+    <!-- Edit and Delete Buttons -->
+    <div class="plant-actions">
+        <a href="{% url 'update_plant' plant.id %}" class="btn">
+            Edit Plant
+        </a>
+
+        <a href="{% url 'delete_plant' plant.id %}" class="btn btn-danger">
+            Delete Plant
+        </a>
+    </div>
+
+    <!-- Comments Section -->
+    <h2>Comments</h2>
+
+    <form method="POST" class="comment-form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn">
+            Add Comment
+        </button>
+    </form>
+
+    {% for comment in comments %}
+        <div class="comment">
+            <h3>{{ comment.full_name }}</h3>
+            <p>{{ comment.content }}</p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <!-- Related Plants -->
+    <h2>Related Plants</h2>
+
+    <div class="plants-grid">
+        {% for related in related_plants %}
+            <a href="{% url 'plant_detail' related.id %}" class="plant-card">
+                <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                <h3>{{ related.name }}</h3>
+                <p>{{ related.about|truncatewords:8 }}</p>
+            </a>
+        {% empty %}
+            <p>No related plants found.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

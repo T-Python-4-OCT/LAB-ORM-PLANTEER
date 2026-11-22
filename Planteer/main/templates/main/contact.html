@@ -1,0 +1,77 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Planteer{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+
+    <div class="contact-layout">
+
+        <!-- Left Side: Contact Form -->
+        <div class="contact-left">
+
+            <div class="contact-header">
+                <h1>Contact Us</h1>
+                <p>Have a question? We'd love to hear from you.</p>
+            </div>
+
+            <form method="POST" class="contact-form">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                <div class="contact-row">
+                    <div class="form-group">
+                        <label for="{{ form.first_name.id_for_label }}">
+                            First Name
+                        </label>
+                        {{ form.first_name }}
+                        {{ form.first_name.errors }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.last_name.id_for_label }}">
+                            Last Name
+                        </label>
+                        {{ form.last_name }}
+                        {{ form.last_name.errors }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">
+                        Email Address
+                    </label>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.message.id_for_label }}">
+                        Your Message
+                    </label>
+                    {{ form.message }}
+                    {{ form.message.errors }}
+                </div>
+
+                <button type="submit" class="btn contact-submit">
+                    Submit
+                </button>
+            </form>
+
+        </div>
+
+        <!-- Right Side: Flower Image -->
+        <div class="contact-right">
+            <img
+                src="{% static 'main/css/images/contact.png' %}"
+                alt="Pink orchids"
+            >
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

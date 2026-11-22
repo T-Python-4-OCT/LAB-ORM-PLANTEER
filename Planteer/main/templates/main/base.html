@@ -1,0 +1,60 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Planteer{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="{% url 'home' %}" class="logo">Planteer</a>
+
+        <nav class="nav-links">
+            <a href="/plants/all/">All Plants</a>
+            <a href="/contact/">Contact Us</a>
+            <a href="/plants/new/" class="btn">Add Plant</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-brand">
+            <a href="{% url 'home' %}">Planteer</a>
+            <div class="social-links">
+                <span>f</span>
+                <span>in</span>
+                <span>▶</span>
+                <span>◎</span>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h4>Explore</h4>
+            <a href="/plants/all/">All Plants</a>
+            <a href="/plants/search/">Search</a>
+            <a href="/plants/new/">Add Plant</a>
+        </div>
+
+        <div class="footer-column">
+            <h4>Information</h4>
+            <a href="/contact/">Contact Us</a>
+            <a href="/">Home</a>
+        </div>
+
+        <div class="footer-column">
+            <h4>More</h4>
+            <a href="/contact/messages/">Messages</a>
+            <a href="/plants/all/">Plants</a>
+        </div>
+    </footer>
+
+</body>
+</html>
