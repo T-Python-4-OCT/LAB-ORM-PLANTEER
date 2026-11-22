@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+    The plant collection — Planteer
+{% endblock %}
+{% block content %}
+    <section class="wrap page-section collection-page">
+        <div class="eyebrow">
+            {% if is_search %}
+                A LITTLE DISCOVERY
+            {% else %}
+                THE LIVING LIBRARY
+            {% endif %}
+        </div>
+        <div class="collection-heading">
+            <div>
+                <h1>{% if is_search %}Search Results{% else %}All Plants{% endif %}</h1>
+                <p>Discover plants and learn how to grow them.</p>
+            </div>
+            <span class="collection-flower">✳</span>
+        </div>
+        <form class="filters" method="get">
+            <div class="search-input">
+                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="10.5" cy="10.5" r="6.5"/>
+                        <path d="m16 16 4 4"/>
+                    </svg>
+                <input type="search" name="q" value="{{ q }}" placeholder="Search for your next companion…" aria-label="Search plants">
+            </div>
+            <select name="category" aria-label="Filter by category">
+                <option value="">All categories</option>
+                {% for value,label in categories %}
+                    <option value="{{ value }}" {% if category == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <select name="is_edible" aria-label="Filter by edibility">
+                <option value="">All plants</option>
+                <option value="true" {% if edible == 'true' %}selected{% endif %}>Edible plants</option>
+                <option value="false" {% if edible == 'false' %}selected{% endif %}>Ornamental plants</option>
+            </select>
+            <button class="button" type="submit">Find plants</button>
+        </form>
+        <div class="results-label">
+            <span>{{ plants|length }} plant{{ plants|length|pluralize }}{% if q %} matching “{{ q }}”{% endif %}</span>
+            {% if q or category or edible %}
+                <a href="{% url 'plant_list' %}">
+                    Clear filters ×
+                </a>
+            {% else %}
+                <span>Curated by nature. Shared by you.</span>
+            {% endif %}
+        </div>
+        <div class="plant-grid collection-grid">
+            {% for plant in plants %}
+                {% include 'partials/card.html' %}
+            {% empty %}
+                <div class="empty-state">
+                    <span>♧</span><h2>No plants found. Yet.</h2>
+                    <p>Try another name or give your filters a fresh start.</p>
+                    <a class="button" href="{% url 'plant_list' %}">
+                        Explore all plants
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

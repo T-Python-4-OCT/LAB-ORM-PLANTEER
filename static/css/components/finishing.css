@@ -1,0 +1,264 @@
+/* Subtle finishing details; retain the reference layout and proportions. */
+.reference-ticker {
+    margin-top: 28px;
+    padding-block: 13px;
+    background: #eef3e5;
+    border-color: #e0e8d4;
+    color: #294128;
+}
+
+.reference-ticker > .ticker-track {
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.reference-ticker span {
+    color: #60794c;
+    font-size: 22px;
+}
+
+::selection {
+    background: #dfead3;
+    color: #20341b;
+}
+
+.header .brand {
+    position: relative;
+}
+
+.header .brand::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 10px;
+    margin-left: 4px;
+    background: #648450;
+    border-radius: 8px 0 8px 0;
+    transform: rotate(20deg);
+}
+
+.header nav > a:not(.button) {
+    transition: color .2s ease;
+    text-underline-offset: 6px;
+}
+
+.header nav > a:not(.button):hover {
+    color: #526e40;
+    text-decoration: underline;
+    text-decoration-color: #a6b993;
+}
+
+.reference-hero {
+    border: 1px solid #edf0e8;
+    border-radius: 5px;
+}
+
+.hero-plant {
+    box-shadow: 0 6px 22px #263d2010;
+}
+
+.hero-search input {
+    box-shadow: 0 3px 12px #263d2005;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.hero-search input:focus {
+    border-color: #91a77e;
+    box-shadow: 0 0 0 3px #dfe9d466;
+}
+
+.button {
+    transition: background .2s, box-shadow .2s;
+}
+
+.button:hover {
+    box-shadow: 0 4px 12px #11111116;
+}
+
+.button:active {
+    box-shadow: none;
+}
+
+.card-image {
+    border-radius: 4px;
+    transition: box-shadow .3s ease;
+}
+
+.card-image img {
+    transition: transform .6s cubic-bezier(.2, .7, .3, 1);
+}
+
+.plant-card:hover .card-image {
+    box-shadow: 0 8px 22px -12px #23351a66;
+}
+
+.plant-card:hover .card-image img {
+    transform: scale(1.035);
+}
+
+.card-info h3, .more-link, .footer a {
+    transition: color .2s ease;
+}
+
+.plant-card:hover h3, .more-link:hover, .footer a:hover {
+    color: #526e40;
+}
+
+.card-category {
+    display: inline-block;
+    border-bottom: 1px solid #e1e9da;
+    padding-bottom: 2px;
+}
+
+.more-link {
+    text-underline-offset: 5px;
+}
+
+.more-link:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    border-image: linear-gradient(to right, #eee, #dbe4d3, #eee) 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .plant-card:hover .card-image img {
+        transform: none;
+    }
+}
+
+/* Compact library tools, aligned with the reference's simple card grid. */
+.collection-page {
+    padding-top: 25px;
+}
+
+.collection-page .collection-heading {
+    margin-bottom: 24px;
+}
+
+.collection-page .collection-heading h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -.5px;
+    margin-bottom: 8px;
+}
+
+.collection-heading p {
+    font-size: 14px;
+}
+
+.collection-page .filters {
+    padding: 0 0 20px;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    border-radius: 0;
+    gap: 10px;
+    align-items: center;
+}
+
+.filters .search-input input {
+    padding: 10px 14px 10px 39px;
+    height: 42px;
+    min-height: 42px;
+    font-size: 13px;
+    border-color: #e2e5de;
+}
+
+.search-icon {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    top: 50%;
+    left: 13px;
+    transform: translateY(-50%);
+    stroke: #7c8576;
+    stroke-width: 1.6;
+    fill: none;
+    pointer-events: none;
+}
+
+.collection-page .filters select {
+    width: 170px;
+    height: 42px;
+    min-height: 42px;
+    padding-block: 9px;
+    font-size: 13px;
+    border-color: #e2e5de;
+}
+
+.collection-page .filters .button {
+    min-height: 42px;
+    height: 42px;
+    font-size: 13px;
+}
+
+.collection-page .results-label {
+    margin-block: 17px 20px;
+}
+
+.collection-page .results-label > span:last-child:not(:first-child) {
+    display: none;
+}
+
+.collection-grid {
+    row-gap: 32px;
+}
+
+.collection-grid .card-image {
+    height: auto;
+    aspect-ratio: 1.7;
+}
+
+.collection-grid .card-info p:not(.card-category) {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-block: 5px;
+}
+
+@media (max-width: 800px) {
+    .collection-page .filters {
+        flex-wrap: wrap;
+    }
+
+    .collection-page .filters .search-input {
+        flex-basis: 100%;
+    }
+
+    .collection-page .filters select {
+        flex: 1;
+        width: 0;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 600px) {
+    .header {
+        gap: 10px;
+    }
+
+    .header nav {
+        gap: 8px;
+    }
+
+    .detail-copy, .form-intro, .contact-layout > div {
+        min-width: 0;
+    }
+
+    .detail-copy h1, .form-intro h1, .message-card p {
+        overflow-wrap: anywhere;
+    }
+
+    .collection-page {
+        padding-top: 18px;
+    }
+
+    .collection-page .filters .button {
+        width: 100%;
+    }
+
+    .collection-grid .card-image {
+        aspect-ratio: 1.3;
+    }
+}

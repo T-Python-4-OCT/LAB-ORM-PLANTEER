@@ -1,0 +1,103 @@
+/* Match the supplied wireframe: white canvas, compact type, three-column cards. */
+:root {
+    --green: #111;
+    --ink: #161616;
+    --muted: #777;
+    --font: Arial, Helvetica, sans-serif;
+    --heading: Arial, Helvetica, sans-serif;
+}
+
+body { background: #fff; display: flex; flex-direction: column; min-height: 100vh; }
+main { flex: 1; }
+.wrap { width: min(1120px, calc(100% - 80px)); }
+h1, h2, h3, h4 { letter-spacing: 0; }
+.header { height: 100px; gap: 25px; }
+.brand { font-size: 17px; font-weight: 600; letter-spacing: 0; }
+.header nav { margin: 0; gap: 28px; }
+.header nav a { font-size: 13px; }
+.header nav a:hover { color: #555; }
+.button { background: #111; border-color: #111; border-radius: 3px; min-height: 40px; padding: 10px 20px; }
+.button:hover { background: #333; transform: none; }
+.header .button.small { color: #fff; font-size: 12px; min-height: 36px; padding: 8px 16px; }
+
+.reference-hero {
+    position: relative;
+    height: 390px;
+    background: linear-gradient(105deg, #fafafa 45%, #f4f7ef);
+    overflow: hidden;
+    display: grid;
+    align-items: center;
+}
+.reference-hero-content { position: relative; z-index: 1; width: 76%; text-align: center; }
+.reference-hero h1 { font-size: 58px; font-weight: 700; margin-bottom: 8px; line-height: 1.1; }
+.reference-hero h2 { font-size: 29px; font-weight: 600; margin-bottom: 28px; }
+.hero-search { display: flex; width: 78%; margin: 0 auto; gap: 8px; }
+.hero-search input { border-color: #e5e5e5; min-height: 42px; font-size: 13px; }
+.hero-search .button { background: #263d20; border-color: #263d20; min-height: 42px; font-size: 12px; }
+.hero-plants { position: absolute; inset: 0 0 0 62%; }
+.hero-plant { position: absolute; border-radius: 50%; object-fit: cover; }
+.plant-one { width: 190px; height: 190px; right: 10px; top: 40px; }
+.plant-two { width: 200px; height: 200px; right: -50px; bottom: -35px; }
+.plant-three { width: 110px; height: 110px; left: 5px; top: -22px; }
+.plant-four { width: 105px; height: 105px; left: 25px; bottom: 4px; }
+
+.home-plants { padding-top: 50px; padding-bottom: 135px; min-height: 460px; }
+.section-heading { margin-bottom: 24px; }
+.section-heading h2 { font-size: 26px; margin-bottom: 7px; }
+.section-heading p, .more-link { font-size: 12px; }
+.plant-grid, .related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.card-image { height: 190px; border-radius: 2px; background: #f1f2ef; }
+.card-image img { height: 100%; }
+.card-info { display: block; padding-top: 13px; }
+.card-info h3 { font-size: 14px; margin-bottom: 4px; font-weight: 500; }
+.card-info p { font-size: 12px; font-style: normal; color: #666; }
+.card-info .card-category { color: #333; margin-top: 3px; }
+
+.footer { background: #fff; padding-top: 30px; border-top: 1px solid #eee; }
+.footer-top { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 35px; padding-bottom: 35px; }
+.footer-brand > a, .footer h4 { font-size: 12px; font-weight: 400; }
+.footer h4 { margin-bottom: 15px; }
+.footer-top p, .footer-top > div > a:not(.brand) { font-size: 11px; margin-bottom: 9px; }
+.footer-bottom { width: 100%; border: 0; padding: 0 0 25px; }
+.page-section h1, .collection-heading h1, .detail-copy h1 { font-size: 42px; letter-spacing: -1px; }
+.collection-flower, .eyebrow, .form-decoration, .back-to-top { display: none; }
+h1 > span, h2 > span { color: inherit; }
+.filters, .message-card, .care-grid { background: #fff; border-color: #eee; }
+.detail-photo img, .contact-image img { border-radius: 2px; }
+.contact-layout h1 em, .form-intro em { font: inherit; color: inherit; }
+
+@media (max-width: 800px) {
+    .wrap { width: calc(100% - 48px); }
+    .reference-hero { height: 320px; }
+    .reference-hero h1 { font-size: 46px; }
+    .reference-hero h2 { font-size: 23px; }
+    .hero-plants { left: 67%; opacity: .75; }
+    .plant-one { width: 145px; height: 145px; }
+    .plant-three { left: -20px; }
+    .reference-hero-content { width: 85%; }
+    .card-image { height: 160px; }
+}
+
+@media (max-width: 600px) {
+    .wrap { width: calc(100% - 32px); }
+    .header { min-height: 80px; height: 80px; flex-wrap: nowrap; padding: 0; }
+    .header nav { flex-basis: auto; order: 0; border: 0; padding: 0; gap: 12px; }
+    .header nav a { font-size: 10px; padding: 0; }
+    .header .brand { font-size: 14px; }
+    .header .button.small { font-size: 10px; padding: 8px 10px; min-height: 32px; }
+    .reference-hero { height: 290px; }
+    .reference-hero-content { width: 100%; padding: 20px 12px; }
+    .reference-hero h1 { font-size: 42px; }
+    .reference-hero h2 { font-size: 21px; max-width: 280px; margin-inline: auto; }
+    .hero-search { width: 95%; }
+    .hero-plants { left: 60%; opacity: .15; }
+    .home-plants { padding-block: 35px 80px; min-height: 420px; }
+    .section-heading h2 { font-size: 23px; }
+    .plant-grid, .related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+    .card-image { height: 145px; }
+    .card-info h3 { font-size: 13px; }
+    .card-info p { font-size: 11px; }
+    .footer-top { grid-template-columns: repeat(3, 1fr); gap: 25px 15px; }
+    .footer-top > .footer-brand { grid-column: 1 / -1; }
+    .page-section h1, .collection-heading h1, .detail-copy h1 { font-size: 34px; }
+}

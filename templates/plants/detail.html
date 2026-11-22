@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ plant.name }}
+    — Planteer
+{% endblock %}
+{% block content %}
+    <section class="wrap page-section">
+        <a class="breadcrumb" href="{% url 'plant_list' %}">
+            The collection /
+            {{ plant.get_category_display }}
+        </a>
+        <div class="detail-grid">
+            <div class="detail-photo">
+                <img src="{{ plant.photo }}" alt="{{ plant.name }}">
+            </div>
+            <div class="detail-copy">
+                <div class="eyebrow">
+                    {{ plant.get_category_display }}
+                    ·
+                    {% if plant.is_edible %}
+                        EDIBLE
+                    {% else %}
+                        ORNAMENTAL
+                    {% endif %}
+                </div>
+                <h1>{{ plant.name }}<span>.</span></h1>
+                <p class="scientific">{{ plant.scientific_name }}</p>
+                <h3>A little about this plant</h3>
+                <div class="prose">
+                    {{ plant.about|linebreaks }}
+                </div>
+                <div class="care-grid">
+                    <div>
+                        <span>☀</span><h4>Light</h4>
+                        <p>{{ plant.light }}</p>
+                    </div>
+                    <div>
+                        <span>◉</span><h4>Water</h4>
+                        <p>{{ plant.water }}</p>
+                    </div>
+                </div>
+                <h3>Good for</h3>
+                <div class="prose">
+                    {{ plant.used_for|linebreaks }}
+                </div>
+                <div class="detail-actions">
+                    <a class="button" href="{% url 'plant_update' plant.pk %}">
+                        Edit this plant
+                    </a>
+                    <a class="muted-link" href="{% url 'plant_delete' plant.pk %}">
+                        Remove plant
+                    </a>
+                </div>
+            </div>
+        </div>
+        <section class="conversation" id="conversation">
+            <div>
+                <div class="eyebrow">
+                    GROW TOGETHER
+                </div>
+                <h2>A little shared wisdom.</h2>
+                <p>Tips, questions, and stories from plant people.</p>
+                <form method="post" class="form-panel">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="button" type="submit">Share your thoughts <span>+</span></button>
+                </form>
+            </div>
+            <div class="comments">
+                {% for comment in plant.comments.all %}
+                    <article>
+                        <div class="comment-avatar">
+                            {{ comment.full_name|first|upper }}
+                        </div>
+                        <div>
+                            <h4>{{ comment.full_name }}</h4>
+                            <time>{{ comment.created_at|date:'M j, Y' }}</time>
+                            <p>{{ comment.content|linebreaksbr }}</p>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="empty-comment">
+                        ✳<h3>Start the conversation.</h3>
+                        <p>Your growing tip might make someone’s day.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% if related %}
+            <div class="section-heading">
+                <div>
+                    <div class="eyebrow">
+                        KEEP EXPLORING
+                    </div>
+                    <h2>In good company.</h2>
+                </div>
+            </div>
+            <div class="plant-grid related-grid">
+                {% for plant in related %}
+                    {% include 'partials/card.html' %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

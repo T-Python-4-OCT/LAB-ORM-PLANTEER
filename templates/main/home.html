@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Planteer ? Plant Database For Plants Lovers{% endblock %}
+{% block content %}
+    <section class="reference-hero wrap">
+        <div class="hero-plants" aria-hidden="true">
+            <img class="hero-plant plant-one" src="{% static 'images/photo-1485955900006-10f4d324d411.jpg' %}" alt="">
+            <img class="hero-plant plant-two" src="{% static 'images/photo-1497250681960-ef046c08a56e.jpg' %}" alt="">
+            <img class="hero-plant plant-three" src="{% static 'images/photo-1459411552884-841db9b3cc2a.jpg' %}" alt="">
+            <img class="hero-plant plant-four" src="{% static 'images/photo-1596547609652-9cf5d8d76921.jpg' %}" alt="">
+        </div>
+        <div class="reference-hero-content">
+            <h1>Planteer</h1>
+            <h2>Plant Database For Plants Lovers</h2>
+            <form class="hero-search" action="{% url 'plant_search' %}" method="get" role="search">
+                <input type="search" name="q" placeholder="Search for Plant..." aria-label="Search for a plant">
+                <button class="button" type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+    <div class="ticker reference-ticker">
+        <div>
+            ROOTED IN NATURE <span aria-hidden="true">✳</span>
+            GROWN WITH LOVE <span aria-hidden="true">✳</span>
+            A GREENER EVERYDAY <span aria-hidden="true">✳</span>
+            FIND YOUR PLANT PEOPLE <span aria-hidden="true">✳</span>
+        </div>
+    </div>
+    <section class="home-plants wrap">
+        <div class="section-heading">
+            <div>
+                <h2>Plants</h2>
+                <p>Learn more about plants</p>
+            </div>
+            <a class="more-link" href="{% url 'plant_list' %}">More +</a>
+        </div>
+        <div class="plant-grid">
+            {% for plant in plants %}
+                {% include 'partials/card.html' %}
+            {% empty %}
+                <p>No plants yet. <a href="{% url 'plant_new' %}">Add a plant</a>.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

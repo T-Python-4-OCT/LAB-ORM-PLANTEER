@@ -1,0 +1,10 @@
+<article class="plant-card">
+    <a class="card-image" href="{{ plant.get_absolute_url }}">
+        <img src="{{ plant.photo }}" alt="{{ plant.name }}" loading="lazy">
+    </a>
+    <div class="card-info">
+        <a href="{{ plant.get_absolute_url }}"><h3>{{ plant.name }}</h3></a>
+        <p>{{ plant.about|truncatewords:8 }}</p>
+        <p class="card-category">{{ plant.get_category_display }}</p>
+    </div>
+</article>

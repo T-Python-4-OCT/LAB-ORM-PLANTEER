@@ -1,0 +1,11 @@
+.notices {
+    margin-bottom: 15px
+}
+
+.notice {
+    padding: 13px 20px;
+    border: 1px solid #ccdcba;
+    background: #eef5e5;
+    font-size: 14px;
+    border-radius: 4px
+}

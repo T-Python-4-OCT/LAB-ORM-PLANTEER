@@ -1,0 +1,76 @@
+.plant-grid {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 24px
+}
+
+.card-image {
+    display: block;
+    position: relative;
+    height: 300px;
+    background: #eef0e9;
+    overflow: hidden;
+    border-radius: 5px
+}
+
+.card-image img {
+    height: 100%;
+    transition: transform .7s cubic-bezier(.2,.65,.3,1)
+}
+
+.plant-card:hover .card-image img {
+    transform: scale(1.06)
+}
+
+.plant-tag {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    background: #ffffffed;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 10px;
+    backdrop-filter: blur(4px)
+}
+
+.card-open {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 31px;
+    height: 31px;
+    background: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 21px;
+    transition: background .2s
+}
+
+.plant-card:hover .card-open {
+    background: var(--lime)
+}
+
+.card-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 17px;
+    gap: 8px
+}
+
+.card-info h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 5px
+}
+
+.card-info p {
+    font-size: 12px;
+    font-style: italic
+}
+
+.leaf-mark {
+    font-size: 25px;
+    color: #8b9f72
+}

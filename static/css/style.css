@@ -1,0 +1,24 @@
+/* Planteer styles: imports are ordered to preserve the existing cascade.
+   See README.md in this directory before adding styles. */
+
+@import url("base/foundation.css");
+@import url("layout/header.css");
+@import url("components/buttons.css");
+@import url("pages/home/hero.css");
+@import url("components/ticker.css");
+@import url("layout/sections.css");
+@import url("components/plant-card.css");
+@import url("pages/home/sections.css");
+@import url("layout/footer.css");
+@import url("pages/collection.css");
+@import url("pages/plant-detail.css");
+@import url("pages/plant-form.css");
+@import url("components/forms.css");
+@import url("pages/contact.css");
+@import url("pages/messages.css");
+@import url("pages/plant-delete.css");
+@import url("components/notices.css");
+@import url("responsive/breakpoints.css");
+@import url("motion/ticker.css");
+@import url("pages/reference.css");
+@import url("components/finishing.css");

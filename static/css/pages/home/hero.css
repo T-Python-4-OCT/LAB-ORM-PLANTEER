@@ -1,0 +1,161 @@
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1.02fr;
+    gap: 40px;
+    padding-top: 24px;
+    padding-bottom: 62px;
+    align-items: center
+}
+
+.hero-copy {
+    padding: 24px 0 0
+}
+
+.eyebrow {
+    font-size: 11px;
+    letter-spacing: 2.1px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 21px
+}
+
+.eyebrow>span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #628451
+}
+
+.hero h1 {
+    font-size: clamp(65px,7.2vw,102px);
+    letter-spacing: -6px;
+    line-height: 1.04;
+    position: relative;
+    font-weight: 500;
+    margin-bottom: 24px
+}
+
+.hero h1 em {
+    color: #62814f
+}
+
+.hero-star {
+    width: 62px;
+    height: 62px;
+    position: absolute;
+    left: 320px;
+    bottom: 18px;
+    stroke: #6f8753;
+    stroke-width: 2
+}
+
+.hero-copy>p {
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 27px
+}
+
+.hero-proof {
+    margin-top: 33px;
+    display: flex;
+    align-items: center;
+    gap: 12px
+}
+
+.avatar-stack {
+    display: flex;
+    padding-left: 4px
+}
+
+.avatar-stack img {
+    width: 35px;
+    height: 35px;
+    border: 2px solid white;
+    border-radius: 50%;
+    margin-left: -5px
+}
+
+.hero-proof strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 600
+}
+
+.hero-proof span {
+    display: block;
+    font-size: 11px;
+    color: var(--muted)
+}
+
+.hero-visual {
+    height: 550px;
+    position: relative;
+    margin-right: 21px
+}
+
+.hero-photo {
+    height: 100%;
+    border-radius: 140px 5px 5px 5px;
+    object-position: center
+}
+
+.hero-visual:before {
+    content: '';
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    border: 1px solid #cdd8bd;
+    border-radius: 50%;
+    top: -18px;
+    right: -18px;
+    z-index: -1
+}
+
+.image-label {
+    position: absolute;
+    top: 24px;
+    right: 22px;
+    color: #fff;
+    font-size: 11px;
+    background: #183e2b73;
+    padding: 6px 14px;
+    border: 1px solid #ffffff70;
+    border-radius: 30px;
+    backdrop-filter: blur(8px)
+}
+
+.floating-note {
+    position: absolute;
+    bottom: 35px;
+    left: -35px;
+    background: #eef2df;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 19px 27px;
+    box-shadow: 0 8px 25px #183e2b0c;
+    transform: rotate(-5deg);
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1.5
+}
+
+.floating-note>span {
+    font-size: 43px;
+    font-weight: 400
+}
+
+.floating-note strong {
+    font-weight: 600
+}
+
+.vertical-caption {
+    position: absolute;
+    right: -26px;
+    top: 50%;
+    writing-mode: vertical-rl;
+    font-size: 9px;
+    letter-spacing: 2px
+}

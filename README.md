@@ -1,5 +1,31 @@
 # LAB-ORM-PLANTEER
 
+## Run Planteer
+
+A complete Django application with a responsive botanical design, SQLite persistence, plant CRUD, combined search/category/edibility filters, related plants, comments, and a public contact-message board. The implementation uses two apps: `main` and `plants`, and shared Django template inheritance.
+
+On Windows, run `./start.ps1`, then visit **http://127.0.0.1:8000/**. The script uses the existing virtual environment or creates one with an installed Python 3.11+.
+
+Manual setup:
+
+```powershell
+py -m venv .venv
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+.venv/Scripts/python.exe manage.py migrate
+.venv/Scripts/python.exe manage.py seed_plants
+.venv/Scripts/python.exe manage.py runserver
+```
+
+Run checks with `.venv/Scripts/python.exe manage.py test` and `.venv/Scripts/python.exe manage.py check`. `seed_plants` is repeatable and preserves existing records. Uploaded images are saved in `media/plants/`; starter photographs are served locally from `static/images/`. Restore starter images with `.venv/Scripts/python.exe scripts/download_images.py` if needed. Photography is sourced from Unsplash; original photo IDs are retained in filenames and the seed command. Fonts are DM Sans and Manrope from Google Fonts, with system fallbacks.
+
+This is a local educational app: plant editing is open to visitors, as requested. Contact names/messages are public with an explicit notice before submission; emails are visible only through Django admin. To use admin, run `manage.py createsuperuser`. Before internet deployment, add authentication/authorization for editing and moderation, use a private production secret, set `DJANGO_DEBUG=0`, configure allowed hosts and production media/static serving, and replace the development server with a production server.
+
+---
+
+Replacement photos: [Snake plant by cottonbro studio](https://www.pexels.com/photo/potted-dracaena-trifasciata-plant-on-vintage-couch-4575430/) and [white moth orchid](https://www.pexels.com/photo/beautiful-orchid-in-close-up-view-20013414/), from Pexels. The download script keeps these replacements local under the original asset keys.
+
+Matched collection photos: [Monstera](https://www.pexels.com/photo/a-green-leaves-on-a-pot-6954409/), [golden pothos](https://www.pexels.com/photo/golden-pothos-in-black-pot-11838530/), and [Echeveria](https://www.pexels.com/photo/close-up-of-succulents-in-a-pot-16753186/). These photos are downloaded locally; `seed_plants` also corrects the original starter image URLs without overwriting custom uploads or other image URLs.
+
 
 ## Using what you learned, Create a new website called "Planteer" , this website has the following pages/paths:
 - Home page `/`
