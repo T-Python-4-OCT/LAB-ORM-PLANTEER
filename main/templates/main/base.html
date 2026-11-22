@@ -42,9 +42,10 @@
         <p class="footer-logo">Planteer</p>
         <p class="footer-text">A plant database for plant lovers. Discover trees, fruits and vegetables from around the world.</p>
       </div>
-      <div>
+           <div>
         <h2 class="footer-title">Plants</h2>
         <ul class="footer-links">
+          <li><a href="{% url 'main:home' %}">Home</a></li>
           <li><a href="{% url 'plants:all_plants' %}">All Plants</a></li>
           <li><a href="{% url 'plants:add_plant' %}">Add Plant</a></li>
           <li><a href="{% url 'plants:search' %}">Search</a></li>

@@ -21,12 +21,22 @@
           <a href="{% url 'plants:update_plant' plant.id %}" class="btn btn-light btn-sm">
             <i class="ti ti-edit" aria-hidden="true"></i> Edit
           </a>
-          <form method="post" action="{% url 'plants:delete_plant' plant.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger-soft btn-sm">
+          <details class="confirm-delete">
+            <summary class="btn btn-danger-soft btn-sm">
               <i class="ti ti-trash" aria-hidden="true"></i> Delete
-            </button>
-          </form>
+            </summary>
+            <div class="confirm-panel" role="alertdialog" aria-labelledby="confirm-title">
+              <p id="confirm-title" class="confirm-title">Delete "{{ plant.name }}"?</p>
+              <p class="confirm-text">This also removes all its comments. It can't be undone.</p>
+              <div class="confirm-actions">
+                <a href="{% url 'plants:plant_detail' plant.id %}" class="link-cancel">Cancel</a>
+                <form method="post" action="{% url 'plants:delete_plant' plant.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm">Yes, delete</button>
+                </form>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
 
@@ -51,13 +61,55 @@
     </div>
   </div>
 
-    <section class="related" aria-labelledby="related-title">
+  <section class="comments" aria-labelledby="comments-title">
+    <h2 id="comments-title" class="section-title">
+      Comments <span class="count">{{ comments|length }}</span>
+    </h2>
+
+    <form method="post" action="{% url 'plants:add_comment' plant.id %}" class="comment-form">
+      {% csrf_token %}
+      <div class="field">
+        <label for="full_name">Full name</label>
+        <input type="text" id="full_name" name="full_name" class="input" maxlength="100" required
+               placeholder="Sami Al-Harbi">
+      </div>
+      <div class="field">
+        <label for="content">Comment</label>
+        <textarea id="content" name="content" class="input" rows="3" required
+                  placeholder="Share your thoughts about this plant"></textarea>
+      </div>
+      <div class="comment-form-actions">
+        <button type="submit" class="btn">Post comment</button>
+      </div>
+    </form>
+
+    {% if comments %}
+      <ul class="comment-list">
+        {% for comment in comments %}
+          <li class="comment">
+            <span class="comment-avatar" aria-hidden="true">{{ comment.full_name|first|upper }}</span>
+            <div class="comment-body">
+              <div class="comment-head">
+                <span class="comment-name">{{ comment.full_name }}</span>
+                <time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"j M Y, g:i a" }}</time>
+              </div>
+              <p class="comment-text">{{ comment.content|linebreaksbr }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="comments-empty">No comments yet. Be the first to share your thoughts.</p>
+    {% endif %}
+  </section>
+
+  <section class="related" aria-labelledby="related-title">
     <h2 id="related-title" class="section-title">Related Plants</h2>
 
     {% if related_plants %}
       <div class="plant-grid">
-        {% for plant in related_plants %}
-          {% include "plants/_plant_card.html" %}
+        {% for related in related_plants %}
+          {% include "plants/_plant_card.html" with plant=related %}
         {% endfor %}
       </div>
     {% else %}

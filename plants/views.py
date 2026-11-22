@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.core.exceptions import ValidationError
 from .models import Plant, Comment
 
+
 def all_plants(request: HttpRequest):
     category = request.GET.get("category", "")
     edible = request.GET.get("edible", "")
@@ -83,6 +84,45 @@ def add_plant(request: HttpRequest):
     })
 
 
+def update_plant(request: HttpRequest, plant_id: int):
+    plant = Plant.objects.get(id=plant_id)
+    errors = {}
+
+    if request.method == "POST":
+        errors = save_plant(request, plant)
+        if not errors:
+            return redirect("plants:plant_detail", plant_id=plant.id)
+
+    return render(request, "plants/update_plant.html", {
+        "plant": plant,
+        "errors": errors,
+        "categories": Plant.Category.choices,
+    })
+
+
+def delete_plant(request: HttpRequest, plant_id: int):
+    plant = Plant.objects.get(id=plant_id)
+
+    if request.method == "POST":
+        plant.delete()
+        return redirect("plants:all_plants")
+
+    return redirect("plants:plant_detail", plant_id=plant.id)
+
+
+def add_comment(request: HttpRequest, plant_id: int):
+    plant = Plant.objects.get(id=plant_id)
+
+    if request.method == "POST":
+        full_name = request.POST.get("full_name", "").strip()
+        content = request.POST.get("content", "").strip()
+        if full_name and content:
+            comment = Comment(plant=plant, full_name=full_name, content=content)
+            comment.save()
+
+    return redirect("plants:plant_detail", plant_id=plant.id)
+
+
 def search(request: HttpRequest):
     q = request.GET.get("q", "").strip()
     category = request.GET.get("category", "")
@@ -108,39 +148,3 @@ def search(request: HttpRequest):
         "categories": Plant.Category.choices,
         "searched": searched,
     })
-
-def update_plant(request: HttpRequest, plant_id: int):
-    plant = Plant.objects.get(id=plant_id)
-    errors = {}
-
-    if request.method == "POST":
-        errors = save_plant(request, plant)
-        if not errors:
-            return redirect("plants:plant_detail", plant_id=plant.id)
-
-    return render(request, "plants/update_plant.html", {
-        "plant": plant,
-        "errors": errors,
-        "categories": Plant.Category.choices,
-    })
-
-def delete_plant(request: HttpRequest, plant_id: int):
-    plant = Plant.objects.get(id=plant_id)
-
-    if request.method == "POST":
-        plant.delete()
-        return redirect("plants:all_plants")
-
-    return redirect("plants:plant_detail", plant_id=plant.id)
-
-def add_comment(request: HttpRequest, plant_id: int):
-    plant = Plant.objects.get(id=plant_id)
-
-    if request.method == "POST":
-        full_name = request.POST.get("full_name", "").strip()
-        content = request.POST.get("content", "").strip()
-        if full_name and content:
-            comment = Comment(plant=plant, full_name=full_name, content=content)
-            comment.save()
-
-    return redirect("plants:plant_detail", plant_id=plant.id)

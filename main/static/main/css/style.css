@@ -159,6 +159,56 @@ summary:focus-visible {
 
 .btn-danger:hover { background: #C9553F; }
 
+/* ===== تأكيد الحذف ===== */
+.confirm-delete {
+  position: relative;
+}
+
+.confirm-delete summary {
+  list-style: none;
+}
+
+.confirm-delete summary::-webkit-details-marker {
+  display: none;
+}
+
+.confirm-delete[open] summary {
+  background: var(--danger);
+  color: #FFFFFF;
+}
+
+.confirm-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 10;
+  width: 280px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid #E8C6BD;
+  border-radius: var(--leaf-sm);
+  box-shadow: 0 8px 24px rgba(34, 51, 31, 0.12);
+}
+
+.confirm-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.confirm-text {
+  margin: 0 0 14px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.confirm-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
 /* ===== عناوين الصفحات ===== */
 .page { padding-top: 40px; padding-bottom: 24px; }
 
@@ -792,9 +842,10 @@ select.input { cursor: pointer; }
 
 .comments-empty { color: var(--text-muted); }
 
-/* ===== النباتات ذات الصلة ===== */
 .related {
   margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
 }
 
 .related .section-title { margin-bottom: 18px; }
