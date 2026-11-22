@@ -1,0 +1,145 @@
+
+{% extends "dashboard/base.html" %}
+
+{% block title %}Messages | Planteer{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Contact Messages</h1>
+        <p>Manage messages received from visitors.</p>
+    </div>
+</div>
+
+<!-- Search -->
+<div class="dashboard-panel dashboard-filter-panel">
+
+    <form method="get"
+          class="dashboard-filter-form dashboard-filter-form-search">
+
+        <div class="dashboard-search-field">
+            <label for="message-search">Search Messages</label>
+
+            <input type="search"
+                   id="message-search"
+                   name="q"
+                   value="{{ query }}"
+                   placeholder="Search by name, email or message...">
+        </div>
+
+        <div class="dashboard-filter-actions">
+            <button type="submit" class="dashboard-button">
+                Search
+            </button>
+
+            <a href="{% url 'dashboard_messages' %}"
+               class="dashboard-reset-button">
+                Clear
+            </a>
+        </div>
+
+    </form>
+</div>
+
+<!-- Messages -->
+<div class="dashboard-panel dashboard-messages-panel">
+
+    <div class="dashboard-table-header">
+        <div>
+            <h2>All Messages</h2>
+            <p>{{ total_results }} messages found</p>
+        </div>
+
+        <span class="dashboard-page-count">
+            Page {{ page_obj.number }}
+            of {{ page_obj.paginator.num_pages }}
+        </span>
+    </div>
+
+    <div class="dashboard-message-grid">
+
+        {% for contact in contacts %}
+            <article class="dashboard-message">
+
+                <div class="message-top">
+                    <strong>
+                        {{ contact.first_name }}
+                        {{ contact.last_name }}
+                    </strong>
+
+                    <span>
+                        {{ contact.created_at|date:"M d, Y" }}
+                    </span>
+                </div>
+
+                <a href="mailto:{{ contact.email }}">
+                    {{ contact.email }}
+                </a>
+
+                <p>{{ contact.message|linebreaksbr }}</p>
+
+                <form method="post"
+                      action="{% url 'dashboard_message_delete' contact.pk %}"
+                      onsubmit="return confirm('Delete this message?');">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="delete-action">
+                        Delete Message
+                    </button>
+
+                </form>
+            </article>
+
+        {% empty %}
+            <p class="empty-state">
+                No messages found.
+            </p>
+        {% endfor %}
+
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="dashboard-pagination-wrapper">
+
+        <p class="dashboard-pagination-info">
+            Showing {{ page_obj.start_index }}–{{ page_obj.end_index }}
+            of {{ total_results }}
+        </p>
+
+        <nav class="dashboard-pagination"
+             aria-label="Messages pagination">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}&q={{ query|urlencode }}">
+                    Previous
+                </a>
+            {% endif %}
+
+            {% for number in page_obj.paginator.page_range %}
+                {% if number == page_obj.number %}
+                    <span class="active-page" aria-current="page">
+                        {{ number }}
+                    </span>
+                {% else %}
+                    <a href="?page={{ number }}&q={{ query|urlencode }}">
+                        {{ number }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&q={{ query|urlencode }}">
+                    Next
+                </a>
+            {% endif %}
+
+        </nav>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Delete Plant | Planteer{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="container plant-form-page">
+    <div class="plant-form-wrapper delete-panel">
+
+        <h1>Delete Plant</h1>
+
+        <p>
+            Are you sure you want to delete
+            <strong>{{ plant.name }}</strong>?
+        </p>
+
+        <p>This action cannot be undone.</p>
+
+        <form method="post" class="form-actions">
+            {% csrf_token %}
+
+            <button type="submit" class="danger-button">
+                Yes, Delete
+            </button>
+
+            <a href="{% url 'plant_detail' plant.pk %}"
+               class="outline-button">
+                Cancel
+            </a>
+        </form>
+
+    </div>
+</section>
+{% endblock %}

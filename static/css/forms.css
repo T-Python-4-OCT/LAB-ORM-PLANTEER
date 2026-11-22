@@ -1,0 +1,759 @@
+
+/* ==========================================
+   PLANTEER - MODERN PLANT EDITOR
+========================================== */
+
+.plant-form-page {
+    padding-top: 42px;
+    padding-bottom: 90px;
+}
+
+.plant-editor {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+
+.editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.editor-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #718376;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    text-decoration: none;
+}
+
+.editor-back:hover {
+    color: #315a40;
+}
+
+.editor-eyebrow {
+    display: block;
+    color: #4c805c;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.editor-heading h1 {
+    font-size: clamp(30px, 3vw, 43px);
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+    color: #172c20;
+    margin: 0 0 12px;
+}
+
+.editor-heading p {
+    max-width: 580px;
+    color: #7b897e;
+    font-size: 14px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.editor-mode {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 13px;
+    background: #eaf3ec;
+    color: #315a40;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Layout */
+
+.editor-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 370px;
+    align-items: start;
+    gap: 24px;
+}
+
+.editor-main,
+.editor-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+/* Cards */
+
+.editor-card {
+    background: #ffffff;
+    border: 1px solid #e3eae3;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(25, 55, 34, 0.025);
+}
+
+.editor-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 23px 26px;
+    border-bottom: 1px solid #edf0ed;
+}
+
+.editor-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: #eaf2eb;
+    color: #315a40;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.editor-card-header h2 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    color: #1b3022;
+}
+
+.editor-card-header p {
+    margin: 0;
+    color: #8a978d;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.editor-card-body {
+    padding: 27px;
+}
+
+/* Fields */
+
+.editor-field {
+    margin-bottom: 24px;
+    min-width: 0;
+}
+
+.editor-field:last-child {
+    margin-bottom: 0;
+}
+
+.editor-field > label {
+    display: block;
+    margin-bottom: 9px;
+    color: #253b2b;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.required-mark {
+    color: #c86b59;
+    margin-left: 3px;
+}
+
+.editor-field-hint {
+    margin: -2px 0 11px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #91a094;
+}
+
+.editor-field input:not([type="checkbox"]):not([type="file"]),
+.editor-field textarea,
+.editor-field select {
+    display: block;
+    width: 100%;
+    min-height: 47px;
+    padding: 12px 15px;
+    border: 1px solid #dfe8df;
+    border-radius: 9px;
+    background: #ffffff;
+    font: inherit;
+    font-size: 13px;
+    color: #203528;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.editor-field textarea {
+    min-height: 135px;
+    line-height: 1.8;
+    resize: vertical;
+}
+
+.editor-field input:focus,
+.editor-field textarea:focus,
+.editor-field select:focus {
+    border-color: #659876;
+    box-shadow: 0 0 0 4px rgba(49, 90, 64, 0.08);
+}
+
+.editor-field input::placeholder,
+.editor-field textarea::placeholder {
+    color: #a9b4aa;
+}
+
+.field-error {
+    margin: 8px 0;
+    color: #c43f3f;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.editor-alert {
+    background: #fff2f0;
+    border: 1px solid #f0cac5;
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #ac3b33;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+.editor-alert ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+/* ==========================================
+   COVER UPLOAD
+========================================== */
+
+.editor-cover-upload {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    border: 2px dashed #ccddcf;
+    border-radius: 12px;
+    background: #f6faf6;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.editor-cover-upload:hover,
+.editor-cover-upload.is-dragging {
+    background: #edf5ee;
+    border-color: #477853;
+}
+
+.editor-cover-upload img:not([hidden]) {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+.cover-placeholder {
+    min-height: 250px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.cover-placeholder[hidden] {
+    display: none;
+}
+
+.cover-placeholder-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+    background: #e3eee5;
+    color: #315a40;
+    font-size: 29px;
+    font-weight: 500;
+}
+
+.cover-placeholder strong {
+    font-size: 14px;
+    color: #315a40;
+}
+
+.cover-placeholder span,
+.cover-placeholder small {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #8a9a8e;
+}
+
+.cover-file-control {
+    margin-top: 13px;
+}
+
+.cover-file-control input[type="file"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    font-size: 12px;
+    color: #657569;
+}
+
+.cover-file-control input[type="file"]::file-selector-button,
+.gallery-file-control input[type="file"]::file-selector-button {
+    border: 1px solid #d5e3d8;
+    border-radius: 7px;
+    background: #eef5ef;
+    color: #315a40;
+    padding: 8px 12px;
+    margin-right: 10px;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.editor-help-text {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #879589;
+    margin: 12px 0 0;
+}
+
+/* ==========================================
+   GALLERY
+========================================== */
+
+.editor-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.editor-gallery-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 15px;
+    background: #fafcf9;
+    border: 1px solid #e4ebe4;
+    border-radius: 12px;
+    transition: border-color 0.2s;
+}
+
+.editor-gallery-item:hover {
+    border-color: #bed5c3;
+}
+
+.gallery-item-top {
+    margin-bottom: 13px;
+}
+
+.gallery-item-top span {
+    font-size: 12px;
+    font-weight: 700;
+    color: #54705a;
+}
+
+.gallery-upload-area {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 170px;
+    border: 1px dashed #d0dfd3;
+    border-radius: 9px;
+    background: #ffffff;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.gallery-upload-area:hover,
+.gallery-upload-area.is-dragging {
+    border-color: #4f855d;
+    background: #f4f9f5;
+}
+
+.gallery-image-preview img:not([hidden]) {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.gallery-upload-placeholder {
+    min-height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    padding: 15px;
+    pointer-events: none;
+}
+
+.gallery-upload-placeholder[hidden] {
+    display: none;
+}
+
+.gallery-upload-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: #e9f2eb;
+    color: #315a40;
+    border-radius: 50%;
+    font-size: 25px;
+}
+
+.gallery-upload-placeholder strong {
+    color: #46684e;
+    font-size: 12px;
+}
+
+.gallery-upload-placeholder small {
+    color: #9aa99e;
+    font-size: 11px;
+}
+
+.gallery-file-control {
+    padding: 10px;
+    margin-top: auto;
+}
+
+.gallery-file-control input[type="file"] {
+    width: 100%;
+    max-width: 100%;
+    font-size: 11px;
+    color: #738274;
+}
+
+.gallery-description {
+    margin-top: 17px;
+    margin-bottom: 14px;
+}
+
+.gallery-position {
+    margin-bottom: 0;
+}
+
+.gallery-description label,
+.gallery-position label {
+    font-size: 12px;
+}
+
+.gallery-description input,
+.gallery-position input {
+    min-height: 40px !important;
+    padding: 9px 11px !important;
+}
+
+.gallery-delete-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 18px;
+    padding: 11px;
+    border-radius: 7px;
+    background: #fff1f1;
+    color: #bb3c3c;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.gallery-delete-label input {
+    accent-color: #bb3c3c;
+}
+
+.editor-gallery-item.is-marked-for-deletion {
+    opacity: 0.55;
+    border-color: #e6aaaa;
+}
+
+/* ==========================================
+   EDIBLE TOGGLE
+========================================== */
+
+.editor-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.toggle-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.toggle-details strong {
+    font-size: 13px;
+    color: #263d2d;
+}
+
+.toggle-details small {
+    font-size: 11px;
+    color: #8c9b8f;
+    line-height: 1.5;
+}
+
+.editor-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.editor-switch input {
+    position: absolute;
+    inset: 0;
+    width: 48px;
+    height: 27px;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.editor-switch-track {
+    display: block;
+    width: 48px;
+    height: 27px;
+    background: #d6ddd7;
+    border-radius: 25px;
+    transition: background 0.2s;
+}
+
+.editor-switch-track::before {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    left: 3px;
+    top: 3px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s;
+}
+
+.editor-switch input:checked + .editor-switch-track {
+    background: #315a40;
+}
+
+.editor-switch input:checked + .editor-switch-track::before {
+    transform: translateX(21px);
+}
+
+.editor-switch input:focus-visible + .editor-switch-track {
+    outline: 3px solid #9bc4a6;
+    outline-offset: 3px;
+}
+
+/* ==========================================
+   SAVE CARD
+========================================== */
+
+.editor-save-card {
+    background: #f0f6f1;
+    border-color: #dae9dd;
+}
+
+.editor-save-card h3 {
+    margin: 0 0 9px;
+    font-size: 17px;
+    color: #24472e;
+}
+
+.editor-save-card p {
+    margin: 0 0 22px;
+    color: #7b8c7e;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.editor-submit-button,
+.editor-cancel-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 46px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.editor-submit-button {
+    border: 0;
+    background: #315a40;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.editor-submit-button:hover {
+    background: #244831;
+}
+
+.editor-submit-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.editor-cancel-button {
+    margin-top: 10px;
+    background: white;
+    border: 1px solid #d4e0d6;
+    color: #426249;
+}
+
+.editor-cancel-button:hover {
+    background: #e8f0e9;
+}
+
+/* ==========================================
+   EXISTING DELETE PAGE
+========================================== */
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 28px;
+}
+
+.outline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 20px;
+    border: 1px solid #dfe7df;
+    border-radius: 7px;
+    background: white;
+    text-decoration: none;
+}
+
+.danger-button {
+    padding: 11px 20px;
+    background: #bb3c3c;
+    border: none;
+    border-radius: 7px;
+    color: white;
+}
+
+.delete-panel {
+    border: 1px solid #e3eae3;
+    padding: 30px;
+    border-radius: 12px;
+    background: white;
+}
+
+.delete-panel p {
+    color: #758078;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1100px) {
+    .editor-layout {
+        grid-template-columns: minmax(0, 1fr) 310px;
+        gap: 18px;
+    }
+
+    .editor-card-body {
+        padding: 21px;
+    }
+
+    .editor-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .editor-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-sidebar {
+        display: contents;
+    }
+
+    .editor-main {
+        display: contents;
+    }
+
+    .editor-layout > .editor-main > .editor-card,
+    .editor-layout > .editor-sidebar > .editor-card {
+        min-width: 0;
+    }
+
+    .editor-gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .plant-form-page {
+        padding-top: 25px;
+        padding-bottom: 55px;
+    }
+
+    .editor-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .editor-heading h1 {
+        font-size: 31px;
+    }
+
+    .editor-card-header {
+        padding: 18px;
+    }
+
+    .editor-card-body {
+        padding: 18px;
+    }
+
+    .editor-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-cover-upload {
+        min-height: 210px;
+    }
+
+    .cover-placeholder {
+        min-height: 210px;
+    }
+
+    .delete-panel {
+        padding: 20px;
+    }
+}

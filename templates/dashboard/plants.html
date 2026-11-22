@@ -1,0 +1,242 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block title %}Manage Plants | Planteer{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Manage Plants</h1>
+        <p>Browse, search, filter and manage all plants.</p>
+    </div>
+
+    <a href="{% url 'plant_create' %}" class="dashboard-button">
+        + Add Plant
+    </a>
+</div>
+
+<!-- Search and Filters -->
+<div class="dashboard-panel dashboard-filter-panel">
+
+    <form method="get" class="dashboard-filter-form">
+
+        <div class="dashboard-search-field">
+            <label for="plant-search">Search Plants</label>
+            <input
+                type="search"
+                id="plant-search"
+                name="q"
+                value="{{ query }}"
+                placeholder="Search by plant name, description or user...">
+        </div>
+
+        <div class="dashboard-select-field">
+            <label for="category-filter">Category</label>
+
+            <select id="category-filter" name="category">
+                <option value="">All Categories</option>
+
+                {% for value, label in categories %}
+                    <option
+                        value="{{ value }}"
+                        {% if selected_category == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="dashboard-select-field">
+            <label for="owner-filter">Added By</label>
+
+            <select id="owner-filter" name="owner">
+                <option value="">All Users</option>
+
+                {% for owner in owners %}
+                    <option
+                        value="{{ owner.pk }}"
+                        {% if selected_owner == owner.pk|stringformat:"s" %}selected{% endif %}>
+                        {{ owner.username }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="dashboard-filter-actions">
+            <button type="submit" class="dashboard-button">
+                <icon name="search"></icon>
+                Search
+            </button>
+
+            <a href="{% url 'dashboard_plants' %}"
+               class="dashboard-reset-button">
+                Clear
+            </a>
+        </div>
+
+    </form>
+</div>
+
+<!-- Plants Table -->
+<div class="dashboard-panel table-panel" id="plants-table">
+
+    <div class="dashboard-table-header">
+        <div>
+            <h2>All Plants</h2>
+            <p>{{ total_results }} plant{{ total_results|pluralize }} found</p>
+        </div>
+
+        <span class="dashboard-page-count">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="dashboard-data-table">
+
+            <thead>
+                <tr>
+                    <th>Plant</th>
+                    <th>Category</th>
+                    <th>Added By</th>
+                    <th>Edible</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for plant in plants %}
+                    <tr>
+
+                        <td>
+                            <div class="dashboard-plant-info">
+
+                                {% if plant.image %}
+                                    <img
+                                        src="{{ plant.image.url }}"
+                                        alt="{{ plant.name }}"
+                                        loading="lazy"
+                                        class="dashboard-plant-thumbnail">
+                                {% else %}
+                                    <div class="dashboard-plant-placeholder">
+                                        🌱
+                                    </div>
+                                {% endif %}
+
+                                <div class="dashboard-plant-name">
+                                    <strong>{{ plant.name }}</strong>
+                                    <small>Plant #{{ plant.pk }}</small>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="dashboard-category-label">
+                                {{ plant.get_category_display }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if plant.created_by %}
+                                {{ plant.created_by.username }}
+                            {% else %}
+                                <span class="dashboard-muted">Unknown</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if plant.is_edible %}
+                                <span class="dashboard-status dashboard-status-yes">
+                                    Yes
+                                </span>
+                            {% else %}
+                                <span class="dashboard-status dashboard-status-no">
+                                    No
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <div class="dashboard-row-actions">
+
+                                <a href="{% url 'plant_detail' plant.pk %}"
+                                   class="dashboard-action-view">
+                                    View
+                                </a>
+
+                                <a href="{% url 'plant_update' plant.pk %}"
+                                   class="dashboard-action-edit">
+                                    Edit
+                                </a>
+
+                                <a href="{% url 'plant_delete' plant.pk %}"
+                                   class="dashboard-action-delete">
+                                    Delete
+                                </a>
+
+                            </div>
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">
+                            No plants match your search or filters.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+        <div class="dashboard-pagination-wrapper">
+
+            <p class="dashboard-pagination-info">
+                Showing
+                {{ page_obj.start_index }}–{{ page_obj.end_index }}
+                of {{ total_results }}
+            </p>
+
+            <nav class="dashboard-pagination"
+                 aria-label="Manage Plants pages">
+
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}&q={{ query|urlencode }}&category={{ selected_category|urlencode }}&owner={{ selected_owner|urlencode }}#plants-table">
+                        Previous
+                    </a>
+                {% endif %}
+
+                {% for number in page_obj.paginator.page_range %}
+
+                    {% if number == page_obj.number %}
+                        <span class="active-page" aria-current="page">
+                            {{ number }}
+                        </span>
+                    {% else %}
+                        <a href="?page={{ number }}&q={{ query|urlencode }}&category={{ selected_category|urlencode }}&owner={{ selected_owner|urlencode }}#plants-table">
+                            {{ number }}
+                        </a>
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&q={{ query|urlencode }}&category={{ selected_category|urlencode }}&owner={{ selected_owner|urlencode }}#plants-table">
+                        Next
+                    </a>
+                {% endif %}
+
+            </nav>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
