@@ -1,0 +1,69 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<div class="detail">
+  <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+
+  <div class="detail-info">
+    <h1>{{ plant.name }}</h1>
+    <p>{{ plant.about }}</p>
+
+    <h3>Used For</h3>
+    <p>{{ plant.used_for }}</p>
+
+    {% if plant.native_to %}
+    <h3>Native to</h3>
+    <p>{{ plant.native_to }}</p>
+    {% endif %}
+
+    <div class="actions">
+      <a href="{% url 'plants:update_plant' plant.id %}" class="btn">Update</a>
+
+      <form method="post" action="{% url 'plants:delete_plant' plant.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-outline">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="section-head">
+  <h2>Related Plants</h2>
+</div>
+
+<div class="plants-grid">
+  {% for related in related_plants %}
+  <a href="{% url 'plants:plant_detail' related.id %}" class="card">
+    <img src="{{ related.image.url }}" alt="{{ related.name }}">
+    <h3>{{ related.name }}</h3>
+    <p>{{ related.about|truncatechars:60 }}</p>
+    <span class="cat">{{ related.get_category_display }}</span>
+  </a>
+  {% empty %}
+  <p>No related plants.</p>
+  {% endfor %}
+</div>
+
+<section class="comments">
+  <h2>Comments ({{ comments.count }})</h2>
+
+  <form class="comment-form" method="post" action="{% url 'plants:add_comment' plant.id %}">
+    {% csrf_token %}
+    <input type="text" name="full_name" minlength="3" placeholder="Full Name" required>
+    <textarea name="content" rows="3" minlength="10" placeholder="Add a comment (at least 10 characters)..." required></textarea>
+    <button type="submit">Add Comment</button>
+  </form>
+
+  {% for comment in comments %}
+  <div class="comment">
+    <strong>{{ comment.full_name }}</strong>
+    <small>{{ comment.created_at|date:"M j, Y" }}</small>
+    <p>{{ comment.content }}</p>
+  </div>
+  {% empty %}
+  <p>No comments yet.</p>
+  {% endfor %}
+</section>
+
+{% endblock %}

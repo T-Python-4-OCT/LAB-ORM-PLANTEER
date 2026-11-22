@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<section class="hero">
+  <h1>Planteer</h1>
+  <p>Plant Database For Plants Lovers</p>
+  <form class="search-form" action="{% url 'plants:search' %}" method="get">
+    <input type="text" name="q" placeholder="Search For Plant...">
+    <button type="submit">Search</button>
+  </form>
+</section>
+
+<div class="section-head">
+  <div>
+    <h2>Plants</h2>
+    <p>Learn more about plants</p>
+  </div>
+ <a href="{% url 'plants:all_plants' %}">More →</a>
+</div>
+
+<div class="plants-grid">
+  {% for plant in plants %}
+    <a href="{% url 'plants:plant_detail' plant.id %}" class="card">
+    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    <h3>{{ plant.name }}</h3>
+    <p>{{ plant.about|truncatechars:60 }}</p>
+    <span class="cat">{{ plant.get_category_display }}</span>
+  </a>
+  {% empty %}
+  <p>No plants yet.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}

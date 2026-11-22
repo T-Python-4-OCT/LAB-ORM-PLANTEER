@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planteer</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="{% url 'main:home' %}" class="logo">Planteer</a>
+    <nav>
+      <a href="{% url 'plants:all_plants' %}" {% if request.path == '/plants/all/' %}class="active"{% endif %}>All Plants</a>
+      <a href="{% url 'main:contact' %}" {% if request.path == '/contact/' %}class="active"{% endif %}>Contact Us</a>
+      <a href="{% url 'plants:add_plant' %}" class="btn">Add Plant</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+      <div class="footer-left">
+        <div class="footer-brand">Planteer</div>
+        <div class="social">
+          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M13.5 20v-7h2.3l.4-2.6h-2.7V9c0-.8.3-1.3 1.4-1.3h1.4V5.4c-.3 0-1.1-.1-2-.1-2.1 0-3.5 1.2-3.5 3.5v1.6H8.5V13h2.3v7"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v6M8 7.5v.01M12 16v-6m0 3c0-2 4-2.5 4 0v3"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/></svg>
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.3 6.7v.01"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="{% url 'main:home' %}">Home</a>
+          <a href="{% url 'plants:all_plants' %}">All Plants</a>
+          <a href="{% url 'plants:search' %}">Search</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Plants</h4>
+          <a href="{% url 'plants:add_plant' %}">Add Plant</a>
+          <a href="{% url 'plants:all_plants' %}?edible=yes">Edible</a>
+          <a href="{% url 'plants:all_plants' %}?category=tree">Trees</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="{% url 'main:contact' %}">Contact Us</a>
+          <a href="{% url 'main:messages' %}">Messages</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

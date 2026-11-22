@@ -1,0 +1,33 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<h1 class="page-title">Search</h1>
+
+<form class="search-form" method="get" action="{% url 'plants:search' %}">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search For Plant...">
+  <button type="submit">Search</button>
+</form>
+
+<p class="page-sub search-note">
+  {% if query %}
+    {{ plants|length }} result(s) for "{{ query }}"
+  {% else %}
+    Type a plant name to search.
+  {% endif %}
+</p>
+
+<div class="plants-grid">
+  {% for plant in plants %}
+  <a href="{% url 'plants:plant_detail' plant.id %}" class="card">
+    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+    <h3>{{ plant.name }}</h3>
+    <p>{{ plant.about|truncatechars:60 }}</p>
+    <span class="cat">{{ plant.get_category_display }}</span>
+  </a>
+  {% empty %}
+    {% if query %}<p>No plants found.</p>{% endif %}
+  {% endfor %}
+</div>
+
+{% endblock %}

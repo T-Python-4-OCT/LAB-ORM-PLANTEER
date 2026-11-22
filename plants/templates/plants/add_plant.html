@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="c-grid">
+  <div>
+    <h1>Add Plant</h1>
+    <p class="c-sub">Add a new plant to the database</p>
+
+    <form method="post" enctype="multipart/form-data" class="c-form">
+      {% csrf_token %}
+
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Olive Tree" required>
+
+      <label for="about">About</label>
+      <textarea id="about" name="about" rows="3" placeholder="Describe the plant" required></textarea>
+
+      <label for="used_for">Used For</label>
+      <textarea id="used_for" name="used_for" rows="3" placeholder="What is it used for?" required></textarea>
+
+      <label for="native_to">Native to</label>
+      <input type="text" id="native_to" name="native_to" placeholder="Mediterranean Region">
+
+      <label for="image">Image</label>
+      <input type="file" id="image" name="image" accept="image/*">
+
+      <label for="category">Category</label>
+      <select id="category" name="category">
+        {% for value, label in categories %}
+          <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+      </select>
+
+      <label class="c-check">
+        <input type="checkbox" name="is_edible"> Edible
+      </label>
+
+      <button type="submit">Add Plant</button>
+    </form>
+  </div>
+
+  <img class="c-img" src="{% static 'images/add-plant.jpg' %}" alt="Plants">
+</div>
+{% endblock %}

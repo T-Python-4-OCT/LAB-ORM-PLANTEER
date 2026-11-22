@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="c-grid">
+  <div>
+    <h1>Contact us</h1>
+    <p class="c-sub">Subheading for description or instructions</p>
+
+    <form method="post" class="c-form">
+      {% csrf_token %}
+
+      <div class="c-row">
+        <div>
+          <label for="first_name">First name</label>
+          <input type="text" id="first_name" name="first_name" placeholder="Jane" required>
+        </div>
+        <div>
+          <label for="last_name">Last name</label>
+          <input type="text" id="last_name" name="last_name" placeholder="Smitherton" required>
+        </div>
+      </div>
+
+      <label for="email">Email address</label>
+      <input type="email" id="email" name="email" placeholder="email@janesfakedomain.net" required>
+
+      <label for="message">Your message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Enter your question or message" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <img class="c-img" src="{% static 'images/contact.jpg' %}" alt="Plants">
+</div>
+{% endblock %}
