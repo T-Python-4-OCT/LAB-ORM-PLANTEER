@@ -1,4 +1,5 @@
 from django.db import models
+from Planteer.plants.models import Comment as PlantComment
 
 
 class Contact(models.Model):
@@ -15,3 +16,11 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.first_name
+
+
+
+class MainComment(PlantComment):
+    class Meta:
+        proxy = True
+        verbose_name = "Comment"
+        verbose_name_plural = "Comments"
