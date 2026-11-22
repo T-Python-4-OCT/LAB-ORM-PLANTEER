@@ -1,0 +1,79 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Home | GreenSpace{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container hero-content">
+
+        <div class="hero-info">
+            <h1>
+                Bring Nature Into Your <span>Life.</span>
+            </h1>
+
+            <p class="text-muted">
+                Discover beautiful plants and learn how to
+                care for them.
+            </p>
+
+            <div class="hero-actions">
+                <a href="/plants/all/" class="btn btn-primary">
+                    Explore Plants
+                </a>
+
+                <a href="#about" class="btn btn-outline">
+                    Learn More
+                </a>
+            </div>
+        </div>
+
+        <img
+            src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=800"
+            class="hero-image"
+            alt="Green indoor plants"
+        >
+
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="container">
+
+        <h2 class="section-title">Discover GreenSpace</h2>
+
+        <p class="text-muted about-text">
+            Explore different plants, discover their benefits,
+            and learn how to take care of them.
+        </p>
+
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Explore Plants</h3>
+                    <p class="text-muted">Discover different plant species.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Plant Care</h3>
+                    <p class="text-muted">Learn how to care for plants.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-content">
+                    <h3>Share Experiences</h3>
+                    <p class="text-muted">Share your plant experiences.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
