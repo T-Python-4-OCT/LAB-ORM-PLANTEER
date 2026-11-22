@@ -1,0 +1,445 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | Planteer{% endblock %}
+
+{% block content %}
+
+<!-- Dynamic Video Hero -->
+<section class="hero-video-section">
+
+    <video class="hero-video active" autoplay muted playsinline>
+        <source src="{% static 'videos/Nature-1.mp4' %}" type="video/mp4">
+    </video>
+
+    <video class="hero-video" muted playsinline>
+        <source src="{% static 'videos/Nature-2.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="hero-video-overlay"></div>
+
+    <div class="hero-video-content">
+
+        <span class="hero-label">WELCOME TO PLANTEER</span>
+
+        <h1>
+            Bring Nature<br>
+            <span>Into Your Space.</span>
+        </h1>
+
+        <p>
+            Discover the beauty of plants and find the perfect green
+            companions to make your space feel more alive.
+        </p>
+
+        <form method="GET"
+              action="{% url 'search_plants' %}"
+              class="hero-video-search">
+
+            <input
+                type="search"
+                name="q"
+                placeholder="Search for plants..."
+                required
+            >
+
+            <button type="submit">Search</button>
+
+        </form>
+
+        <a href="{% url 'all_plants' %}" class="hero-explore-link">
+            Explore Our Collection →
+        </a>
+
+    </div>
+
+</section>
+
+<!-- Introduction Section -->
+<section class="intro-section">
+
+    <span class="section-label">GROW WITH US</span>
+
+    <h2>
+        A Little Green Makes<br>
+        <span>A Big Difference.</span>
+    </h2>
+
+    <p>
+        Whether you're a beginner or a plant enthusiast,
+        Planteer helps you discover plants, learn about their uses,
+        and bring more nature into your everyday life.
+    </p>
+
+</section>
+
+
+<!-- All Plants Section -->
+<section class="home-plants-section">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">OUR GREEN COLLECTION</span>
+            <h2>Discover Our Plants</h2>
+        </div>
+
+        <a href="{% url 'all_plants' %}" class="view-all">
+            View All Plants →
+        </a>
+    </div>
+
+    <div class="home-plants-slider">
+
+        <div class="home-plants-track">
+
+            {% for plant in plants %}
+
+            <a href="{% url 'plant_detail' plant.id %}"
+               class="home-plant-card">
+
+                <div class="home-plant-image">
+                    {% if plant.image %}
+                        <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                    {% endif %}
+                </div>
+
+                <div class="home-plant-info">
+                    <span>{{ plant.category }}</span>
+                    <h3>{{ plant.name }}</h3>
+                    <p>{{ plant.about|truncatewords:12 }}</p>
+                    <div class="home-plant-link">
+                        Discover Plant →
+                    </div>
+                </div>
+
+            </a>
+
+            {% empty %}
+
+            <p>No plants available yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Categories Video Slider -->
+<section class="categories-section">
+
+    <div class="section-heading">
+        <div>
+            <span class="section-label">EXPLORE NATURE</span>
+            <h2>Discover Plant Categories</h2>
+        </div>
+
+        <a href="{% url 'all_plants' %}" class="view-all">
+            View All Plants →
+        </a>
+    </div>
+
+    <div class="category-slider">
+
+        <div class="category-track">
+
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Nature-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Indoor Plants</h3>
+                    <p>Bring freshness into your home.</p>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Ocean-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Outdoor Plants</h3>
+                    <p>Make your outdoor space greener.</p>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Sage-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Succulents</h3>
+                    <p>Small plants with unique beauty.</p>
+                </div>
+            </div>
+
+
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Rose-1.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Herbs</h3>
+                    <p>Discover fresh and aromatic herbs.</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Rose-2.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Flowering Plants</h3>
+                    <p>Add color and beauty to your space.</p>
+                </div>
+            </div>
+            
+            <div class="category-card">
+                <video autoplay muted loop playsinline>
+                    <source src="{% static 'videos/Sage-2.mp4' %}" type="video/mp4">
+                </video>
+                <div class="category-info">
+                    <h3>Trees</h3>
+                    <p>Bring natural beauty and shade to your surroundings.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- Call To Action -->
+<section class="cta-section">
+
+    <span class="section-label">START YOUR GREEN JOURNEY</span>
+
+    <h2>Ready to Find Your Perfect Plant?</h2>
+
+    <p>
+        Explore our collection and discover the plant
+        that belongs in your space.
+    </p>
+
+    <a href="{% url 'all_plants' %}" class="btn-primary">
+        Explore Collection
+    </a>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    const heroVideos = document.querySelectorAll(".hero-video");
+
+    const themeVideos = {
+        nature: [
+            "{% static 'videos/Nature-1.mp4' %}",
+            "{% static 'videos/Nature-2.mp4' %}"
+        ],
+        sage: [
+            "{% static 'videos/Sage-1.mp4' %}",
+            "{% static 'videos/Sage-2.mp4' %}"
+        ],
+        ocean: [
+            "{% static 'videos/Ocean-1.mp4' %}",
+            "{% static 'videos/Ocean-2.mp4' %}"
+        ],
+        rose: [
+            "{% static 'videos/Rose-1.mp4' %}",
+            "{% static 'videos/Rose-2.mp4' %}"
+        ]
+    };
+
+    let currentVideo = 0;
+    let currentTheme = "";
+
+    function changeHeroTheme(theme) {
+        if (!themeVideos[theme] || theme === currentTheme) return;
+
+        currentTheme = theme;
+        currentVideo = 0;
+
+        heroVideos.forEach((video, index) => {
+            video.classList.toggle("active", index === 0);
+            video.pause();
+            video.src = themeVideos[theme][index];
+            video.load();
+        });
+
+        heroVideos[0].play().catch(error => {
+            console.log("Video autoplay:", error);
+        });
+    }
+
+    heroVideos.forEach((video, index) => {
+        video.addEventListener("ended", function () {
+            if (index !== currentVideo) return;
+
+            video.classList.remove("active");
+            video.pause();
+
+            currentVideo = (currentVideo + 1) % 2;
+
+            const nextVideo = heroVideos[currentVideo];
+
+            nextVideo.classList.add("active");
+            nextVideo.currentTime = 0;
+
+            nextVideo.play().catch(error => {
+                console.log("Video playback:", error);
+            });
+        });
+    });
+
+    // Load the saved theme
+    changeHeroTheme(
+        document.documentElement.dataset.theme || "nature"
+    );
+
+    // Change videos when the user selects another theme
+    document.getElementById("theme-selector")
+        .addEventListener("change", function () {
+            changeHeroTheme(this.value);
+        });
+
+
+
+/* Automatic Category Slider */
+
+const categoryTrack = document.querySelector(".category-track");
+
+if (categoryTrack) {
+
+    const originalCards = Array.from(categoryTrack.children);
+    const totalCards = originalCards.length;
+
+    // Duplicate cards for infinite sliding
+    originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        categoryTrack.appendChild(clone);
+
+        clone.querySelectorAll("video").forEach(video => {
+            video.muted = true;
+            video.play().catch(() => {});
+        });
+    });
+
+    let sliderIndex = 0;
+    let isSliding = false;
+
+    function getSlideStep() {
+        const card = categoryTrack.querySelector(".category-card");
+        const gap = parseFloat(getComputedStyle(categoryTrack).gap) || 0;
+
+        return card.getBoundingClientRect().width + gap;
+    }
+
+    function slideCategories() {
+        if (isSliding) return;
+
+        isSliding = true;
+        sliderIndex++;
+
+        categoryTrack.style.transition = "transform 0.7s ease";
+        categoryTrack.style.transform =
+            `translateX(-${getSlideStep() * sliderIndex}px)`;
+    }
+
+    categoryTrack.addEventListener("transitionend", function () {
+
+        if (sliderIndex >= totalCards) {
+            categoryTrack.style.transition = "none";
+            categoryTrack.style.transform = "translateX(0)";
+
+            sliderIndex = 0;
+        }
+
+        categoryTrack.offsetHeight;
+        isSliding = false;
+    });
+
+    setInterval(slideCategories, 4000);
+
+    window.addEventListener("resize", function () {
+        categoryTrack.style.transition = "none";
+        categoryTrack.style.transform =
+            `translateX(-${getSlideStep() * sliderIndex}px)`;
+    });
+}
+
+
+/* Automatic Home Plants Slider */
+
+const plantsTrack = document.querySelector(".home-plants-track");
+
+if (plantsTrack) {
+
+    const originalPlants = Array.from(plantsTrack.children);
+    const totalPlants = originalPlants.length;
+
+    if (totalPlants > 1) {
+
+        // Duplicate all plant cards
+        originalPlants.forEach(plant => {
+            plantsTrack.appendChild(plant.cloneNode(true));
+        });
+
+        let plantIndex = 0;
+        let plantSliding = false;
+
+        function getPlantStep() {
+            const card = plantsTrack.querySelector(".home-plant-card");
+            const gap = parseFloat(
+                getComputedStyle(plantsTrack).gap
+            ) || 0;
+
+            return card.getBoundingClientRect().width + gap;
+        }
+
+        function movePlants() {
+            if (plantSliding) return;
+
+            plantSliding = true;
+            plantIndex++;
+
+            plantsTrack.style.transition = "transform 0.8s ease";
+            plantsTrack.style.transform =
+                `translateX(-${getPlantStep() * plantIndex}px)`;
+        }
+
+        plantsTrack.addEventListener("transitionend", function (event) {
+
+            if (event.propertyName !== "transform") return;
+
+            if (plantIndex >= totalPlants) {
+                plantsTrack.style.transition = "none";
+                plantsTrack.style.transform = "translateX(0)";
+
+                plantIndex = 0;
+                plantsTrack.offsetHeight;
+            }
+
+            plantSliding = false;
+        });
+
+        // Move every 3 seconds
+        setInterval(movePlants, 3000);
+
+        window.addEventListener("resize", function () {
+            plantsTrack.style.transition = "none";
+            plantsTrack.style.transform =
+                `translateX(-${getPlantStep() * plantIndex}px)`;
+        });
+    }
+}
+
+
+</script>
+{% endblock %}

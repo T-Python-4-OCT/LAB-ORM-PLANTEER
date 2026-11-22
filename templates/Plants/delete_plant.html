@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Delete Plant | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="delete-page">
+    <div class="delete-heading">
+        <span>PLANT MANAGEMENT</span>
+        <h1>Delete Plant</h1>
+        <p>Review the plant details before deleting it.</p>
+    </div>
+
+    <div class="delete-plant-card">
+
+        <div class="delete-plant-image">
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+        </div>
+
+        <div class="delete-plant-info">
+            <span class="delete-category">{{ plant.category }}</span>
+
+            <h2>{{ plant.name }}</h2>
+
+            <div class="delete-description">
+                <h3>About This Plant</h3>
+                <p>{{ plant.about }}</p>
+            </div>
+
+            <div class="delete-description">
+                <h3>Used For</h3>
+                <p>{{ plant.used_for }}</p>
+            </div>
+
+            <p class="delete-edible">
+                Edible:
+                <strong>{{ plant.is_edible|yesno:"Yes,No" }}</strong>
+            </p>
+        </div>
+
+    </div>
+
+    <div class="delete-warning">
+        <h3>Are you sure you want to delete this plant?</h3>
+        <p>This action cannot be undone. All comments related to this plant will also be deleted.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <button type="submit" class="delete-btn">
+                Yes, Delete Plant
+            </button>
+
+            <a href="{% url 'plant_detail' plant.id %}" class="cancel-btn">
+                Cancel
+            </a>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

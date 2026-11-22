@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<section class="plants-hero">
+    <span class="section-label">EXPLORE OUR COLLECTION</span>
+    <h1>Discover Your Perfect <span>Plant.</span></h1>
+    <p>
+        Explore our collection of plants and find the perfect addition
+        to your home, garden, or workspace.
+    </p>
+</section>
+
+
+<!-- Plants Section -->
+<section class="plants-section">
+
+    <!-- Filters -->
+    <div class="plants-toolbar">
+
+        <div>
+            <h2>All Plants</h2>
+            <p>Find the plant that suits your space.</p>
+        </div>
+
+        <form method="GET" action="{% url 'all_plants' %}" class="plants-filters">
+
+            <select name="category">
+                <option value="">All Categories</option>
+
+                {% for value, label in categories %}
+                    <option value="{{ value }}"
+                        {% if selected_category == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select name="is_edible">
+                <option value="">All Plants</option>
+                <option value="true"
+                    {% if selected_edible == "true" %}selected{% endif %}>
+                    Edible
+                </option>
+                <option value="false"
+                    {% if selected_edible == "false" %}selected{% endif %}>
+                    Non-Edible
+                </option>
+            </select>
+
+            <button type="submit">Apply Filters</button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Plants Grid -->
+    <div class="plants-grid">
+
+        {% for plant in plants %}
+
+            <article class="plant-card">
+
+                <a href="{% url 'plant_detail' plant.id %}" class="plant-image">
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                </a>
+
+                <div class="plant-card-content">
+
+                    <span class="plant-category">
+                        {{ plant.get_category_display }}
+                    </span>
+
+                    <h3>
+                        <a href="{% url 'plant_detail' plant.id %}">
+                            {{ plant.name }}
+                        </a>
+                    </h3>
+
+                    <p>{{ plant.about|truncatewords:18 }}</p>
+
+                    <div class="plant-card-footer">
+
+                        {% if plant.is_edible %}
+                            <span class="edible-badge">Edible</span>
+                        {% else %}
+                            <span class="non-edible-badge">Non-Edible</span>
+                        {% endif %}
+
+                        <a href="{% url 'plant_detail' plant.id %}">
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="empty-plants">
+                <h3>No Plants Found</h3>
+                <p>There are no plants matching your selection.</p>
+                <a href="{% url 'all_plants' %}">Clear Filters</a>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
