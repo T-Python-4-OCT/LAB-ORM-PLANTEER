@@ -1,0 +1,387 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Manage Plants | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="manage-plants-section fade-in">
+
+
+    <div class="catalog-heading">
+
+        <h1>Manage Plants</h1>
+
+        <a href="{% url 'plants:add_plant' %}{{ query_suffix }}"
+           class="btn btn-main">
+
+            <i class="bi bi-plus-lg"></i>
+            Add Plant
+
+        </a>
+
+    </div>
+
+
+    <div class="manage-toolbar">
+
+        <form method="GET"
+              action="{% url 'plants:manage_plants' %}"
+              class="manage-search-form">
+
+            <div class="search-input-wrapper">
+
+                <i class="bi bi-search"></i>
+
+                <input type="search"
+                       name="q"
+                       value="{{ query }}"
+                       class="form-control"
+                       placeholder="Search plants..."
+                       aria-label="Search plants">
+
+            </div>
+
+            {% for category in selected_categories %}
+
+                <input type="hidden"
+                       name="category"
+                       value="{{ category }}">
+
+            {% endfor %}
+
+            <input type="hidden"
+                   name="is_edible"
+                   value="{{ is_edible }}">
+
+            <input type="hidden"
+                   name="sort"
+                   value="{{ sort }}">
+
+            <button type="submit"
+                    class="btn btn-main">
+
+                Search
+
+            </button>
+
+        </form>
+
+        {% include 'components/filters.html' %}
+
+    </div>
+
+
+    <div class="results-counter">
+
+        {% if total_plants %}
+
+            Showing {{ page_obj.start_index }}
+            – {{ page_obj.end_index }}
+            of {{ total_plants }} plants
+
+        {% else %}
+
+            0 plants found
+
+        {% endif %}
+
+    </div>
+
+    {% if page_obj.object_list %}
+
+        <div class="table-responsive manage-table-wrapper">
+
+            <table class="table manage-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th scope="col">ID</th>
+                        <th scope="col">Plant</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Edible</th>
+                        <th scope="col">Created At</th>
+                        <th scope="col">Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for plant in page_obj %}
+
+                        <tr>
+
+                            <td>#{{ plant.id }}</td>
+
+                            <td>
+
+                                <div class="manage-plant-info">
+
+                                    {% if plant.image %}
+
+                                        <img src="{{ plant.image.url }}"
+                                             alt="{{ plant.name }}"
+                                             class="manage-plant-image"
+                                             loading="lazy">
+
+                                    {% else %}
+
+                                        <div class="manage-image-placeholder">
+
+                                            <i class="bi bi-image"></i>
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <strong>{{ plant.name }}</strong>
+
+                                </div>
+
+                            </td>
+
+                            <td>
+                                {{ plant.get_category_display }}
+                            </td>
+
+                            <td>
+
+                                <span class="edible-status">
+
+                                    {{ plant.is_edible|yesno:"Yes,No" }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                {{ plant.created_at|date:"d M Y" }}
+                            </td>
+
+                            <td>
+
+                                <div class="manage-actions">
+
+
+                                    <a href="{% url 'plants:plant_detail' plant.id %}"
+                                       class="btn action-button"
+                                       title="View plant"
+                                       aria-label="View {{ plant.name }}">
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
+
+
+                                    <a href="{% url 'plants:update_plant' plant.id %}{{ query_suffix }}"
+                                       class="btn action-button"
+                                       title="Update plant"
+                                       aria-label="Update {{ plant.name }}">
+
+                                        <i class="bi bi-pencil-square"></i>
+
+                                    </a>
+
+                                    <a href="{% url 'plants:delete_plant' plant.id %}{{ query_suffix }}"
+                                       class="btn action-button action-delete"
+                                       title="Delete plant"
+                                       aria-label="Delete {{ plant.name }}">
+
+                                        <i class="bi bi-trash"></i>
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <i class="bi bi-flower1"></i>
+
+            <h3>No plants found</h3>
+
+            <p>
+                Add a new plant or change your search filters.
+            </p>
+
+            <a href="{% url 'plants:add_plant' %}{{ query_suffix }}"
+               class="btn btn-main mt-3">
+
+                <i class="bi bi-plus-lg"></i>
+                Add Plant
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    {% include 'components/pagination.html' %}
+
+</section>
+
+{% if modal_action %}
+
+    <noscript>
+
+        <style>
+            #plantModal {
+                display: block;
+                position: static;
+                opacity: 1;
+            }
+            #plantModal .modal-dialog {
+                transform: none;
+            }
+        </style>
+
+    </noscript>
+
+    <div class="modal fade"
+         id="plantModal"
+         tabindex="-1"
+         data-return-url="{{ list_url }}"
+         aria-labelledby="plantModalTitle">
+
+        <div class="modal-dialog modal-dialog-centered
+            {% if modal_action != 'delete' %}
+                modal-lg modal-dialog-scrollable
+            {% endif %}">
+
+            <form method="POST"
+                  enctype="multipart/form-data"
+                  class="modal-content plant-modal"
+                  data-validate>
+
+                {% csrf_token %}
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="plantModalTitle">
+
+                        {% if modal_action == "add" %}
+
+                            Add New Plant
+
+                        {% elif modal_action == "update" %}
+
+                            Update {{ selected_plant.name }}
+
+                        {% else %}
+
+                            Delete Plant
+
+                        {% endif %}
+
+                    </h5>
+
+                    <a href="{{ list_url }}"
+                       class="btn-close"
+                       aria-label="Close">
+                    </a>
+
+                </div>
+
+
+                <div class="modal-body">
+
+                    {% if modal_action == "delete" %}
+
+                        <p>
+
+                            Are you sure you want to delete
+
+                            <strong>{{ selected_plant.name }}</strong>?
+
+                        </p>
+
+                        <p class="text-secondary-custom">
+
+                            All associated comments will also be
+                            deleted. This action cannot be undone.
+
+                        </p>
+
+                    {% else %}
+
+                        {% include 'components/plant_form.html' %}
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <a href="{{ list_url }}"
+                       class="btn btn-filter">
+
+                        Cancel
+
+                    </a>
+
+                    {% if modal_action == "delete" %}
+
+                        <button type="submit"
+                                class="btn btn-danger">
+
+                            Delete Plant
+
+                        </button>
+
+                    {% else %}
+
+                        <button type="submit"
+                                class="btn btn-main">
+
+                            {% if modal_action == "add" %}
+
+                                Save Plant
+
+                            {% else %}
+
+                                Save Changes
+
+                            {% endif %}
+
+                        </button>
+
+                    {% endif %}
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/validation.js' %}"></script>
+
+<script src="{% static 'js/manage_plants.js' %}"></script>
+
+{% endblock %}

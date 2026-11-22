@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="all-plants-section fade-in">
+
+
+    <div class="catalog-heading">
+
+        <h1>All Plants</h1>
+
+        {% include 'components/filters.html' %}
+
+    </div>
+
+
+    <div class="results-counter">
+
+        {% if total_plants %}
+
+            Showing {{ page_obj.start_index }}
+            – {{ page_obj.end_index }}
+            of {{ total_plants }} plants
+
+        {% else %}
+
+            0 plants found
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="plant-grid">
+
+        {% for plant in page_obj %}
+
+            {% include 'components/plant_card.html' with plant=plant %}
+
+        {% empty %}
+
+            <div class="empty-state">
+
+                <i class="bi bi-flower1"></i>
+
+                <h3>No plants found</h3>
+
+                <p>
+                    Try changing your filters or explore
+                    our entire plant collection.
+                </p>
+
+                <a href="{% url 'plants:all_plants' %}"
+                   class="btn btn-main mt-3">
+
+                    View All Plants
+
+                </a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% include 'components/pagination.html' %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,223 @@
+<form method="GET"
+      action="{{ manage_url|default:request.path }}"
+      class="filter-sort-form">
+
+    {% if request.GET.q %}
+        <input type="hidden"
+               name="q"
+               value="{{ request.GET.q }}">
+    {% endif %}
+
+
+    <div class="dropdown">
+
+        <button type="button"
+                class="btn btn-filter dropdown-toggle"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                aria-expanded="false">
+
+            <i class="bi bi-funnel"></i>
+            Filter
+
+        </button>
+
+        <div class="dropdown-menu dropdown-menu-end filter-menu">
+
+            <h6>Category</h6>
+
+            {% for value, label in categories %}
+
+                <div class="form-check">
+
+                    <input type="checkbox"
+                           class="form-check-input"
+                           name="category"
+                           value="{{ value }}"
+                           id="category-{{ value }}"
+                           {% if value in selected_categories %}
+                               checked
+                           {% endif %}>
+
+                    <label class="form-check-label"
+                           for="category-{{ value }}">
+
+                        {{ label }}
+
+                    </label>
+
+                </div>
+
+            {% endfor %}
+
+            <hr>
+
+            <h6>Edibility</h6>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="is_edible"
+                       value=""
+                       id="edible-all"
+                       class="form-check-input"
+                       {% if not is_edible %}checked{% endif %}>
+
+                <label for="edible-all"
+                       class="form-check-label">
+                    All Plants
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="is_edible"
+                       value="yes"
+                       id="edible-yes"
+                       class="form-check-input"
+                       {% if is_edible == "yes" %}checked{% endif %}>
+
+                <label for="edible-yes"
+                       class="form-check-label">
+                    Edible
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="is_edible"
+                       value="no"
+                       id="edible-no"
+                       class="form-check-input"
+                       {% if is_edible == "no" %}checked{% endif %}>
+
+                <label for="edible-no"
+                       class="form-check-label">
+                    Non-edible
+                </label>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-main w-100 mt-3">
+
+                Apply Filters
+
+            </button>
+
+            <a href="{{ manage_url|default:request.path }}{% querystring category=None is_edible=None page=None %}"
+               class="reset-filter">
+
+                Reset Filters
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="dropdown">
+
+        <button type="button"
+                class="btn btn-filter dropdown-toggle"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                aria-expanded="false">
+
+            <i class="bi bi-arrow-down-up"></i>
+            Sort
+
+        </button>
+
+        <div class="dropdown-menu dropdown-menu-end filter-menu">
+
+            <h6>Sort By</h6>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="sort"
+                       value="newest"
+                       id="sort-newest"
+                       class="form-check-input"
+                       {% if sort == "newest" %}checked{% endif %}>
+
+                <label for="sort-newest"
+                       class="form-check-label">
+
+                    Newest First
+
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="sort"
+                       value="oldest"
+                       id="sort-oldest"
+                       class="form-check-input"
+                       {% if sort == "oldest" %}checked{% endif %}>
+
+                <label for="sort-oldest"
+                       class="form-check-label">
+
+                    Oldest First
+
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="sort"
+                       value="az"
+                       id="sort-az"
+                       class="form-check-input"
+                       {% if sort == "az" %}checked{% endif %}>
+
+                <label for="sort-az"
+                       class="form-check-label">
+
+                    Name (A–Z)
+
+                </label>
+
+            </div>
+
+            <div class="form-check">
+
+                <input type="radio"
+                       name="sort"
+                       value="za"
+                       id="sort-za"
+                       class="form-check-input"
+                       {% if sort == "za" %}checked{% endif %}>
+
+                <label for="sort-za"
+                       class="form-check-label">
+
+                    Name (Z–A)
+
+                </label>
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-main w-100 mt-3">
+
+                Apply Sorting
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>

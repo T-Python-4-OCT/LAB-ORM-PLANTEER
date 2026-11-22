@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="search-section fade-in">
+
+
+    <div class="catalog-heading">
+
+        <h1>Search Results</h1>
+
+        {% include 'components/filters.html' %}
+
+    </div>
+
+    <form method="GET"
+          action="{% url 'plants:search' %}"
+          class="search-page-form">
+
+        <div class="search-input-wrapper">
+
+            <i class="bi bi-search"></i>
+
+            <input type="search"
+                   name="q"
+                   value="{{ query }}"
+                   class="form-control"
+                   placeholder="Search For Plant..."
+                   aria-label="Search for a plant">
+
+        </div>
+
+        {% for category in selected_categories %}
+
+            <input type="hidden"
+                   name="category"
+                   value="{{ category }}">
+
+        {% endfor %}
+
+        <input type="hidden"
+               name="is_edible"
+               value="{{ is_edible }}">
+
+        <input type="hidden"
+               name="sort"
+               value="{{ sort }}">
+
+
+        <button type="submit"
+                class="btn btn-main">
+
+            Search
+
+        </button>
+
+    </form>
+
+    <div class="results-counter">
+
+        {% if total_plants %}
+
+            Showing {{ page_obj.start_index }}
+            – {{ page_obj.end_index }}
+            of {{ total_plants }} plants
+
+        {% else %}
+
+            0 plants found
+
+        {% endif %}
+
+        {% if query %}
+
+            for <strong>"{{ query }}"</strong>
+
+        {% endif %}
+
+    </div>
+
+    <div class="plant-grid">
+
+        {% for plant in page_obj %}
+
+            {% include 'components/plant_card.html' with plant=plant %}
+
+        {% empty %}
+
+            <div class="empty-state">
+
+                <i class="bi bi-search"></i>
+
+                <h3>No plants found</h3>
+
+                <p>
+                    Try searching for another plant
+                    or changing your filters.
+                </p>
+
+                <div class="search-empty-actions">
+
+                    <a href="{% url 'plants:search' %}"
+                       class="btn btn-filter">
+
+                        Clear Search
+
+                    </a>
+
+                    <a href="{% url 'plants:all_plants' %}"
+                       class="btn btn-main">
+
+                        View All Plants
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% include 'components/pagination.html' %}
+
+</section>
+
+{% endblock %}
