@@ -1,0 +1,120 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}All Plants | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">All Plants</h1>
+                <p class="text-muted">
+                    Explore our plant collection
+                </p>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <form method="GET" class="filter-form">
+
+            <select name="category" class="form-control">
+                <option value="">All Categories</option>
+
+                {% for value, label in categories %}
+                    <option value="{{ value }}"
+                        {% if selected_category == value %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select name="is_edible" class="form-control">
+                <option value="">All Plants</option>
+
+                <option value="true"
+                    {% if selected_edible == 'true' %}selected{% endif %}>
+                    Edible
+                </option>
+
+                <option value="false"
+                    {% if selected_edible == 'false' %}selected{% endif %}>
+                    Not Edible
+                </option>
+            </select>
+
+            <button type="submit" class="btn btn-dark">
+                Filter
+            </button>
+
+            <a href="{% url 'all_plants' %}" class="btn btn-outline">
+                Reset
+            </a>
+
+        </form>
+
+        <!-- Plants Grid -->
+        <div class="grid">
+
+            {% for plant in plants %}
+
+                <div class="plant-card">
+
+                    {% if plant.image %}
+                        <img
+                            src="{{ plant.image.url }}"
+                            alt="{{ plant.name }}"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <div class="plant-placeholder">
+                            🌿
+                        </div>
+                    {% endif %}
+
+                    <div class="plant-card-content">
+
+                        <h3>{{ plant.name }}</h3>
+
+                        <p>
+                            {{ plant.description|truncatewords:12 }}
+                        </p>
+
+                        <span class="plant-category">
+                            {{ plant.category }}
+                        </span>
+
+                        <a
+                            href="{% url 'plant_detail' plant.id %}"
+                            class="plant-link"
+                        >
+                            View Details →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty-state">
+                    <h3>No Plants Found</h3>
+                    <p class="text-muted">
+                        Try changing your filters or add a new plant.
+                    </p>
+                    <a href="{% url 'add_plant' %}" class="btn btn-primary">
+                        Add New Plant
+                    </a>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

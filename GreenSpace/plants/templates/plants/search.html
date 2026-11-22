@@ -1,0 +1,64 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Search Plants | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <h1 class="section-title">Search Plants</h1>
+
+        <form method="GET" action="{% url 'search_plants' %}">
+            <div class="form-group">
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control"
+                    placeholder="Search by plant name..."
+                    value="{{ query }}"
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+        </form>
+
+        {% if query %}
+            <h2 class="section-title">
+                Search Results for "{{ query }}"
+            </h2>
+
+            <div class="grid">
+                {% for plant in plants %}
+                    <div class="card">
+
+                        {% if plant.image %}
+                            <img src="{{ plant.image.url }}"
+                                 alt="{{ plant.name }}" width="100%">
+                        {% endif %}
+
+                        <h3>{{ plant.name }}</h3>
+                        <p><i>{{ plant.scientific_name }}</i></p>
+                        <p>{{ plant.description|truncatewords:15 }}</p>
+
+                        <a href="{% url 'plant_detail' plant.id %}"
+                           class="btn btn-outline">
+                            View Details
+                        </a>
+
+                    </div>
+                {% empty %}
+                    <p class="text-muted">
+                        No plants found. Try another search.
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

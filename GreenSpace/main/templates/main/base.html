@@ -8,14 +8,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}GreenSpace | Plants World{% endblock %}</title>
+    <title>{% block title %}Planteer | Plant Database{% endblock %}</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Main CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 
     {% block extra_css %}{% endblock %}
@@ -28,18 +28,28 @@
         <div class="container nav-container">
 
             <a href="{% url 'home' %}" class="logo">
-                <span class="logo-icon">✿</span>
-                GreenSpace
+                Planteer
             </a>
 
-           <nav class="nav-links">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="/plants/all/">Plants</a>
-    <a href="#">Search</a>
-    <a href="#">Contact</a>
-</nav>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Home</a>
 
-<a href="#" class="btn btn-primary">+ Add Plant</a>
+                <a href="{% url 'all_plants' %}">
+                    All Plants
+                </a>
+
+                <a href="{% url 'contact' %}">
+                    Contact Us
+                </a>
+
+                <a href="{% url 'contact_messages' %}">
+                    Messages
+                </a>
+            </nav>
+
+            <a href="{% url 'add_plant' %}" class="btn btn-primary">
+                + Add Plant
+            </a>
 
         </div>
     </header>
@@ -58,34 +68,42 @@
         <div class="container footer-content">
 
             <div>
-                <a href="{% url 'home' %}" class="logo footer-logo">
-                    <span class="logo-icon">✿</span>
-                    GreenSpace
-                </a>
+                <h3 class="logo">Planteer</h3>
 
                 <p>
-                    Discover the beauty of plants and bring more green
-                    into your everyday life.
+                    Plant Database For Plant Lovers.
                 </p>
             </div>
 
-  <nav class="nav-links">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="/plants/all/">Plants</a>
-    <a href="#">Search</a>
-    <a href="#">Contact</a>
-</nav>
+            <div class="footer-links">
 
-<a href="#" class="btn btn-primary">+ Add Plant</a>
+                <a href="{% url 'home' %}">Home</a>
+
+                <a href="{% url 'all_plants' %}">
+                    All Plants
+                </a>
+
+                <a href="{% url 'add_plant' %}">
+                    Add Plant
+                </a>
+
+                <a href="{% url 'contact' %}">
+                    Contact Us
+                </a>
+
+                <a href="{% url 'contact_messages' %}">
+                    Messages
+                </a>
+
+            </div>
+
         </div>
 
         <div class="container footer-bottom">
-            <p>© 2026 GreenSpace. All rights reserved.</p>
+            © 2026 Planteer. All rights reserved.
         </div>
 
     </footer>
-
-    {% block extra_js %}{% endblock %}
 
 </body>
 </html>

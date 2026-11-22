@@ -14,9 +14,7 @@ class Plant(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-
     scientific_name = models.CharField(max_length=150)
-
     description = models.TextField()
 
     category = models.CharField(
@@ -27,7 +25,6 @@ class Plant(models.Model):
     is_edible = models.BooleanField(default=False)
 
     sunlight = models.CharField(max_length=100)
-
     water = models.CharField(max_length=100)
 
     image = models.ImageField(
@@ -42,7 +39,6 @@ class Plant(models.Model):
         return self.name
 
 
-
 class Comment(models.Model):
 
     plant = models.ForeignKey(
@@ -52,11 +48,8 @@ class Comment(models.Model):
     )
 
     full_name = models.CharField(max_length=100)
-
     content = models.TextField()
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.full_name} - {self.plant.name}'
-

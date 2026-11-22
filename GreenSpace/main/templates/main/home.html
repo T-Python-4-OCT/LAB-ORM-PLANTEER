@@ -1,79 +1,88 @@
 
 {% extends 'main/base.html' %}
 
-{% block title %}Home | GreenSpace{% endblock %}
+{% block title %}Planteer | Plant Database{% endblock %}
 
 {% block content %}
 
+<!-- Hero -->
 <section class="hero">
     <div class="container hero-content">
 
-        <div class="hero-info">
-            <h1>
-                Bring Nature Into Your <span>Life.</span>
-            </h1>
+        <h1>Planteer</h1>
 
-            <p class="text-muted">
-                Discover beautiful plants and learn how to
-                care for them.
-            </p>
+        <h2>Plant  For Plants Lovers</h2>
 
-            <div class="hero-actions">
-                <a href="/plants/all/" class="btn btn-primary">
-                    Explore Plants
-                </a>
+        <form action="/plants/search/" method="GET" class="search-form">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search For Plant..."
+                class="form-control"
+                required
+            >
 
-                <a href="#about" class="btn btn-outline">
-                    Learn More
-                </a>
-            </div>
-        </div>
-
-        <img
-            src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=800"
-            class="hero-image"
-            alt="Green indoor plants"
-        >
+            <button type="submit" class="btn btn-dark">
+                Search
+            </button>
+        </form>
 
     </div>
 </section>
 
-<section class="section" id="about">
+
+<!-- Plants -->
+<section class="section">
     <div class="container">
 
-        <h2 class="section-title">Discover GreenSpace</h2>
-
-        <p class="text-muted about-text">
-            Explore different plants, discover their benefits,
-            and learn how to take care of them.
-        </p>
-
-        <div class="grid">
-
-            <div class="card">
-                <div class="card-content">
-                    <h3>Explore Plants</h3>
-                    <p class="text-muted">Discover different plant species.</p>
-                </div>
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Plants</h2>
+                <p class="text-muted">Learn more about plants</p>
             </div>
 
-            <div class="card">
-                <div class="card-content">
-                    <h3>Plant Care</h3>
-                    <p class="text-muted">Learn how to care for plants.</p>
-                </div>
-            </div>
+            <a href="/plants/all/" class="more-link">
+                More →
+            </a>
+        </div>
 
-            <div class="card">
-                <div class="card-content">
-                    <h3>Share Experiences</h3>
-                    <p class="text-muted">Share your plant experiences.</p>
-                </div>
-            </div>
+
+<div class="grid">
+
+    {% for plant in plants %}
+
+        <div class="plant-card">
+
+            {% if plant.image %}
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            {% else %}
+                <div class="plant-placeholder">🌿</div>
+            {% endif %}
+
+            <h3>{{ plant.name }}</h3>
+
+            <p>{{ plant.description|truncatewords:10 }}</p>
+
+            <span>{{ plant.category }}</span>
+
+            <a href="/plants/{{ plant.id }}/detail/" class="plant-link">
+                View Details →
+            </a>
 
         </div>
 
-    </div>
+    {% empty %}
+
+        <p class="text-muted">
+            No plants available yet. Add your first plant!
+        </p>
+
+    {% endfor %}
+
+</div>
+
+
+    
 </section>
 
 {% endblock %}
