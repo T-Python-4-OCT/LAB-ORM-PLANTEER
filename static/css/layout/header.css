@@ -1,0 +1,86 @@
+.announcement {
+    height: 35px;
+    background: var(--green);
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: .25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px
+}
+
+.announcement span {
+    color: #dbe7d6
+}
+
+.announcement .tiny-leaf {
+    margin-left: 14px;
+    color: var(--lime);
+    font-size: 20px
+}
+
+.header {
+    height: 104px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px
+}
+
+.brand {
+    font-family: var(--heading);
+    font-size: 30px;
+    letter-spacing: -1.6px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1
+}
+
+.brand svg {
+    width: 29px;
+    height: 34px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+.brand>span {
+    font-size: 12px;
+    align-self: flex-start;
+    letter-spacing: 0;
+    margin-top: 3px
+}
+
+.header nav {
+    display: flex;
+    gap: 35px;
+    align-items: center;
+    margin-left: 55px
+}
+
+.header nav a {
+    font-size: 14px;
+    position: relative;
+    padding: 8px 0
+}
+
+.header nav a:hover,.header nav .active {
+    color: #517445
+}
+
+.header nav .active:after {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--green);
+    border-radius: 50%
+}

@@ -1,0 +1,101 @@
+.page-section {
+    padding-block: 42px 85px;
+    min-height: 65vh
+}
+
+.page-section>h1 {
+    margin-bottom: 20px
+}
+
+.collection-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px
+}
+
+.collection-heading h1 {
+    font-size: 55px;
+    margin-bottom: 18px
+}
+
+.collection-flower {
+    font-size: 85px;
+    color: #93a674;
+    line-height: 1
+}
+
+h1>span,h2>span {
+    color: #8eaa61
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    padding: 22px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 6px
+}
+
+.filters .search-input {
+    flex: 1;
+    min-width: 140px;
+    position: relative
+}
+
+.search-input span {
+    position: absolute;
+    left: 14px;
+    top: 6px;
+    font-size: 26px;
+    color: #7d8973
+}
+
+.search-input input {
+    padding-left: 43px
+}
+
+.filters select {
+    width: 190px
+}
+
+.filters .button {
+    white-space: nowrap
+}
+
+.results-label {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 12px;
+    margin-block: 25px
+}
+
+.results-label a {
+    text-decoration: underline
+}
+
+.collection-grid {
+    row-gap: 40px
+}
+
+.empty-state {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 65px 20px;
+    width: 100%
+}
+
+.empty-state>span {
+    font-size: 60px;
+    color: #82986b
+}
+
+.empty-state h2 {
+    margin: 15px 0
+}
+
+.empty-state p {
+    margin-bottom: 25px
+}

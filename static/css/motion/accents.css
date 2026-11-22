@@ -1,0 +1,287 @@
+/* Botanical accents:restrained motion and clear interactive feedback. */ .hero-copy {
+    animation: hero-arrive .85s ease both
+}
+
+.hero-visual {
+    animation: hero-arrive 1s .12s ease both
+}
+
+.hero h1 em {
+    position: relative;
+    display: inline-block
+}
+
+.hero h1 em:after {
+    content: '';
+    position: absolute;
+    left: 1%;
+    bottom: -5px;
+    width: 96%;
+    height: 10px;
+    border-bottom: 2px solid #a8bd85;
+    border-radius: 50%;
+    transform: rotate(-5deg)
+}
+
+.hero-star {
+    animation: botanical-turn 50s linear infinite;
+    transform-origin: center
+}
+
+.floating-note {
+    animation: note-float 6s ease-in-out infinite
+}
+
+.hero-visual:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 140px 5px 5px 5px;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px #183e2b0a
+}
+
+.hero .button {
+    box-shadow: 0 6px 18px #183e2b16
+}
+
+.button {
+    transition: background .22s,transform .22s,box-shadow .22s
+}
+
+.button:hover {
+    box-shadow: 0 8px 22px #183e2b20
+}
+
+.button:active {
+    transform: translateY(0) scale(.98)
+}
+
+.button>span {
+    transition: transform .35s
+}
+
+.button:hover>span {
+    transform: rotate(90deg)
+}
+
+.plant-card .card-image {
+    transition: box-shadow .35s
+}
+
+.plant-card:hover .card-image {
+    box-shadow: 0 14px 30px -16px #183e2b66
+}
+
+.card-image:after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 0;
+    background: linear-gradient(transparent,#102b1c1a);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .35s
+}
+
+.plant-card:hover .card-image:after {
+    opacity: 1
+}
+
+.card-open {
+    z-index: 1;
+    transition: background .25s,transform .35s,color .25s
+}
+
+.plant-card:hover .card-open {
+    transform: rotate(90deg);
+    color: var(--green)
+}
+
+.card-info h3 {
+    transition: color .25s
+}
+
+.plant-card:hover h3 {
+    color: #67864b
+}
+
+.category-grid>a {
+    transition: background .25s,box-shadow .25s,transform .25s
+}
+
+.category-grid>a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -14px #183e2b55
+}
+
+.category-grid>a>b {
+    transition: transform .3s
+}
+
+.category-grid>a:hover>b {
+    transform: rotate(90deg)
+}
+
+.text-link {
+    position: relative;
+    border-bottom-color: transparent
+}
+
+.text-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #a0ad91;
+    transform-origin: left;
+    transition: transform .3s
+}
+
+.text-link:hover:after {
+    transform: scaleX(.65)
+}
+
+.header nav a {
+    transition: color .2s
+}
+
+.story-photo {
+    overflow: hidden
+}
+
+.story-photo img {
+    transition: transform 1s ease
+}
+
+@media(hover:hover) {
+    .story:hover .story-photo img {
+        transform: scale(1.035)
+    }
+
+}
+
+.closing {
+    position: relative
+}
+
+.closing:before {
+    content: '';
+    position: absolute;
+    inset: 20px 12% 15px;
+    background: radial-gradient(ellipse,#eaf1dd99,transparent 68%);
+    z-index: -1;
+    pointer-events: none
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s ease var(--reveal-delay,0ms),transform .7s cubic-bezier(.2,.7,.3,1) var(--reveal-delay,0ms)
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0)
+}
+
+.back-to-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 20;
+    width: 46px;
+    height: 46px;
+    border: 1px solid #dce7d0;
+    border-radius: 50%;
+    background: #f5f8ed;
+    color: var(--green);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 5px 20px #183e2b15;
+    transition: background .2s,transform .2s;
+    animation: hero-arrive .25s ease both
+}
+
+.back-to-top[hidden] {
+    display: none
+}
+
+.back-to-top:hover {
+    background: var(--lime);
+    transform: translateY(-3px)
+}
+
+.back-to-top svg {
+    width: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+@keyframes hero-arrive {
+    from {
+        opacity: 0;
+        transform: translateY(18px)
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+
+}
+
+@keyframes botanical-turn {
+    to {
+        transform: rotate(360deg)
+    }
+
+}
+
+@keyframes note-float {
+    0%,100% {
+        transform: translateY(0) rotate(-5deg)
+    }
+    50% {
+        transform: translateY(-9px) rotate(-3deg)
+    }
+
+}
+
+@media(max-width:600px) {
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 42px;
+        height: 42px
+    }
+    .hero-visual:after {
+        border-top-left-radius: 95px
+    }
+    .hero h1 em:after {
+        bottom: -3px;
+        height: 6px
+    }
+    .reveal {
+        transform: translateY(14px)
+    }
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .hero-copy,.hero-visual,.hero-star,.floating-note,.back-to-top {
+        animation: none
+    }
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none
+    }
+    .button:hover,.button:active,.category-grid>a:hover,.plant-card:hover .card-image img,.plant-card:hover .card-open,.button:hover>span,.category-grid>a:hover>b,.story:hover .story-photo img {
+        transform: none
+    }
+
+}

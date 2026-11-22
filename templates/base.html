@@ -1,0 +1,62 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+        <meta name="description" content="Planteer ? a plant database for plant lovers.">
+        <title>{% block title %}Planteer{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}?v=3">
+    </head>
+    <body>
+        <header class="header wrap">
+            <a class="brand" href="{% url 'home' %}">Planteer</a>
+            <nav aria-label="Main navigation">
+                <a href="{% url 'plant_list' %}">All Plants</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+                <a class="button small" href="{% url 'plant_new' %}">Add Plant</a>
+            </nav>
+        </header>
+        {% if messages %}
+            <div class="wrap notices" role="status">
+                {% for message in messages %}
+                    <div class="notice">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="footer wrap">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="{% url 'home' %}">Planteer</a>
+                    <p>For plants lovers.</p>
+                </div>
+                <div>
+                    <h4>Plants</h4>
+                    <a href="{% url 'plant_list' %}">All Plants</a>
+                    <a href="{% url 'plant_list' %}?category=vegetable">Vegetables</a>
+                    <a href="{% url 'plant_list' %}?category=herb">Herbs</a>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <a href="{% url 'plant_search' %}">Search</a>
+                    <a href="{% url 'plant_list' %}?category=indoor">Indoor Plants</a>
+                    <a href="{% url 'plant_list' %}?category=succulent">Succulents</a>
+                </div>
+                <div>
+                    <h4>Community</h4>
+                    <a href="{% url 'contact' %}">Contact Us</a>
+                    <a href="{% url 'contact_messages' %}">Messages</a>
+                    <a href="{% url 'plant_new' %}">Add Plant</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>? {% now 'Y' %} Planteer</span>
+            </div>
+        </footer>
+        <script src="{% static 'js/site.js' %}" defer></script>
+    </body>
+</html>

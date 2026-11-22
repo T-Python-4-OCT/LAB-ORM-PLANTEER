@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}
+    Community messages — Planteer
+{% endblock %}
+{% block content %}
+    <section class="wrap page-section">
+        <div class="eyebrow">
+            FROM OUR LITTLE COMMUNITY
+        </div>
+        <h1>Notes from plant people<span>.</span></h1>
+        <p class="intro-text">Ideas, hellos, and a shared love for all things green.</p>
+        <p class="privacy-note">This community board is public. Messages and names appear here; email addresses stay private.</p>
+        <div class="message-grid">
+            {% for entry in entries %}
+                <article class="message-card">
+                    <span class="comment-avatar">{{ entry.first_name|first|upper }}</span><h3>{{ entry.first_name }} {{ entry.last_name }}</h3>
+                    <time>{{ entry.created_at|date:'F j, Y' }}</time>
+                    <p>{{ entry.message|linebreaksbr }}</p>
+                </article>
+            {% empty %}
+                <div class="empty-state">
+                    <span>✳</span><h2>A fresh page, waiting for you.</h2>
+                    <p>Be the first to say hello.</p>
+                    <a class="button" href="{% url 'contact' %}">
+                        Leave a message
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

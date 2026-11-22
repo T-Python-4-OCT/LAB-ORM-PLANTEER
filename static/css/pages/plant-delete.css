@@ -1,0 +1,19 @@
+.delete-panel {
+    max-width: 800px;
+    padding-block: 100px
+}
+
+.delete-panel p {
+    margin-block: 25px
+}
+
+.delete-panel form {
+    display: flex;
+    align-items: center;
+    gap: 25px
+}
+
+.danger {
+    background: #844d40;
+    border-color: #844d40
+}

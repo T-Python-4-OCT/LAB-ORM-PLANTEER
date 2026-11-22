@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+    {% if plant %}
+        Edit
+        {{ plant.name }}
+    {% else %}
+        Share a plant
+    {% endif %}
+    — Planteer
+{% endblock %}
+{% block content %}
+    <section class="wrap page-section form-layout">
+        <div class="form-intro">
+            <div class="eyebrow">
+                MAKE ROOM FOR MORE GREEN
+            </div>
+            <h1>{% if plant %}A little<br>freshening up.{% else %}Share a plant.<br><em>Grow the love.</em>{% endif %}</h1>
+            <p>Every plant has something to teach us. Add its story to our living collection.</p>
+            <div class="form-decoration">
+                ✳
+            </div>
+            <p class="small-note">A photo, a little knowledge, a new beginning.</p>
+        </div>
+        <form method="post" enctype="multipart/form-data" class="form-panel plant-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="button">{% if plant %}Save changes{% else %}Add to the collection{% endif %} <span>+</span></button>
+                <a href="{% if plant %}{{ plant.get_absolute_url }}{% else %}{% url 'plant_list' %}{% endif %}">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </section>
+{% endblock %}

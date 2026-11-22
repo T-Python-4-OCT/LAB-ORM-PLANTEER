@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="wrap page-section delete-panel">
+        <div class="eyebrow">
+            A LITTLE GOODBYE
+        </div>
+        <h1>Remove {{ plant.name }}?</h1>
+        <p>This will remove the plant and its comments from the collection. This action cannot be undone.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button class="button danger" type="submit">Yes, remove this plant</button>
+            <a class="text-link" href="{{ plant.get_absolute_url }}">
+                Keep growing
+            </a>
+        </form>
+    </section>
+{% endblock %}

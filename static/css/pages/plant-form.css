@@ -1,0 +1,33 @@
+.form-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px
+}
+
+.form-intro {
+    padding-top: 25px
+}
+
+.form-intro h1 {
+    font-size: 65px;
+    line-height: 1.13;
+    margin-bottom: 25px
+}
+
+.form-intro p {
+    max-width: 350px
+}
+
+.form-intro em {
+    color: #7c935c
+}
+
+.form-decoration {
+    font-size: 160px;
+    color: #c5d5ab;
+    margin-top: 35px
+}
+
+.small-note {
+    font-size: 13px
+}

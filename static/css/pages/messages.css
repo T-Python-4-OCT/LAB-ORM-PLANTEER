@@ -1,0 +1,29 @@
+.message-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 25px;
+    margin-top: 35px
+}
+
+.message-card {
+    padding: 30px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 5px
+}
+
+.message-card h3 {
+    margin-top: 15px;
+    margin-bottom: 5px
+}
+
+.message-card p {
+    margin-top: 20px;
+    font-size: 15px;
+    overflow-wrap: anywhere
+}
+
+.privacy-note {
+    font-size: 12px;
+    max-width: 650px
+}
