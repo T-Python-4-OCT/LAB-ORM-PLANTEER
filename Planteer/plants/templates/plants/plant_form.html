@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% block title %}{{ page_title }} · Planteer{% endblock %}
+{% block content %}
+<!-- Plant create and update form -->
+<section class="container form-page">
+  <a class="back-link" href="{% if plant %}{% url 'plants:detail' plant.pk %}{% else %}{% url 'plants:all' %}{% endif %}">← Go back</a>
+  <div class="form-page-heading"><span class="eyebrow">Add to the community garden</span><h1>{{ page_title }}<span class="heading-period">.</span></h1><p>Share a little knowledge to help this plant thrive.</p></div>
+  <form class="form-card plant-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field {% if field.name == 'is_edible' %}checkbox-field{% endif %}">
+        {% if field.name == "is_edible" %}{{ field }}<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% else %}<label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% endif %}
+        {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+        {% for error in field.errors %}<span class="field-error">{{ error }}</span>{% endfor %}
+      </div>
+    {% endfor %}
+    <div class="form-actions"><button class="button" type="submit">{{ submit_label }} <span aria-hidden="true">↗</span></button><a class="text-link" href="{% if plant %}{% url 'plants:detail' plant.pk %}{% else %}{% url 'plants:all' %}{% endif %}">Cancel</a></div>
+  </form>
+</section>
+{% endblock %}

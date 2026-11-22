@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block title %}Search plants · Planteer{% endblock %}
+{% block content %}
+<!-- Search introduction -->
+<section class="page-intro container">
+  <span class="eyebrow">Find something lovely</span><h1>Search the garden<span class="heading-period">.</span></h1>
+  <p>Search by plant name, category, or what it's used for.</p>
+</section>
+<!-- Search query and refinement controls -->
+<section class="container catalogue-section">
+  <form class="filter-panel search-panel" method="get" action="{% url 'plants:search' %}">
+    <label class="search-field">Plant name or keyword<input type="search" name="q" value="{{ query }}" placeholder="Try “basil” or “shade”"></label>
+    <div class="filter-controls">
+      <label>Category<select name="category"><option value="">All categories</option>{% for value,label in categories %}<option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+      <label>Edibility<select name="is_edible"><option value="">Any</option><option value="yes" {% if selected_edible == "yes" %}selected{% endif %}>Edible</option><option value="no" {% if selected_edible == "no" %}selected{% endif %}>Not edible</option></select></label>
+      <label>Sort by<select name="sort"><option value="name" {% if selected_sort == "name" %}selected{% endif %}>Name A–Z</option><option value="-name" {% if selected_sort == "-name" %}selected{% endif %}>Name Z–A</option><option value="newest" {% if selected_sort == "newest" %}selected{% endif %}>Newest</option><option value="oldest" {% if selected_sort == "oldest" %}selected{% endif %}>Oldest</option><option value="rating" {% if selected_sort == "rating" %}selected{% endif %}>Top rated</option></select></label>
+      <button class="button" type="submit">Search <span aria-hidden="true">↗</span></button>
+    </div>
+  </form>
+  <div class="results-line"><span>{% if query %}Results for <strong>“{{ query }}”</strong>{% else %}<strong>{{ plants|length }}</strong> plants in the garden{% endif %}</span><a class="text-link" href="{% url 'plants:all' %}">Browse all plants</a></div>
+  {% if plants %}<div class="plant-grid">{% for plant in plants %}{% include "plants/_plant_card.html" %}{% endfor %}</div>
+  {% else %}<div class="empty-state"><span class="empty-icon">⌕</span><h3>No matching plants yet</h3><p>Try another search or add this plant to the garden.</p><a class="button" href="{% url 'plants:new' %}">Add a plant</a></div>{% endif %}
+</section>
+{% endblock %}

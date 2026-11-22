@@ -1,0 +1,11 @@
+{% extends "main/base.html" %}
+{% block title %}Community messages · Planteer{% endblock %}
+{% block content %}
+<!-- Public contact message wall -->
+<section class="container messages-page">
+  <div class="page-intro"><span class="eyebrow">Kind words & good ideas</span><h1>Community notes<span class="heading-period">.</span></h1><p>A little inspiration from people helping our garden grow.</p></div>
+  {% if contacts %}<div class="message-grid">{% for contact in contacts %}<article class="message-card"><span class="message-quote" aria-hidden="true">“</span><h2>{{ contact.first_name }} {{ contact.last_name }}</h2><a href="mailto:{{ contact.email }}">{{ contact.email }}</a><p>{{ contact.message|linebreaksbr }}</p><time datetime="{{ contact.created_at|date:'c' }}">{{ contact.created_at|date:"M j, Y" }}</time></article>{% endfor %}</div>
+  {% else %}<div class="empty-state"><span class="empty-icon">♡</span><h3>No messages just yet</h3><p>Be the first to leave a kind note.</p><a class="button" href="{% url 'main:contact' %}">Write a message</a></div>{% endif %}
+  <div class="messages-cta"><p>Have something to share with the community?</p><a class="button" href="{% url 'main:contact' %}">Write a message <span aria-hidden="true">↗</span></a></div>
+</section>
+{% endblock %}

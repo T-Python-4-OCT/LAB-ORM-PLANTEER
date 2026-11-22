@@ -1,0 +1,10 @@
+{% extends "main/base.html" %}
+{% block title %}Delete {{ plant.name }} · Planteer{% endblock %}
+{% block content %}
+<!-- Confirm destructive action before removing a plant -->
+<section class="container form-page">
+  <div class="form-card confirm-card"><span class="confirm-icon">!</span><span class="eyebrow">One last check</span><h1>Remove {{ plant.name }}?</h1><p>This will permanently delete the plant and its comments and ratings.</p>
+    <form method="post">{% csrf_token %}<div class="form-actions"><button class="button button-danger" type="submit">Yes, delete plant</button><a class="button button-outline" href="{% url 'plants:detail' plant.pk %}">Keep plant</a></div></form>
+  </div>
+</section>
+{% endblock %}
