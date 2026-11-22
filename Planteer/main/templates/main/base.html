@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Planteer{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar">
+            <a href="{% url 'home' %}" class="logo">Planteer</a>
+
+            <div class="nav-links">
+                <a href="{% url 'all_plants' %}">All Plants</a>
+                <a href="{% url 'contact' %}">Contact Us</a>
+                <a href="{% url 'new_plant' %}" class="nav-add-btn">Add Plant</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="site-footer">
+    <div class="footer-content">
+
+        <div class="footer-brand">
+            <h2>Planteer</h2>
+            <p>Grow with nature.</p>
+
+            <div class="footer-social">
+                <span aria-label="Facebook">f</span>
+                <span aria-label="LinkedIn">in</span>
+                <span aria-label="YouTube">▶</span>
+                <span aria-label="Instagram">◎</span>
+            </div>
+        </div>
+
+        <div class="footer-column">
+    <h3>Explore</h3>
+    <a href="{% url 'home' %}">Home</a>
+    
+</div>
+
+<div class="footer-column">
+    <h3>Plants</h3>
+    <a href="{% url 'all_plants' %}">All Plants</a>
+    <a href="{% url 'search_plants' %}">Search Plants</a>
+    <a href="{% url 'new_plant' %}">Add Plant</a>
+</div>
+
+        <div class="footer-column">
+            <h3>Support</h3>
+            <a href="{% url 'contact' %}">Contact Us</a>
+            <a href="{% url 'contact' %}">Send a Message</a>
+            <a href="{% url 'contact_messages' %}">Messages from Users</a>
+        </div>
+
+    </div>
+</footer>
+</body>
+</html>
