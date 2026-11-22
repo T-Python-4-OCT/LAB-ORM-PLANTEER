@@ -1,0 +1,130 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Search Plants | Planteer{% endblock %}
+
+{% block content %}
+<section class="search-plants-section">
+    <div class="search-heading">
+        <span>DISCOVER NATURE</span>
+        <h1>Find Your Plant</h1>
+        <p>Search for plants by name, description, or usage.</p>
+    </div>
+
+    <form method="GET" action="{% url 'search_plants' %}" class="plant-search-form">
+        <input type="search" name="q" value="{{ query }}" placeholder="Search for a plant...">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if query %}
+        <p class="search-results-count">
+            Search results for: <strong>{{ query }}</strong>
+        </p>
+    {% endif %}
+
+    <div class="plants-grid">
+        {% for plant in plants %}
+            <div class="plant-card">
+                <div class="plant-image">
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                </div>
+                <div class="plant-card-content">
+                    <span class="plant-category">{{ plant.category }}</span>
+                    <h3>{{ plant.name }}</h3>
+                    <p>{{ plant.about|truncatewords:20 }}</p>
+                    <a href="{% url 'plant_detail' plant.id %}" class="view-details-btn">View Details</a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="search-empty">
+                <h2>No Plants Found</h2>
+                <p>We couldn't find any plants matching your search.</p>
+                <a href="{% url 'all_plants' %}">Explore All Plants</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    const searchForm = document.querySelector(".plant-search-form");
+    const searchInput = searchForm.querySelector('input[name="q"]');
+    const plantsGrid = document.querySelector(".search-plants-section .plants-grid");
+
+    const initialResults = plantsGrid.innerHTML;
+    let searchTimer;
+
+    searchForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+    });
+
+    searchInput.addEventListener("input", function() {
+        clearTimeout(searchTimer);
+
+        const query = searchInput.value.trim();
+
+        if (!query) {
+            plantsGrid.innerHTML = initialResults;
+            return;
+        }
+
+        searchTimer = setTimeout(async function() {
+            try {
+                const response = await fetch(
+                    `${searchForm.action}?q=${encodeURIComponent(query)}&live=1`
+                );
+
+                const data = await response.json();
+                plantsGrid.innerHTML = "";
+
+                if (data.plants.length === 0) {
+                    plantsGrid.innerHTML = `
+                        <div class="search-empty">
+                            <h2>No Plants Found</h2>
+                            <p>No plants start with "${query}".</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                data.plants.forEach(function(plant) {
+                    const card = document.createElement("div");
+                    card.className = "plant-card";
+
+                    const imageContainer = document.createElement("div");
+                    imageContainer.className = "plant-image";
+
+                    const image = document.createElement("img");
+                    image.src = plant.image;
+                    image.alt = plant.name;
+                    imageContainer.appendChild(image);
+
+                    const content = document.createElement("div");
+                    content.className = "plant-card-content";
+
+                    const category = document.createElement("span");
+                    category.className = "plant-category";
+                    category.textContent = plant.category;
+
+                    const name = document.createElement("h3");
+                    name.textContent = plant.name;
+
+                    const link = document.createElement("a");
+                    link.href = `/plants/${plant.id}/detail/`;
+                    link.className = "view-details-btn";
+                    link.textContent = "View Details";
+
+                    content.append(category, name, link);
+                    card.append(imageContainer, content);
+                    plantsGrid.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error("Search error:", error);
+            }
+        }, 250);
+    });
+</script>
+{% endblock %}
