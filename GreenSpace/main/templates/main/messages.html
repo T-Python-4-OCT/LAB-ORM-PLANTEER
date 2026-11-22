@@ -1,0 +1,41 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Contact Messages | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <h1 class="section-title">Contact Messages</h1>
+
+        <a href="{% url 'contact' %}" class="btn btn-outline">
+            ← Back to Contact Us
+        </a>
+
+        {% for item in messages %}
+
+            <div class="card">
+                <h3>{{ item.subject }}</h3>
+
+                <p><strong>Name:</strong> {{ item.name }}</p>
+                <p><strong>Email:</strong> {{ item.email }}</p>
+                <p><strong>Message:</strong></p>
+                <p>{{ item.message }}</p>
+
+                <small class="text-muted">
+                    {{ item.created_at|date:"F d, Y - H:i" }}
+                </small>
+            </div>
+
+        {% empty %}
+
+            <p class="text-muted">No messages received yet.</p>
+
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}

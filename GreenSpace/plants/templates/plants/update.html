@@ -1,0 +1,87 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Update {{ plant.name }} | Planteer{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+
+        <h1 class="section-title">Update Plant</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Plant Name</label>
+                <input type="text" name="name" class="form-control"
+                       value="{{ plant.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Scientific Name</label>
+                <input type="text" name="scientific_name"
+                       class="form-control"
+                       value="{{ plant.scientific_name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control"
+                          required>{{ plant.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category" class="form-control" required>
+                    {% for value, label in categories %}
+                        <option value="{{ value }}"
+                            {% if plant.category == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Sunlight</label>
+                <input type="text" name="sunlight" class="form-control"
+                       value="{{ plant.sunlight }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Water</label>
+                <input type="text" name="water" class="form-control"
+                       value="{{ plant.water }}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Plant Image</label>
+                {% if plant.image %}
+                    <p>Current image:</p>
+                    <img src="{{ plant.image.url }}" alt="{{ plant.name }}"
+                         width="150">
+                {% endif %}
+                <input type="file" name="image" class="form-control"
+                       accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="is_edible"
+                           {% if plant.is_edible %}checked{% endif %}>
+                    Is this plant edible?
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Save Changes
+            </button>
+
+            <a href="{% url 'plant_detail' plant.id %}"
+               class="btn btn-outline">Cancel</a>
+
+        </form>
+    </div>
+</section>
+{% endblock %}

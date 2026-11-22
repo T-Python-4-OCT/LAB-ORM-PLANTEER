@@ -1,0 +1,88 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Planteer | Plant Database{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container hero-content">
+
+        <h1>Planteer</h1>
+
+        <h2>Plant  For Plants Lovers</h2>
+
+        <form action="/plants/search/" method="GET" class="search-form">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search For Plant..."
+                class="form-control"
+                required
+            >
+
+            <button type="submit" class="btn btn-dark">
+                Search
+            </button>
+        </form>
+
+    </div>
+</section>
+
+
+<!-- Plants -->
+<section class="section">
+    <div class="container">
+
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Plants</h2>
+                <p class="text-muted">Learn more about plants</p>
+            </div>
+
+            <a href="/plants/all/" class="more-link">
+                More →
+            </a>
+        </div>
+
+
+<div class="grid">
+
+    {% for plant in plants %}
+
+        <div class="plant-card">
+
+            {% if plant.image %}
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+            {% else %}
+                <div class="plant-placeholder">🌿</div>
+            {% endif %}
+
+            <h3>{{ plant.name }}</h3>
+
+            <p>{{ plant.description|truncatewords:10 }}</p>
+
+            <span>{{ plant.category }}</span>
+
+            <a href="/plants/{{ plant.id }}/detail/" class="plant-link">
+                View Details →
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <p class="text-muted">
+            No plants available yet. Add your first plant!
+        </p>
+
+    {% endfor %}
+
+</div>
+
+
+    
+</section>
+
+{% endblock %}

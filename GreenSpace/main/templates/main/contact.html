@@ -1,0 +1,67 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Contact Us | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <h1 class="section-title">Contact Us</h1>
+
+        <p class="text-muted">
+            Have a question or suggestion? We would love to hear from you.
+        </p>
+
+        <div class="card">
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name"
+                           class="form-control"
+                           placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email"
+                           class="form-control"
+                           placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" name="subject"
+                           class="form-control"
+                           placeholder="Message subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message"
+                              class="form-control"
+                              placeholder="Write your message..."
+                              required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Send Message
+                </button>
+
+                <a href="{% url 'contact_messages' %}"
+                   class="btn btn-outline">
+                    Messages
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

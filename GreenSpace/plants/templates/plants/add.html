@@ -1,0 +1,80 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %}Add Plant | Planteer{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+
+        <h1 class="section-title">Add New Plant</h1>
+        <p class="text-muted">Add a new plant to the Planteer collection.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Plant Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Scientific Name</label>
+                <input type="text" name="scientific_name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category" class="form-control" required>
+                    <option value="">Choose Category</option>
+                    <option value="Indoor">Indoor</option>
+                    <option value="Outdoor">Outdoor</option>
+                    <option value="Succulent">Succulent</option>
+                    <option value="Herb">Herb</option>
+                    <option value="Flowering">Flowering</option>
+                    <option value="Tree">Tree</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Sunlight Requirements</label>
+                <input type="text" name="sunlight" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Water Requirements</label>
+                <input type="text" name="water" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Plant Image</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="is_edible">
+                    Is this plant edible?
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                Add Plant
+            </button>
+
+            <a href="{% url 'all_plants' %}" class="btn btn-outline">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}
