@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1 class="page-title-sm">Search Results</h1>
+    <form method="get" class="search-form wide">
+        <input type="search" name="search" value="{{ search }}" placeholder="Search by name, description or use..." autofocus>
+        <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+
+    {% if search %}
+        <p class="muted small">{{ plants|length }} result{{ plants|length|pluralize }} for “{{ search }}”</p>
+    {% endif %}
+
+    <div class="grid">
+        {% for plant in plants %}
+            {% include 'main/partials/plant_card.html' %}
+        {% empty %}
+            {% if search %}<p class="muted">No plants found. Try another word.</p>{% endif %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

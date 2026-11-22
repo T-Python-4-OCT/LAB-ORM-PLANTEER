@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% block title %}All Plants{% endblock %}
+
+{% block content %}
+<section class="section">
+    <h1 class="page-title-sm">All Plants</h1>
+
+    <form method="get" class="filters">
+        <select name="category" aria-label="Category">
+            <option value="">All categories</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <select name="is_edible" aria-label="Is edible">
+            <option value="">Edible &amp; non-edible</option>
+            <option value="yes" {% if selected_edible == 'yes' %}selected{% endif %}>Edible only</option>
+            <option value="no" {% if selected_edible == 'no' %}selected{% endif %}>Non-edible only</option>
+        </select>
+        <button type="submit" class="btn btn-dark">Filter</button>
+        {% if selected_category or selected_edible %}
+            <a href="{% url 'plants:all_plants_view' %}" class="btn btn-light">Clear</a>
+        {% endif %}
+    </form>
+
+    <p class="muted small">{{ plants|length }} plant{{ plants|length|pluralize }} found</p>
+
+    <div class="grid">
+        {% for plant in plants %}
+            {% include 'main/partials/plant_card.html' %}
+        {% empty %}
+            <p class="muted">No plants match these filters.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

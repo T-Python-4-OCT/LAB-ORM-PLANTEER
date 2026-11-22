@@ -1,0 +1,264 @@
+[
+  {
+    "model": "plants.plant",
+    "pk": 1,
+    "fields": {
+      "name": "Date Palm",
+      "about": "A tall flowering palm cultivated for thousands of years for its sweet edible fruit. It thrives in hot, dry climates and can live for over 100 years.",
+      "used_for": "Fresh and dried dates are eaten as food; the fronds are woven into mats and baskets and the trunk is used in construction.",
+      "image": "plants/date_palm.jpg",
+      "category": "tree",
+      "is_edible": true,
+      "native_to": "Saudi Arabia, Iraq, Egypt, North Africa",
+      "created_at": "2026-11-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 2,
+    "fields": {
+      "name": "Olive Tree",
+      "about": "An evergreen tree with silvery-green leaves and a twisted trunk, famous for its small oily fruit. Some olive trees are over 1,000 years old.",
+      "used_for": "Olives are eaten cured and pressed into olive oil for cooking, cosmetics and soap; the wood is used for carving.",
+      "image": "plants/olive.jpg",
+      "category": "tree",
+      "is_edible": true,
+      "native_to": "Mediterranean Basin, Levant",
+      "created_at": "2026-11-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 3,
+    "fields": {
+      "name": "Neem",
+      "about": "A fast-growing, drought-resistant evergreen tree with bitter leaves. It is widely planted for shade in hot regions, including the Arabian Peninsula.",
+      "used_for": "Used in traditional medicine, natural pesticides, toothpaste and soap; twigs are used as natural toothbrushes.",
+      "image": "plants/neem.jpg",
+      "category": "tree",
+      "is_edible": false,
+      "native_to": "India, Pakistan, Bangladesh",
+      "created_at": "2026-11-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 4,
+    "fields": {
+      "name": "Mango",
+      "about": "A tropical stone fruit with sweet, juicy orange flesh. The mango tree can grow up to 30 meters tall.",
+      "used_for": "Eaten fresh, in juices, smoothies, desserts, chutneys and pickles.",
+      "image": "plants/mango.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "native_to": "South Asia (India, Myanmar)",
+      "created_at": "2026-11-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 5,
+    "fields": {
+      "name": "Pomegranate",
+      "about": "A shrub or small tree producing a round fruit filled with hundreds of juicy red seeds (arils).",
+      "used_for": "The arils are eaten fresh or pressed into juice; used in salads, molasses, and traditional medicine.",
+      "image": "plants/pomegranate.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "native_to": "Iran, Afghanistan, Northern India",
+      "created_at": "2026-11-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 6,
+    "fields": {
+      "name": "Strawberry",
+      "about": "A low-growing plant producing bright red, sweet and aromatic fruit with seeds on the outside.",
+      "used_for": "Eaten fresh, in jams, desserts, ice cream, milkshakes and as a flavoring.",
+      "image": "plants/strawberry.jpg",
+      "category": "fruit",
+      "is_edible": true,
+      "native_to": "Europe and the Americas (hybrid)",
+      "created_at": "2026-11-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 7,
+    "fields": {
+      "name": "Tomato",
+      "about": "A fast-growing plant producing juicy red fruits that are commonly used as a vegetable in cooking.",
+      "used_for": "Used in salads, sauces, soups, ketchup and countless dishes around the world.",
+      "image": "plants/tomato.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "native_to": "Western South America",
+      "created_at": "2026-11-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 8,
+    "fields": {
+      "name": "Carrot",
+      "about": "A root vegetable, typically orange, that is crunchy and rich in beta-carotene.",
+      "used_for": "Eaten raw, cooked, juiced, and used in soups, salads and cakes.",
+      "image": "plants/carrot.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "native_to": "Iran, Afghanistan",
+      "created_at": "2026-11-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 9,
+    "fields": {
+      "name": "Spinach",
+      "about": "A leafy green vegetable rich in iron, vitamins and minerals, grown in cool seasons.",
+      "used_for": "Eaten raw in salads or cooked in pies (fatayer), soups and stews.",
+      "image": "plants/spinach.jpg",
+      "category": "vegetable",
+      "is_edible": true,
+      "native_to": "Central and Western Asia (Persia)",
+      "created_at": "2026-11-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 10,
+    "fields": {
+      "name": "Basil",
+      "about": "An aromatic herb from the mint family with fragrant green leaves.",
+      "used_for": "Used fresh in cooking, pesto, salads and teas; also used in traditional medicine.",
+      "image": "plants/basil.jpg",
+      "category": "herb",
+      "is_edible": true,
+      "native_to": "India, Tropical Asia",
+      "created_at": "2026-11-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 11,
+    "fields": {
+      "name": "Mint",
+      "about": "A fast-spreading aromatic herb with a cool, refreshing flavor.",
+      "used_for": "Added to tea, drinks, salads like tabbouleh, and used in toothpaste and medicine for digestion.",
+      "image": "plants/mint.jpg",
+      "category": "herb",
+      "is_edible": true,
+      "native_to": "Europe, Asia, Africa",
+      "created_at": "2026-11-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 12,
+    "fields": {
+      "name": "Rosemary",
+      "about": "A woody, evergreen herb with needle-like fragrant leaves and small blue flowers.",
+      "used_for": "Used to flavor meats, breads and potatoes; its oil is used in perfumes and hair care.",
+      "image": "plants/rosemary.jpg",
+      "category": "herb",
+      "is_edible": true,
+      "native_to": "Mediterranean region",
+      "created_at": "2026-11-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 13,
+    "fields": {
+      "name": "Rose",
+      "about": "A woody flowering shrub known for its beautiful, fragrant flowers. Taif in Saudi Arabia is famous for its roses.",
+      "used_for": "Grown as an ornamental plant; petals are distilled into rose water and perfume oil.",
+      "image": "plants/rose.jpg",
+      "category": "flower",
+      "is_edible": false,
+      "native_to": "Asia, Europe, North America",
+      "created_at": "2026-11-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 14,
+    "fields": {
+      "name": "Moth Orchid",
+      "about": "A popular orchid (Phalaenopsis) with long-lasting flowers shaped like moths in flight.",
+      "used_for": "Grown as a decorative houseplant and in floral arrangements.",
+      "image": "plants/orchid.jpg",
+      "category": "flower",
+      "is_edible": false,
+      "native_to": "Southeast Asia, Philippines, Northern Australia",
+      "created_at": "2026-11-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 15,
+    "fields": {
+      "name": "Sunflower",
+      "about": "A tall plant with a large yellow flower head that follows the sun when young.",
+      "used_for": "Seeds are eaten as snacks and pressed into sunflower oil; also used as an ornamental plant.",
+      "image": "plants/sunflower.jpg",
+      "category": "flower",
+      "is_edible": true,
+      "native_to": "North and Central America",
+      "created_at": "2026-11-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 16,
+    "fields": {
+      "name": "Aloe Vera",
+      "about": "A thick-leaved succulent that stores water in its leaves and grows well in dry climates.",
+      "used_for": "The gel inside the leaves is used in skin care, burns treatment and cosmetics.",
+      "image": "plants/aloe_vera.jpg",
+      "category": "succulent",
+      "is_edible": false,
+      "native_to": "Arabian Peninsula",
+      "created_at": "2026-11-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 17,
+    "fields": {
+      "name": "Prickly Pear",
+      "about": "A cactus with flat, paddle-shaped pads and sweet colorful fruits covered with small spines.",
+      "used_for": "The fruit is eaten fresh or made into juice and jam; the pads (nopales) are cooked as vegetables.",
+      "image": "plants/prickly_pear.jpg",
+      "category": "succulent",
+      "is_edible": true,
+      "native_to": "Mexico",
+      "created_at": "2026-11-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.plant",
+    "pk": 18,
+    "fields": {
+      "name": "Echeveria",
+      "about": "A rosette-shaped succulent with fleshy, pastel-colored leaves. Very easy to grow indoors.",
+      "used_for": "Grown as an ornamental plant in pots, rock gardens and terrariums.",
+      "image": "plants/echeveria.jpg",
+      "category": "succulent",
+      "is_edible": false,
+      "native_to": "Mexico, Central America",
+      "created_at": "2026-11-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "plants.comment",
+    "pk": 1,
+    "fields": {
+      "plant": 1,
+      "full_name": "Sara Alqahtani",
+      "content": "Sukkari dates from Qassim are the best!",
+      "created_at": "2026-11-20T12:00:00Z"
+    }
+  }
+]

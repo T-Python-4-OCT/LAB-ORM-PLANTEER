@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<section class="section narrow">
+    <h1 class="page-title-sm">{{ title }}</h1>
+    <form method="post" enctype="multipart/form-data" class="form" novalidate>
+        {% csrf_token %}
+        {% include 'main/partials/field.html' with field=form.name %}
+        {% include 'main/partials/field.html' with field=form.about %}
+        {% include 'main/partials/field.html' with field=form.used_for %}
+        {% include 'main/partials/field.html' with field=form.native_to %}
+        <div class="form-row">
+            {% include 'main/partials/field.html' with field=form.category %}
+            {% include 'main/partials/field.html' with field=form.is_edible %}
+        </div>
+        {% if plant %}
+            <img src="{{ plant.image.url }}" alt="{{ plant.name }}" class="form-preview">
+        {% endif %}
+        {% include 'main/partials/field.html' with field=form.image %}
+        <div class="actions">
+            <button type="submit" class="btn btn-dark">{% if plant %}Save Changes{% else %}Add Plant{% endif %}</button>
+            <a href="{% if plant %}{% url 'plants:plant_detail_view' plant.id %}{% else %}{% url 'plants:all_plants_view' %}{% endif %}" class="btn btn-light">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
