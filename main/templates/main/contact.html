@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<section class="contact">
+    <div>
+        <div class="page-head">
+            <h1>Contact us</h1>
+            <p class="muted">Found a mistake, want a plant added, or just have a question? Send us a message.</p>
+        </div>
+
+        <form method="post" class="contact-form" novalidate>
+            {% csrf_token %}
+            <div class="field-row">
+                {% include "partials/form_field.html" with field=form.first_name %}
+                {% include "partials/form_field.html" with field=form.last_name %}
+            </div>
+            {% include "partials/form_field.html" with field=form.email %}
+            {% include "partials/form_field.html" with field=form.message %}
+            <button type="submit" class="btn btn-primary btn-block">Send message</button>
+        </form>
+    </div>
+
+    <div class="contact-img">
+        <img src="{% static 'images/contact.jpg' %}" alt="Pink orchid flowers">
+    </div>
+</section>
+{% endblock %}

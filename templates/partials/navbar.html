@@ -2,9 +2,8 @@
     <div class="container navbar-inner">
         {% include "partials/logo.html" %}
         <nav class="nav-links">
-            {# "#" link is replaced when the contact page is built #}
-            <a href="{% url 'plants:all_plants' %}">All Plants</a>
-            <a href="#">Contact Us</a>
+                        <a href="{% url 'plants:all_plants' %}">All Plants</a>
+            <a href="{% url 'main:contact' %}">Contact Us</a>
             <a href="{% url 'plants:plant_create' %}" class="btn btn-primary btn-sm">Add Plant</a>
         </nav>
     </div>

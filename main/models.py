@@ -1,3 +1,17 @@
 from django.db import models
 
-# Create your models here.
+
+class Contact(models.Model):
+    """A message sent from the Contact Us page (fields follow the UML diagram)."""
+
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]  # newest messages first
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} <{self.email}>"
