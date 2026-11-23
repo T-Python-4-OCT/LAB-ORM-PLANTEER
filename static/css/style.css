@@ -253,6 +253,18 @@ input:focus, textarea:focus, select:focus { outline: 2px solid var(--green); out
   .will-reveal:not(.revealed) { opacity: 1; transform: none; }
 }
 
+/* Pagination */
+.pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 48px; }
+.page-link {
+  min-width: 42px; height: 42px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); border-radius: var(--radius); font-weight: 500;
+  transition: border-color .2s, color .2s, background .2s;
+}
+a.page-link:hover { border-color: var(--green); color: var(--green); }
+.page-link.current { background: var(--text); border-color: var(--text); color: #fff; }
+.page-link.disabled { color: #bbb; }
+.page-info { text-align: center; font-size: .9rem; margin-top: 12px; }
+
 /* Responsive */
 @media (max-width: 900px) {
   .grid { grid-template-columns: repeat(2, 1fr); }

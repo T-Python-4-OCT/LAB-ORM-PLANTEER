@@ -22,6 +22,7 @@
     </div>
     <p class="about">{{ plant.about|linebreaksbr }}</p>
     <dl class="info-list">
+      {% if plant.native_to %}<div><dt>🌍 Native to</dt><dd>{{ plant.native_to }}</dd></div>{% endif %}
       <div><dt>🍽️ Is Edible</dt><dd>{{ plant.is_edible|yesno:"Yes,No" }}</dd></div>
       <div><dt>🧺 Used For</dt><dd>{{ plant.used_for|linebreaksbr }}</dd></div>
       <div><dt>💬 Comments</dt><dd>{{ comments|length }}</dd></div>

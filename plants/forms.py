@@ -6,7 +6,7 @@ from .models import Comment, Plant
 class PlantForm(forms.ModelForm):
     class Meta:
         model = Plant
-        fields = ['name', 'about', 'used_for', 'image', 'category', 'is_edible']
+        fields = ['name', 'about', 'native_to', 'used_for', 'image', 'category', 'is_edible']
         widgets = {
             'about': forms.Textarea(attrs={'rows': 4}),
             'used_for': forms.Textarea(attrs={'rows': 3}),

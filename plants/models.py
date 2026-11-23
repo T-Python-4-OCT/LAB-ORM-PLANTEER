@@ -15,6 +15,7 @@ class Plant(models.Model):
     used_for = models.TextField()
     image = models.ImageField(upload_to='plants/')
     category = models.CharField(max_length=32, choices=Category.choices)
+    native_to = models.CharField(max_length=200, blank=True, help_text='e.g. Saudi Arabia, Kuwait, USA')
     is_edible = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -10,7 +10,7 @@
 </form>
 
 {% if query %}
-  <p class="muted">{{ plants|length }} result{{ plants|length|pluralize }} for “{{ query }}”</p>
+  <p class="muted">{{ page_obj.paginator.count }} result{{ page_obj.paginator.count|pluralize }} for “{{ query }}”</p>
 {% endif %}
 
 <div class="grid">
@@ -20,4 +20,6 @@
     {% if query %}<p class="muted">No plants found.</p>{% endif %}
   {% endfor %}
 </div>
+
+{% include 'partials/pagination.html' %}
 {% endblock %}

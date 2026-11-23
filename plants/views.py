@@ -1,9 +1,19 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
 from .forms import CommentForm, PlantForm
 from .models import Plant
+
+PLANTS_PER_PAGE = 9
+
+
+def query_without_page(request):
+    """Current GET params minus 'page', so page links keep the filters / search."""
+    params = request.GET.copy()
+    params.pop('page', None)
+    return params.urlencode()
 
 
 def all_plants_view(request):
@@ -19,8 +29,12 @@ def all_plants_view(request):
     elif is_edible == 'no':
         plants = plants.filter(is_edible=False)
 
+    page_obj = Paginator(plants, PLANTS_PER_PAGE).get_page(request.GET.get('page'))
+
     return render(request, 'plants/all_plants.html', {
-        'plants': plants,
+        'plants': page_obj,
+        'page_obj': page_obj,
+        'query_string': query_without_page(request),
         'categories': Plant.Category.choices,
         'selected_category': category,
         'selected_edible': is_edible,
@@ -88,4 +102,10 @@ def delete_plant_view(request, plant_id):
 def search_view(request):
     query = request.GET.get('q', '').strip()
     plants = Plant.objects.filter(name__icontains=query) if query else Plant.objects.none()
-    return render(request, 'plants/search.html', {'plants': plants, 'query': query})
+    page_obj = Paginator(plants, PLANTS_PER_PAGE).get_page(request.GET.get('page'))
+    return render(request, 'plants/search.html', {
+        'plants': page_obj,
+        'page_obj': page_obj,
+        'query': query,
+        'query_string': query_without_page(request),
+    })

@@ -179,6 +179,47 @@ PLANTS = [
      'Indoor decoration and one of the easiest houseplants for beginners.'),
 ]
 
+# Where each plant comes from (shown as "Native to" on the detail page).
+NATIVE_TO = {
+    'Date Palm': 'Iraq, Saudi Arabia, Egypt',
+    'Olive Tree': 'Mediterranean Basin (Syria, Lebanon, Greece)',
+    'Oak': 'Europe, Asia, North America',
+    'Mango': 'India, Bangladesh, Myanmar',
+    'Pomegranate': 'Iran, Afghanistan, Northern India',
+    'Strawberry': 'Hybrid of North & South American species (bred in France)',
+    'Tomato': 'Peru, Ecuador',
+    'Carrot': 'Iran, Afghanistan, Europe',
+    'Spinach': 'Iran, Central Asia',
+    'Mint': 'Europe, Asia, North Africa',
+    'Basil': 'India, Tropical Africa, Southeast Asia',
+    'Rose': 'Asia, Europe, North America',
+    'Sunflower': 'North America (USA, Mexico)',
+    'Aloe Vera': 'Arabian Peninsula (Oman, Yemen)',
+    'Echeveria': 'Mexico, Central America',
+    'Ghaf Tree': 'UAE, Oman, Saudi Arabia, Iran, India',
+    'Sidr Tree': 'Saudi Arabia, Sudan, Egypt, Palestine',
+    'Neem Tree': 'India, Pakistan, Bangladesh',
+    'Fig': 'Western Asia, Middle East',
+    'Lemon': 'Northeast India, Myanmar, China',
+    'Banana': 'Southeast Asia, Papua New Guinea',
+    'Grape': 'Caucasus, Mediterranean, Central Asia',
+    'Watermelon': 'Sudan, Northeast Africa',
+    'Potato': 'Peru, Bolivia (Andes)',
+    'Cucumber': 'India',
+    'Eggplant': 'India, Southeast Asia',
+    'Rosemary': 'Mediterranean (Spain, Italy, Morocco)',
+    'Thyme': 'Mediterranean, Southern Europe',
+    'Parsley': 'Italy, Greece, Algeria',
+    'Lavender': 'Mediterranean, Middle East, India',
+    'Arabian Jasmine': 'India, Bhutan, Southeast Asia',
+    'Tulip': 'Kazakhstan, Turkey, Iran',
+    'Hibiscus': 'Tropical Asia, Africa, Pacific Islands',
+    'Moth Orchid': 'Philippines, Indonesia, Malaysia',
+    'Prickly Pear': 'Mexico',
+    'Jade Plant': 'South Africa, Mozambique',
+    'Snake Plant': 'Nigeria, Congo (West Africa)',
+}
+
 # Hand-picked Featured / Quality photos from Wikimedia Commons (file titles).
 PHOTOS = {
     'Date Palm': 'Mazafati dates - whole, halved and seed.jpg',
@@ -295,6 +336,9 @@ class Command(BaseCommand):
         for name, article, category, is_edible, about, used_for in PLANTS:
             slug = name.lower().replace(' ', '-')
             plant = Plant.objects.filter(name=name).first()
+            if plant and not plant.native_to and name in NATIVE_TO:
+                plant.native_to = NATIVE_TO[name]
+                plant.save(update_fields=['native_to'])
             if plant and not (options['refresh_images'] and name in PHOTOS):
                 self.stdout.write(f'Skip {name} (exists)')
                 continue
@@ -308,8 +352,8 @@ class Command(BaseCommand):
                 plant.image.save(f'{slug}.jpg', ContentFile(image_bytes), save=True)
                 self.stdout.write(self.style.SUCCESS(f'New photo for {name}'))
                 continue
-            plant = Plant(name=name, about=about, used_for=used_for,
-                          category=category, is_edible=is_edible)
+            plant = Plant(name=name, about=about, used_for=used_for, category=category,
+                          is_edible=is_edible, native_to=NATIVE_TO.get(name, ''))
             plant.image.save(f'{slug}.jpg', ContentFile(image_bytes), save=False)
             plant.save()
             self.stdout.write(self.style.SUCCESS(f'Added {name}'))

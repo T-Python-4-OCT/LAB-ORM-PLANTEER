@@ -73,6 +73,21 @@ class PlantViewsTests(TestCase):
         self.client.post(reverse('plants:delete_plant', args=[plant.id]))
         self.assertFalse(Plant.objects.exists())
 
+    def test_all_plants_paginated_by_nine_and_keeps_filters(self):
+        for i in range(12):
+            self.make_plant(f'Fruit {i}', 'fruit')
+        self.make_plant('Oak', 'tree')
+        url = reverse('plants:all_plants')
+
+        page1 = self.client.get(url)
+        self.assertEqual(len(page1.context['plants']), 9)
+        page2 = self.client.get(url, {'page': 2})
+        self.assertEqual(len(page2.context['plants']), 4)
+
+        filtered = self.client.get(url, {'category': 'fruit', 'page': 2})
+        self.assertEqual(len(filtered.context['plants']), 3)
+        self.assertContains(filtered, '?category=fruit&page=1')
+
     def test_search(self):
         self.make_plant('Mango')
         self.make_plant('Oak', 'tree')
