@@ -13,7 +13,7 @@
 - **Comments System:** Share thoughts and experiences about plants.
 - **Contact Us:** Submit messages through a contact form.
 - **Messages Inbox:** View submitted contact messages.
-- **Multiple Themes:** Four visual themes: Nature, Sage, Ocean, and Rose.
+- **Multiple Themes:** Nature, Sage, Ocean, and Rose.
 - **Dark Mode:** Switch between Light and Dark modes.
 - **Responsive Design:** Optimized for different screen sizes.
 - **Interactive Homepage:** Video backgrounds and animated plant sliders.
@@ -44,45 +44,39 @@ Planteer includes four unique visual themes, each available in Light and Dark mo
 
 ### Homepage Screenshots
 
-Add your homepage screenshots below.
-
 | Nature | Sage |
 |---|---|
-| ![Nature Homepage](screenshots/home-nature.png) | ![Sage Homepage](screenshots/home-sage.png) |
+| ![Nature Homepage](static/images/screenshots/home-nature.png) | ![Sage Homepage](static/images/screenshots/home-sage.png) |
 
 | Ocean | Rose |
 |---|---|
-| ![Ocean Homepage](screenshots/home-ocean.png) | ![Rose Homepage](screenshots/home-rose.png) |
-
----
+| ![Ocean Homepage](static/images/screenshots/home-ocean.png) | ![Rose Homepage](static/images/screenshots/home-rose.png) |
 
 ## 📸 Application Screenshots
 
-Add screenshots of the remaining pages below. You can include both Light and Dark modes for each page.
-
 ### All Plants
-![All Plants](screenshots/all-plants.png)
+![All Plants](static/images/screenshots/all-plants.png)
 
 ### Plant Details
-![Plant Details](screenshots/plant-details.png)
+![Plant Details](static/images/screenshots/plant-details.png)
 
 ### Add Plant
-![Add Plant](screenshots/add-plant.png)
+![Add Plant](static/images/screenshots/add-plant.png)
 
 ### Update Plant
-![Update Plant](screenshots/update-plant.png)
+![Update Plant](static/images/screenshots/update-plant.png)
 
 ### Delete Plant
-![Delete Plant](screenshots/delete-plant.png)
+![Delete Plant](static/images/screenshots/delete-plant.png)
 
 ### Search Plants
-![Search Plants](screenshots/search-plants.png)
+![Search Plants](static/images/screenshots/search-plants.png)
 
 ### Contact Us
-![Contact Us](screenshots/contact.png)
+![Contact Us](static/images/screenshots/contact.png)
 
 ### Messages Inbox
-![Messages Inbox](screenshots/messages-inbox.png)
+![Messages Inbox](static/images/screenshots/messages-inbox.png)
 
 ---
 
@@ -115,12 +109,11 @@ LAB-ORM-PLANTEER/
 │   ├── css/
 │   ├── js/
 │   ├── images/
+│   │   └── screenshots/
 │   └── videos/
 │
 ├── templates/
-│
-├── README.md
-└── venv/
+└── README.md
 ```
 
 ---
@@ -179,9 +172,7 @@ python manage.py runserver
 
 Open your browser and visit:
 
-```text
-http://127.0.0.1:8000/
-```
+`http://127.0.0.1:8000/`
 
 ---
 
