@@ -134,3 +134,72 @@ class PlantCrudTests(TestCase):
         response = self.client.post(reverse("plants:plant_delete", args=[plant.id]))
         self.assertRedirects(response, reverse("main:home"))
         self.assertFalse(Plant.objects.filter(pk=plant.id).exists())
+
+
+class AllPlantsFilterTests(TestCase):
+    def setUp(self):
+        self.mint = make_plant(name="Mint", category=Plant.Category.HERB, is_edible=True)
+        self.olive = make_plant(name="Olive Tree", category=Plant.Category.TREE, is_edible=True)
+        self.neem = make_plant(name="Neem Tree", category=Plant.Category.TREE, is_edible=False)
+        self.url = reverse("plants:all_plants")
+
+    def names(self, response):
+        return {plant.name for plant in response.context["plants"]}
+
+    def test_all_plants_page_lists_every_plant(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.names(response), {"Mint", "Olive Tree", "Neem Tree"})
+
+    def test_filter_by_category(self):
+        response = self.client.get(self.url, {"category": "tree"})
+        self.assertEqual(self.names(response), {"Olive Tree", "Neem Tree"})
+
+    def test_filter_by_edible(self):
+        self.assertEqual(self.names(self.client.get(self.url, {"is_edible": "yes"})), {"Mint", "Olive Tree"})
+        self.assertEqual(self.names(self.client.get(self.url, {"is_edible": "no"})), {"Neem Tree"})
+
+    def test_filters_work_together(self):
+        response = self.client.get(self.url, {"category": "tree", "is_edible": "no"})
+        self.assertEqual(self.names(response), {"Neem Tree"})
+
+    def test_selected_filters_are_kept_in_the_form(self):
+        response = self.client.get(self.url, {"category": "tree", "is_edible": "no"})
+        self.assertContains(response, '<option value="tree" selected>')
+        self.assertContains(response, '<option value="no" selected>')
+
+    def test_invalid_filter_values_are_ignored(self):
+        response = self.client.get(self.url, {"category": "rocks", "is_edible": "maybe"})
+        self.assertEqual(len(response.context["plants"]), 3)
+
+    def test_no_match_shows_empty_message(self):
+        response = self.client.get(self.url, {"category": "flower"})
+        self.assertContains(response, "No plants match these filters")
+
+
+class SearchTests(TestCase):
+    def setUp(self):
+        make_plant(name="Date Palm", category=Plant.Category.TREE)
+        Plant.objects.create(name="Basil", about="A fragrant herb for pesto.", used_for="Cooking", image="plants/x.jpg")
+        self.url = reverse("plants:search")
+
+    def test_search_page_loads_without_query(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Type a plant name to start")
+
+    def test_search_by_name_is_case_insensitive(self):
+        response = self.client.get(self.url, {"q": "palm"})
+        self.assertEqual([p.name for p in response.context["results"]], ["Date Palm"])
+
+    def test_search_by_description(self):
+        response = self.client.get(self.url, {"q": "pesto"})
+        self.assertEqual([p.name for p in response.context["results"]], ["Basil"])
+
+    def test_search_term_is_kept_in_input(self):
+        response = self.client.get(self.url, {"q": "palm"})
+        self.assertContains(response, 'value="palm"')
+
+    def test_search_with_no_results(self):
+        response = self.client.get(self.url, {"q": "cactus"})
+        self.assertContains(response, 'No plants found for "cactus"')

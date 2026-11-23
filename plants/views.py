@@ -1,8 +1,46 @@
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import PlantForm
 from .models import Plant
+
+
+def all_plants_view(request):
+    plants = Plant.objects.all()
+
+    # Read the filters from the URL, e.g. /plants/all/?category=herb&is_edible=yes
+    selected_category = request.GET.get("category", "")
+    selected_edible = request.GET.get("is_edible", "")
+
+    # Each filter is applied only if it has a valid value, so filters work together
+    if selected_category in Plant.Category.values:
+        plants = plants.filter(category=selected_category)
+
+    if selected_edible == "yes":
+        plants = plants.filter(is_edible=True)
+    elif selected_edible == "no":
+        plants = plants.filter(is_edible=False)
+
+    context = {
+        "plants": plants,
+        "categories": Plant.Category.choices,
+        "selected_category": selected_category,
+        "selected_edible": selected_edible,
+        "is_filtered": bool(selected_category or selected_edible),
+    }
+    return render(request, "plants/all_plants.html", context)
+
+
+def search_view(request):
+    query = request.GET.get("q", "").strip()
+    results = Plant.objects.none()  # empty result until the user types something
+
+    if query:
+        # Q objects let us use OR: match the name OR the description
+        results = Plant.objects.filter(Q(name__icontains=query) | Q(about__icontains=query))
+
+    return render(request, "plants/search.html", {"query": query, "results": results})
 
 
 def plant_detail_view(request, plant_id):

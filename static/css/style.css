@@ -284,6 +284,23 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--m
 
 .detail-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
+/* ---------- Filter bar (All Plants) ---------- */
+.filter-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1rem;
+    align-items: end;
+    padding: 1.25rem;
+    margin-bottom: 2.5rem;
+    background: var(--paper);
+    border-radius: var(--radius);
+}
+.filter-actions { display: flex; gap: 0.6rem; }
+
+/* ---------- Search page ---------- */
+.search-results { margin-top: 2.5rem; }
+.result-count { margin-bottom: 1.5rem; }
+
 /* ---------- Forms (add / edit plant) ---------- */
 .form-page { max-width: 720px; margin-inline: auto; }
 .card-form {
@@ -295,6 +312,7 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--m
 }
 .field { display: grid; gap: 0.4rem; }
 .field label { font-weight: 600; font-size: 0.95rem; }
+select { appearance: none; background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%2312261b' stroke-width='2'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 1rem center; padding-right: 2.5rem; cursor: pointer; }
 .field textarea { resize: vertical; }
 .field-error { color: var(--pomegranate); font-weight: 500; }
 .field.has-error input, .field.has-error textarea, .field.has-error select { border-color: var(--pomegranate); }
@@ -364,6 +382,8 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--m
     .search-bar { padding-left: 1rem; }
     .facts { grid-template-columns: 1fr; }
     .field-row { grid-template-columns: 1fr; }
+    .filter-bar { grid-template-columns: 1fr; }
+    .filter-actions .btn { flex: 1; }
     .card-form { padding: 1.5rem; }
     .section { margin-top: 3.5rem; }
 }

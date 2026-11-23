@@ -8,8 +8,7 @@
     <div class="hero-content">
         <h1>Planteer</h1>
         <p class="hero-sub">The plant database for plant lovers. Find what grows, what you can eat, and what it's used for.</p>
-        {# The search page is built in a later stage #}
-        <form action="#" method="get" class="search-bar" role="search">
+        <form action="{% url 'plants:search' %}" method="get" class="search-bar" role="search">
             <input type="text" name="q" placeholder="Search for a plant, e.g. mint" aria-label="Search plants">
             <button type="submit" class="btn btn-primary">Search</button>
         </form>
@@ -22,7 +21,7 @@
             <h2>Plants</h2>
             <p class="muted">Learn more about plants</p>
         </div>
-        <a href="#" class="btn btn-outline btn-sm">See all plants</a>
+        <a href="{% url 'plants:all_plants' %}" class="btn btn-outline btn-sm">See all plants</a>
     </div>
 
     {% if plants %}
