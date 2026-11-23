@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}All Plants{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <h1>All Plants</h1>
+    <p class="muted">{{ page_obj.paginator.count }} plant{{ page_obj.paginator.count|pluralize }}{% if is_filtered %} match your filters{% else %} in the collection{% endif %}</p>
+</div>
+
+{# GET keeps the filters in the URL, so a filtered page can be shared #}
+<form method="get" class="filter-bar">
+    <div class="field">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <option value="">All categories</option>
+            {% for value, label in categories %}
+                <option value="{{ value }}" {% if value == selected_category %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="is_edible">Edible</label>
+        <select name="is_edible" id="is_edible">
+            <option value="">All plants</option>
+            <option value="yes" {% if selected_edible == "yes" %}selected{% endif %}>Edible only</option>
+            <option value="no" {% if selected_edible == "no" %}selected{% endif %}>Not edible</option>
+        </select>
+    </div>
+
+    <div class="filter-actions">
+        <button type="submit" class="btn btn-primary">Apply filters</button>
+        {% if is_filtered %}
+            <a href="{% url 'plants:all_plants' %}" class="btn btn-outline">Clear filters</a>
+        {% endif %}
+    </div>
+</form>
+
+{% if plants %}
+    <div class="plant-grid">
+        {% for plant in plants %}
+            {% include "partials/plant_card.html" with plant=plant %}
+        {% endfor %}
+    </div>
+
+    {% if page_obj.has_other_pages %}
+        {# {% querystring %} keeps the current filters in the link and only changes "page" #}
+        <nav class="pagination" aria-label="Pages">
+            {% if page_obj.has_previous %}
+                <a href="{% querystring page=page_obj.previous_page_number %}" class="btn btn-outline btn-sm">Previous</a>
+            {% endif %}
+            <span class="muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="{% querystring page=page_obj.next_page_number %}" class="btn btn-outline btn-sm">Next</a>
+            {% endif %}
+        </nav>
+    {% endif %}
+{% else %}
+    <div class="empty-state">
+        <strong>No plants match these filters</strong>
+        Try another category or clear the filters to see every plant.
+        <br><a href="{% url 'plants:all_plants' %}" class="btn btn-outline">Clear filters</a>
+    </div>
+{% endif %}
+{% endblock %}

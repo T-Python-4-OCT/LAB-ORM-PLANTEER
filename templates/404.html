@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found{% endblock %}
+
+{% block content %}
+{# Django uses this template automatically for 404 errors when DEBUG = False #}
+<section class="not-found">
+    <p class="not-found-code" aria-hidden="true">404</p>
+    <h1>This page doesn't exist</h1>
+    <p class="muted">The plant may have been deleted, or the link has a typo.</p>
+    <div class="form-actions">
+        <a href="{% url 'plants:all_plants' %}" class="btn btn-primary">Browse all plants</a>
+        <a href="{% url 'main:home' %}" class="btn btn-outline">Go home</a>
+    </div>
+</section>
+{% endblock %}

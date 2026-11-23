@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Planteer</h1>
+        <p class="hero-sub">Plant Database For Plant Lovers</p>
+        <form action="{% url 'plants:search' %}" method="get" class="search-bar" role="search">
+            <input type="text" name="q" placeholder="Search for a plant, e.g. mint" aria-label="Search plants">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</section>
+
+{% if categories %}
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2>Browse by category</h2>
+            <p class="muted">Pick a category to see its plants</p>
+        </div>
+    </div>
+    <div class="category-list">
+        {% for category in categories %}
+            <a href="{% url 'plants:all_plants' %}?category={{ category.value }}" class="category-chip">
+                {{ category.label }}
+                <span class="category-count">{{ category.count }}</span>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2>Plants</h2>
+            <p class="muted">Learn more about plants</p>
+        </div>
+        <a href="{% url 'plants:all_plants' %}" class="btn btn-outline btn-sm">See all plants</a>
+    </div>
+
+    {% if plants %}
+        <div class="plant-grid">
+            {% for plant in plants %}
+                {% include "partials/plant_card.html" with plant=plant %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <strong>No plants yet</strong>
+            Add the first plant to start the collection.
+            <br><a href="{% url 'plants:plant_create' %}" class="btn btn-primary">Add a plant</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+<header class="navbar">
+    <div class="container navbar-inner">
+        {% include "partials/logo.html" %}
+        <nav class="nav-links">
+                        <a href="{% url 'plants:all_plants' %}">All Plants</a>
+            <a href="{% url 'main:contact' %}">Contact Us</a>
+            <a href="{% url 'plants:plant_create' %}" class="btn btn-primary btn-sm">Add Plant</a>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{% if query %}"{{ query }}" – Search{% else %}Search{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <h1>Search Results</h1>
+</div>
+
+<form method="get" action="{% url 'plants:search' %}" class="search-bar on-page" role="search">
+    {# value="{{ query }}" keeps the search term in the box after searching #}
+    <input type="text" name="q" value="{{ query }}" placeholder="Search by name or description" aria-label="Search plants" autofocus>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<div class="search-results">
+    {% if query %}
+        {% if results %}
+            <p class="muted result-count">{{ results|length }} result{{ results|length|pluralize }} for "{{ query }}"</p>
+            <div class="plant-grid">
+                {% for plant in results %}
+                    {% include "partials/plant_card.html" with plant=plant %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <strong>No plants found for "{{ query }}"</strong>
+                Check the spelling or try a shorter word, like "palm" or "herb".
+                <br><a href="{% url 'plants:all_plants' %}" class="btn btn-outline">Browse all plants</a>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="empty-state">
+            <strong>Type a plant name to start</strong>
+            You can search by name or by words in its description.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

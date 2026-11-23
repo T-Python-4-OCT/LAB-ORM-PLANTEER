@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{% if is_update %}Edit {{ plant.name }}{% else %}Add a plant{% endif %}{% endblock %}
+
+{% block content %}
+<section class="form-page">
+    <div class="page-head">
+        <h1>{% if is_update %}Edit {{ plant.name }}{% else %}Add a plant{% endif %}</h1>
+        <p class="muted">
+            {% if is_update %}Change the details below and save.{% else %}Share a plant with the Planteer community.{% endif %}
+        </p>
+    </div>
+
+    {# enctype is required for file (image) uploads #}
+    <form method="post" enctype="multipart/form-data" class="card-form" novalidate>
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-error">{{ form.non_field_errors|join:" " }}</div>
+        {% endif %}
+
+        {% include "partials/form_field.html" with field=form.name %}
+
+        <div class="field-row">
+            {% include "partials/form_field.html" with field=form.category %}
+            <div class="field field-check">
+                {{ form.is_edible }}
+                <label for="{{ form.is_edible.id_for_label }}">{{ form.is_edible.label }}</label>
+            </div>
+        </div>
+
+        {% include "partials/form_field.html" with field=form.about %}
+        {% include "partials/form_field.html" with field=form.used_for %}
+
+        {% if is_update and plant.image %}
+            <div class="current-image">
+                <img src="{{ plant.image.url }}" alt="{{ plant.name }}">
+                <span class="muted">Current photo. Choose a new file only if you want to replace it.</span>
+            </div>
+        {% endif %}
+        {% include "partials/form_field.html" with field=form.image %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">{% if is_update %}Save changes{% else %}Add plant{% endif %}</button>
+            {% if is_update %}
+                <a href="{% url 'plants:plant_detail' plant.id %}" class="btn btn-outline">Cancel</a>
+            {% else %}
+                <a href="{% url 'main:home' %}" class="btn btn-outline">Cancel</a>
+            {% endif %}
+        </div>
+    </form>
+</section>
+{% endblock %}
