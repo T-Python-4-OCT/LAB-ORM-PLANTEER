@@ -29,7 +29,11 @@
                 <dd>{{ plant.used_for|linebreaksbr }}</dd>
             </div>
         </dl>
-        {# Edit/Delete buttons, comments and related plants are added in later stages #}
+        <div class="detail-actions">
+            <a href="{% url 'plants:plant_update' plant.id %}" class="btn btn-outline btn-sm">Edit plant</a>
+            <a href="{% url 'plants:plant_delete' plant.id %}" class="btn btn-outline btn-sm btn-outline-danger">Delete</a>
+        </div>
+        {# Comments and related plants are added in a later stage #}
     </div>
 </article>
 {% endblock %}

@@ -284,6 +284,49 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--m
 
 .detail-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
+/* ---------- Forms (add / edit plant) ---------- */
+.form-page { max-width: 720px; margin-inline: auto; }
+.card-form {
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    padding: 2.25rem;
+    display: grid;
+    gap: 1.4rem;
+}
+.field { display: grid; gap: 0.4rem; }
+.field label { font-weight: 600; font-size: 0.95rem; }
+.field textarea { resize: vertical; }
+.field-error { color: var(--pomegranate); font-weight: 500; }
+.field.has-error input, .field.has-error textarea, .field.has-error select { border-color: var(--pomegranate); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: end; }
+.field-check {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-sm);
+}
+.field-check input { width: 1.15rem; height: 1.15rem; accent-color: var(--moss); }
+.current-image { display: flex; align-items: center; gap: 1rem; font-size: 0.9rem; }
+.current-image img { width: 72px; height: 72px; object-fit: cover; border-radius: var(--radius-sm); }
+.form-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-outline-danger { color: var(--pomegranate); }
+.btn-outline-danger:hover { border-color: var(--pomegranate); }
+
+/* ---------- Delete confirmation ---------- */
+.confirm-box {
+    max-width: 520px;
+    margin: 4rem auto 0;
+    padding: 2.5rem;
+    background: var(--paper);
+    border-radius: var(--radius-lg);
+    text-align: center;
+}
+.confirm-box img { width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin: 0 auto 1.5rem; }
+.confirm-box h1 { font-size: 2rem; margin-bottom: 0.6rem; }
+.confirm-box .form-actions { justify-content: center; margin-top: 1.75rem; }
+
 /* ---------- Footer ---------- */
 .footer {
     margin-top: 6rem;
@@ -320,6 +363,8 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--m
     .hero-content { padding: 1.75rem; }
     .search-bar { padding-left: 1rem; }
     .facts { grid-template-columns: 1fr; }
+    .field-row { grid-template-columns: 1fr; }
+    .card-form { padding: 1.5rem; }
     .section { margin-top: 3.5rem; }
 }
 

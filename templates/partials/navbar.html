@@ -5,7 +5,7 @@
             {# "#" links are replaced with real URLs when those pages are built #}
             <a href="#">All Plants</a>
             <a href="#">Contact Us</a>
-            <a href="#" class="btn btn-primary btn-sm">Add Plant</a>
+            <a href="{% url 'plants:plant_create' %}" class="btn btn-primary btn-sm">Add Plant</a>
         </nav>
     </div>
 </header>

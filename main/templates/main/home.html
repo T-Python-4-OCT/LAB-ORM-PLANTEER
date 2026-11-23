@@ -35,6 +35,7 @@
         <div class="empty-state">
             <strong>No plants yet</strong>
             Add the first plant to start the collection.
+            <br><a href="{% url 'plants:plant_create' %}" class="btn btn-primary">Add a plant</a>
         </div>
     {% endif %}
 </section>
