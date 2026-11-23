@@ -1,5 +1,63 @@
-# LAB-ORM-PLANTEER
+# LAB-ORM-PLANTEER – Planteer 🌿
 
+**Planteer** is a plant database for plant lovers, built with Django.
+Visitors can browse real plants, filter and search them, add, edit and delete plants, and comment on each plant.
+
+## Features
+
+- **Two apps:** `main` (home, contact) and `plants` (plants, comments, search).
+- **Plant CRUD** with a `ModelForm`, image upload and a delete confirmation page.
+- **All Plants page** with filters by `category` and `is_edible` (GET parameters, kept after submit) and pagination.
+- **Search page** by name and description using `Q` objects and `icontains`.
+- **Comments:** visitors add comments on the plant detail page (no login), newest first.
+- **Related plants** from the same category, excluding the current plant.
+- **Browse by category** on the home page with plant counts (`annotate` + `Count`).
+- **Contact Us** form and **Messages** page (bonus).
+- Template inheritance (`base.html` + partials), responsive design and a custom 404 page.
+- 54 automated tests.
+
+## Pages
+
+| Page | URL |
+|---|---|
+| Home | `/` |
+| All Plants | `/plants/all/` |
+| Plant Detail | `/plants/<plant_id>/detail/` |
+| Add Plant | `/plants/new/` |
+| Update Plant | `/plants/<plant_id>/update/` |
+| Delete Plant | `/plants/<plant_id>/delete/` |
+| Search | `/plants/search/` |
+| Contact Us | `/contact/` |
+| Contact Messages | `/contact/messages/` |
+
+## Run the project (Git Bash)
+
+```bash
+git clone https://github.com/muathhhh/LAB-ORM-PLANTEER.git
+cd LAB-ORM-PLANTEER
+py -m venv venv
+source venv/Scripts/activate
+python -m pip install -r requirements.txt
+python manage.py migrate
+python manage.py loaddata plants
+python manage.py runserver
+```
+
+Then open http://127.0.0.1:8000/
+
+Run the tests:
+
+```bash
+python manage.py test
+```
+
+## Tech
+
+Django 6.1 · Python 3.15 · SQLite · Pillow · HTML/CSS (no CSS framework)
+
+---
+
+# Assignment
 
 ## Using what you learned, Create a new website called "Planteer" , this website has the following pages/paths:
 - Home page `/`

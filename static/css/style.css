@@ -507,6 +507,8 @@ select { appearance: none; background: var(--paper) url("data:image/svg+xml,%3Cs
 @media (max-width: 860px) {
     .contact { grid-template-columns: 1fr; gap: 2rem; }
     .contact-img { margin-top: 0; aspect-ratio: 16 / 9; order: -1; }
+    .contact .page-head { margin-top: 0; }
+    .contact-img { margin-top: 1.5rem; }
     .detail { grid-template-columns: 1fr; gap: 2rem; }
     .detail-img { position: static; aspect-ratio: 4 / 3; }
 }
