@@ -1,33 +1,197 @@
-# LAB-ORM-PLANTEER
+# 🌿 Planteer – Discover Nature
 
+**Planteer** is a Django-based plant discovery and management web application designed to help users explore different types of plants, learn about their benefits, and manage a diverse plant collection through a modern and interactive interface.
 
-## Using what you learned, Create a new website called "Planteer" , this website has the following pages/paths:
-- Home page `/`
-- All Plants page : `plants/all/`
-- Plant Detail Page : `plants/<plant_id>/detail/`
-- Add new plant page : `plants/new/`
-- Update plant page : `plants/<plant_id>/update/`,
-- Delete Plant : `plants/<plant_id>/delete/`
-- Search Page : `plants/search/`
-- (Bonus) Contact Us page : `contact/`
-- (Bonus) Contact Us Messages page : `contact/messages/`
+---
 
+## ✨ Features
 
-### Notes:
-- Use templates & template inheritance.
-- The website must be responsive (looks good on big and small screens)
-- In all plants page, user can filter by `category` and `is_edible`.
-- For the images, backgrounds, fonts you can use whatever you like. As for the content like categories,  make sure you add real plants with real plants images.
-- Use at least 2 apps, one main and one for the plants.
-- Add a related `Comment` model on the plants (fields: plant relation, full_name, content, created_at).  So, visitors can add comments on the plants.
-- In Plant detail page , Add related plants (based on the same category, use filter !)
-  
-## wireframe for the main pages
-<img width="1771" style="width:100%" alt="Screenshot 2024-03-19 at 2 27 18 PM" src="assets/main-wireframe.png">
+- **Plant Management:** Add, view, update, and delete plants.
+- **Plant Categories:** Browse plants across six categories.
+- **Live Search:** Search for plants dynamically.
+- **Plant Details:** View detailed information about each plant.
+- **Comments System:** Share thoughts and experiences about plants.
+- **Contact Us:** Submit messages through a contact form.
+- **Messages Inbox:** View submitted contact messages.
+- **Multiple Themes:** Four visual themes: Nature, Sage, Ocean, and Rose.
+- **Dark Mode:** Switch between Light and Dark modes.
+- **Responsive Design:** Optimized for different screen sizes.
+- **Interactive Homepage:** Video backgrounds and animated plant sliders.
 
-## Contact pages wireframe:
-<img width="1015" style="width:100%" alt="Screenshot 2024-03-19 at 3 22 17 PM" src="assets/contact-wireframe.png">
+---
 
+## 🌱 Plant Categories
 
-## UML for the model `Plant` &  `Contact` Model 
-<img width="618" style="width:100%; height:auto;" alt="Screenshot 2024-03-19 at 3 16 01 PM" src="assets/uml.png">
+| Category | Description |
+|---|---|
+| Indoor Plants | Plants suitable for indoor spaces |
+| Outdoor Plants | Plants that grow in outdoor environments |
+| Succulents | Water-storing plants |
+| Herbs | Useful aromatic and culinary plants |
+| Flowering Plants | Plants known for their beautiful flowers |
+| Trees | Different types of trees and their benefits |
+
+---
+
+## 🎨 Themes & Appearance
+
+Planteer includes four unique visual themes, each available in Light and Dark modes.
+
+- Nature
+- Sage
+- Ocean
+- Rose
+
+### Homepage Screenshots
+
+Add your homepage screenshots below.
+
+| Nature | Sage |
+|---|---|
+| ![Nature Homepage](screenshots/home-nature.png) | ![Sage Homepage](screenshots/home-sage.png) |
+
+| Ocean | Rose |
+|---|---|
+| ![Ocean Homepage](screenshots/home-ocean.png) | ![Rose Homepage](screenshots/home-rose.png) |
+
+---
+
+## 📸 Application Screenshots
+
+Add screenshots of the remaining pages below. You can include both Light and Dark modes for each page.
+
+### All Plants
+![All Plants](screenshots/all-plants.png)
+
+### Plant Details
+![Plant Details](screenshots/plant-details.png)
+
+### Add Plant
+![Add Plant](screenshots/add-plant.png)
+
+### Update Plant
+![Update Plant](screenshots/update-plant.png)
+
+### Delete Plant
+![Delete Plant](screenshots/delete-plant.png)
+
+### Search Plants
+![Search Plants](screenshots/search-plants.png)
+
+### Contact Us
+![Contact Us](screenshots/contact.png)
+
+### Messages Inbox
+![Messages Inbox](screenshots/messages-inbox.png)
+
+---
+
+## 🛠️ Technologies Used
+
+- **Backend:** Python, Django
+- **Frontend:** HTML5, CSS3, JavaScript
+- **Database:** SQLite
+- **Image Handling:** Pillow
+- **Icons:** Font Awesome
+- **Media:** HTML5 Video
+
+---
+
+## 📂 Project Structure
+
+```text
+LAB-ORM-PLANTEER/
+│
+├── Planteer/
+│   ├── Planteer/
+│   ├── Main/
+│   ├── Plants/
+│   ├── templates/
+│   ├── static/
+│   ├── media/
+│   └── manage.py
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── videos/
+│
+├── templates/
+│
+├── README.md
+└── venv/
+```
+
+---
+
+## 🚀 Installation & Setup
+
+### 1. Clone the repository
+
+```bash
+git clone YOUR_REPOSITORY_URL
+```
+
+### 2. Navigate to the project directory
+
+```bash
+cd LAB-ORM-PLANTEER/Planteer
+```
+
+### 3. Create a virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+### 4. Activate the virtual environment
+
+**macOS / Linux**
+
+```bash
+source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+### 5. Install dependencies
+
+```bash
+pip install django pillow
+```
+
+### 6. Apply migrations
+
+```bash
+python manage.py migrate
+```
+
+### 7. Run the development server
+
+```bash
+python manage.py runserver
+```
+
+Open your browser and visit:
+
+```text
+http://127.0.0.1:8000/
+```
+
+---
+
+## 👨‍💻 Project Information
+
+**Project Name:** Planteer  
+**Framework:** Django  
+**Database:** SQLite  
+**Project Type:** Web Application  
+
+---
+
+*Planteer – Bringing nature closer to your everyday life.* 🌿
