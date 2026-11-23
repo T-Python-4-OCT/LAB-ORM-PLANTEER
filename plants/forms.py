@@ -15,8 +15,14 @@ class PlantForm(forms.ModelForm):
         }
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "e.g. Date Palm"}),
-            "about": forms.Textarea(attrs={"rows": 4, "placeholder": "Describe the plant: what it looks like, where it grows..."}),
-            "used_for": forms.Textarea(attrs={"rows": 3, "placeholder": "e.g. Eaten fresh, used in cooking and medicine"}),
+            "about": forms.Textarea(attrs={
+                "rows": 4,
+                "placeholder": "Describe the plant: what it looks like, where it grows...",
+            }),
+            "used_for": forms.Textarea(attrs={
+                "rows": 3,
+                "placeholder": "e.g. Eaten fresh, used in cooking and medicine",
+            }),
             # FileInput (not the default ClearableFileInput) so the old photo is kept unless a new one is chosen
             "image": forms.FileInput(attrs={"accept": "image/*"}),
         }
@@ -39,5 +45,8 @@ class CommentForm(forms.ModelForm):
         labels = {"full_name": "Your name", "content": "Comment"}
         widgets = {
             "full_name": forms.TextInput(attrs={"placeholder": "e.g. Sara Alqahtani"}),
-            "content": forms.Textarea(attrs={"rows": 3, "placeholder": "Share a tip or ask a question about this plant"}),
+            "content": forms.Textarea(attrs={
+                "rows": 3,
+                "placeholder": "Share a tip or ask a question about this plant",
+            }),
         }

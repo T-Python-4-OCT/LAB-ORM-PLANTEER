@@ -13,3 +13,4 @@ class PlantAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ["full_name", "plant", "created_at"]
+    list_select_related = ["plant"]  # load each comment's plant in the same query

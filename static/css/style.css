@@ -118,9 +118,7 @@ h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--paper);
-    background-size: cover;
-    background-position: center;
+    background: var(--paper) url("../images/hero.jpg") center / cover no-repeat;
     color: var(--forest);
 }
 /* Light veil over the photo so the dark text stays readable */

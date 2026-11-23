@@ -21,7 +21,7 @@ class Plant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"]  # newest plants first
+        ordering = ["-created_at", "-id"]  # newest first; id breaks ties
 
     def __str__(self):
         return self.name
@@ -38,7 +38,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"]  # newest comments first
+        ordering = ["-created_at", "-id"]  # newest first; id breaks ties
 
     def __str__(self):
         return f"{self.full_name} on {self.plant.name}"

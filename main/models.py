@@ -11,7 +11,7 @@ class Contact(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_at"]  # newest messages first
+        ordering = ["-created_at", "-id"]  # newest first; id breaks ties
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} <{self.email}>"
