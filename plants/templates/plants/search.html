@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Search Results</h1>
+<form method="get" class="search-bar search-bar-wide">
+  <input type="search" name="q" value="{{ query }}" placeholder="Search for plant..." autofocus>
+  <button type="submit" class="btn btn-dark">Search</button>
+</form>
+
+{% if query %}
+  <p class="muted">{{ page_obj.paginator.count }} result{{ page_obj.paginator.count|pluralize }} for “{{ query }}”</p>
+{% endif %}
+
+<div class="grid">
+  {% for plant in plants %}
+    {% include 'partials/plant_card.html' %}
+  {% empty %}
+    {% if query %}<p class="muted">No plants found.</p>{% endif %}
+  {% endfor %}
+</div>
+
+{% include 'partials/pagination.html' %}
+{% endblock %}
