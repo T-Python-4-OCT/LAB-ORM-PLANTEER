@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 
-from .forms import PlantForm
+from .forms import CommentForm, PlantForm
 from .models import Plant
 
 
@@ -44,9 +45,32 @@ def search_view(request):
 
 
 def plant_detail_view(request, plant_id):
-    # Returns a 404 page instead of crashing if the plant does not exist
+    # Returns a 404 page if the plant does not exist,
+    # so nobody can comment on a plant that isn't there
     plant = get_object_or_404(Plant, pk=plant_id)
-    return render(request, "plants/plant_detail.html", {"plant": plant})
+
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)  # build the comment but don't save yet
+            comment.plant = plant                      # connect it to THIS plant
+            comment.save()
+            messages.success(request, "Thanks! Your comment was posted.")
+            # Redirect after POST so refreshing the page doesn't post the comment twice
+            return redirect(reverse("plants:plant_detail", args=[plant.id]) + "#comments")
+    else:
+        comment_form = CommentForm()
+
+    # Related plants: same category, without the current plant, max 3
+    related_plants = Plant.objects.filter(category=plant.category).exclude(pk=plant.pk)[:3]
+
+    context = {
+        "plant": plant,
+        "comments": plant.comments.all(),  # newest first (Comment.Meta.ordering)
+        "comment_form": comment_form,
+        "related_plants": related_plants,
+    }
+    return render(request, "plants/plant_detail.html", context)
 
 
 def plant_create_view(request):

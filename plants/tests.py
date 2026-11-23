@@ -203,3 +203,76 @@ class SearchTests(TestCase):
     def test_search_with_no_results(self):
         response = self.client.get(self.url, {"q": "cactus"})
         self.assertContains(response, 'No plants found for "cactus"')
+
+
+class CommentTests(TestCase):
+    def setUp(self):
+        self.plant = make_plant(name="Mint")
+        self.other_plant = make_plant(name="Basil")
+        self.url = reverse("plants:plant_detail", args=[self.plant.id])
+
+    def test_detail_page_shows_comment_form(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, "Post comment")
+        self.assertIn("comment_form", response.context)
+
+    def test_visitor_can_add_comment_without_login(self):
+        data = {"full_name": "Sara Ali", "content": "Great in tea!"}
+        response = self.client.post(self.url, data, follow=True)
+
+        comment = Comment.objects.get()
+        self.assertEqual(comment.plant, self.plant)  # linked to the right plant
+        self.assertRedirects(response, self.url + "#comments")
+        self.assertContains(response, "Your comment was posted")
+        self.assertContains(response, "Great in tea!")
+
+    def test_empty_comment_is_rejected(self):
+        response = self.client.post(self.url, {"full_name": "", "content": ""})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.count(), 0)
+        self.assertTrue(response.context["comment_form"].errors)
+
+    def test_whitespace_only_comment_is_rejected(self):
+        self.client.post(self.url, {"full_name": "   ", "content": "   "})
+        self.assertEqual(Comment.objects.count(), 0)
+
+    def test_cannot_comment_on_missing_plant(self):
+        url = reverse("plants:plant_detail", args=[999])
+        response = self.client.post(url, {"full_name": "Sara", "content": "Hi"})
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(Comment.objects.count(), 0)
+
+    def test_page_only_shows_this_plants_comments(self):
+        Comment.objects.create(plant=self.plant, full_name="A", content="About mint")
+        Comment.objects.create(plant=self.other_plant, full_name="B", content="About basil")
+        response = self.client.get(self.url)
+        self.assertContains(response, "About mint")
+        self.assertNotContains(response, "About basil")
+
+    def test_comments_are_newest_first(self):
+        old = Comment.objects.create(plant=self.plant, full_name="A", content="first")
+        new = Comment.objects.create(plant=self.plant, full_name="B", content="second")
+        response = self.client.get(self.url)
+        self.assertEqual(list(response.context["comments"]), [new, old])
+
+
+class RelatedPlantsTests(TestCase):
+    def test_related_plants_have_same_category_and_exclude_current(self):
+        olive = make_plant(name="Olive Tree", category=Plant.Category.TREE)
+        palm = make_plant(name="Date Palm", category=Plant.Category.TREE)
+        make_plant(name="Mint", category=Plant.Category.HERB)
+
+        response = self.client.get(reverse("plants:plant_detail", args=[olive.id]))
+        self.assertEqual(list(response.context["related_plants"]), [palm])
+
+    def test_related_plants_are_limited_to_three(self):
+        current = make_plant(name="Tree 0", category=Plant.Category.TREE)
+        for i in range(1, 6):
+            make_plant(name=f"Tree {i}", category=Plant.Category.TREE)
+        response = self.client.get(reverse("plants:plant_detail", args=[current.id]))
+        self.assertEqual(len(response.context["related_plants"]), 3)
+
+    def test_message_when_no_related_plants(self):
+        plant = make_plant(name="Lonely Rose", category=Plant.Category.FLOWER)
+        response = self.client.get(reverse("plants:plant_detail", args=[plant.id]))
+        self.assertContains(response, "No related plants yet")

@@ -284,6 +284,49 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--m
 
 .detail-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
+/* ---------- Comments ---------- */
+.comments {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 90px; /* so the sticky navbar doesn't cover it after redirect */
+}
+.comments h2 { font-size: 1.8rem; display: flex; align-items: center; gap: 0.6rem; }
+.comment-count {
+    font-size: 0.95rem;
+    min-width: 1.9rem;
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    background: var(--sprout);
+    text-align: center;
+}
+.comment-form {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--paper);
+    border-radius: var(--radius);
+}
+.comment-form .btn { justify-self: start; }
+.comment-list { list-style: none; display: grid; gap: 1.5rem; }
+.comment { display: grid; grid-template-columns: 44px 1fr; gap: 1rem; }
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--moss);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.comment-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; margin-bottom: 0.2rem; }
+.comment-meta time { font-size: 0.85rem; color: var(--stone); }
+.comment p:last-child { overflow-wrap: anywhere; }
+.no-comments { padding: 1rem 0; }
+
 /* ---------- Filter bar (All Plants) ---------- */
 .filter-bar {
     display: grid;

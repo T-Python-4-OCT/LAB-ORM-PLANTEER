@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Plant
+from .models import Comment, Plant
 
 
 class PlantForm(forms.ModelForm):
@@ -27,3 +27,17 @@ class PlantForm(forms.ModelForm):
         if len(name) < 2:
             raise forms.ValidationError("Plant name must be at least 2 characters.")
         return name
+
+
+class CommentForm(forms.ModelForm):
+    """Visitors add a comment with only their name and the text."""
+
+    class Meta:
+        model = Comment
+        # "plant" is NOT in the form: the view sets it, so visitors can't change it
+        fields = ["full_name", "content"]
+        labels = {"full_name": "Your name", "content": "Comment"}
+        widgets = {
+            "full_name": forms.TextInput(attrs={"placeholder": "e.g. Sara Alqahtani"}),
+            "content": forms.Textarea(attrs={"rows": 3, "placeholder": "Share a tip or ask a question about this plant"}),
+        }

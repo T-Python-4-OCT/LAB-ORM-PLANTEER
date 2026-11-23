@@ -29,11 +29,65 @@
                 <dd>{{ plant.used_for|linebreaksbr }}</dd>
             </div>
         </dl>
+
         <div class="detail-actions">
             <a href="{% url 'plants:plant_update' plant.id %}" class="btn btn-outline btn-sm">Edit plant</a>
             <a href="{% url 'plants:plant_delete' plant.id %}" class="btn btn-outline btn-sm btn-outline-danger">Delete</a>
         </div>
-        {# Comments and related plants are added in a later stage #}
+
+        {# ---------- Comments ---------- #}
+        <section class="comments" id="comments">
+            <h2>Comments <span class="comment-count">{{ comments|length }}</span></h2>
+
+            <form method="post" class="comment-form" novalidate>
+                {% csrf_token %}
+                {% include "partials/form_field.html" with field=comment_form.full_name %}
+                {% include "partials/form_field.html" with field=comment_form.content %}
+                <button type="submit" class="btn btn-primary">Post comment</button>
+            </form>
+
+            {% if comments %}
+                <ul class="comment-list">
+                    {% for comment in comments %}
+                        <li class="comment">
+                            <span class="avatar" aria-hidden="true">{{ comment.full_name|first|upper }}</span>
+                            <div>
+                                <p class="comment-meta">
+                                    <strong>{{ comment.full_name }}</strong>
+                                    <time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"M j, Y, g:i A" }}</time>
+                                </p>
+                                <p>{{ comment.content|linebreaksbr }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="muted no-comments">No comments yet. Be the first to share something about {{ plant.name }}.</p>
+            {% endif %}
+        </section>
     </div>
 </article>
+
+{# ---------- Related plants ---------- #}
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2>Related Plants</h2>
+            <p class="muted">More from {{ plant.get_category_display }}</p>
+        </div>
+    </div>
+
+    {% if related_plants %}
+        <div class="plant-grid">
+            {% for related in related_plants %}
+                {% include "partials/plant_card.html" with plant=related %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <strong>No related plants yet</strong>
+            {{ plant.name }} is the only plant in this category.
+        </div>
+    {% endif %}
+</section>
 {% endblock %}
