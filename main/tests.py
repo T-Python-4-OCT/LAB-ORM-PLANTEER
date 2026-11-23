@@ -24,6 +24,29 @@ class HomePageTests(TestCase):
         self.assertEqual(len(response.context["plants"]), 3)
 
 
+class CategoryCountTests(TestCase):
+    def make(self, name, category):
+        Plant.objects.create(name=name, about="a", used_for="b", image="plants/x.jpg", category=category)
+
+    def test_home_counts_plants_per_category(self):
+        self.make("Olive", Plant.Category.TREE)
+        self.make("Palm", Plant.Category.TREE)
+        self.make("Mint", Plant.Category.HERB)
+
+        response = self.client.get(reverse("main:home"))
+        counts = {c["value"]: c["count"] for c in response.context["categories"]}
+        self.assertEqual(counts, {"tree": 2, "herb": 1})  # empty categories are hidden
+
+    def test_category_chip_links_to_filtered_page(self):
+        self.make("Mint", Plant.Category.HERB)
+        response = self.client.get(reverse("main:home"))
+        self.assertContains(response, reverse("plants:all_plants") + "?category=herb")
+
+    def test_no_category_section_without_plants(self):
+        response = self.client.get(reverse("main:home"))
+        self.assertNotContains(response, "Browse by category")
+
+
 class ContactTests(TestCase):
     def valid_data(self, **changes):
         data = {

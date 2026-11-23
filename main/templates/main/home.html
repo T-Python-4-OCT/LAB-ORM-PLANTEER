@@ -15,6 +15,25 @@
     </div>
 </section>
 
+{% if categories %}
+<section class="section">
+    <div class="section-head">
+        <div>
+            <h2>Browse by category</h2>
+            <p class="muted">Pick a category to see its plants</p>
+        </div>
+    </div>
+    <div class="category-list">
+        {% for category in categories %}
+            <a href="{% url 'plants:all_plants' %}?category={{ category.value }}" class="category-chip">
+                {{ category.label }}
+                <span class="category-count">{{ category.count }}</span>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
 <section class="section">
     <div class="section-head">
         <div>
