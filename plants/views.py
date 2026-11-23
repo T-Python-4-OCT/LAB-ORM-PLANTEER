@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
@@ -23,8 +24,13 @@ def all_plants_view(request):
     elif selected_edible == "no":
         plants = plants.filter(is_edible=False)
 
+    # Show 6 plants per page. get_page() safely handles bad values like ?page=abc or ?page=999
+    paginator = Paginator(plants, 6)
+    page_obj = paginator.get_page(request.GET.get("page"))
+
     context = {
-        "plants": plants,
+        "plants": page_obj,  # only the plants of the current page
+        "page_obj": page_obj,
         "categories": Plant.Category.choices,
         "selected_category": selected_category,
         "selected_edible": selected_edible,

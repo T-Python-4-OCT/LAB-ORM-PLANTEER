@@ -276,3 +276,40 @@ class RelatedPlantsTests(TestCase):
         plant = make_plant(name="Lonely Rose", category=Plant.Category.FLOWER)
         response = self.client.get(reverse("plants:plant_detail", args=[plant.id]))
         self.assertContains(response, "No related plants yet")
+
+
+class PaginationTests(TestCase):
+    def setUp(self):
+        for i in range(8):
+            make_plant(name=f"Tree {i}", category=Plant.Category.TREE)
+        make_plant(name="Mint", category=Plant.Category.HERB)
+        self.url = reverse("plants:all_plants")
+
+    def test_first_page_shows_six_plants(self):
+        response = self.client.get(self.url)
+        self.assertEqual(len(response.context["plants"]), 6)
+        self.assertContains(response, "Page 1 of 2")
+
+    def test_second_page_shows_the_rest(self):
+        response = self.client.get(self.url, {"page": 2})
+        self.assertEqual(len(response.context["plants"]), 3)
+
+    def test_invalid_page_number_does_not_crash(self):
+        self.assertEqual(self.client.get(self.url, {"page": "abc"}).status_code, 200)
+        self.assertEqual(self.client.get(self.url, {"page": 999}).status_code, 200)
+
+    def test_page_links_keep_the_filters(self):
+        response = self.client.get(self.url, {"category": "tree"})
+        self.assertContains(response, "?category=tree&amp;page=2")
+
+    def test_total_count_is_shown(self):
+        response = self.client.get(self.url)
+        self.assertContains(response, "9 plants")
+
+
+class NotFoundPageTests(TestCase):
+    def test_custom_404_page_is_used(self):
+        response = self.client.get(reverse("plants:plant_detail", args=[999]))
+        self.assertEqual(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+        self.assertContains(response, "This page doesn't exist", status_code=404)

@@ -5,7 +5,7 @@
 {% block content %}
 <div class="page-head">
     <h1>All Plants</h1>
-    <p class="muted">{{ plants|length }} plant{{ plants|length|pluralize }}{% if is_filtered %} match your filters{% else %} in the collection{% endif %}</p>
+    <p class="muted">{{ page_obj.paginator.count }} plant{{ page_obj.paginator.count|pluralize }}{% if is_filtered %} match your filters{% else %} in the collection{% endif %}</p>
 </div>
 
 {# GET keeps the filters in the URL, so a filtered page can be shared #}
@@ -43,6 +43,19 @@
             {% include "partials/plant_card.html" with plant=plant %}
         {% endfor %}
     </div>
+
+    {% if page_obj.has_other_pages %}
+        {# {% querystring %} keeps the current filters in the link and only changes "page" #}
+        <nav class="pagination" aria-label="Pages">
+            {% if page_obj.has_previous %}
+                <a href="{% querystring page=page_obj.previous_page_number %}" class="btn btn-outline btn-sm">Previous</a>
+            {% endif %}
+            <span class="muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <a href="{% querystring page=page_obj.next_page_number %}" class="btn btn-outline btn-sm">Next</a>
+            {% endif %}
+        </nav>
+    {% endif %}
 {% else %}
     <div class="empty-state">
         <strong>No plants match these filters</strong>
